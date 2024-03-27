@@ -1,0 +1,46 @@
+\documentclass[12pt,a4paper]{report}
+
+\input{\Sexpr{REP_style}}
+
+\SetWatermarkText{\Sexpr{REP_watermark}}
+%\SetWatermarkText{}
+\SetWatermarkScale{0.30}
+\SetWatermarkColor[gray]{0.9}
+
+%%%%%%-------------------+++++++++--INICIO DEL DOCUMENTO--+++++++++---------------------------%%%%%
+
+\begin{document}
+
+% Contenidos
+
+<<cap01, child='01_portada.Rnw'>>=
+@
+
+<<cap02, child='02_contenido.Rnw'>>=
+@
+ 
+<<cap03, child='03_resumen.Rnw'>>=
+@
+ 
+<<cap04, child='04_agradecimientos.Rnw'>>=
+@
+ 
+<<cap05, child='05_capitulo1.Rnw'>>=
+@
+ 
+<<cap06, child='06_capitulo2.Rnw'>>=
+@
+ 
+<<cap07, child='07_capitulo3.Rnw'>>=
+@
+	
+
+%Bibliografia--------------------------------------------------------------------------------------
+
+\bibliographystyle{plain}
+%\bibliographystyle{alpha}
+\bibliography{Bibliografia_TFT.bib}
+
+
+
+\end{document}

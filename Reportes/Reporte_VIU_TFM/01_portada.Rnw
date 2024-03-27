@@ -1,0 +1,32 @@
+%------------------XXXX++++++ INICIO DE PORTADA  ++++++XXXXX-----------------%
+\begin{titlepage}
+
+\newgeometry{left=2.5cm, bottom=3cm, top=2cm, right=2.5cm}
+
+\tikz[remember picture,overlay] \node[opacity=1,inner sep=0pt] at (73.6mm, -124.25mm){\includegraphics{graficos/Picture_TitlePage.jpg}};
+
+{\fontfamily{phv}\selectfont
+\fontsize{25}{10.4}\fontseries{b}\selectfont
+\vspace{14cm}
+\textbf{Título del TFT}
+
+\bigskip
+
+\fontsize{12}{12}\selectfont
+\fontseries{m}\selectfont
+\vspace{5cm}
+\centering
+\begin{tabularx}{1\textwidth} {
+  || >{\raggedright}X
+  || >{\centering}X
+  || >{\raggedleft\arraybackslash}X || }
+ Titulación:\\XXXX\\
+ & Alumno/a: Apellido Apellido, Nombre\\DNI: XXXX
+ & Convocatoria: \\
+ Curso Académico\\ 20XX-20XX
+  & Director/a del TFT: XXXX
+  & PRIMERA O SEGUNDA  \\
+\end{tabularx}
+ }
+\end{titlepage}
+%--------------------XXXX++++++ FIN DE PORTADA  ++++++XXXXX-----------------%

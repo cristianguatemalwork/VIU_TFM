@@ -1,0 +1,71 @@
+%\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage[left=2.75cm,right=2.6cm,top=3.5cm,bottom=3.5cm]{geometry}
+
+
+
+\usepackage{titletoc}
+% Keywords command
+
+\providecommand{\keywords}[1]
+{
+  \small	
+  \textbf{\textit{Palabras clave:\hspace{0.3cm}}} #1
+}
+
+\usepackage{draftwatermark}
+
+\usepackage{colortbl}
+\usepackage{xcolor}
+%\definecolor{naranja}{RGB}{230, 81, 19}
+\definecolor{naranja}{HTML}{E65113}
+\usepackage[shortlabels]{enumitem}
+%\definecolor{slcolor}{RGB}{230, 81, 19}
+\definecolor{slcolor}{HTML}{E65113}
+\newcommand{\headlinecolor}{\color{slcolor}}
+\usepackage{titlesec}
+
+\definecolor{gray75}{gray}{0.75}
+\newcommand{\hsp}{\hspace{-10pt}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%------------------COMANDOS PARA EL TIPO DE LETRA---------------------------%
+%\usepackage{fontspec}
+\usepackage[T1]{fontenc}
+\usepackage{helvet}
+\renewcommand{\familydefault}{\sfdefault}
+
+\titleformat{\chapter}[hang]{\vspace{-3cm}\headlinecolor\Huge\bfseries}{\thechapter.\hsp}{20pt}{\Huge\bfseries}
+
+%\titleformat{\section}[hang]{\Large\bfseries}{}{20pt}{\Large\bfseries}
+
+\titleformat{\subsection}[hang]{\normalsize\bfseries}{}{20pt}{\large\bfseries}
+\titleformat{\appendix}[hang]{\vspace{-3cm}\headlinecolor\Huge\bfseries}{\thechapter.\hsp}{20pt}{\Huge\bfseries}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%-------------------COMANDOS PARA TABLAS  E IMAGENES ---------------------%
+\usepackage{tikz}
+\usepackage{tabularx}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%-----------------COMANDOS PARA CABECERAS Y PIE DE PAGINA -----------------%
+\usepackage{lastpage}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+
+\fancypagestyle{plain}{%
+  \renewcommand{\headrulewidth}{0pt}
+\fancyhead{}
+\fancyfoot{}
+\fancyfoot[R]{{\scriptsize\thepage\ de \pageref{LastPage} | Título del TFT}}
+\fancyhead[L]{\tikz[remember picture,overlay]\node[opacity=0.4] at (-3mm, 10mm){\includegraphics[scale=0.18]{graficos/image3.png}};}
+\fancyheadoffset{0pt}
+}
+
+\pagestyle{plain}
+
