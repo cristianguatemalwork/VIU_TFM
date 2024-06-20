@@ -20,12 +20,13 @@
   || >{\raggedright}X
   || >{\centering}X
   || >{\raggedleft\arraybackslash}X || }
- Titulación:\\XXXX\\
- & Alumno/a: Apellido Apellido, Nombre\\DNI: XXXX
+ Titulación:\\Big Data y Ciencia de Datos\\
+ & Alumno/a: Guatemal Aguilar, Cristian\\DNI: 1726307984
  & Convocatoria: \\
- Curso Académico\\ 20XX-20XX
-  & Director/a del TFT: XXXX
-  & PRIMERA O SEGUNDA  \\
+ Curso Académico\\ 2024-2025
+  & Director/a del TFT:  Ortiz Vargas, Walter Andres
+%  & PRIMERA O SEGUNDA  \\
+  & PRIMERA \\
 \end{tabularx}
  }
 \end{titlepage}
