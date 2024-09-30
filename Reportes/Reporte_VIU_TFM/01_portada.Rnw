@@ -8,7 +8,7 @@
 {\fontfamily{phv}\selectfont
 \fontsize{25}{10.4}\fontseries{b}\selectfont
 \vspace{14cm}
-\textbf{Título del TFT}
+\textbf{Detección de aportaciones fraudentas en el Instituto Ecuatoriano de Seguridad Social}
 
 \bigskip
 

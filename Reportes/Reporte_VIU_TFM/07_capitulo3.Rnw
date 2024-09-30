@@ -1,6 +1,6 @@
 \chapter{Capítulo tercero}\label{cap:cap3}
 
-
+La Contiru \cite{Cons:Ecu_2008}
 
 \LaTeX{} \cite{latex2e} is a set of macros built atop \TeX{} \cite{texbook}.
 
