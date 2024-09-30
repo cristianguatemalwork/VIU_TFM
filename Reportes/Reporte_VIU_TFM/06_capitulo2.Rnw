@@ -1,22 +1,32 @@
-\chapter{Prueba capítulo}\label{cap:cap2}
+\chapter{Objetivos}\label{cap:obj}
 
-\section{Prueba sección}\label{sec:sec2.1}
+\section{Objetivo general}
 
 
-\begin{enumerate}[label=\bfseries\headlinecolor\arabic*.]
-\item Primer elemento.
-\item Segundo elemento
-\item Tercer elemento.
-\begin{enumerate}[label=\alph*)]
-\item Primer subelemento.
-\item Segundo subelemento.
-\begin{itemize}[label=$\bullet$]
-\item Primer punto.
-\item Segundo punto.
-\end{itemize}
 
+\section{Objetivos específicos}
+
+\begin{enumerate}
+\item 
 \end{enumerate}
 
-\end{enumerate}
-
-%\includegraphics[scale=0.2]{./Images/image3.png}
+% \section{Prueba sección}\label{sec:sec2.1}
+% 
+% 
+% \begin{enumerate}[label=\bfseries\headlinecolor\arabic*.]
+% \item Primer elemento.
+% \item Segundo elemento
+% \item Tercer elemento.
+% \begin{enumerate}[label=\alph*)]
+% \item Primer subelemento.
+% \item Segundo subelemento.
+% \begin{itemize}[label=$\bullet$]
+% \item Primer punto.
+% \item Segundo punto.
+% \end{itemize}
+% 
+% \end{enumerate}
+% 
+% \end{enumerate}
+% 
+% %\includegraphics[scale=0.2]{./Images/image3.png}
