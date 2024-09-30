@@ -1,1 +1,15 @@
 \chapter{Resultados}\label{cap:resul}
+
+\section{Contexto y problema planteado}
+
+Conforme a lo expuesto en el capítulo introductorio y en consonancia con los objetivos planteados, el propósito de este trabajo de fin de máster es que, mediante las aportaciones que los pensionistas realizaron durante su vida laboral, detectar mediante técnicas de aprendizaje no supervizado aquellas que son fraudentan y luego generar un modelo de aprendizaje supervizado que me permita discrimnar los perfiles de las potenciales personas que podrían realizar fraude en función del comportamiento de su materia gravada\footnote{Es todo ingreso susceptible de apreciación pecuniaria, percibido por la persona afiliada, o en caso del trabajo no remunerado del hogar, por su unidad económica familiar.} de sus aportaciones.\\
+
+En primer paso es la generación de una adecuado proceso KKD (en función de lo descrito en la seccón xxxxx), para que a partir de los datos primarios generar el conocimiento adecuado que me permia dar solución al problema planteado. En las siguientes secciones de mostrara cada una de las fases del proceso KKD.
+
+Un aspecto importante a considerar es que la información inicial con la cual se genero la primera parte del proceso KDD es resultado de un preprocesamiento a las bases transaccionales del IESS, por lo que, su manipulación fue realizada mediante lenguaje SQL en el sistema oracle. El esque de las tablas transacionales y el código utilizado para la generación de la información inicial se detallan en el anexo \ref{cap:anexo1}.
+
+
+
+que para la generación de la información se realizaron varios procesos de 
+
+considerar es que la base de datos que se ha utilizado consta de varios millones de registros, por lo que, 
