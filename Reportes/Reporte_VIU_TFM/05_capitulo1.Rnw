@@ -4,20 +4,23 @@ La seguridad social según \cite{SS_OIT} se define como un derecho humano fundam
 
 El artículo 34 de la Constitución de la República del Ecuador \cite{ConsEcu:2008} determina que ``la seguridad social es un derecho irrenunciable de todas las personas, y será deber y responsabilidad primordial del Estado''.\\
 
-El Instituto Ecuatoriano de Seguridad Social es la entidad pública responsable de la prestación de las contingencias del seguro universal obligatorio, dotada de autonomía normativa, técnica, administrativa, financiera  y presupuestaria, con personería jurídica y patrimonio propio, que tiene por objeto indelegable la prestación del Seguro General Obligatorio en todo el territorio nacional.\\
+El Instituto Ecuatoriano de Seguridad Social es la entidad pública responsable de la prestación de las contingencias del seguro universal obligatorio, que tiene por objeto indelegable la prestación del Seguro General Obligatorio en todo el territorio nacional.\\
 
 De acuerdo con la Valuación Actuarial del Seguro de Invalidez, Vejez y Muerte (Seguro IVM) con fecha de corte al año 2020 \cite{iessivm2020}, el objetivo estratégico No. 1 del Plan Estratégico del IESS 2018-2028 es \textit{Incrementar la sostenibilidad de los fondos de los seguros especializados}\\
 
-En este contexto, y considerando la importancia de la Seguridad Social para todos los individuos de una sociedad, es fundamental el control de las actividades que podrían comprometer la sostenibilidad o generar consecuencias perjudiciales a este sistema. 
+En este contexto, y considerando la importancia de la Seguridad Social para todos los individuos de una sociedad, es fundamental el control de las actividades que podrían comprometer la sostenibilidad financiera del fondo o que generen consecuencias perjudiciales al sistema. \\
 
-En la actualidad, se han identificado casos en los que, debido a la naturaleza del sistema, algunas personas han desarrollado actividades con el fin de obtener un mayor beneficio propio del mismo de manera fraudulenta. Estas actividades son conocidas como estafas, y desestabilizan el funcionamiento del sistema afectando prestaciones futuras, lo que desencadena fuertes repercusiones tanto sociales como económicas. Es por esto por lo que resulta necesario implementar sistemas de detección de estafas, y con esto prevenir futuras complicaciones al sistema de Seguridad Social, y a la sociedad en general.
+Son varios los aspectos que podrían considerarse para analizar la sostenibilidad del fondo de pensiones, como por ejemplo, cambiar las condiciones de elegibilidad, subir la tasa de aportación, bajar el valor de la pensión calculada, modificar los límites mínimos y máximos de las pensiones, etc. Sin embargo, en el presente trabajo de titulación se enfoca en analizar la situación previa a la obtención de una pensión por jubilación, es decir a lo largo de la vida laboral del afiliado, pues modificar el efecto que causará el calculo de la pensión a posteriori es políticamente irreversible, por lo que, tener un control previo antes de la solicitud de una pensión por jubilación es fácilmente medible y reversible.\\
+
+Por la naturaleza legal del sistema de seguridad social ecuatoriana, no existe una forma directa de impedir la aleatoriedad de las aportaciones que realizan mes tras mes los afiliados del instituto. Con la ayuda de la estadística descriptiva, se han identificado que algunas personas han desarrollado actividades fraudulentas con el fin de obtener un mayor beneficio. Estas actividades son conocidas como estafas, y desestabilizan el funcionamiento del sistema afectando no solo a las prestaciones futuras, sino también a las actuales, lo que desencadena fuertes repercusiones tanto sociales como económicas. Por todo esto resulta necesario implementar sistemas de detección de estafas, y con esto prevenir futuras complicaciones al sistema de Seguridad Social, y a la sociedad en general.\\
+
+De esta forma, el principal problema que este proyecto busca abordar es la detección de aquellas casos que incrementan significativamente sus aportaciones durante su vida laboral, con el objetivo de recibir una pensión de mayor cuantía. Estas acciones son aquellas que constituyen el delito de estafa, al incrementar su salario de manera no uniforme en concordancia al comportamiento salarial de los años de cotización al sistema. Estos casos distorcionan el correcto funcionamiento del fondo de pensiones y compromete la sostenibilidad del mismo en el corte, mediano y largo plazo.\\
+
+Actualmente, dentro de la \cite{LeySS}
 
 
 
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 
 
 \section{Apartado}\label{sec:apartado}
