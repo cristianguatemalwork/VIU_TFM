@@ -1,6 +1,6 @@
 \chapter{Introducción}\label{cap:intr}
 
-La seguridad social según \textit{Humblet y Silva} (\citeyear{SS_OIT}) se define como un derecho humano fundamental y un instrumento esencial para promover la cohesión social y contribuir a la paz y la integración en las sociedades (p.3).\\
+La seguridad social según \textit{Humblet y Silva} (\citeyear{SS_OIT}) se define como un derecho humano fundamental y un instrumento esencial para promover la cohesión social y contribuir a la paz y la integración en las sociedades \cite[p.3]{SS_OIT}.\\
 
 El artículo 34 de la \textit{Constitución de la República del Ecuador} (\citeyear{ConsEcu:2008}) determina que ``la seguridad social es un derecho irrenunciable de todas las personas, y será deber y responsabilidad primordial del Estado'' \cite[p.19]{ConsEcu:2008}.\\
 
