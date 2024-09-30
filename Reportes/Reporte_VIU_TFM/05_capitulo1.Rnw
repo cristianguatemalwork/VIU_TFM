@@ -4,7 +4,7 @@ La seguridad social según \cite{SS_OIT} se define como un derecho humano fundam
 
 El artículo 34 de la Constitución de la República del Ecuador \cite{ConsEcu:2008} determina que ``la seguridad social es un derecho irrenunciable de todas las personas, y será deber y responsabilidad primordial del Estado''.\\
 
-El Instituto Ecuatoriano de Seguridad Social es la entidad pública responsable de la prestación de las contingencias del seguro universal obligatorio, dotada de autonomía normativa, técnica, administrativa, financiera  y presupuestaria, con personería jurídica y patrimonio propio, que tiene por objeto indelegable la prestación del Seguro General Obligatorio en todo el territorio nacional.
+El Instituto Ecuatoriano de Seguridad Social es la entidad pública responsable de la prestación de las contingencias del seguro universal obligatorio, dotada de autonomía normativa, técnica, administrativa, financiera  y presupuestaria, con personería jurídica y patrimonio propio, que tiene por objeto indelegable la prestación del Seguro General Obligatorio en todo el territorio nacional.\\
 
 De acuerdo con la Valuación Actuarial del Seguro de Invalidez, Vejez y Muerte (Seguro IVM) con fecha de corte al año 2020 \cite{iessivm2020}, el objetivo estratégico No. 1 del Plan Estratégico del IESS 2018-2028 es \textit{Incrementar la sostenibilidad de los fondos de los seguros especializados}\\
 
