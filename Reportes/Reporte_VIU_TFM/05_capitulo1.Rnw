@@ -2,30 +2,16 @@
 
 La seguridad social según \cite{SS_OIT} se define como un derecho humano fundamental y un instrumento esencial para promover la cohesión social y contribuir a la paz y la integración en las sociedades.\\
 
-El artículo 34 de la Constitución de la República del Ecuador \cite{ConsEcu:2008} determina que ``la seguridad social es un derecho irrenunciable de todas las personas, y será deber y responsabilidad primordial del Estado''
+El artículo 34 de la Constitución de la República del Ecuador \cite{ConsEcu:2008} determina que ``la seguridad social es un derecho irrenunciable de todas las personas, y será deber y responsabilidad primordial del Estado''.\\
 
-
-La seguridad social se regirá por los principios de solidaridad, obligatoriedad, universalidad, equidad, eficiencia, subsidiaridad, suficiencia, transparencia y participación, para la atención de las necesidades individuales y colectivas
-
-
-
-La Constitución de la República del Ecuador \cite{ConsEcu:2008}, en su artículo 368 determina que:
-
-\begin{displayquote}
-
-\textbf{Art. 368.-} El sistema de seguridad social comprenderá las entidades públicas, normas, políticas, recursos, servicios y prestaciones de seguridad social, y funcionará con base en criterios de sostenibilidad, eficiencia, celeridad y transparencia. El Estado normará, regulará y controlará las actividades relacionadas con la seguridad social.
-
-\end{displayquote}
-
-El término seguridad social según \cite{SS_OIT} se define como un derecho humano fundamental y un instrumento esencial para promover la cohesión social y contribuir a la paz y la integración en las sociedades.\\
-
-El artículo 16 de la Ley de Seguridad Social \cite{LeySS}, manifiesta que:
-
-\begin{displayquote}
-\textbf{Art. 16}.- NATURALEZA JURÍDICA.- El Instituto Ecuatoriano de Seguridad Social (IESS) es una entidad pública descentralizada, creada por la Constitución Política de la República, dotada de autonomía normativa, técnica, administrativa, financiera y presupuestaria, con personería jurídica y patrimonio propio, que tiene por objeto indelegable la prestación del Seguro General Obligatorio en todo el territorio nacional
-\end{displayquote}
+El Instituto Ecuatoriano de Seguridad Social es la entidad pública responsable de la prestación de las contingencias del seguro universal obligatorio, dotada de autonomía normativa, técnica, administrativa, financiera  y presupuestaria, con personería jurídica y patrimonio propio, que tiene por objeto indelegable la prestación del Seguro General Obligatorio en todo el territorio nacional.
 
 De acuerdo con la Valuación Actuarial del Seguro de Invalidez, Vejez y Muerte (Seguro IVM) con fecha de corte al año 2020 \cite{iessivm2020}, el objetivo estratégico No. 1 del Plan Estratégico del IESS 2018-2028 es \textit{Incrementar la sostenibilidad de los fondos de los seguros especializados}\\
+
+En este contexto, y considerando la importancia de la Seguridad Social para todos los individuos de una sociedad, es fundamental el control de las actividades que podrían comprometer la sostenibilidad o generar consecuencias perjudiciales a este sistema. 
+
+En la actualidad, se han identificado casos en los que, debido a la naturaleza del sistema, algunas personas han desarrollado actividades con el fin de obtener un mayor beneficio propio del mismo de manera fraudulenta. Estas actividades son conocidas como estafas, y desestabilizan el funcionamiento del sistema afectando prestaciones futuras, lo que desencadena fuertes repercusiones tanto sociales como económicas. Es por esto por lo que resulta necesario implementar sistemas de detección de estafas, y con esto prevenir futuras complicaciones al sistema de Seguridad Social, y a la sociedad en general.
+
 
 
 
