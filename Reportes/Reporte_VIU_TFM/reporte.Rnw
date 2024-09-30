@@ -37,7 +37,7 @@
 
 %Bibliografia--------------------------------------------------------------------------------------
 
-\bibliographystyle{plain}
+\bibliographystyle{apalike}
 %\bibliographystyle{alpha}
 \bibliography{Bibliografia_TFT.bib}
 
