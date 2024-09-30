@@ -16,7 +16,7 @@ Por la naturaleza legal del sistema de seguridad social ecuatoriana, no existe u
 
 De esta forma, el principal problema que este proyecto busca abordar es la detección de aquellas casos que incrementan significativamente sus aportaciones durante su vida laboral, con el objetivo de recibir una pensión de mayor cuantía. Estas acciones son aquellas que constituyen el delito de estafa, al incrementar su salario de manera no uniforme en concordancia al comportamiento salarial de los años de cotización al sistema. Estos casos distorcionan el correcto funcionamiento del fondo de pensiones y compromete la sostenibilidad del mismo en el corte, mediano y largo plazo.\\
 
-Actualmente, dentro de la \cite{LeySS}
+Actualmente, dentro de la \cite{LeySS} no existe normativa generaliza que impida que los afiliados del IESS aporten sobre cualquier materia gravada\footnote{Artículo 11 de la \cite{LeySS}}. Solo existe la \cite{ResIESS_CD656}, misma que controla la base de aportación de los afiliados del Régimen Espceial del Seguro Voluntario que se encuentran a cinco años de cumplir las condiciones de jubilación. Este grupo poblacional, a diciembre de 2023, representa solo el \Sexpr{format( 215585/3424371 * 100, digits = 2, big.mark = '.', decimal.mark = ',', format = 'f')}\% del total de afiliados (3.424.371). 
 
 
 
