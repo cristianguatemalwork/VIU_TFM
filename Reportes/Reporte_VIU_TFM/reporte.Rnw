@@ -34,6 +34,17 @@
 <<cap07, child='07_capitulo3.Rnw'>>=
 @
 	
+<<cap08, child='08_capitulo4.Rnw'>>=
+@
+
+<<cap09, child='09_capitulo5.Rnw'>>=
+@
+
+\appendix
+
+<<cap010, child='10_anx_capitulo1.Rnw'>>=
+@
+
 
 %Bibliografia--------------------------------------------------------------------------------------
 
