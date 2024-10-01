@@ -1,7 +1,7 @@
 \chapter{Códigos y conjuntos de datos utilizados}\label{cap:anexo1}
 \section{Fuentes de datos} \label{sec:fuentes_datos}
 
-Dentro de todas las fuentes de información que dispone el Instituto Ecuatoriano de Seguridad Social, se consideran las bases de datos transaccionales que guardan la información de Historia Laboral y Prestacional. Adicionalmente, la información se complementa con los datos proporcionados por Registro Civil (entidad pública que guarda los datos personales de la población ecuatoriana).\\
+Dentro de todas las fuentes de información que dispone el Instituto Ecuatoriano de Seguridad Social, se consideran las bases de datos transaccionales que guardan la información de Historia Laboral y Prestacional. Adicionalmente, la información se complementa con los datos proporcionados por Registro Civil (entidad pública que guarda los datos personales de la población ecuatoriana).
 
 A continuación se detalla el contenido en cada fuente de información:\\
 

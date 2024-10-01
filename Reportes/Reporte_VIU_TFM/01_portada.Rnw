@@ -7,9 +7,10 @@
 
 {\fontfamily{phv}\selectfont
 \fontsize{25}{10.4}\fontseries{b}\selectfont
-\vspace{14cm}
-\textbf{Detección de aportaciones fraudentas en el Instituto Ecuatoriano de Seguridad Social}
-
+\vspace{13cm}
+\begin{center}
+\textbf{Detección de aportaciones fraudentas de los afiliados del Instituto Ecuatoriano de Seguridad Social}
+\end{center}
 \bigskip
 
 \fontsize{12}{12}\selectfont
