@@ -1,9 +1,9 @@
 \chapter{Códigos y conjuntos de datos utilizados}\label{cap:anexo1}
 \section{Fuentes de datos} \label{sec:fuentes_datos}
 
-Dentro de todas las fuentes de información que dispone el Instituto Ecuatoriano de Seguridad Social, se consideran las bases de datos transaccionales que guardan la información de Historia Laboral y Prestacional. Adicionalmente, la información se complementa con los datos proporcionados por Registro Civil (entidad pública que guarda los datos personales de la población ecuatoriana)
+Dentro de todas las fuentes de información que dispone el Instituto Ecuatoriano de Seguridad Social, se consideran las bases de datos transaccionales que guardan la información de Historia Laboral y Prestacional. Adicionalmente, la información se complementa con los datos proporcionados por Registro Civil (entidad pública que guarda los datos personales de la población ecuatoriana).\\
 
-A continuación se detalla el contenido en cada fuente de información:
+A continuación se detalla el contenido en cada fuente de información:\\
 
 El componente de \textbf{Historia Laboral (HL)} contiene la información de la vida laboral del afiliado, que incluye características como su información personal, empresa donde trabaja o trabajó, su fecha de primera aportación, las salidas del sistema, reingresos, aportes, sueldos, transiciones entre seguros, etc. La HL se encuentra cargada dentro del esquema \textit{iess\_owner}, el cual tiene las siguientes tablas:
 
@@ -11,39 +11,227 @@ El componente de \textbf{Historia Laboral (HL)} contiene la información de la v
 
 \item KSPCOTEMPTIP.- Contiene la información del tipo de empleador\footnote{El empleador es la persona que contrata a personas para que realicen algún tipo de trabajo}.
 
-% \begingroup\scriptsize
-% \setlength\extrarowheight{1pt}
-% \setlength\aboverulesep{-1pt}
-% \setlength\belowrulesep{0pt}
-% \setlength\LTleft{-0.75in}
-{\fontsize{4.5}{4}\selectfont
-\begin{longtable}[H]{ r!{\color{white}\vrule}
-                      r!{\color{white}\vrule}
-                      r!{\color{white}\vrule}
-                      r!{\color{white}\vrule}
-                      r!{\color{white}\vrule}
-                      r{8.5cm} }
-\caption{Información del empleador}
-\label{tab:info_KSPCOTEMPTIP} \\
+\begingroup\scriptsize
+\setlength\extrarowheight{1pt}
+\setlength\aboverulesep{-0.5pt}
+\setlength\belowrulesep{0pt}
+\fontsize{6.2}{6}\selectfont
+\begin{longtable}[H]{|r|r|r|r|r|r|} 
+\caption{\headlinecolor{\underline{Información del empleador}}}
+\label{tab:info_KSPCOTEMPTIP}\\[-0.1cm]
 
 \toprule
+\rowcolor{naranja}
+\multicolumn{6}{|c|}{\textbf{INFORMACION DEL TIPO EMPLEADOR}} \\ \hline
 
-\multicolumn{6}{c}{INFORMACION DE TIPO EMPLEADOR}\\
-\hline
  COLUMN\_ID
 & COLUMN\_NAME
 & DATA\_TYPE
 & NULLABLE
 & DATA\_DEFAULT
 & COMMENTS  \\
+\midrule
+\endfirsthead
+
+\toprule
+\rowcolor{naranja}
+\multicolumn{6}{|c|}{\textbf{INFORMACION DEL TIPO EMPLEADOR}} \\ \hline
+ COLUMN\_ID
+& COLUMN\_NAME
+& DATA\_TYPE
+& NULLABLE
+& DATA\_DEFAULT
+& COMMENTS  \\
+\midrule
+\endhead
+
+  \hline \multicolumn{6}{r}{continúa...} \\
+  \endfoot
+
+  \bottomrule
+  %\caption*{\scriptsize \textbf{Fuente}: Datos administrativos del IESS.\\\textbf{Elaborado}: DAIE.}
+  \endlastfoot
+  
+  1 & CODSUC & VARCHAR2(4 BYTE)    & No & & Código de la sucursal \\
+2 & RUCEMP & VARCHAR2(13 BYTE)   & No & & Ruc del empleador\\
+3 & CODTIPPLA & VARCHAR2(3 BYTE) & No & & Código del tipo de planilla \\
+4 & TIPPER & VARCHAR2(1 BYTE)    & No & & Código del período \\
+5 & ANIPER & NUMBER(4,0)         & No & & Año del período \\
+6 & MESPER & NUMBER(2,0)         & No & & Mes del período \\
+7 & SECPLA & NUMBER(20,0)        & No & & Secuencial de Planilla \\
+8 & CODTIPNOVHISLAB & VARCHAR2(3 BYTE)& No & & Código del Tipo de Novedad de Historia Laboral \\
+9 & NUMAFI & CHAR(10 BYTE)       & No & & Número de afiliación único del afiliado \\
+10 & NUMDIALAB & NUMBER(2,0)     & No & & Número de días laborados \\
+11 & VALSUE & NUMBER(12,2)       & No & & Valor del sueldo declarado \\
+12 & VALAPONOR & NUMBER(12,2)    & No &0& Valor del Aporte Normal\\
+24 & CODTIPEMP & VARCHAR2(3 BYTE)& Yes& &  \\
+25 & CODRELTRA & VARCHAR2(2 BYTE)& Yes& &  \\
+26 & VALAPOPAT & NUMBER(12,2)    & Yes& & Valor de aporte por empleador \\
+27 & VALAPOIND & NUMBER(12,2)    & Yes& & Valor de aporte por afiliado \\
+
+\end{longtable}
+\endgroup
+
+\item KSRECTPLADET.- Contiene la información del detalle de la planilla\footnote{Es un registro con el detalle del aporte del afiliado} generada
+
+\begingroup\scriptsize
+\setlength\extrarowheight{1pt}
+\setlength\aboverulesep{-0.5pt}
+\setlength\belowrulesep{0pt}
+\fontsize{6.1}{6}\selectfont
+\begin{longtable}[H]{ r|r|r|r|r|r}
+\caption{\headlinecolor{\underline{Información del detalle de la planilla}}}
+\label{tab:info_KSRECTPLADET} \\[-0.1cm]
+
+\toprule
+\rowcolor{naranja}
+\multicolumn{6}{c}{INFORMACION DE DETALLE DE PLANILLA}\\ \hline
+
+ COLUMN\_ID
+& COLUMN\_NAME
+& DATA\_TYPE
+& NULLABLE
+& DATA\_DEFAULT
+& COMMENTS \\
 
 
   \midrule
   \endfirsthead
 
   \toprule
-\multicolumn{6}{c}{INFORMACION DE TIPO EMPLEADOR}\\
+\rowcolor{naranja}
+\multicolumn{6}{c}{INFORMACION DE DETALLE DE PLANILLA}\\ \hline
  COLUMN\_ID
+& COLUMN\_NAME
+& DATA\_TYPE
+& NULLABLE
+& DATA\_DEFAULT
+& COMMENTS  \\
+  \midrule
+  \endhead
+
+  \hline \multicolumn{6}{r}{continúa...} \\
+  \endfoot
+
+  \bottomrule
+  %\caption*{\scriptsize \textbf{Fuente}: Datos administrativos del IESS.\\\textbf{Elaborado}: DAIE.}
+  \endlastfoot
+
+1 & CODSUC & VARCHAR2(4 BYTE)    & No & & Código de la sucursal \\
+2 & RUCEMP & VARCHAR2(13 BYTE)   & No & & Ruc del empleador\\
+3 & CODTIPPLA & VARCHAR2(3 BYTE) & No & & Código del tipo de planilla \\
+4 & TIPPER & VARCHAR2(1 BYTE)    & No & & Código del período \\
+5 & ANIPER & NUMBER(4,0)         & No & & Año del período \\
+6 & MESPER & NUMBER(2,0)         & No & & Mes del período \\
+7 & SECPLA & NUMBER(20,0)        & No & & Secuencial de Planilla \\
+8 & CODTIPNOVHISLAB & VARCHAR2(3 BYTE)& No & & Código del Tipo de Novedad de Historia Laboral \\
+9 & NUMAFI & CHAR(10 BYTE)       & No & & Número de afiliación único del afiliado \\
+10 & NUMDIALAB & NUMBER(2,0)     & No & & Número de días laborados \\
+11 & VALSUE & NUMBER(12,2)       & No & & Valor del sueldo declarado \\
+12 & VALAPONOR & NUMBER(12,2)    & No &0& Valor del Aporte Normal\\
+24 & CODTIPEMP & VARCHAR2(3 BYTE)& Yes& &  \\
+25 & CODRELTRA & VARCHAR2(2 BYTE)& Yes& &  \\
+26 & VALAPOPAT & NUMBER(12,2)    & Yes& & Valor de aporte por empleador \\
+27 & VALAPOIND & NUMBER(12,2)    & Yes& & Valor de aporte por afiliado \\
+
+
+
+\end{longtable}
+\endgroup
+
+\item KSRECTPLANILLAS.- Contiene la información de la planilla en general
+
+\begingroup\scriptsize
+\setlength\extrarowheight{1pt}
+\setlength\aboverulesep{-0.5pt}
+\setlength\belowrulesep{0pt}
+\fontsize{6.1}{6}\selectfont
+\begin{longtable}[H]{ r|r|r|r|r|r }
+\caption{\headlinecolor{\underline{Información de la planilla}}}
+\label{tab:info_KSRECTPLANILLAS} \\[-0.1cm]
+
+\toprule
+
+\rowcolor{naranja}
+\multicolumn{6}{c}{INFORMACION DE PLANILLA}\\\hline
+
+ COLUMN\_ID
+& COLUMN\_NAME
+& DATA\_TYPE
+& NULLABLE
+& DATA\_DEFAULT
+& COMMENTS \\
+
+
+  \midrule
+  \endfirsthead
+
+  \toprule
+\rowcolor{naranja}
+\multicolumn{6}{c}{INFORMACION DE PLANILLA}\\\hline
+ COLUMN\_ID
+& COLUMN\_NAME
+& DATA\_TYPE
+& NULLABLE
+& DATA\_DEFAULT
+& COMMENTS  \\
+  \midrule
+  \endhead
+
+  \hline \multicolumn{6}{r}{continúa...} \\
+  \endfoot
+
+  \bottomrule
+  %\caption*{\scriptsize \textbf{Fuente}: Datos administrativos del IESS.\\\textbf{Elaborado}: DAIE.}
+  \endlastfoot
+
+
+3 & CODTIPPLA & VARCHAR2(3 BYTE) & No & & Código del tipo de planilla \\
+4 & CODSUC & VARCHAR2(4 BYTE)    & No & & Código de la sucursal\\
+5 & RUCEMP & VARCHAR2(13 BYTE)   & No & & Ruc del empleador \\
+6 & TIPPER & VARCHAR2(1 BYTE)    & No & & Código del período \\
+7 & ANIPER & NUMBER(4,0)         & No & & Anio del período \\
+8 & MESPER & NUMBER(2,0)         & No & & Mes del período \\
+9 & SECPLA & NUMBER(20,0)        & No & & Secuencial de Planilla\\
+10 & NUMDETPLA & NUMBER(6,0)     & No & & Numero de Detalles de la planilla \\
+14 & VALNORPLA & NUMBER(12,2)    & No &0& Valor Normal de la Planilla \\
+15 & VALADIPLA & NUMBER(12,2)    & No &0& Valor Adicional de la Planilla \\
+
+
+\end{longtable}
+\endgroup
+
+\item KSPCOTREGCIV.- Contiene la información personal de los ciudadanos ecuatorianos
+
+\begingroup\scriptsize
+\setlength\extrarowheight{1pt}
+\setlength\aboverulesep{-0.5pt}
+\setlength\belowrulesep{0pt}
+{\fontsize{5.1}{6}\selectfont
+\begin{longtable}[H]{ r|r|r|r|r|r }
+\caption{\headlinecolor{\underline{Información de Registro Civil}}}
+\label{tab:info_KSPCOTREGCIV} \\[-0.1cm]
+
+\toprule
+
+\rowcolor{naranja}
+\multicolumn{6}{c}{INFORMACION DE REGISTRO CIVIL}\\\hline
+
+ COLUMN\_ID
+& COLUMN\_NAME
+& DATA\_TYPE
+& NULLABLE
+& DATA\_DEFAULT
+& COMMENTS \\
+
+
+  \midrule
+  \endfirsthead
+
+  \toprule
+\rowcolor{naranja}
+\multicolumn{6}{c}{INFORMACION DE REGISTRO CIVIL}\\\hline
+COLUMN\_ID
 & COLUMN\_NAME
 & DATA\_TYPE
 & NULLABLE
@@ -59,527 +247,505 @@ El componente de \textbf{Historia Laboral (HL)} contiene la información de la v
   %\caption*{\scriptsize \textbf{Fuente}: Datos administrativos del IESS.\\\textbf{Elaborado}: DAIE.}
   \endlastfoot
 
-1 & CODSEGSOC & VARCHAR2(1 BYTE)  & No & & Código del sistema de seguridad social \\
-2 & CODTIPEMP & VARCHAR2(3 BYTE) & No & & Código del tipo de empleadores  \\
-3 & CODSEC    & VARCHAR2(1 BYTE)  & No & & Código de seccion o sector      \\
-4 & DESTIPEMP & VARCHAR2(64 BYTE) & No & & Descripción del tipo de empleadores   \\
-5 & BASLEG & VARCHAR2(4000 BYTE)  & Yes& & Base legal que soporta la operación del empleador \\
-6 & CODSEGGRP & NUMBER(2,0)       & No & &  \\
-7 & ESTTIPEMP & CHAR(1 BYTE)      & Yes  &  & Indicador para establecer si el tipo de empleador es activo: S/N \\
-8 & FUEVAL & CHAR(1 BYTE)         & No   &  & Fuente para la Validación \\
+  1 & CEDIDEUSU & CHAR(10 BYTE)  & No &  & Número de cedula de la persona \\
+  2 & NOMPER & VARCHAR2(64 BYTE) & No &  & Nombres de la persona \\
+  3 & GENPER & CHAR(1 BYTE)      & No &  & Género de la persona: 1 Masculino, 2 Femenino \\
+  4 & FECNACPER & DATE           & No &  & Fecha de nacimiento de la persona \\
+  5 & NACPER & VARCHAR2(3 BYTE)  & Yes &  & Código de la nacionalidad \\
+  6 & ESTCIVPER & CHAR(1 BYTE)   & Yes &  & Código de estado civil: 1 Soltero, 2 Casado, 3 Divorciado, 4 Viudo, 5 Unión de hecho \\
+  7 & FECDEFPER & DATE           & Yes &  & Fecha de defunción de la persona \\
+  8 & CONPER & VARCHAR2(64 BYTE) & Yes &  & Cónyuge de la persona \\
+  9 & PROPER & VARCHAR2(8 BYTE)  & Yes &  & Profesión de la persona \\
+  10 & ORIDAT & CHAR(1 BYTE)     & Yes &  & Indicador Origen del dato ``I`` Interno, ``E`` externo \\
+  11 & ESTACT & CHAR(1 BYTE)     & Yes &  &  \\
+  12    & FECCAR & DATE  & Yes   &       & Fecha de carga \\
+  13    & ESTMIG & VARCHAR2(1 BYTE) & Yes   &       &  \\
+  14    & NOVEDAD & VARCHAR2(1 BYTE) & Yes   &       &  \\
+  15 & FECMATPER & DATE & Yes &  & Fecha de matrimonio de la persona \\
+  16    & CONCIUPER & VARCHAR2(2 BYTE) & Yes   &       &  \\
+  17    & APEMATAFI & VARCHAR2(32 BYTE) & Yes   &       & Apellido materno del afiliado \\
+  18    & APEPATAFI & VARCHAR2(32 BYTE) & Yes   &       & Apellido paterno del afiliado \\
+  19    & NOMAFI & VARCHAR2(80 BYTE) & Yes   &       & Apellido y nombre compuesto del afiliado. \\
 
 
 \end{longtable}
 }
-%\endgroup
-
-% \item KSRECTPLADET.- Contiene la información del detalle de la planilla\footnote{Es un registro con el detalle del aporte del afiliado} generada
-% 
-% \begingroup\scriptsize
-% \setlength\extrarowheight{1pt}
-% \setlength\aboverulesep{-0.5pt}
-% \setlength\belowrulesep{0pt}
-% \setlength\LTleft{-0.35in}
-% \fontsize{4.5}{4}\selectfont
-% \begin{longtable}[H]{ r!{\color{white}\vrule}
-%                       r!{\color{white}\vrule}
-%                       r!{\color{white}\vrule}
-%                       r!{\color{white}\vrule}
-%                       r!{\color{white}\vrule}
-%                       R{6.5cm} }
-% \caption{Información del detalle de la planilla}
-% \label{tab:info_KSRECTPLADET} \\
-% 
-% \toprule
-% 
-% \arrayrulecolor{black}\rowcolor{iess_blue!60}
-% \multicolumn{6}{c}{INFORMACION DE DETALLE DE PLANILLA}\\
-% 
-%  COLUMN\_ID
-% & COLUMN\_NAME
-% & DATA\_TYPE
-% & NULLABLE
-% & DATA\_DEFAULT
-% & COMMENTS \\
-% 
-% 
-%   \midrule
-%   \endfirsthead
-% 
-%   \toprule
-% \arrayrulecolor{black}\rowcolor{iess_blue!60}
-% \multicolumn{6}{c}{INFORMACION DE DETALLE DE PLANILLA}\\
-%  COLUMN\_ID
-% & COLUMN\_NAME
-% & DATA\_TYPE
-% & NULLABLE
-% & DATA\_DEFAULT
-% & COMMENTS  \\
-%   \midrule
-%   \endhead
-% 
-%   \hline \multicolumn{6}{r}{continúa...} \\
-%   \endfoot
-% 
-%   \bottomrule
-%   %\caption*{\scriptsize \textbf{Fuente}: Datos administrativos del IESS.\\\textbf{Elaborado}: DAIE.}
-%   \endlastfoot
-% 
-% 1 & CODSUC & VARCHAR2(4 BYTE)    & No & & Código de la sucursal \\
-% 2 & RUCEMP & VARCHAR2(13 BYTE)   & No & & Ruc del empleador\\
-% 3 & CODTIPPLA & VARCHAR2(3 BYTE) & No & & Código del tipo de planilla \\
-% 4 & TIPPER & VARCHAR2(1 BYTE)    & No & & Código del período \\
-% 5 & ANIPER & NUMBER(4,0)         & No & & Año del período \\
-% 6 & MESPER & NUMBER(2,0)         & No & & Mes del período \\
-% 7 & SECPLA & NUMBER(20,0)        & No & & Secuencial de Planilla \\
-% 8 & CODTIPNOVHISLAB & VARCHAR2(3 BYTE)& No & & Código del Tipo de Novedad de Historia Laboral \\
-% 9 & NUMAFI & CHAR(10 BYTE)       & No & & Número de afiliación único del afiliado \\
-% 10 & NUMDIALAB & NUMBER(2,0)     & No & & Número de días laborados \\
-% 11 & VALSUE & NUMBER(12,2)       & No & & Valor del sueldo declarado \\
-% 12 & VALAPONOR & NUMBER(12,2)    & No &0& Valor del Aporte Normal\\
-% 24 & CODTIPEMP & VARCHAR2(3 BYTE)& Yes& &  \\
-% 25 & CODRELTRA & VARCHAR2(2 BYTE)& Yes& &  \\
-% 26 & VALAPOPAT & NUMBER(12,2)    & Yes& & Valor de aporte por empleador \\
-% 27 & VALAPOIND & NUMBER(12,2)    & Yes& & Valor de aporte por afiliado \\
-% 
-% 
-% 
-% \end{longtable}
-% \endgroup
-% 
-% \item KSRECTPLANILLAS.- Contiene la información de la planilla en general
-% 
-% \begingroup\scriptsize
-% \setlength\extrarowheight{1pt}
-% \setlength\aboverulesep{-0.5pt}
-% \setlength\belowrulesep{0pt}
-% \setlength\LTleft{-0.30in}
-% \fontsize{4.5}{4}\selectfont
-% \begin{longtable}[H]{ r!{\color{white}\vrule}
-%                       r!{\color{white}\vrule}
-%                       r!{\color{white}\vrule}
-%                       r!{\color{white}\vrule}
-%                       r!{\color{white}\vrule}
-%                       R{6.5cm} }
-% \caption{Información de la planilla}
-% \label{tab:info_KSRECTPLANILLAS} \\
-% 
-% \toprule
-% 
-% \arrayrulecolor{black}\rowcolor{iess_blue!60}
-% \multicolumn{6}{c}{INFORMACION DE PLANILLA}\\
-% 
-%  COLUMN\_ID
-% & COLUMN\_NAME
-% & DATA\_TYPE
-% & NULLABLE
-% & DATA\_DEFAULT
-% & COMMENTS \\
-% 
-% 
-%   \midrule
-%   \endfirsthead
-% 
-%   \toprule
-% \arrayrulecolor{black}\rowcolor{iess_blue!60}
-% \multicolumn{6}{c}{INFORMACION DE PLANILLA}\\
-%  COLUMN\_ID
-% & COLUMN\_NAME
-% & DATA\_TYPE
-% & NULLABLE
-% & DATA\_DEFAULT
-% & COMMENTS  \\
-%   \midrule
-%   \endhead
-% 
-%   \hline \multicolumn{6}{r}{continúa...} \\
-%   \endfoot
-% 
-%   \bottomrule
-%   %\caption*{\scriptsize \textbf{Fuente}: Datos administrativos del IESS.\\\textbf{Elaborado}: DAIE.}
-%   \endlastfoot
-% 
-% 
-% 3 & CODTIPPLA & VARCHAR2(3 BYTE) & No & & Código del tipo de planilla \\
-% 4 & CODSUC & VARCHAR2(4 BYTE)    & No & & Código de la sucursal\\
-% 5 & RUCEMP & VARCHAR2(13 BYTE)   & No & & Ruc del empleador \\
-% 6 & TIPPER & VARCHAR2(1 BYTE)    & No & & Código del período \\
-% 7 & ANIPER & NUMBER(4,0)         & No & & Anio del período \\
-% 8 & MESPER & NUMBER(2,0)         & No & & Mes del período \\
-% 9 & SECPLA & NUMBER(20,0)        & No & & Secuencial de Planilla\\
-% 10 & NUMDETPLA & NUMBER(6,0)     & No & & Numero de Detalles de la planilla \\
-% 14 & VALNORPLA & NUMBER(12,2)    & No &0& Valor Normal de la Planilla \\
-% 15 & VALADIPLA & NUMBER(12,2)    & No &0& Valor Adicional de la Planilla \\
-% 
-% 
-% \end{longtable}
-% \endgroup
-% 
-% \item KSPCOTREGCIV.- Contiene la información personal de los ciudadanos ecuatorianos
-% 
-% \begingroup\scriptsize
-% \setlength\extrarowheight{1pt}
-% \setlength\aboverulesep{-0.5pt}
-% \setlength\belowrulesep{0pt}
-% \setlength\LTleft{-0.75in}
-% {\fontsize{4.5}{4}\selectfont
-% \begin{longtable}[H]{ r!{\color{white}\vrule}
-%                       r!{\color{white}\vrule}
-%                       r!{\color{white}\vrule}
-%                       r!{\color{white}\vrule}
-%                       R{1.5cm}!{\color{white}\vrule}
-%                       R{8.5cm} }
-% \caption{Información de Registro Civil}
-% \label{tab:info_KSPCOTREGCIV} \\
-% 
-% \toprule
-% 
-% \arrayrulecolor{black}\rowcolor{iess_blue!60}
-% \multicolumn{6}{c}{INFORMACION DE REGISTRO CIVIL}\\
-% 
-%  COLUMN\_ID
-% & COLUMN\_NAME
-% & DATA\_TYPE
-% & NULLABLE
-% & DATA\_DEFAULT
-% & COMMENTS \\
-% 
-% 
-%   \midrule
-%   \endfirsthead
-% 
-%   \toprule
-% \arrayrulecolor{black}\rowcolor{iess_blue!60}
-% \multicolumn{6}{c}{INFORMACION DE REGISTRO CIVIL}\\
-% COLUMN\_ID
-% & COLUMN\_NAME
-% & DATA\_TYPE
-% & NULLABLE
-% & DATA\_DEFAULT
-% & COMMENTS \\
-%   \midrule
-%   \endhead
-% 
-%   \hline \multicolumn{6}{r}{continúa...} \\
-%   \endfoot
-% 
-%   \bottomrule
-%   %\caption*{\scriptsize \textbf{Fuente}: Datos administrativos del IESS.\\\textbf{Elaborado}: DAIE.}
-%   \endlastfoot
-% 
-%   1 & CEDIDEUSU & CHAR(10 BYTE)  & No &  & Número de cedula de la persona \\
-%   2 & NOMPER & VARCHAR2(64 BYTE) & No &  & Nombres de la persona \\
-%   3 & GENPER & CHAR(1 BYTE)      & No &  & Género de la persona: 1 Masculino, 2 Femenino \\
-%   4 & FECNACPER & DATE           & No &  & Fecha de nacimiento de la persona \\
-%   5 & NACPER & VARCHAR2(3 BYTE)  & Yes &  & Código de la nacionalidad \\
-%   6 & ESTCIVPER & CHAR(1 BYTE)   & Yes &  & Código de estado civil: 1 Soltero, 2 Casado, 3 Divorciado, 4 Viudo, 5 Unión de hecho \\
-%   7 & FECDEFPER & DATE           & Yes &  & Fecha de defunción de la persona \\
-%   8 & CONPER & VARCHAR2(64 BYTE) & Yes &  & Cónyuge de la persona \\
-%   9 & PROPER & VARCHAR2(8 BYTE)  & Yes &  & Profesión de la persona \\
-%   10 & ORIDAT & CHAR(1 BYTE)     & Yes &  & Indicador Origen del dato ``I`` Interno, ``E`` externo \\
-%   11 & ESTACT & CHAR(1 BYTE)     & Yes &  &  \\
-%   12    & FECCAR & DATE  & Yes   &       & Fecha de carga \\
-%   13    & ESTMIG & VARCHAR2(1 BYTE) & Yes   &       &  \\
-%   14    & NOVEDAD & VARCHAR2(1 BYTE) & Yes   &       &  \\
-%   15 & FECMATPER & DATE & Yes &  & Fecha de matrimonio de la persona \\
-%   16    & CONCIUPER & VARCHAR2(2 BYTE) & Yes   &       &  \\
-%   17    & APEMATAFI & VARCHAR2(32 BYTE) & Yes   &       & Apellido materno del afiliado \\
-%   18    & APEPATAFI & VARCHAR2(32 BYTE) & Yes   &       & Apellido paterno del afiliado \\
-%   19    & NOMAFI & VARCHAR2(80 BYTE) & Yes   &       & Apellido y nombre compuesto del afiliado. \\
-% 
-% 
-% \end{longtable}
-% }
-% \endgroup
+\endgroup
 \end{itemize}
-% 
-% El componente \textbf{Prestacional} contiene de manera general la información del pensionista del IESS, incluyendo campos como su información personal, monto de su pensión, incrementos o mejoras en la pensión, tipo del seguro en que solicitó la pensión, etc. Este componente se encuentra cargado dentro del esquema \textit{pensiones\_owner}, el cual tiene las siguientes tablas:
-% 
-% \begin{itemize}
-% \item PRESTACIONES.- Contiene la información general de las prestaciones\footnote{Una prestación es el derecho otorgado por el IESS a las personas que cumplen los requisitos necesarios} otorgadas por el IESS
-% 
-% \begingroup\scriptsize
-% \setlength\extrarowheight{1pt}
-% \setlength\aboverulesep{-0.5pt}
-% \setlength\belowrulesep{0pt}
-% \setlength\LTleft{-0.60in}
-% \fontsize{4.5}{4}\selectfont
-% \begin{longtable}[H]{ r!{\color{white}\vrule}
-%                       r!{\color{white}\vrule}
-%                       r!{\color{white}\vrule}
-%                       r!{\color{white}\vrule}
-%                       r!{\color{white}\vrule}
-%                       R{6.5cm} }
-% \caption{Información de prestaciones}
-% \label{tab:info_PRESTACIONES} \\
-% 
-% \toprule
-% 
-% \arrayrulecolor{black}\rowcolor{iess_blue!60}
-% \multicolumn{6}{c}{INFORMACION DE PRESTACIONES}\\
-% 
-%  COLUMN\_ID
-% & COLUMN\_NAME
-% & DATA\_TYPE
-% & NULLABLE
-% & DATA\_DEFAULT
-% & COMMENTS \\
-% 
-% 
-%   \midrule
-%   \endfirsthead
-% 
-%   \toprule
-% \arrayrulecolor{black}\rowcolor{iess_blue!60}
-% \multicolumn{6}{c}{INFORMACION DE PRESTACIONES}\\
-%  COLUMN\_ID
-% & COLUMN\_NAME
-% & DATA\_TYPE
-% & NULLABLE
-% & DATA\_DEFAULT
-% & COMMENTS  \\
-%   \midrule
-%   \endhead
-% 
-%   \hline \multicolumn{6}{r}{continúa...} \\
-%   \endfoot
-% 
-%   \bottomrule
-%   %\caption*{\scriptsize \textbf{Fuente}: Datos administrativos del IESS.\\\textbf{Elaborado}: DAIE.}
-%   \endlastfoot
-% 
-% 
-% 1 & ACUMULADO\_MES\_INICIAL & NUMBER(2,0)& Yes & & Define el mes del periodo inicial de los acumulados calculados \\
-% 2 & COEFICIENTE\_TEORICO & NUMBER(10,8) & No &  & Coeficiente para cálculo de pensión, incluido pagos extemporáneos \\
-% 3 & COEFICIENTE\_REAL & NUMBER(10,8) & No & & Coeficiente para cálculo de pensión, sin pagos extemporáneos \\
-% 4 & ACUMULADO\_MES\_FINAL & NUMBER(2,0)&Yes& & Define el mes del periodo final de los acumulados calculados \\
-% 5 & ACUMULADO\_ANO\_INICIAL & NUMBER(4,0) &Yes& & Define el año del periodo inicial de los acumulados calculados \\
-% 6 & ACUMULADO\_ANO\_FINAL & NUMBER(4,0) &Yes& & Define el año del periodo final de los acumulados calculados \\
-% 7 & SECUENCIAL\_PRESTACION & NUMBER(10,0) & No & & Define el secuencial de la prestación \\
-% 8 & TIPO\_SEGURO & VARCHAR2(2 BYTE) & No&  & Define el código del tipo de seguro \\
-% 9 & TIPO\_PRESTACION & VARCHAR2(2 BYTE) & No& & Define la clave primaria de los tipos de prestación \\
-% 10& ASEGURADO & VARCHAR2(10 BYTE) & No & & Define una identificación única para el asegurado \\
-% 11& NUMERO\_ACUERDO & NUMBER(7,0) & No & & Define el número del acuerdo \\
-% 12& FECHA\_ACUERDO & DATE         & No & & Define la fecha del acuerdo \\
-% 13& FECHA\_DERECHO & DATE         & No & & Fecha desde cuando tiene derecho \\
-% 
-% \end{longtable}
-% \endgroup
-% 
-% \item BENEFICIARIOS.- Contiene la información del tipo de beneficiario\footnote{El beneficiario es la persona que recibe la prestación}
-% 
-% \begingroup\scriptsize
-% \setlength\extrarowheight{1pt}
-% \setlength\aboverulesep{-0.5pt}
-% \setlength\belowrulesep{0pt}
-% \setlength\LTleft{-0.75in}
-% \fontsize{4}{4}\selectfont
-% \begin{longtable}[H]{ r!{\color{white}\vrule}
-%                       r!{\color{white}\vrule}
-%                       r!{\color{white}\vrule}
-%                       r!{\color{white}\vrule}
-%                       r!{\color{white}\vrule}
-%                       R{7.5cm} }
-% \caption{Información de beneficiarios}
-% \label{tab:info_BENEFICIARIOS} \\
-% 
-% \toprule
-% 
-% \arrayrulecolor{black}\rowcolor{iess_blue!60}
-% \multicolumn{6}{c}{INFORMACION DE BENEFICIARIOS DE PENSIONES}\\
-% 
-%  COLUMN\_ID
-% & COLUMN\_NAME
-% & DATA\_TYPE
-% & NULLABLE
-% & DATA\_DEFAULT
-% & COMMENTS \\
-% 
-% 
-%   \midrule
-%   \endfirsthead
-% 
-%   \toprule
-% \arrayrulecolor{black}\rowcolor{iess_blue!60}
-% \multicolumn{6}{c}{INFORMACION DE BENEFICIARIOS DE PENSIONES}\\
-%  COLUMN\_ID
-% & COLUMN\_NAME
-% & DATA\_TYPE
-% & NULLABLE
-% & DATA\_DEFAULT
-% & COMMENTS  \\
-%   \midrule
-%   \endhead
-% 
-%   \hline \multicolumn{6}{r}{continúa...} \\
-%   \endfoot
-% 
-%   \bottomrule
-%   %\caption*{\scriptsize \textbf{Fuente}: Datos administrativos del IESS.\\\textbf{Elaborado}: DAIE.}
-%   \endlastfoot
-% 
-% 1 & SECUENCIAL\_PRESTACION & NUMBER(10,0)            & No & &  \\
-% 2 & IDENTIFICACION\_BENEFICIARIO & VARCHAR2(10 BYTE) & No & & Define la identificación del beneficiario de la pensión \\
-% 3 & NOMBRES\_APELLIDOS & VARCHAR2(80 BYTE) & No & & Define el nombre y apellidos del beneficiario de pensión \\
-% 4 & TIPO\_BENEFICIARIO & VARCHAR2(6 BYTE) & No& & Define el tipo de parentesco, el dominio del parentesco será la familia \\
-% 5 & FECHA\_NACIMIENTO\_CONCESION & DATE & No & & Define la fecha de nacimiento que el asegurado tenía registrado en el Registro Civil, el momento de la concesión \\
-% 6 & ESTADO\_CIVIL\_CONCESION & VARCHAR2(3 BYTE) &Yes & & Define el estado civil que el asegurado tenia el momento de la concesion. \\
-% 7 & ESTADO\_VIGENCIA & CHAR(1 BYTE) & No& & Define el estado de vigencia del beneficiario para recibir la pensión \\
-% 8 & FECHA\_INICIAL\_PENSION & DATE& No& & Define la fecha inicial desde que se pagaría la pensión \\
-% 9 & FECHA\_FINAL\_PENSION & DATE& Yes  & & Define la fecha final hasta cuando se pagaría la pensión \\
-% 10& VALOR\_PENSION & NUMBER(12,2) & No&  & Define el valor de la pensión a ser pagada mensualmente \\
-% 11& VALOR\_PENSION\_SUSPENSO & NUMBER(12,2) & Yes& & Define el valor de pensión que queda suspensa de ser pagada por diferentes causas \\
-% 12& VALOR\_AUMENTOS & NUMBER(12,2) & No & & Define el valor acumulado de los aumentos que se han realizado a lo largo del tiempo \\
-% 13 & VALOR\_ULTIMO\_AUMENTO & NUMBER(12,2) & No & & Define el valor del último aumento que fue realizado. \\
-% 14 & VALOR\_COMPENSACION & NUMBER(12,2) & No& & Define el valor de la compensación en la concesión. \\
-% 
-% 
-% \end{longtable}
-% \endgroup
-% 
-% \item ROL\_PERIODO.- Contiene la información del rol de pago por período de pago
-% 
-% \begingroup\scriptsize
-% \setlength\extrarowheight{1pt}
-% \setlength\aboverulesep{-0.5pt}
-% \setlength\belowrulesep{0pt}
-% \setlength\LTleft{-0.50in}
-% \fontsize{4.5}{4}\selectfont
-% \begin{longtable}[H]{ r!{\color{white}\vrule}
-%                       r!{\color{white}\vrule}
-%                       r!{\color{white}\vrule}
-%                       r!{\color{white}\vrule}
-%                       r!{\color{white}\vrule}
-%                       R{5.5cm} }
-% \caption{Información del Rol Período}
-% \label{tab:info_ROL_PERIODO} \\
-% 
-% \toprule
-% 
-% \arrayrulecolor{black}\rowcolor{iess_blue!60}
-% \multicolumn{6}{c}{INFORMACION DEL NOMINA}\\
-% 
-%  COLUMN\_ID
-% & COLUMN\_NAME
-% & DATA\_TYPE
-% & NULLABLE
-% & DATA\_DEFAULT
-% & COMMENTS \\
-% 
-% 
-%   \midrule
-%   \endfirsthead
-% 
-%   \toprule
-% \arrayrulecolor{black}\rowcolor{iess_blue!60}
-% \multicolumn{6}{c}{INFORMACION DEL NOMINA}\\
-%  COLUMN\_ID
-% & COLUMN\_NAME
-% & DATA\_TYPE
-% & NULLABLE
-% & DATA\_DEFAULT
-% & COMMENTS  \\
-%   \midrule
-%   \endhead
-% 
-%   \hline \multicolumn{6}{r}{continúa...} \\
-%   \endfoot
-% 
-%   \bottomrule
-%   %\caption*{\scriptsize \textbf{Fuente}: Datos administrativos del IESS.\\\textbf{Elaborado}: DAIE.}
-%   \endlastfoot
-% 
-% 1 & VALOR\_ACOBRAR & NUMBER(12,2) &No & & Define el valor a cobrar por parte del pensionista \\
-% 2 & FECHA\_COBRO & DATE           &Yes& & Define la fecha de cobro del rol. \\
-% 3 & TOTAL\_DESCUENTOS & NUMBER(12,2) &No& & Define el valor total de descuentos para el rol \\
-% 4 & TOTAL\_INGRESOS & NUMBER(12,2) &No& & Define el valor total de ingresos para el rol \\
-% 5 & FECHA\_GENERACION & DATE      &No& & Define la fecha de generación del rol \\
-% 6 & IDENTIFICACION\_BENEFICIARIO & VARCHAR2(10 BYTE) &No&& Define la identificación del beneficiario de la pensión \\
-% 7 & TIPO& VARCHAR2(1 BYTE)       &No& & Define el tipo del periodo \\
-% 8 & ANO   & NUMBER(4,0)         &No& & Define el año del periodo \\
-% 9 & MES   & NUMBER(2,0)         &No& & Define el mes del periodo \\
-% 10& ESTADO\_ROL & VARCHAR2(1 BYTE) &No& & Define el código del estado del rol \\
-% 11& SECUENCIAL\_PRESTACION & NUMBER(10,0) &No& & Define el secuencial de la prestación \\
-% 
-% 
-% \end{longtable}
-% \endgroup
-% 
-% \item KSMIGTAPORTES.- Contiene la información de los aportes anteriores a la aparación del sistema HL
-% 
-% \begingroup\scriptsize
-% \setlength\extrarowheight{1pt}
-% \setlength\aboverulesep{-0.5pt}
-% \setlength\belowrulesep{0pt}
-% \setlength\LTleft{-0.20in}
-% \fontsize{4.5}{4}\selectfont
-% \begin{longtable}[H]{ r!{\color{white}\vrule}
-%                       r!{\color{white}\vrule}
-%                       r!{\color{white}\vrule}
-%                       r!{\color{white}\vrule}
-%                       r!{\color{white}\vrule}
-%                       R{5.5cm} }
-% \caption{Información de aportes de Host}
-% \label{tab:info_KSMIGTAPORTES} \\
-% 
-% \toprule
-% 
-% \arrayrulecolor{black}\rowcolor{iess_blue!60}
-% \multicolumn{6}{c}{INFORMACION SISTEMA HOST}\\
-% 
-% COLUMN\_NAME
-% & DATA\_TYPE
-% & NULLABLE
-% & DATA\_DEFAULT
-% & COLUMN\_ID
-% & COMMENTS  \\
-% 
-% 
-%   \midrule
-%   \endfirsthead
-% 
-%   \toprule
-% \arrayrulecolor{black}\rowcolor{iess_blue!60}
-% \multicolumn{6}{c}{INFORMACION SISTEMA HOST}\\
-% COLUMN\_NAME
-% & DATA\_TYPE
-% & NULLABLE
-% & DATA\_DEFAULT
-% & COLUMN\_ID
-% & COMMENTS  \\
-%   \midrule
-%   \endhead
-% 
-%   \hline \multicolumn{6}{r}{continúa...} \\
-%   \endfoot
-% 
-%   \bottomrule
-%   %\caption*{\scriptsize \textbf{Fuente}: Datos administrativos del IESS.\\\textbf{Elaborado}: DAIE.}
-%   \endlastfoot
-% 
-% CEDIDEUSU & VARCHAR2(10 BYTE) & No & & 1 & \\
-% NUMPAT    & VARCHAR2(13 BYTE) & No & & 2 & \\
-% CODSEC    & CHAR(1 BYTE)      & No & & 3 & \\
-% CODTIPSEG & VARCHAR2(3 BYTE)  & No & & 4 & \\
-% CODANI    & NUMBER(4,0)       & No & & 5 & \\
-% CODMES    & NUMBER(2,0)       & No & & 6 & \\
-% TIPPLA    & CHAR(1 BYTE)      & No & & 7 & \\
-% CODREG    & VARCHAR2(2 BYTE)  & Yes & & 8 & \\
-% FECREGAPO & VARCHAR2(8 BYTE)  & Yes & & 9 & \\
-% VALDIV    & NUMBER(10,4)      & Yes & & 10 & \\
-% NUMDIATRA & VARCHAR2(2 BYTE)  & Yes & & 11 & \\
-% 
-% 
-% 
-% \end{longtable}
-% \endgroup
-% 
-% \end{itemize}
-% 
-% No se hace un análisis centrado por cada tabla del esquema, pues ampliaría innecesariamente la longitud del presente documento. Es por ello que en las tablas \ref{tab:info_KSPCOTEMPTIP}, \ref{tab:info_KSRECTPLADET}, \ref{tab:info_KSRECTPLANILLAS}, \ref{tab:info_KSPCOTREGCIV} , \ref{tab:info_PRESTACIONES}, \ref{tab:info_BENEFICIARIOS}, \ref{tab:info_ROL_PERIODO} y \ref{tab:info_KSMIGTAPORTES} se intentó plasmar una descripción general de su estructura.
-% 
-% Ahora bien, las tablas presentadas anteriormente son independientes entre si, por lo que necesitan integrarse de manera conjunta para tener  información consolidada y alcanzar el objetivo planteado. De este modo, se hace joins entre las tablas y se tiene una tabla única que contiene los datos requeridos para este fin. El código \textit{.sql} de la sección \ref{axnos} muestra los joins entre las tablas involucradas.
-% 
-% Un hecho importante de mencionar es que se considera la información del \textit{Registro Civil}, con la finalidad de tener variables personales lo más reales posibles. Esto debido a que se evidenció que los registros administrativos del IESS están contaminados y son inconsistentes desde su origen\footnote{Inicialmente la generación de planillas era de forma manual y en documentos físicos, por lo que una vez que pasaron a digitalizarse arrastraron un sinnúmero de novedades pues era un proceso manual}. Los novedades encontradas eran mal ingreso del sexo (por ejemplo existían categorías con valores de H, M, 1, 2, null, hombre, mujer), fechas de nacimiento y muerte erróneas (existían personas que murieron antes de nacer o nacían por el año 2030) y en distintos formatos (por ejemplo dd/mm/yyy, yyyy/dd/mm, mm/dd/yyyy ); y, en muchos casos una alta presencia de missing values. 
-% 
-% La posible solución a cada problema detectado, con el fin de tener información adecuada, requería de un amplio tiempo de análisis y ejecución, además de que se debía realizar un procesamiento desde el origen de los datos (que data desde el 13 de marzo de 1928 (\href{https://www.iess.gob.ec/en/web/afiliado/noticias?p_p_id=101_INSTANCE_3dH2&p_p_lifecycle=0&p_p_col_id=column-2&p_p_col_count=4&_101_INSTANCE_3dH2_struts_action=\%2Fasset_publisher\%2Fview_content&_101_INSTANCE_3dH2_assetEntryId=2246192&_101_INSTANCE_3dH2_type=content&_101_INSTANCE_3dH2_groupId=10174&_101_INSTANCE_3dH2_urlTitle=iess-celebra-hoy-86-anos-de-servicio-al-pais&redirect=\%2Fen\%2Fweb\%2Fafiliado\%2Fnoticias?mostrarNoticia=1#:~:text=Posteriormente\%2C\%20el\%2025\%20de\%20julio,Ecuatoriano\%20de\%20Seguridad\%20Social\%2DIESS.}{click aquí})) y en distintos sistemas de datos. Por ello, con el fin de reducir los tiempos de análisis se hizo merge por DNI (foreing key) entre las tablas del IESS y el Registro Civil para tener información personal estándar y consistente. 
+
+El componente \textbf{Prestacional} contiene de manera general la información del pensionista, incluyendo campos como su información personal, monto de su pensión, incrementos o mejoras en la pensión, tipo del seguro en que solicitó la pensión, etc. Este componente se encuentra cargado dentro del esquema \textit{pensiones\_owner}, el cual tiene las siguientes tablas:
+
+\begin{itemize}
+\item PRESTACIONES.- Contiene la información general de las prestaciones\footnote{Una prestación es el derecho otorgado por el IESS a las personas que cumplen los requisitos necesarios} otorgadas por el IESS
+
+\begingroup\scriptsize
+\setlength\extrarowheight{1pt}
+\setlength\aboverulesep{-0.5pt}
+\setlength\belowrulesep{0pt}
+\fontsize{5.1}{5}\selectfont
+\begin{longtable}[H]{ r|r|r|r|r|r}
+\caption{\headlinecolor{\underline{Información de prestaciones}}}
+\label{tab:info_PRESTACIONES} \\[-0.1cm]
+
+\toprule
+
+\rowcolor{naranja}
+\multicolumn{6}{c}{INFORMACION DE PRESTACIONES}\\\hline
+
+ COLUMN\_ID
+& COLUMN\_NAME
+& DATA\_TYPE
+& NULLABLE
+& DATA\_DEFAULT
+& COMMENTS \\
+
+
+  \midrule
+  \endfirsthead
+
+  \toprule
+\rowcolor{naranja}
+\multicolumn{6}{c}{INFORMACION DE PRESTACIONES}\\\hline
+ COLUMN\_ID
+& COLUMN\_NAME
+& DATA\_TYPE
+& NULLABLE
+& DATA\_DEFAULT
+& COMMENTS  \\
+  \midrule
+  \endhead
+
+  \hline \multicolumn{6}{r}{continúa...} \\
+  \endfoot
+
+  \bottomrule
+  %\caption*{\scriptsize \textbf{Fuente}: Datos administrativos del IESS.\\\textbf{Elaborado}: DAIE.}
+  \endlastfoot
+
+
+1 & ACUMULADO\_MES\_INICIAL & NUMBER(2,0)& Yes & & Define el mes del periodo inicial de los acumulados calculados \\
+2 & COEFICIENTE\_TEORICO & NUMBER(10,8) & No &  & Coeficiente para cálculo de pensión, incluido pagos extemporáneos \\
+3 & COEFICIENTE\_REAL & NUMBER(10,8) & No & & Coeficiente para cálculo de pensión, sin pagos extemporáneos \\
+4 & ACUMULADO\_MES\_FINAL & NUMBER(2,0)&Yes& & Define el mes del periodo final de los acumulados calculados \\
+5 & ACUMULADO\_ANO\_INICIAL & NUMBER(4,0) &Yes& & Define el año del periodo inicial de los acumulados calculados \\
+6 & ACUMULADO\_ANO\_FINAL & NUMBER(4,0) &Yes& & Define el año del periodo final de los acumulados calculados \\
+7 & SECUENCIAL\_PRESTACION & NUMBER(10,0) & No & & Define el secuencial de la prestación \\
+8 & TIPO\_SEGURO & VARCHAR2(2 BYTE) & No&  & Define el código del tipo de seguro \\
+9 & TIPO\_PRESTACION & VARCHAR2(2 BYTE) & No& & Define la clave primaria de los tipos de prestación \\
+10& ASEGURADO & VARCHAR2(10 BYTE) & No & & Define una identificación única para el asegurado \\
+11& NUMERO\_ACUERDO & NUMBER(7,0) & No & & Define el número del acuerdo \\
+12& FECHA\_ACUERDO & DATE         & No & & Define la fecha del acuerdo \\
+13& FECHA\_DERECHO & DATE         & No & & Fecha desde cuando tiene derecho \\
+
+\end{longtable}
+\endgroup
+
+\item BENEFICIARIOS.- Contiene la información del tipo de beneficiario\footnote{El beneficiario es la persona que recibe la prestación}
+
+\begingroup\scriptsize
+\setlength\extrarowheight{1pt}
+\setlength\aboverulesep{-0.5pt}
+\setlength\belowrulesep{0pt}
+\fontsize{3.7}{4}\selectfont
+\begin{longtable}[H]{ r|r|r|r|r|r }
+\caption{\headlinecolor{\underline{Información de beneficiarios}}}
+\label{tab:info_BENEFICIARIOS} \\[-0.1cm]
+
+\toprule
+
+\rowcolor{naranja}
+\multicolumn{6}{c}{INFORMACION DE BENEFICIARIOS DE PENSIONES}\\\hline
+
+ COLUMN\_ID
+& COLUMN\_NAME
+& DATA\_TYPE
+& NULLABLE
+& DATA\_DEFAULT
+& COMMENTS \\
+
+
+  \midrule
+  \endfirsthead
+
+  \toprule
+\rowcolor{naranja}
+\multicolumn{6}{c}{INFORMACION DE BENEFICIARIOS DE PENSIONES}\\\hline
+ COLUMN\_ID
+& COLUMN\_NAME
+& DATA\_TYPE
+& NULLABLE
+& DATA\_DEFAULT
+& COMMENTS  \\
+  \midrule
+  \endhead
+
+  \hline \multicolumn{6}{r}{continúa...} \\
+  \endfoot
+
+  \bottomrule
+  %\caption*{\scriptsize \textbf{Fuente}: Datos administrativos del IESS.\\\textbf{Elaborado}: DAIE.}
+  \endlastfoot
+
+1 & SECUENCIAL\_PRESTACION & NUMBER(10,0)            & No & &  \\
+2 & IDENTIFICACION\_BENEFICIARIO & VARCHAR2(10 BYTE) & No & & Define la identificación del beneficiario de la pensión \\
+3 & NOMBRES\_APELLIDOS & VARCHAR2(80 BYTE) & No & & Define el nombre y apellidos del beneficiario de pensión \\
+4 & TIPO\_BENEFICIARIO & VARCHAR2(6 BYTE) & No& & Define el tipo de parentesco, el dominio del parentesco será la familia \\
+5 & FECHA\_NACIMIENTO\_CONCESION & DATE & No & & Define la fecha de nacimiento que el asegurado tenía registrado en el Registro Civil, el momento de la concesión \\
+6 & ESTADO\_CIVIL\_CONCESION & VARCHAR2(3 BYTE) &Yes & & Define el estado civil que el asegurado tenia el momento de la concesion. \\
+7 & ESTADO\_VIGENCIA & CHAR(1 BYTE) & No& & Define el estado de vigencia del beneficiario para recibir la pensión \\
+8 & FECHA\_INICIAL\_PENSION & DATE& No& & Define la fecha inicial desde que se pagaría la pensión \\
+9 & FECHA\_FINAL\_PENSION & DATE& Yes  & & Define la fecha final hasta cuando se pagaría la pensión \\
+10& VALOR\_PENSION & NUMBER(12,2) & No&  & Define el valor de la pensión a ser pagada mensualmente \\
+11& VALOR\_PENSION\_SUSPENSO & NUMBER(12,2) & Yes& & Define el valor de pensión que queda suspensa de ser pagada por diferentes causas \\
+12& VALOR\_AUMENTOS & NUMBER(12,2) & No & & Define el valor acumulado de los aumentos que se han realizado a lo largo del tiempo \\
+13 & VALOR\_ULTIMO\_AUMENTO & NUMBER(12,2) & No & & Define el valor del último aumento que fue realizado. \\
+14 & VALOR\_COMPENSACION & NUMBER(12,2) & No& & Define el valor de la compensación en la concesión. \\
+
+
+\end{longtable}
+\endgroup
+
+\item ROL\_PERIODO.- Contiene la información del rol de pago por período de pago
+
+\begingroup\scriptsize
+\setlength\extrarowheight{1pt}
+\setlength\aboverulesep{-0.5pt}
+\setlength\belowrulesep{0pt}
+\fontsize{5.2}{6}\selectfont
+\begin{longtable}[H]{ r|r|r|r|r|r }
+\caption{\headlinecolor{\underline{Información del Rol Período}}}
+\label{tab:info_ROL_PERIODO} \\[-0.1cm]
+
+\toprule
+
+\rowcolor{naranja}
+\multicolumn{6}{c}{INFORMACION DEL NOMINA}\\\hline
+
+ COLUMN\_ID
+& COLUMN\_NAME
+& DATA\_TYPE
+& NULLABLE
+& DATA\_DEFAULT
+& COMMENTS \\
+
+
+  \midrule
+  \endfirsthead
+
+  \toprule
+\rowcolor{naranja}
+\multicolumn{6}{c}{INFORMACION DEL NOMINA}\\\hline
+ COLUMN\_ID
+& COLUMN\_NAME
+& DATA\_TYPE
+& NULLABLE
+& DATA\_DEFAULT
+& COMMENTS  \\
+  \midrule
+  \endhead
+
+  \hline \multicolumn{6}{r}{continúa...} \\
+  \endfoot
+
+  \bottomrule
+  %\caption*{\scriptsize \textbf{Fuente}: Datos administrativos del IESS.\\\textbf{Elaborado}: DAIE.}
+  \endlastfoot
+
+1 & VALOR\_ACOBRAR & NUMBER(12,2) &No & & Define el valor a cobrar por parte del pensionista \\
+2 & FECHA\_COBRO & DATE           &Yes& & Define la fecha de cobro del rol. \\
+3 & TOTAL\_DESCUENTOS & NUMBER(12,2) &No& & Define el valor total de descuentos para el rol \\
+4 & TOTAL\_INGRESOS & NUMBER(12,2) &No& & Define el valor total de ingresos para el rol \\
+5 & FECHA\_GENERACION & DATE      &No& & Define la fecha de generación del rol \\
+6 & IDENTIFICACION\_BENEFICIARIO & VARCHAR2(10 BYTE) &No&& Define la identificación del beneficiario de la pensión \\
+7 & TIPO& VARCHAR2(1 BYTE)       &No& & Define el tipo del periodo \\
+8 & ANO   & NUMBER(4,0)         &No& & Define el año del periodo \\
+9 & MES   & NUMBER(2,0)         &No& & Define el mes del periodo \\
+10& ESTADO\_ROL & VARCHAR2(1 BYTE) &No& & Define el código del estado del rol \\
+11& SECUENCIAL\_PRESTACION & NUMBER(10,0) &No& & Define el secuencial de la prestación \\
+
+
+\end{longtable}
+\endgroup
+
+\item KSMIGTAPORTES.- Contiene la información de los aportes anteriores a la aparación del sistema HL
+
+\begingroup\scriptsize
+\setlength\extrarowheight{1pt}
+\setlength\aboverulesep{-0.5pt}
+\setlength\belowrulesep{0pt}
+\fontsize{6.1}{6}\selectfont
+\begin{longtable}[H]{ r|r|r|r|r|r }
+\caption{\headlinecolor{\underline{Información de aportes de Host}}}
+\label{tab:info_KSMIGTAPORTES} \\[-0.1cm]
+
+\toprule
+
+\rowcolor{naranja}
+\multicolumn{6}{c}{INFORMACION SISTEMA HOST}\\\hline
+
+COLUMN\_NAME
+& DATA\_TYPE
+& NULLABLE
+& DATA\_DEFAULT
+& COLUMN\_ID
+& COMMENTS  \\
+
+
+  \midrule
+  \endfirsthead
+
+  \toprule
+\rowcolor{naranja}
+\multicolumn{6}{c}{INFORMACION SISTEMA HOST}\\\hline
+COLUMN\_NAME
+& DATA\_TYPE
+& NULLABLE
+& DATA\_DEFAULT
+& COLUMN\_ID
+& COMMENTS  \\
+  \midrule
+  \endhead
+
+  \hline \multicolumn{6}{r}{continúa...} \\
+  \endfoot
+
+  \bottomrule
+  %\caption*{\scriptsize \textbf{Fuente}: Datos administrativos del IESS.\\\textbf{Elaborado}: DAIE.}
+  \endlastfoot
+
+CEDIDEUSU & VARCHAR2(10 BYTE) & No & & 1 & \\
+NUMPAT    & VARCHAR2(13 BYTE) & No & & 2 & \\
+CODSEC    & CHAR(1 BYTE)      & No & & 3 & \\
+CODTIPSEG & VARCHAR2(3 BYTE)  & No & & 4 & \\
+CODANI    & NUMBER(4,0)       & No & & 5 & \\
+CODMES    & NUMBER(2,0)       & No & & 6 & \\
+TIPPLA    & CHAR(1 BYTE)      & No & & 7 & \\
+CODREG    & VARCHAR2(2 BYTE)  & Yes & & 8 & \\
+FECREGAPO & VARCHAR2(8 BYTE)  & Yes & & 9 & \\
+VALDIV    & NUMBER(10,4)      & Yes & & 10 & \\
+NUMDIATRA & VARCHAR2(2 BYTE)  & Yes & & 11 & \\
+
+
+
+\end{longtable}
+\endgroup
+
+\end{itemize}
+
+No se hace un análisis detallado por cada tabla del esquema, pues ampliaría innecesariamente la longitud del presente documento. Es por ello que, en las tablas \ref{tab:info_KSPCOTEMPTIP}, \ref{tab:info_KSRECTPLADET}, \ref{tab:info_KSRECTPLANILLAS}, \ref{tab:info_KSPCOTREGCIV} , \ref{tab:info_PRESTACIONES}, \ref{tab:info_BENEFICIARIOS}, \ref{tab:info_ROL_PERIODO} y \ref{tab:info_KSMIGTAPORTES} se plasma una descripción general del contenido y la estructura de cada una de ellas.\\
+
+Ahora bien, las tablas presentadas anteriormente son independientes entre si, por lo que necesitan integrarse de manera conjunta para tener  información consolidada y alcanzar el objetivo planteado. El código \textit{.sql} empleado proporciona los atributos necesarios para la obtención de la información inicial, misma que se someterá al proceso KDD. \\
+
+A continuación se presenta el código utilizado:
+
+\begin{lstlisting}[style=sqlstyle]
+-- JUBILADOS DE VEJEZ, INVALIDEZ Y DISCAPACIDAD QUE HAYAN ACCEDIDO AL DERECHO ENTRE 2012 Y 2022
+create table jub_cd656 tablespace tb_actuarial as
+select pres.asegurado cedula, decode(rc.genper,'1','H','2','M') sexo, rc.fecnacper fecha_nacimiento
+--, trunc(months_between(pres.fecha_derecho, rc.fecnacper)/12,0) edad_al_derecho
+, min(pres.fecha_derecho) fecha_derecho, max(pres.numero_imposiciones) num_imposiciones
+ , case when pres.tipo_prestacion in ('ER','JV','MM','MP') then 'VEJEZ'
+        when pres.tipo_prestacion in ('JI','IN') then 'INVALIDEZ'
+        when pres.tipo_prestacion in ('DV') then 'DISCAPACIDAD' end tipo_prestacion
+from pensiones_owner.prestaciones pres 
+left join iess_owner.kspcotregciv rc on rc.cedideusu = pres.asegurado
+where pres.tipo_seguro  in ('SG','ZF','TE','CE')
+and pres.tipo_prestacion in ('ER','JV','MM','MP','JI','IN','DV') 
+and pres.estado_prestacion not in ('X')
+and extract(year from pres.fecha_derecho) between 2012 and 2022
+group by pres.asegurado, decode(rc.genper,'1','H','2','M'), rc.fecnacper
+--, trunc(months_between(pres.fecha_derecho, rc.fecnacper)/12,0)
+, case when pres.tipo_prestacion in ('ER','JV','MM','MP') then 'VEJEZ'
+        when pres.tipo_prestacion in ('JI','IN') then 'INVALIDEZ'
+        when pres.tipo_prestacion in ('DV') then 'DISCAPACIDAD' end;
+-- 7 seg
+select count(1), count(distinct cedula) from jub_cd656;
+-- 405.025	404.718
+
+-- TRASPONER TIPO PRESTACION
+create table tras_tp tablespace tb_actuarial as
+select * from (select cedula, tipo_prestacion from jub_cd656
+)
+pivot 
+(
+   count(1)
+   for(tipo_prestacion) in ('VEJEZ' as VEJ, 'INVALIDEZ' as INV, 'DISCAPACIDAD' as DIS)
+);
+-- 1 seg
+select count(1) n_reg, count(distinct cedula) n_ced from tras_tp;
+-- 404.718	404.718
+
+-- PEGAR TIPO PRESTACION
+create table pob_cd656 tablespace tb_Actuarial as
+select t1.cedula, t1.sexo, t1.fecha_nacimiento, min(t1.fecha_derecho) fecha_derecho, max(t1.num_imposiciones) num_imposiciones
+, case when vej = 1 then 'VEJ;' when vej = 0 then null end vej
+, case when inv = 1 then 'INV;' when inv = 0 then null end inv
+, case when dis = 1 then 'DIS;' when dis = 0 then null end dis
+from jub_cd656 t1
+inner join tras_tp t2 on t2.cedula = t1.cedula
+group by t1.cedula, t1.sexo, t1.fecha_nacimiento
+, case when vej = 1 then 'VEJ;' when vej = 0 then null end
+, case when inv = 1 then 'INV;' when inv = 0 then null end
+, case when dis = 1 then 'DIS;' when dis = 0 then null end;
+-- 1 seg
+select count(1) n_reg, count(distinct cedula) n_jub from pob_cd656;
+-- 404.718	404.718 -- Ok.
+---------------------- TRAER LOS ULTIMOS 5 AÑOS DE APORTES CON SU SECTOR--------------------------
+-- OBTENER APORTES DE HISTORIA LABORAL Y DE HOST
+create table pob_cd656_apo tablespace tb_actuarial as
+select dt.numafi, dt.rucemp, dt.aniper, dt.mesper, dt.valsue,  to_char(dt.numdialab) numdialab
+, case when tpe.codsec = 'P' then
+       case when (dt.rucemp = dt.numafi || '001' and dt.codreltra  not in ('74','75')) then 'INDEPENDIENTES'
+        else 'PUBLICO' end
+       when tpe.codsec = 'R' then
+       case when (dt.rucemp = dt.numafi || '001' and dt.codreltra  not in ('74','75')) then 'INDEPENDIENTES'
+        else 'PRIVADO' end
+       when tpe.codsec = 'V' then 'VOLUNTARIO'
+       end sector
+from iess_owner.ksrectpladet dt
+inner join iess_owner.ksrectplanillas pla
+           on dt.rucemp = pla.rucemp and dt.codsuc = pla.codsuc and dt.codtippla = pla.codtippla and dt.tipper = pla.tipper 
+           and dt.aniper = pla.aniper and dt.mesper = pla.mesper AND dt.secpla = pla.secpla
+left join iess_owner.kspcotemptip tpe on tpe.codtipemp = dt.codtipemp 
+where dt.numafi in (select cedula from tras_tp)
+and dt.codtippla in ('A', 'AA', 'RA', 'EX','ATH','ATJ') and pla.esttippla <> 'ANU' and pla.valnorpla > 0
+and tpe.codsec IN ('P', 'R', 'V') and dt.mesper between 1 and 12
+union all
+select host.cedideusu, host.numpat, host.codani, host.codmes, valdiv, host.numdiatra, 'SGO' sector
+from hist_iessmigra.ksmigtaportes host
+left join iess_owner.kspcotemptip tpe on tpe.codtipemp = host.codtipemp
+where host.cedideusu in (select cedula from tras_tp)  
+and host.codmes between 1 and 12;
+-- 275 seg
+select count(numafi), count(distinct numafi) from pob_cd656_apo;
+-- 155.768.635	404.695
+select sector, count(numafi), count(distinct numafi) from pob_cd656_apo group by sector order by sector;
+-- 
+-- AGRUPAR POR CEDULA, ANIO, MES, SUMAR DIAS, CONTAR REGISTROS, CONTAR EMPLEADORES
+create table pob_cd656_apo_ag tablespace tb_actuarial as
+select numafi, aniper anio, mesper mes, sum(valsue) sueldo, sum(to_number(numdialab)) numdialab
+, count(1) n_registros, count(distinct rucemp) n_empleadores, sector
+, to_date('01/'|| mesper || '/' || aniper)  fecha_aporte
+from pob_cd656_apo
+group by numafi, aniper, mesper, sector, to_date('01/'|| mesper || '/' || aniper);
+-- 738 seg
+-- 760 seg
+
+select count(1), count(distinct numafi) from pob_cd656_apo_ag;
+-- 136.734.763	404.695
+select numafi, anio, mes from pob_cd656_apo_ag group by numafi, anio, mes having count(1)> 1 order by numafi, anio, mes;
+-- CASI 1 millon 200 tienen mas de un sector en un-- ACTUALIZAR DIAS TRABAJADOS A 30 DIAS PARA MAYORES A 30
+
+-- TRASPONER SECTOR
+create table tras_cot tablespace tb_actuarial as
+select * from (select numafi, anio, mes, sector from pob_cd656_apo_ag
+)
+pivot 
+(
+   count(1)
+   for(sector) in ('PUBLICO' as PUB, 'PRIVADO' as PRI, 'VOLUNTARIO' as VOL, 'INDEPENDIENTES' as IND, 'SGO' as SGO)
+);
+-- 213 seg
+select count(1) n_Reg, count(distinct numafi) n_afi from tras_cot;
+-- 135.566.861	404.695
+select count(distinct numafi || anio||mes) n_Reg from tras_cot;
+-- 135.566.861 --Ok.
+update tras_cot set pub = 1 where pub >1;-- 0
+update tras_cot set pri = 1 where pri >1;-- 0
+update tras_cot set vol = 1 where vol >1;
+update tras_cot set ind = 1 where ind >1;
+update tras_cot set sgo = 1 where sgo >1;
+
+create table tras_cot_c1 tablespace tb_actuarial as
+select numafi, anio, mes 
+, case when pub = 1 then 'PUB;' when pub = 0 then null end pub 
+, case when pri = 1 then 'PRI;' when pri = 0 then null end pri 
+, case when vol = 1 then 'VOL;' when vol = 0 then null end vol 
+, case when ind = 1 then 'IND;' when ind = 0 then null end ind 
+, case when sgo = 1 then 'SGO;' when sgo = 0 then null end sgo
+from tras_cot;
+
+create table tras_cot_c2 tablespace tb_actuarial as
+select numafi, anio, mes 
+, pub || pri|| vol|| ind || sgo sector
+from tras_cot_c1;
+-- 45 seg
+select count(1) n_reg, count(distinct numafi||anio||mes) n_dist from tras_cot_c2;
+-- 135.566.861	135.566.861 -- Ok.
+
+-- #PEGAR EL SECTOR #
+create table cot_cd_656 tablespace tb_actuarial as
+select t1.numafi, t1.anio, t1.mes, t2.sector, fecha_aporte, sum(sueldo) sueldo, sum(numdialab) numdialab
+from pob_cd656_apo_ag t1
+inner join tras_cot_c2 t2 on t2.numafi = t1.numafi and t2.anio = t1.anio and t2.mes = t1.mes
+group by t1.numafi, t1.anio, t1.mes, t2.sector, fecha_aporte;
+-- 376 seg
+select count(1) n_reg, count(distinct numafi||anio||mes) n_dist from cot_cd_656;
+-- 135.566.861	135.566.861 -- Ok.
+
+update cot_cd_656 set numdialab = 30 where numdialab > 30;
+commit;
+-- 979,063 rows updated.
+select numdialab, count(1) n_reg from cot_cd_656 group by numdialab order by numdialab;-- Ok.
+--------------------------------------
+-- ASIGNAR RANKING DE APORTES DE ECHA DESCENDENTES POR CEDULAS
+create table rank_cot tablespace tb_actuarial as
+select numafi, anio, mes, sector, numdialab, sum(sueldo) sueldo, rank() over (partition by numafi order by anio desc, mes desc) ranking
+from cot_cd_656
+where sueldo > 0
+group by numafi, anio, mes, numdialab, sector;
+-- 380 seg
+
+select count(1), count(distinct numafi) from rank_cot;
+-- 133.522.955	404.627
+
+-- TOMAR LOS ULTIMOS 60 MESES
+create table ulti_60_cot tablespace tb_actuarial as
+select * from rank_cot 
+where ranking <= 60; 
+-- 11 seg 
+select count(1), count(distinct numafi) from ulti_60_cot;
+-- 24.213.034	404.627
+select numdialab, count(1), count(distinct numafi) from ulti_60_cot group by numdialab order by numdialab;
+
+select sector, count(1) n_Reg from ulti_60_cot group by sector order by sector;
+-- comprobar estos 
+-- PRI;VOL;IND;	28
+-- PUB;PRI;IND;	1371
+select * from ulti_60_cot where sector = 'PRI;VOL;IND;';
+-- ES CORRECTO
+
+-- TOMAR SOLO LOS JUBILADOS QUE TUVIERON AL MENOS UNA COTIZACION COMO INDEPENDIENTES EN LOS ULTIMOS 5 AÑOS
+create table ult_60cot_cd656 tablespace tb_Actuarial as
+select numafi cedula, decode(substr(numafi,1,1),'1','*!-','2','#%&','3','%+/','4','&@&','5','$*#','6','@!-','7','+%&','8','/+/','9','-@&','0','!#+') ||
+ decode(substr(numafi,2,1),'1','*!-','2','#%&','3','%+/','4','&@&','5','$*#','6','@!-','7','+%&','8','/+/','9','-@&','0','!#+') ||
+ decode(substr(numafi,3,1),'1','*!-','2','#%&','3','%+/','4','&@&','5','$*#','6','@!-','7','+%&','8','/+/','9','-@&','0','!#+') ||
+ decode(substr(numafi,4,1),'1','*!-','2','#%&','3','%+/','4','&@&','5','$*#','6','@!-','7','+%&','8','/+/','9','-@&','0','!#+') ||
+ decode(substr(numafi,5,1),'1','*!-','2','#%&','3','%+/','4','&@&','5','$*#','6','@!-','7','+%&','8','/+/','9','-@&','0','!#+') ||
+ decode(substr(numafi,6,1),'1','*!-','2','#%&','3','%+/','4','&@&','5','$*#','6','@!-','7','+%&','8','/+/','9','-@&','0','!#+') ||
+ decode(substr(numafi,7,1),'1','*!-','2','#%&','3','%+/','4','&@&','5','$*#','6','@!-','7','+%&','8','/+/','9','-@&','0','!#+') ||
+ decode(substr(numafi,8,1),'1','*!-','2','#%&','3','%+/','4','&@&','5','$*#','6','@!-','7','+%&','8','/+/','9','-@&','0','!#+') ||
+ decode(substr(numafi,9,1),'1','*!-','2','#%&','3','%+/','4','&@&','5','$*#','6','@!-','7','+%&','8','/+/','9','-@&','0','!#+') ||
+ decode(substr(numafi,10,1),'1','*!-','2','#%&','3','%+/','4','&@&','5','$*#','6','@!-','7','+%&','8','/+/','9','-@&','0','!#+') cedula_cod 
+, t2.sexo, t2.fecha_nacimiento, t2.fecha_Derecho, t2.num_imposiciones, t2.vej || t2.inv||t2.dis tipo_pres
+, anio, mes, sector, numdialab,sueldo base_aportacion, ranking num_cot
+from ulti_60_cot t1
+inner join pob_cd656 t2 on t2.cedula = t1.numafi
+where sector like '%IND%';
+-- 9 seg
+select count(1) n_reg from ult_60cot_cd656;
+-- 2.743.152--Ok.
+
+-- ELIMINAR INNECESARIAS
+drop table pob_cd656_apo purge;
+drop table pob_cd656_apo_ag purge;
+drop table rank_cot purge;
+drop table sum_pob_cd656_apo purge;
+\end{lstlisting}
+
+De manera general, el código anterior obtiene la información de los pensionistas del IESS para el período 2012-2023. Luego agrega la variable del tipo de prestación (vejez, invalidez o discapacidad). Después se calcula los aportes de las personas de HL y de Host durante toda la vida laboral; y, finalmente se estima el número de imposiciones de cada pensionista.\\
+
+Un hecho importante de mencionar es que se considera la información del \textit{Registro Civil}, con la finalidad de tener variables personales lo más reales posibles. Esto debido a que se evidenció que los registros administrativos del IESS están contaminados y son inconsistentes desde su origen\footnote{Inicialmente la generación de planillas era de forma manual y en documentos físicos, por lo que una vez que pasaron a digitalizarse arrastraron un sinnúmero de novedades pues era un proceso manual}. Los novedades encontradas eran mal ingreso del sexo (por ejemplo existían categorías con valores de H, M, 1, 2, null, hombre, mujer), fechas de nacimiento y muerte erróneas (existían personas que murieron antes de nacer o nacían por el año 2030) y en distintos formatos (por ejemplo dd/mm/yyy, yyyy/dd/mm, mm/dd/yyyy ); y, en muchos casos una alta presencia de missing values.\\
+
+La solución a cada problema detectado, con el fin de tener información adecuada, requiere de un amplio tiempo de análisis y ejecución, además de que se debía realizar un procesamiento desde el origen de los datos (registros administrativos de datan desde el 13 de marzo de 1928 (\href{https://www.iess.gob.ec/en/web/afiliado/noticias?p_p_id=101_INSTANCE_3dH2&p_p_lifecycle=0&p_p_col_id=column-2&p_p_col_count=4&_101_INSTANCE_3dH2_struts_action=\%2Fasset_publisher\%2Fview_content&_101_INSTANCE_3dH2_assetEntryId=2246192&_101_INSTANCE_3dH2_type=content&_101_INSTANCE_3dH2_groupId=10174&_101_INSTANCE_3dH2_urlTitle=iess-celebra-hoy-86-anos-de-servicio-al-pais&redirect=\%2Fen\%2Fweb\%2Fafiliado\%2Fnoticias?mostrarNoticia=1#:~:text=Posteriormente\%2C\%20el\%2025\%20de\%20julio,Ecuatoriano\%20de\%20Seguridad\%20Social\%2DIESS.}{click aquí})) y en distintos sistemas de datos. Por ello, con el fin de reducir los tiempos de análisis se hizo merge por DNI (foreing key) entre las tablas del IESS y el Registro Civil para tener información personal estándar y consistente.
+
