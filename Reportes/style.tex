@@ -71,11 +71,15 @@
   linktoc = page]{hyperref}
   
 \setlength{\parskip}{0.9\baselineskip} % espacio entre parrafos
-
-%\usepackage[backend=biber, style=apa]{biblatex}
-
+\usepackage{setspace}
 
 
+\usepackage{etoolbox}  
+
+\newcommand{\citetitle}[1]{%
+    \textit{\bibentry{#1}}%
+}
+\usepackage{bibentry}     % Para usar \bibentry
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %------------------COMANDOS PARA EL TIPO DE LETRA---------------------------%

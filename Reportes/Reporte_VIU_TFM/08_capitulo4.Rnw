@@ -2,14 +2,86 @@
 
 \section{Contexto y problema planteado}
 
-Conforme a lo expuesto en el capítulo introductorio y en consonancia con los objetivos planteados, el propósito de este trabajo de fin de máster es que, mediante las aportaciones que los pensionistas realizaron durante su vida laboral, detectar mediante técnicas de aprendizaje no supervizado aquellas que son fraudentan y luego generar un modelo de aprendizaje supervizado que me permita discrimnar los perfiles de las potenciales personas que podrían realizar fraude en función del comportamiento de su materia gravada\footnote{Es todo ingreso susceptible de apreciación pecuniaria, percibido por la persona afiliada, o en caso del trabajo no remunerado del hogar, por su unidad económica familiar.} de sus aportaciones.\\
+Conforme a lo expuesto en el capítulo introductorio y en consonancia con los objetivos planteados, el propósito de este trabajo de fin de máster es que, mediante las aportaciones que los pensionistas realizaron durante su vida laboral, detectar mediante técnicas de aprendizaje no supervizado aquellas que son fraudentan y luego generar un modelo de aprendizaje supervizado que me permita discrimnar los perfiles de los potenciales afiliados que podrían realizar un tipo de fraude en función del comportamiento de su materia gravada\footnote{Es todo ingreso susceptible de apreciación pecuniaria, percibido por la persona afiliada, o en caso del trabajo no remunerado del hogar, por su unidad económica familiar.} para la generación de sus aportaciones.\\
 
-En primer paso es la generación de una adecuado proceso KKD (en función de lo descrito en la seccón xxxxx), para que a partir de los datos primarios generar el conocimiento adecuado que me permia dar solución al problema planteado. En las siguientes secciones de mostrara cada una de las fases del proceso KKD.
+En primer paso es la generación de una adecuado proceso KKD (en función de lo descrito en la seccón xxxxx), para que a partir de los datos primarios que dispone el IESS, generar el conocimiento adecuado que permita dar solución al problema planteado. En las siguientes secciones de muestra cada una de las fases del proceso KKD.
 
-Un aspecto importante a considerar es que la información inicial con la cual se genero la primera parte del proceso KDD es resultado de un preprocesamiento a las bases transaccionales del IESS, por lo que, su manipulación fue realizada mediante lenguaje SQL en el sistema oracle. El esque de las tablas transacionales y el código utilizado para la generación de la información inicial se detallan en el anexo \ref{cap:anexo1}.
+Un aspecto importante a considerar es que la información inicial con la cual se generó la primera parte del proceso KDD es resultado de un preprocesamiento a las bases transaccionales del IESS, por lo que, su manipulación fue realizada mediante lenguaje \textit{pl/SQL} en la base de datos \textit{oracle}. El esquema de las tablas transacionales y el código utilizado para la generación de la información inicial se detallan en el anexo \ref{cap:anexo1}.
+
+Adicionalmente, es preciso indicar que todo el proceso de limpieza, preprocesamiento y transformación de datos se lo realizó usando el lenguaje de programación \textit{Python} mediante versionamiento a través de la herramienta \textit{git}, creando un repositorio en Github. El nombre de este repositorio es \textit{VIU\_TFM} (Véase Repositorio Github-Trabajo de Fin de máster-VIU\_TFM(\citeyear{CristianVIUTFM})). En este repositorio se encuentran script de python que fueron utilizados para alcanzar el objetivo planteado y script de R utilizados en la edición en formato \texttt{\LaTeX}.
 
 
+\section{Fuente de datos}
 
-que para la generación de la información se realizaron varios procesos de 
+Dentro de todas las fuentes de información que dispone el Instituto Ecuatoriano de Seguridad Social, se consideran las bases de datos transaccionales que guardan la información de Historia Laboral\footnote{El componente de Historia Laboral (HL) contiene la información de la vida laboral del afiliado, que incluye características como su información personal, empresa donde trabaja o trabajó, su fecha de primera aportación, las salidas del sistema, reingresos, aportes,
+sueldos, transiciones entre seguros, etc. La HL se encuentra cargada dentro del esquema
+iess\_owner} y Prestacional\footnote{El componente Prestacional contiene de manera general la información del pensionista del IESS, incluyendo campos como su información personal, monto de su pensión,
+incrementos o mejoras en la pensión, tipo del seguro en que solicitó la pensión, etc. Este
+componente se encuentra cargado dentro del esquema pensiones\_owner}. Adicionalmente, la información se complementa con los datos proporcionados por Registro Civil (entidad pública que guarda los datos personales de la población ecuatoriana)
 
-considerar es que la base de datos que se ha utilizado consta de varios millones de registros, por lo que, 
+\section{Selección de datos}
+
+Para tener información consolidada se debía de hacer joins entre las tablas de la sección \ref{sec:fuentes_datos} de la parte de anexos, lo cual implicaba tener en la tabla final un sinnúmero de variables que no estaban relacionadas directamente con el problema a abordar. De esta manera, de todo el conjunto de atributos iniciales se seleccionaron aquellos que permitirán describir el comportamiento del actual afiliado y abordar el objetivo planteado dentro de nuestro proceso KDD. Los atributos seleccionados son los siguientes:
+
+Para el afiliado
+
+\begin{multicols}{2}  
+    \begin{itemize}
+        \item CEDULA\_COD: Secuencial que indentifica al afiliado,\\[-0.75cm]
+        \item ANIO: Corresponde al año del pago de la planilla del afiliado,\\[-0.75cm]
+        \item MES: Corresponde al mes del pago de la planilla del afilaido,
+    \end{itemize}
+    \begin{itemize}  
+        \item CODSEC: Corresponde a la abreviación del sector en el cual trabajó el afiliado,\\[-0.75cm]
+        \item SECTOR: Corresponde al sector en el cual trabajó el afiliado,\\[-0.75cm]
+        \item SALARIO: Corresponde al salario sobre el cual aporte el afiliado,
+    \end{itemize}
+\end{multicols}
+
+Para el pensionista
+
+\begin{multicols}{2}  
+    \begin{itemize}
+        \item CEDULA\_COD: Secuencial que indentifica al pensionista,\\[-0.75cm]
+        \item SEXO: Corresponde al sexo del pensionista,\\[-0.75cm]
+        \item FECHA\_NACIMIENTO: Corresponde a la fecha de nacimiento del pensionista,\\[-0.75cm]
+        \item FECHA\_MUERTE: Corresponde a la fecha de muerte del pensionista,\\[-0.75cm]
+        \item FECHA\_DERECHO: Corresponde a la fecha de derecho\footnote{Es la fecha en la cual una persona tiene derecho a solicitar su jubilación} del pensionista,\\[-0.75cm]
+    \end{itemize}
+    \begin{itemize}  
+        \item NUMERO\_IMPOSICIONES: Corresponde al número de imposiciones\footnote{Una imposición correspnde a treinta (30) días laborados} al momento de la jubilación,\\[-0.75cm]
+        \item COEFICIENTE\_REAL: Corresponde al valor del coeficiente\footnote{Es el valor del coeficiente anual de años cumplidos de imposiciones acorde a la Resolución C.D. 100 (\citeyear{ResIESS_CD100})} dentro del sistema Prestacional,\\[-0.75cm]
+        \item COEFICIENTE\_CALCULADO: Corresponde al valor del coeficiente calculado en base a la historia laboral,\\[-0.75cm]
+        \item PROMEDIO\_SUELDO\_REAL: Corresponde a la base de calculo\footnote{Para el cómputo de la base de cálculo de la pensión, se procederá a la suma de doce (12) meses de imposiciones consecutivas y ese resultado se dividirá para doce (12). Obtenido así el promedio mensual de los sueldos o salarios de cada año de imposiciones del afiliado, se seleccionarán los cinco (5) promedio mensuales de mayor cuantía y el resultado de la suma se dividirá para cinco (5)} del promedio de los años de mejores sueldos o salarios sobre los cuales se aportó dentro del sistema Prestacional,\\[-0.75cm]
+        \item PROMEDIO\_CAL: Corresponde al la base de cálculo estimada en función de los cinco (5) mejroes años de sueldo sobre los cuales aportó,\\[-0.75cm]
+        \item VALOR\_PENSION: Corresponde a la pensión calculada en el sistema Prestacional,\\[-0.75cm]
+        \item PENSION\_CAL: Corresponde a la pensión calculada en función del artículo 13\footnote{La pensión mensual por invalidez o vejez y el subsidio transitorio por incapacidad será igual al resultado de la multiplic la Resolución C.D. 100 (\citeyear{ResIESS_CD100}), por el coeficiente anual de años cumplidos de imposiciones. De los 40 años en adelante se incrementará el 0,0125 por cada año de imposiciones adicionales.} de la Resolución C.D. 100 (\citeyear{ResIESS_CD100}),\\[-0.75cm]
+        \item ID\_PRESTACION: Corresponde al identificador único de la prestación,\\[-0.75cm]
+        \item RANGO\_INI\_5MEJ: Corresponde a la fecha máxima de los cinco (5) mejores años de sueldo,\\[-0.75cm]
+        \item RANGO\_FIN\_5MEJ: Corresponde a la fecha mínima de los cinco (5) mejores años de sueldo,\\[-0.75cm]
+        \item N\_MESES: Corresponde al número de meses trabajados
+
+    \end{itemize}
+\end{multicols}
+
+Para el paso de los pensionistas, se trabajo para las jubilaciones de vejez, invalidez y discapacidad.
+
+\section{Limpieza de datos}\label{cha_resul:limpieza}
+
+\subsection{Datos previos a la aplicación de aprendizaje no supervizado}
+
+Además de considerar las explicaciones dadas en el penúltimo párrafo de la sección \ref{sec:fuentes_datos} de la parte de anexos, es importante mencionar que el conjunto de datos de los afiliados no va a presentar problemas con missing values ni datos inconsistentes en ningún atributo, debido a que estas novedades ya se resolvieron con anterioridad (desde el comienzo de construcción del dataset original). Por otro parte, la base de datos de pensionistas en ciertos atributos si van a presentar problemas con datos perdidos, como por ejemplo la \textit{FECHA\_MUERTE}\footnote{Debido a que a la fecha de corte no todos los pensionistas estpan muertos}, \textit{NUMERO\_IMPOSICIONES}\footnote{Debido a que como el sistema del IESS tiene dos fuentes de información (HL Y HOST) algunos regustros no están correctamente migrados}, etc.
+
+El dataset de los afiliados contiene 68.062.270 filas y 12 columnas, el conjunto de datos de los pensionistas de vejez tiene 681.799 filas con 17 columnas, el de invalidez tiene 48.146 filas y 17 columnas  y los datos de discapacidad tiene 14.662 filas y 17 columnas.
+
+\subsection{Datos previos a la aplicación de aprendizaje supervizado}
+
+\section{Transformación de datos}
+
+\subsection{Datos previos a la aplicación de aprendizaje no supervizado}
+
+Con la finalidad de aliviar el costo computacional, se transforman variables en atributos más sencillos y se crean variables que permitirán alcanzar el objetivo planteado. A manera general, todo el proceso de transformación de datos se describe en la sección \ref{sec:limpieza_datos} de la parte de anexos. Si el lector desea tener una experiencia más didáctica con todo el proceso, puede hacerlo visualizando el archivo  \textit{VIU\_clean\_data.ipynb} de \textit{Guatemal A.} (\citeyear{CristianVIUTFM}).
+
+\subsection{Datos previos a la aplicación de aprendizaje supervizado}
+
+Una vez que finalizado el 

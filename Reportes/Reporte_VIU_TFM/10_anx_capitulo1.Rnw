@@ -749,3 +749,10 @@ Un hecho importante de mencionar es que se considera la información del \textit
 
 La solución a cada problema detectado, con el fin de tener información adecuada, requiere de un amplio tiempo de análisis y ejecución, además de que se debía realizar un procesamiento desde el origen de los datos (registros administrativos de datan desde el 13 de marzo de 1928 (\href{https://www.iess.gob.ec/en/web/afiliado/noticias?p_p_id=101_INSTANCE_3dH2&p_p_lifecycle=0&p_p_col_id=column-2&p_p_col_count=4&_101_INSTANCE_3dH2_struts_action=\%2Fasset_publisher\%2Fview_content&_101_INSTANCE_3dH2_assetEntryId=2246192&_101_INSTANCE_3dH2_type=content&_101_INSTANCE_3dH2_groupId=10174&_101_INSTANCE_3dH2_urlTitle=iess-celebra-hoy-86-anos-de-servicio-al-pais&redirect=\%2Fen\%2Fweb\%2Fafiliado\%2Fnoticias?mostrarNoticia=1#:~:text=Posteriormente\%2C\%20el\%2025\%20de\%20julio,Ecuatoriano\%20de\%20Seguridad\%20Social\%2DIESS.}{click aquí})) y en distintos sistemas de datos. Por ello, con el fin de reducir los tiempos de análisis se hizo merge por DNI (foreing key) entre las tablas del IESS y el Registro Civil para tener información personal estándar y consistente.
 
+\section{Limpieza y transformación de datos} \label{sec:limpieza_datos}
+
+\subsection{Para los afiliados}
+
+Para aliviar el costo computacional, se transforma a la variable \textit{SECTOR}, del sector en donde trabajo el afiliado, por abreviaciones más simples. Por ejemplo, a la relación de trabajo \textit{PRIVADO} se le abrevia por \textit{PRI} y así respectivamente. De acuerdo a la Resolución C.D. 100 (\citeyear{ResIESS_CD100}), el mínimo número de imposiciones que debe tener una persona para solicitar la jubilción es 60 imposiciones, por lo que, se eliminar los registros de las cedulas que tienen menos de 60 imposiciones.
+
+Como el sistema de información del afiliado del IESS migro del \textit{Host} (funcionó hasta el año 2004) a \textit{Historia laboral} (del año 2005 hasta la presente fecha), es necesario recurrir a la normativa del Seguro IVM para tener un estimación de las tasas de aportación y prima actuarial. En este sentido, revisando las resoluciones  
