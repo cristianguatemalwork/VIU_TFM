@@ -2,12 +2,17 @@
 
 \section{Objetivo general}
 
+\begin{enumerate}
+\item Detectar las aportaciones fraudulentas que los afiliados realizaron durante su vida laboral en el IESS, con la finalidad de recibir un mayor pensión de jubilación
+\end{enumerate}
 
 
 \section{Objetivos específicos}
 
 \begin{enumerate}
-\item 
+\item Implementar algoritmos de aprendizaje no supervizado para la detección de aportaciones atípicas
+\item Generar la clasificación del individuo en atípico o no atípico en función de los aportes a lo largo de su vidad laboral
+\item Desplegar algoritmos de aprendizaje supervizado para la estimación de unb modelo que me permita predecir si los actuales afiliados generaron fraude
 \end{enumerate}
 
 % \section{Prueba sección}\label{sec:sec2.1}

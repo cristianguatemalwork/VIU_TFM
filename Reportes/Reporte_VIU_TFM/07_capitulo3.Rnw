@@ -1,18 +1,38 @@
 \chapter{Estado del arte y marco teórico}\label{cap:estado_arte}
 
+\section{Machine Learning}\label{sec:machine_learning}
+
+El Machine Learning comprende un conjunto de algoritmos y modelos computacionales evolutivos, los cuales se han diseñado con el fin de reproducir la inteligencia humana aprendiendo y mejorando su rendimiento a partir de los datos del entorno sin la intervención humana o tareas explícitamente programadas. Esto lo hacen analizando los diferentes patrones y relaciones de los datos y, en base de ellos, obtener los resultados \citep{ElNaqa2015}.
+
+Este tipo de modelos se utiliza principalmente en problemas que requieren ajustes complejos o un número de reglas, ya que estas técnicas simplifican el código y mejoran el rendimiento. También son eficaces para problemas complejos donde las técnicas tradicionales no obtienen buenas soluciones, así como en entornos dinámicos, en los cuales su capacidad para reentrenarse fácilmente con nuevos datos permite mantener el modelo actualizado. Además, son útiles para la obtención de información de problemas complejos y grandes volúmenes de datos \citep{geron2023hands}. 
+
+\subsection{Algoritmos no supervisados}\label{sec:no_supervisados}
+
+Los algoritmos no supervisados son un enfoque del Aprendizaje Automático o Machine Learning, cuyo objetivo es detectar patrones en puntos que no tienen estructura o etiquetas, por lo que en este enfoque, el modelo es provisto únicamente de los datos de entrada pero no de los resultados asociados de salida. Por la naturaleza del mismo, no se necesita de supervisión humana, ya que el mismo modelo identifica y analiza los datos. \citep{alloghani2020systematic}
 
 
-% La Contiru \cite{Cons:Ecu_2008}
-% 
-% \LaTeX{} \cite{latex2e} is a set of macros built atop \TeX{} \cite{texbook}.
-% 
-% \appendix
-% \chapter{Anexo I: Ejemplo de anexo}\label{cap:anexo1}
-% Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-% 
-% Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-% \chapter{Anexo II: Otro ejemplo de anexo}\label{cap:anexo2}
-% Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-% 
-% Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+Varios problemas del entorno cuentan con datos que no están etiquetados, y etiquetarlos resulta en un proceso que consume una gran cantidad de tiempo y requiere intervención humana. Por lo tanto, la importancia de estos algoritmos radica en que los mismo permiten automatizar el proceso de codificación, y de esta forma, ayudan a la investigación de datos no procesados o desconocidos. También, por su naturaleza, estos modelos con útiles para trabajar con una gran cantidad de datos y detectar patrones. \citep{naeem2023unsupervised}
+
+\subsubsection{K Means}\label{sec:k_means}
+
+El algoritmo k-Means es un algoritmo de agrupamiento no supervisado, que agrupa o clasifica datos en grupos tomando en cuenta su similitud. Su objetivo es dividir los datos en k conjuntos definidos, donde k es un parámetro de entrada. La agrupación se dará de forma que la distancia de los puntos a los centroides de cada grupo sean minimizadas, asegurando la similaridad de los datos pertenecientes a cada grupo. El funcionamiento de este algoritmo sigue los siguientes pasos: en primer lugar, se seleccionan arbitrariamente k elementos de la base de datos como las medias o centroides iniciales de los clústeres, se calcula la distancia de cada elemento hacia los centros de los clústeres y se asignan al clúster más cercano. Posteriormente, se vuelve a calcular el centroide de cada clúster como la media de los elementos que pertenecen al mismo. Finalmente, se repiten el paso 1 y 2 hasta que no haya cambio en los elementos que forman parte de cada conjunto \citep{kanagala2016comparative}.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
