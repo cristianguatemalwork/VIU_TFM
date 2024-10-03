@@ -6,9 +6,9 @@ Conforme a lo expuesto en el capítulo introductorio y en consonancia con los ob
 
 En primer paso es la generación de una adecuado proceso KKD (en función de lo descrito en la seccón xxxxx), para que a partir de los datos primarios que dispone el IESS, generar el conocimiento adecuado que permita dar solución al problema planteado. En las siguientes secciones de muestra cada una de las fases del proceso KKD.
 
-Un aspecto importante a considerar es que la información inicial con la cual se generó la primera parte del proceso KDD es resultado de un preprocesamiento a las bases transaccionales del IESS, por lo que, su manipulación fue realizada mediante lenguaje \textit{pl/SQL} en la base de datos \textit{oracle}. El esquema de las tablas transacionales y el código utilizado para la generación de la información inicial se detallan en el anexo \ref{cap:anexo1}.
+Un aspecto importante a considerar es que la información inicial (se llamára \textit{data\_afi}) con la cual se generó la primera parte del proceso KDD es resultado de un preprocesamiento a las bases transaccionales del IESS, por lo que, su manipulación fue realizada mediante lenguaje \textit{pl/SQL} en la base de datos \textit{oracle}. El esquema de las tablas transacionales y el código utilizado para la generación de la información inicial se detallan en el anexo \ref{cap:anexo1}. La fecha de extracción de la información fue a mayo 2024 y el análisis se centra con fecha de corte al 31 de diciembre de 2023. Esta fecha indica que se analizarán todos los registros anteriores a la misma.
 
-Adicionalmente, es preciso indicar que todo el proceso de limpieza, preprocesamiento y transformación de datos se lo realizó usando el lenguaje de programación \textit{Python} mediante versionamiento a través de la herramienta \textit{git}, creando un repositorio en Github. El nombre de este repositorio es \textit{VIU\_TFM} (Véase Repositorio Github-Trabajo de Fin de máster-VIU\_TFM(\citeyear{CristianVIUTFM})). En este repositorio se encuentran script de python que fueron utilizados para alcanzar el objetivo planteado y script de R utilizados en la edición en formato \texttt{\LaTeX}.
+Adicionalmente, es preciso indicar que todo el proceso de limpieza, preprocesamiento y transformación de datos se lo realizó usando el lenguaje de programación \textit{Python} mediante versionamiento a través de la herramienta \textit{git}, creando un repositorio en Github. El nombre de este repositorio es \textit{VIU\_TFM} (Véase \legalcite{CristianVIUTFM}). En este repositorio se encuentran script de python que fueron utilizados para alcanzar el objetivo planteado y script de R utilizados en la edición del presente proyecto en formato \texttt{\LaTeX}.
 
 
 \section{Fuente de datos}
@@ -50,12 +50,12 @@ Para el pensionista
     \end{itemize}
     \begin{itemize}  
         \item NUMERO\_IMPOSICIONES: Corresponde al número de imposiciones\footnote{Una imposición correspnde a treinta (30) días laborados} al momento de la jubilación,\\[-0.75cm]
-        \item COEFICIENTE\_REAL: Corresponde al valor del coeficiente\footnote{Es el valor del coeficiente anual de años cumplidos de imposiciones acorde a la Resolución C.D. 100 (\citeyear{ResIESS_CD100})} dentro del sistema Prestacional,\\[-0.75cm]
+        \item COEFICIENTE\_REAL: Corresponde al valor del coeficiente\footnote{Es el valor del coeficiente anual de años cumplidos de imposiciones acorde a la \legalcite{ResIESS_CD100}} dentro del sistema Prestacional,\\[-0.75cm]
         \item COEFICIENTE\_CALCULADO: Corresponde al valor del coeficiente calculado en base a la historia laboral,\\[-0.75cm]
         \item PROMEDIO\_SUELDO\_REAL: Corresponde a la base de calculo\footnote{Para el cómputo de la base de cálculo de la pensión, se procederá a la suma de doce (12) meses de imposiciones consecutivas y ese resultado se dividirá para doce (12). Obtenido así el promedio mensual de los sueldos o salarios de cada año de imposiciones del afiliado, se seleccionarán los cinco (5) promedio mensuales de mayor cuantía y el resultado de la suma se dividirá para cinco (5)} del promedio de los años de mejores sueldos o salarios sobre los cuales se aportó dentro del sistema Prestacional,\\[-0.75cm]
         \item PROMEDIO\_CAL: Corresponde al la base de cálculo estimada en función de los cinco (5) mejroes años de sueldo sobre los cuales aportó,\\[-0.75cm]
         \item VALOR\_PENSION: Corresponde a la pensión calculada en el sistema Prestacional,\\[-0.75cm]
-        \item PENSION\_CAL: Corresponde a la pensión calculada en función del artículo 13\footnote{La pensión mensual por invalidez o vejez y el subsidio transitorio por incapacidad será igual al resultado de la multiplic la Resolución C.D. 100 (\citeyear{ResIESS_CD100}), por el coeficiente anual de años cumplidos de imposiciones. De los 40 años en adelante se incrementará el 0,0125 por cada año de imposiciones adicionales.} de la Resolución C.D. 100 (\citeyear{ResIESS_CD100}),\\[-0.75cm]
+        \item PENSION\_CAL: Corresponde a la pensión calculada en función del artículo 13\footnote{La pensión mensual por invalidez o vejez y el subsidio transitorio por incapacidad será igual al resultado de la multiplicación de la Base de Cálculo de la \legalcite{ResIESS_CD100}, por el coeficiente anual de años cumplidos de imposiciones. De los 40 años en adelante se incrementará el 0,0125 por cada año de imposiciones adicionales.} de la \legalcite{ResIESS_CD100},\\[-0.75cm]
         \item ID\_PRESTACION: Corresponde al identificador único de la prestación,\\[-0.75cm]
         \item RANGO\_INI\_5MEJ: Corresponde a la fecha máxima de los cinco (5) mejores años de sueldo,\\[-0.75cm]
         \item RANGO\_FIN\_5MEJ: Corresponde a la fecha mínima de los cinco (5) mejores años de sueldo,\\[-0.75cm]
@@ -80,7 +80,35 @@ El dataset de los afiliados contiene 68.062.270 filas y 12 columnas, el conjunto
 
 \subsection{Datos previos a la aplicación de aprendizaje no supervizado}
 
-Con la finalidad de aliviar el costo computacional, se transforman variables en atributos más sencillos y se crean variables que permitirán alcanzar el objetivo planteado. A manera general, todo el proceso de transformación de datos se describe en la sección \ref{sec:limpieza_datos} de la parte de anexos. Si el lector desea tener una experiencia más didáctica con todo el proceso, puede hacerlo visualizando el archivo  \textit{VIU\_clean\_data.ipynb} de \textit{Guatemal A.} (\citeyear{CristianVIUTFM}).
+Con la finalidad de aliviar el costo computacional, se transforman variables en atributos más sencillos y se crean variables que permitirán alcanzar el objetivo planteado. A manera general, todo el proceso de transformación de datos se describe en la sección \ref{sec:limpieza_datos} de la parte de anexos. Si el lector desea tener una experiencia más didáctica con todo el proceso, puede hacerlo visualizando el archivo  \textit{VIU\_clean\_data.ipynb} de \legalcite{CristianVIUTFM}.
+
+A manera general, a continuación se describen las variables que fueron creadas:
+
+\begin{itemize}
+\item SUELDO: Corresponde a la suma de la materia gravada histórica del afiliado hasta el momento de su jubilación, \\[-0.75cm]
+\item APORTE: Corresponde a la suma del aporte\footnote{Es la multiplicación entre la materia gravada del afiliado, mes a mes, con el valor de la tasa de aportación. Estos valores se presentan en la tabla \ref{tab:info_tasa_aport_actuarial} de la sección \ref{sec:limpieza_datos} de la parte de anexo.} del afiliado hasta el momento de su jubilación,\\[-0.75cm]
+\item INTERES: Corresponde a la suma por concepto del interés\footnote{Corresponde a la multiplicación entre la variable APORTE, mes a mes, con la tasa de interés actuarial. Estos valores se presentan en la tabla \ref{tab:info_tasa_aport_actuarial} de la sección \ref{sec:limpieza_datos} de la parte de anexo.} que genero el aporte del afiliado durante su vida laboral.\\[-0.75cm]
+\item FIN\_HL: Corresponde a la fecha de la última planilla genera por concepto de aportes durante a vida laboral del afiliado\\[-0.75cm]
+\item INI\_HL: Corresponde a la fecha de la primera planilla genera por concepto de aportes durante a vida laboral del afiliado\\[-0.75cm]
+\item MES\_AS: Corresponde al número de meses aportados\footnote{Es el conteo del número de veces no únicos, es decir, si una persona aporte dos o más veces en el mismo mes, se le cuenta dos o más veces} durante la vida laboral del afiliado\\[-0.75cm]
+\item MES\_TU: Corresponde al número de meses distintos\footnote{Es el conteo del núemro de meses únicos, es decir, si una persona aportó dos o más veces en el mismo mes, solo se le contabiliza como una vez} aportados durante la vida laboral del afiliado
+
+\end{itemize}
+
+En base a los artículo 2 y 13 de la \legalcite{ ResIESS_CD100}, se procede a calcular la base de calculo. Para esto se crean las variables GRUPO\_SEL\footnote{Es una variable indicatriz, que toma los valores de 1, si para un mes x del año Y, el registro se cuenta para la base de cálculo; 0 caso contrario}, BASE\_CAL\footnote{Es el valor de la Base de Cálculo en concordancia con el artículo 2 de la \legalcite{ResIESS_CD100}}. Adicionalmente, se crean las variables SBU\footnote{Contiene la información del Salario Básico Unificado para los trabajadores del Ecuador}
+
+% \begin{displayquote}
+% ``\textbf{Art 2.-} La Base de Cálculo de la Pensión del régimen de transición, sera igual al promedio de los cinco (5) años de mejores sueldos o salarios sobre los cuales se aportó.
+% 
+% Para el cómputo de la base de cálculo de la pensión, se procederá a la suma de doce (12) meses de imposiciones consecutivas y ese resultado se dividirá para doce (12). Obtenido así el promedio mensual de los sueldos o salarios de cada año de imposiciones del afiliado, se seleccionarán los cinco (5) promedios mensuales de mayor cuantía y el resultado de la suma se dividirá para cinco (5)... ''
+% \end{displayquote}
+% 
+% 
+% \begin{displayquote}
+% ``\textbf{Art 13.-} La pensión mensual por invalidez o vejez y el subsidio transitorio por incapacidad será igual al resultado de la multiplicación de la base de cálculo obtenido en sujeción 'al procedimiento establecidoen el artículo 2 de la presente Resolución, por el coeficiente anual de años cumplidos de imposiciones...''
+% \end{displayquote}
+
+
 
 \subsection{Datos previos a la aplicación de aprendizaje supervizado}
 

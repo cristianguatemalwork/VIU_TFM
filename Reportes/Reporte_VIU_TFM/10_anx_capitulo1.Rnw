@@ -753,6 +753,69 @@ La solución a cada problema detectado, con el fin de tener información adecuad
 
 \subsection{Para los afiliados}
 
-Para aliviar el costo computacional, se transforma a la variable \textit{SECTOR}, del sector en donde trabajo el afiliado, por abreviaciones más simples. Por ejemplo, a la relación de trabajo \textit{PRIVADO} se le abrevia por \textit{PRI} y así respectivamente. De acuerdo a la Resolución C.D. 100 (\citeyear{ResIESS_CD100}), el mínimo número de imposiciones que debe tener una persona para solicitar la jubilción es 60 imposiciones, por lo que, se eliminar los registros de las cedulas que tienen menos de 60 imposiciones.
+Para aliviar el costo computacional, se transforma a la variable \textit{SECTOR} (sector en donde trabajo el afiliado), por abreviaciones más simples. Por ejemplo, a la relación de trabajo \textit{PRIVADO} se le abrevia por \textit{PRI} y así respectivamente. De acuerdo a la \legalcite{ResIESS_CD100}, el mínimo número de imposiciones que debe tener una persona para solicitar la jubilción es 60 imposiciones, por lo que, se eliminan los registros de las personas que tienen menos de 60 imposiciones.
 
-Como el sistema de información del afiliado del IESS migro del \textit{Host} (funcionó hasta el año 2004) a \textit{Historia laboral} (del año 2005 hasta la presente fecha), es necesario recurrir a la normativa del Seguro IVM para tener un estimación de las tasas de aportación y prima actuarial. En este sentido, revisando las resoluciones  
+Por otra parte, como el sistema de información del afiliado del IESS migro del sistema \textit{Host} (funcionó hasta el año 2004) al sistema \textit{Historia laboral} (del año 2005 hasta la presente fecha), es necesario recurrir a la normativa del Seguro IVM para determinar el valor de las tasas de aportación para estimar el ingreso al fondo de pensiones. 
+
+En este sentido, se ha revisado la \legalcite{LeySS} (para los años 2000-2002) y las resoluciones \legalcite{ResIESS_CI150} (para los años 2003-2004), \legalcite{ResIESS_CD081} (para los años 2005-2014), \legalcite{ ResIESS_CD501} (para los años 2015-2016), \legalcite{ResIESS_CD515} (para los años 2017-2020) y \legalcite{ResIESS_CD609} (desde el año 2021 en adelante)  para determinar el valor de las tasas de aportación y las resoluciones \legalcite{ResIESS_CI141} (para los años 2000-2020), \legalcite{ResIESS_CD459} y \legalcite{ResIESS_CD596} (desde el año 2021 en adelante) para tener conocimiento sobre el valor de la tasa de interés actuarial, se procede a estimar las variables \textit{SUELDO}\footnote{Corresponde a la suma de la materia gravada sobre el cual aporte el afiliado}, \textit{APORTE}\footnote{Corresponde a la multiplicación de la tassa de aporte por el sueldo} e \textit{INTERES}\footnote{Corresponde a la multiplicación entre el aporte con la tasa actuarial}.
+
+\begingroup\scriptsize
+\setlength\extrarowheight{1pt}
+\setlength\aboverulesep{-0.5pt}
+\setlength\belowrulesep{0pt}
+\fontsize{8}{8}\selectfont
+\begin{longtable}[H]{ r|r|r} 
+\caption{\headlinecolor{\underline{Tasa de aportación y tasa actuarial históricas}}}
+\label{tab:info_tasa_aport_actuarial}\\[-0.1cm]
+
+\toprule
+\rowcolor{naranja}
+Año & Tasa de aportación & Tasa actuarial \\  \hline
+
+\midrule
+\endfirsthead
+
+\toprule
+\rowcolor{naranja}
+Año & Tasa de aportación & Tasa actuarial \\  \hline
+\midrule
+\endhead
+
+  \hline \multicolumn{3}{r}{continúa...} \\
+  \endfoot
+
+  \bottomrule
+  %\caption*{\scriptsize \textbf{Fuente}: Datos administrativos del IESS.\\\textbf{Elaborado}: DAIE.}
+  \endlastfoot
+  
+   2000 & 8,5\% & 4,0\% \\
+   2001 & 8,5\% & 4,0\% \\
+   2002 & 8,5\% & 4,0\% \\
+   2003 & 9,15\% & 4,0\% \\
+   2004 & 9,15\% & 4,0\% \\
+   2005 & 9,74\% & 4,0\% \\
+   2006 & 9,74\% & 4,0\% \\
+   2007 & 9,74\% & 4,0\% \\
+   2008 & 9,74\% & 4,0\% \\
+   2009 & 9,74\% & 4,0\% \\
+   2010 & 9,74\% & 4,0\% \\
+   2011 & 9,74\% & 4,0\% \\
+   2012 & 9,74\% & 4,0\% \\
+   2013 & 9,74\% & 4,0\% \\
+   2014 & 9,74\% & 4,0\% \\
+   2015 & 5,96\% & 4,0\% \\
+   2016 & 5,96\% & 4,0\% \\
+   2017 & 6,90\% & 4,0\% \\
+   2018 & 7,76\% & 4,0\% \\
+   2019 & 8,96\% & 4,0\% \\
+   2020 & 9,96\% & 4,0\% \\
+   2021 & 11,06\% & 6,25\% \\
+   2022 & 11,06\% & 6,25\% \\
+   2023 & 11,06\% & 6,25\% \\
+
+\end{longtable}
+\endgroup
+
+Ahora bien, se crean las variables \textit{N\_PRI}, \textit{N\_PUB}, \textit{N\_IND}, \textit{N\_VOL\_EX} y \textit{N\_VOL\_EC} que guardarán la información sobre las veces que el afiliado aporte en los sectores Privado, Público, Independiente, Voluntario del Exterior y Voluntario residente del Ecuador respectivamente.
+
+
