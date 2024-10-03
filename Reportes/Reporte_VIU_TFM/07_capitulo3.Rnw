@@ -12,27 +12,82 @@ Los algoritmos no supervisados son un enfoque del Aprendizaje Automático o Mach
 
 
 Varios problemas del entorno cuentan con datos que no están etiquetados, y etiquetarlos resulta en un proceso que consume una gran cantidad de tiempo y requiere intervención humana. Por lo tanto, la importancia de estos algoritmos radica en que los mismo permiten automatizar el proceso de codificación, y de esta forma, ayudan a la investigación de datos no procesados o desconocidos. También, por su naturaleza, estos modelos con útiles para trabajar con una gran cantidad de datos y detectar patrones. \citep{naeem2023unsupervised}
-
-\subsubsection{K Means}\label{sec:k_means}
-
-El algoritmo k-Means es un algoritmo de agrupamiento no supervisado, que agrupa o clasifica datos en grupos tomando en cuenta su similitud. Su objetivo es dividir los datos en k conjuntos definidos, donde k es un parámetro de entrada. La agrupación se dará de forma que la distancia de los puntos a los centroides de cada grupo sean minimizadas, asegurando la similaridad de los datos pertenecientes a cada grupo. El funcionamiento de este algoritmo sigue los siguientes pasos: en primer lugar, se seleccionan arbitrariamente k elementos de la base de datos como las medias o centroides iniciales de los clústeres, se calcula la distancia de cada elemento hacia los centros de los clústeres y se asignan al clúster más cercano. Posteriormente, se vuelve a calcular el centroide de cada clúster como la media de los elementos que pertenecen al mismo. Finalmente, se repiten el paso 1 y 2 hasta que no haya cambio en los elementos que forman parte de cada conjunto \citep{kanagala2016comparative}.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+% 
+% \subsubsection{K Means}\label{sec:k_means}
+% 
+% El algoritmo k-Means es un algoritmo de agrupamiento no supervisado, que agrupa o clasifica datos en grupos tomando en cuenta su similitud. Su objetivo es dividir los datos en k conjuntos definidos, donde k es un parámetro de entrada. La agrupación se dará de forma que la distancia de los puntos a los centroides de cada grupo sean minimizadas, asegurando la similaridad de los datos pertenecientes a cada grupo. El funcionamiento de este algoritmo sigue los siguientes pasos: en primer lugar, se seleccionan arbitrariamente k elementos de la base de datos como las medias o centroides iniciales de los clústeres, se calcula la distancia de cada elemento hacia los centros de los clústeres y se asignan al clúster más cercano. Posteriormente, se vuelve a calcular el centroide de cada clúster como la media de los elementos que pertenecen al mismo. Finalmente, se repiten el paso 1 y 2 hasta que no haya cambio en los elementos que forman parte de cada conjunto \citep{kanagala2016comparative}.
+% 
+% \subsubsection{DBScan}\label{sec:dbscan}
+% 
+% DBScan es un algoritmo de agrupamiento basado en la densidad, ya identifica las regiones de alta densidad que están separadas entre sí por regiones de baja densidad. En este algoritmo los puntos se clasifican en tres tipos: punto central, aquellos que tienen más del mínimo de puntos especificado por el usuario (MinPts) dentro de un radio específico que igual lo determina el usuario (Eps); punto de frontera, los puntos que tienen menos punto que el número MinPts dentro de un radio Eps, pero un punto central se encuentra en su vecindad; y puntos de ruido, que son aquellos que no son centrales ni de bordes. El algoritmo, en primer lugar, identifica de qué tipo es cada puntos y se eliminan los puntos de ruido, o de otra forma, se identifican los puntos atípicos y se eliminan. Luego, se establece un borde entre los puntos cercanos unos a otros y se convierte cada grupo de puntos centrales que están conectados en grupos separados. Finalmente, los puntos frontera son asignados a los grupos de los puntos centrales que tengan asociados \citep{kanagala2016comparative}. 
+% 
+% 
+% \subsubsection{Clúster jerárquico (de división)}\label{sec:cluster_jerarquico}
+% 
+% El algoritmo de Clúster Jerárquico se basa en la división de los elementos de la base de datos, tomando en cuenta el orden en el que los mismos se dividen. Para la representación de este proceso se hace uso de árboles o dendogramas. El algoritmo inicia con un único clúster que contiene todos los elementos de la base de datos. Luego, los separa iterativamente, removiendo de los clústers aquellos elementos que no tienen similitudes con los demás. Finalmente, se continúa el proceso alcanzar el criterio de parada p que todos los elementos formen grupos de un solo elemento \citep{shetty2021hierarchical}. 
+% 
+% \subsection{Algoritmos supervisados}\label{sec:supervisados}
+% 
+% Es una técnica de Aprendizaje Automático usada cuando el conjunto de datos se encuentra etiquetado, es decir, existe una preclasificación. Los datos son procesados y el algoritmo corrige sus errores iterativamente hasta que alcanza el nivel de precición requerido \citep{unnoba2020tratamiento}.
+% 
+% Es decir, el modelo va a ser entrenado con un conjunto de datos con resultados conocidos, donde la respuesta correcta en su etiqueta asociada, de los cuales aprende realizando ajustes en sus parámetros. Esto con el fin de, posteriormente, realizar predicciones de las etiquetas de nuevas observaciones. Estos algoritmos se dividen en dos tipos: de regresión y de clasificación (falta cita).
+% 
+% \subsubsection{Algoritmos supervisados de clasificación}\label{sec:supervisado_clasificacion}
+% 
+% Este tipo de algoritmos son aquellos que parten con datos etiquetados, donde la variable dependiente es conocida y su tipo es categórica. Una vez entrenado el modelo, se aplica a datos nuevos y permite realizar una predicción de a qué categoría pertenece la información nueva falta citar.
+% % 
+% \subsubsection{KNN}\label{sec:knn}
+% 
+% El algoritmo KNN se basa en la clasificación de un punto de la base de datos considerando la categoría más frecuente entre sus k vecinos más cercanos, donde k es un parámetro establecido por el usuario. De esta manera, se etiqueta a cada punto con la clase predominante de la mayoría de vecinos. Se puede dar el mismo valor a todos los vecinos del punto. Sin embargo, también hay la posibilidad de dar el peso a cada vecino dependiendo de su distancia al punto \citep{9314060}.
+% 
+% \subsubsection{Árboles de decisión}\label{sec:arboles}
+% 
+% Este algoritmo clasifica los elementos de estudio al plantear una serie de preguntas sobre las características que están asociadas a los elementos. En cada nodo se encuentra una pregunta, y a cada nodo hijo le corresponde una respuesta de la misma, siguiendo este proceso se forma una jerarquía. Así, los árboles se construyen aumentando nodos pregunta de manera incremental, utilizando los elementos de entramiento para determinar la elección de preguntas, donde una buena pregunta dividirá un conjunto de elementos de clases heterogéneas en subconjuntos con etiquetas más homogéneas, formando estratos tales que haya poca variación en cada uno de ellos. Existen varias medidas que evalúan el grado de impureza en los conjuntos de elementos, entre las principales encontramos la entropía y el índice de Gini. Este algoritmo tiene algunas ventajas, entre las cuales destacan su fácil interpretabilidad y su flexibilidad para el manejo de características numéricas y categóricas \citep{kingsford2008decisiontrees}. 
+% 
+% \subsubsection{Bagging}\label{sec:bagging}
+% El Bagging es una técnica usada para mejorar la predicción de varios modelos La misma extrae muestras Bootstrap de los datos y, sobre cada una de ellas, se aplica un método de predicción. Finalmente, se combinan los resultados obtenidos de las diferentes muestras. En el caso de clasificación, para obtener el resultado final, se vota de manera simple y así se encuentra la predicción general \citep{SUTTON2005303}.
+% 
+% 
+% \subsubsection{Random Forest}\label{sec:random_forest}
+% 
+% Este algoritmo usa el método de Bagging para obtener múltiples conjuntos de entrenamiento diferentes entre ellos. Cada uno de estos conjuntos genera un árbol de decisión  que utiliza atributos aleatorios. Debido a la cantidad de árboles que este algoritmo genera, se concluye que el mismo es bueno para resistir el ruido y tiene una buena capacidad de clasificación. Dependiendo de la información dada, cada árbol generará un resultado, y finalmente, con la integración de los resultados de todos los árboles se obtendrá el resultado final (falta citar).
+% 
+% Este algoritmo, en primer lugar, se encarga de seleccionar aleatoriamente un conjunto de datos con reemplazo del conjunto de entrenamiento usando el método de Bagging, formando así conjuntos de entrenamiento diversos. Luego, se escoge un grupo de variables de forma aleatoria y las escogidas se toman en cuenta para la división de nodos al construir los árboles. Finalmente, se construyen los árboles y el resultado final se obtendrá por métodos como votación por mayoría (falta citar).
+% 
+% 
+% \subsubsection{Boosting}\label{sec:boosting}
+% 
+% El Boosting es una técnica usada para mejorar la precisión de los modelos. Es similar al Bagging pero con la diferencia de que en esta técnica las muestras utilizadas en cada iteración no se extraen de la población de la misma forma. Si no, los casos que han sido clasificados incorrectamente en pasos anteriores, reciben un peso mayor en el siguiente paso. Así, este es un proceso interativo que incorpora pesos, y no toma un promedio simple para las predicciones \citep{SUTTON2005303}.
+% 
+% 
+% 
+% 
+% \section{Trabajos previos}\label{sec:trabajos_previos}
+% 
+% La investigación previa referente a la detección de fraude en el ámbito de la seguridad social, tanto en Ecuador como en otros países, es limitada. No obstante, el uso del Machine Learning en la detección de fraudes en otros campos es amplio, especialmente en el fraude con tarjetas de crédito. De igual forma, existen numerosos estudios sobre el fraude en la seguridad social, donde se analiza en detalle las consecuencias y las medidas adoptadas frente a estos delitos.
+% 
+% En el paper \textit{Credit card fraud detection using machine learning techniques: A comparative analysis} (\citeyear{8123782}), se busca detectar fraudes en transacciones de tarjetas de crédito, pues los mismos han incrementado debido a las crecientes transacciones en línea que complican la naturaleza de los comportamientos fraudulentos y dificulta su detección. En este paper se busca comparar los algoritmos KNN, Naive Bayes y Regresión Logística. Los datos usados presentaban un desequilibrio ya que tan solo el 0.172\% eran transacciones fraudulentas, lo que llevó a un alto número de falsos negativos, es decir, no se detectaron de forma eficiente los fraudes. Para ello, se probó aplicar métodos de submuestreo, sobremuestreo y el balanceo híbrido que combina ambos tipos, donde el último resultó más eficiente al obtener el equilibrio conservando los patrones valiosos. También se probaron con estos métodos diferentes proporciones de fraude dentro de los datos, que fueron de 34\% y 10\% de fraudes dentro de los datos, donde al tomar 34:66 se obtuvo una clasificación más efectiva. Los mejores resultados se obtuvieron utilizando la distribución 34:66 con el algoritmo KNN, donde se obtuvo un accuracy de 0.9792, precisión de 1 y sensibilidad 0.9375.
+% 
+% Por otro lado, un estudio similar se realiza en el paper Credit Card Fraud Detection - Machine Learning methods (\citeyear{8717766}) donde se pruebas distintos modelos como Random Forest, Naive Bayes, entre otros, para la detección de fraudes en las tarjetas de crédito. En este paper de igual forma se usan técnicas de balanceo de datos. Sin embargo, se usa el sobremuestreo para mantener la información de la clase mayoritaria, y se hace enfásis en el uso de la técnica SMOTE para crear ejemplos sintéticos de la clase minoritaria. También, menciona la importancia de la selección de variables y la partición de datos realizada con una distribución 80:20. Se destaca el modelo Randon Forest por sus resultados competitivos, obteniendo una precisión de 79.21\%, recall de 81.63\% y exactitud de 99.93\%.
+% 
+% Otro paper centrado en la detección de fraude de estados financiero es Financial Statement Fraud Detection: An Analysis of Statistical and Machine Learning Algorithms (\citeyear{10.2308/ajpt-50009}), donde se siguen técnicas similares a los paper anteriormente estudiados, y se hace enfásis en el rendimiento de algunos algoritmos. Las redes neuronales artificiales han demostrado funcionar bien en condiciones equilibradas, pero disminuyen si existe desequilibrio. Las Máquinas de Soporte Vectorial se han encontrado efectivas en en dominios con datos desequilibrados, pero no hay un buen rendimiento específico cuando hay comparación directa. Y finalmente, los métodos de ensamble demuestran, un rendimiento bueno en comparación a los otros métodos, donde su precisión mejora si se cuenta con datos equilibrados. También, se toma en cuenta que el rendimiento de los algoritmos puede varias dependiendo de los datos.
+% 
+% En el paper Customer Transaction Fraud Detection Using Xgboost Model (\citeyear{9103880}) se busca identificar transacciones electrónicas sospechosas de manera efectiva para detectar el fraude. De igual forma, se usa SMOTE como técnica de balanceo. Se prestó principal importancia en la ingeniería de carctererísticas donde el proceso que se siguió fue obtener estadísticas descriptivas de las mismas para númericas y codificación de etiquetas para categóricas. En el mismo se compara el modelo Xgboost con otros modelos como SVM, regresión logística y Random Forest, donde Xgboost demostró un rendimiento superior alcanzando un AUC-ROC de 0.952 y una precisión de 98.1\%. Lo importante de este modelo para los datos es que al contar con 400 características el modelo Xgboost tiene un mejor rendimiento ya que permite una mejor selección de características con lo que mejora la velocidad de detección y predicción.
+% 
+% 
+% Por otro lado, en cuanto a los estudio sobre los fraudes realizados en la seguridad social, tenemos algunos. Por un lado, se presenta en el artículo https://revistas.cef.udima.es/index.php/rtss/article/view/3417/2953 las actividades ilegales relacionadas a la omisión del pago de cuotas, la manipulación de las prestaciones indebidas y la creación de empresas ficticias en España. Enfatizando la repercusiones de las mismas, como en la pérdida de ingresos en la cada única del Sistema de seguridad social, falsas altas en la seguridad social, complicaciones para los trabajadores en el acceso a prestaciones, competencia desleal. Las medidas que se han adoptado para combatir el fraude han sido, el mejor intercambio y control de la información, análisis del riesgo e identificación de patrones de fraude, embargos preventivos para asegurar pago de deudad, control de bonificaicones y reducciones indebidas, creaciones de planes integrales contra el fraude. Se reconoce la necesidad de innovar en medidas y herramienta tecnológicas para enfrentar el fraude.
+% 
+% 
+% En el artículo https://revista-estudios.revistas.deusto.es/article/view/656/818 se abordan los problemas generados y las formas de combatir los incrementos injustificados de las bases de cotización a la seguridad social que ocurren cuando los trabajadores incrementan artificialmente sus bases de cotización en los últimos años laborales para recibir una pensión de jubilación mayor. Se menciona que los casos de fraudes más comunes son de aquellas personas que tienen influencia sobre la empresa, como directivos o dueños ya que pueden aumentar su salario de forma más fácil. A pesar de que la detección del frade es díficil por las diferentes estrategias para eludir normativas antifraude, se han tomado medidas como la limitación de incrementos salariales en los dos años previos a la jubilación que exceden cierto valor, permitir incrementos solo en ascensos o nuevas responsabilidades, y aplicación de códigos civiles y normativa. La forma de detectar los fraudes se da mediante informes de análisis de casos donde el trabajdor ha aumentado su base de cotización sin justificación, se presta atención principal a trabajdores con posiciones de poder, se toma en cuena aumentos salarios desproporcionados, y se analizan patrones y presunciones 
+% 
+% 
+% También es importante estudiar los trabajos previos referentes a las técnicas de detección de datos atípicos, donde el artículo admin,+Gestor_a+de+la+revista,+articulo3.pd prueba la efectividad de distintos algoritmos para la detección de atípicos donde concluye que los enfoques hibrídos y basados en densidad actúan de forma más eficaz para detectar atípicos cuando los datos no están distribuidos de manera uniforme. Por otro lado, los enfoques basados en distancia son útiles en situaciones más simples, y los de clustering como el k-means no son tan recomendados por su sensibilidad al ruido. Los algoritmos de distancia son eficientes para conjuntos de datos pequeños y uniformemente distribuidos. De igual forma el paper 1390-6542-enfoqueute-11-01-00056.pdf nos menciona que la combinación de los método chi-cuadrado, knn y k means en su conjunto de datos logró detectar una efectividad de 100\% de valores atípicos, mejorando su efectividad, puesto que el knn identifica valores alejados de sus vecinos cercanos y el kmeans reduce los falsos negativos generado por el knn y confirma si los valores detectados son realmente atípicos.
+% 
+% En el artículo 2020-62.pdf, se analizan varios algoritmos para la detección de valores atípicos aplicados al fraude financiero. Se prueban algoritmos como el DBSCAN, HDBSCAN, métodos estadísticos, Support Vector Machine, Regresión Logística, entre otros. Aquí, se hace clara la eficacia tanto del DBSCAN como del HDBSCSAN para la detección de valores atípicos debido a su capacidad para identificar clústeres de forma arbitraria y con diferentes densidades, lo que les hace ideales para detectar fraudes en conjuntos de datos no homogéneos. Su funcionamiento fue bueno cuando los datos se agruparon claramento, pero menos precisos cuando no. Los métodos Isolation Forest y LOF fueron los más efectivos.
+% 
+% 
+% De igual forma los articulos smiti2020 (2).pdf y pamula2011.pdf, mencionan que el DBSCAN es adecuado para clústeres en formas arbitrarias pero es sensible a la configuración de parámetros. Se afirma que los método basos en distancias tienen problemas con la alta dimensionalidad, los basados en densidad son más precisos identificando atípiocs locales significativos pero pueden ser computacionalmente costosos, los métodos basos en clustering manejan bien el ruido y los atípicos pero dependen bastante de la configuración de parámetros. Por lo que, el K-means se elige porque permite agrupar los datos en los que no deben ser atípicos disminuyendo el costo computacional.
+% 
+% 
+% 
+% 
