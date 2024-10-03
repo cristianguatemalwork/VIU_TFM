@@ -7,6 +7,9 @@
 \SetWatermarkScale{0.30}
 \SetWatermarkColor[gray]{0.9}
 
+%Bibliografía
+\addbibresource{\Sexpr{REP_bib_ley}}
+
 %%%%%%-------------------+++++++++--INICIO DEL DOCUMENTO--+++++++++---------------------------%%%%%
 
 \begin{document}
@@ -30,10 +33,10 @@
  
 <<cap06, child='06_capitulo2.Rnw'>>=
 @
- 
+
 <<cap07, child='07_capitulo3.Rnw'>>=
 @
-	
+
 <<cap08, child='08_capitulo4.Rnw'>>=
 @
 
@@ -41,16 +44,13 @@
 @
 
 \appendix
-
 <<cap010, child='10_anx_capitulo1.Rnw'>>=
 @
 
 
 %Bibliografia--------------------------------------------------------------------------------------
-
-\bibliographystyle{apalike}
-%\bibliographystyle{alpha}
-\bibliography{Bibliografia_TFT.bib}
+\chapter*{Bibliografía}
+\printbibliography[heading = none]
 
 
 

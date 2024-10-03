@@ -2,11 +2,24 @@
 
 La seguridad social, según \textit{Humblet y Silva} (\citeyear{SS_OIT}), se define como un derecho humano fundamental y un instrumento esencial para promover la cohesión social y contribuir a la paz y la integración en las sociedades.
 
-El artículo 34 de la \textit{Constitución de la República del Ecuador} (\citeyear{ConsEcu:2008}) determina que ``la seguridad social es un derecho irrenunciable de todas las personas, y será deber y responsabilidad primordial del Estado'' (p. 19).
+El derecho a la seguridad social se encuentra consagrado en el artículo 34 de la \textit{Constitución de la República del Ecuador} (\citeyear{ConsEcu:2008}) como ``un derecho irrenunciable de todas las personas, y será deber y responsabilidad primordial del Estado'' (p. 19). Además, el sistema de seguridad social ecuatoriano es público y universal; y, la protección de las contingencias se hace efectiva a través del seguro universal obligatorio y de sus regímenes especiales.
+
+Dentro de los retos actuales que enfrentan la gran mayoría (por no decir todos) de países
+es el de garantizar la sostenibilidad de los fondos administrados por las instituciones de
+seguridad social. Organismos como la Organización Internacional del Trabajo (OIT) y la Organización de Naciones Unidas (ONU) ya hacen sus pronunciamientos respecto a esta problemática, sin embargo,
+cualquier modificación a la ley actual se enfrenta a la díficil tarea de implementación. La
+implementación de estas medidas, que si bien se demuestran de manera matemática, teórica
+y basadas en las directrices internacionales de buenas prácticas actuariales que son las más
+eficientes para garantizar la sostenibilidad, son impensables de poner en marcha a nivel
+político, puesto que, el modificar ya sea la edad para adquirir el beneficio o incrementar el actual aporte que hacen los afiliados puede facilmente ser direccionado a generar marchas
+a nivel nacional, provocar paros y el resultado final sería el derrocar al gobierno de turno.
+Tal grado de dificultad de ejecución de políticas sociales tienen éstas modificaciones, que los
+gobierno se hacen los ciegos y no toman las decisiones que deberían de manera oportuna,
+lo que provoca que la situación actual de los fondos aminsitrados por el Instituto Ecuatoriano de Seguridad Social sea más crítica, el déficit actuarial se dispare y el año previo al déficit sea más cercano.
 
 El \textit{Boletín Estadístico del Instituto Ecuatoriano de Seguridad Social (IESS)} (\citeyear{iess_boletin_2022}) señala que ``El IESS es la entidad pública responsable de la prestación de las contingencias del seguro universal obligatorio, que tiene por objeto indelegable la prestación del Seguro General Obligatorio en todo el territorio nacional'' (p. 10).
 
-De acuerdo con el estudio actuarial del fondo de pensiones (Seguro IVM) del IESS, realizado mediante la \textit{Valuación Actuarial del Seguro de Invalidez, Vejez y Muerte} (\citeyear{iessivm2020}), el objetivo principal No. 1 del Plan Estratégico del IESS 2018-2028 es ``Incrementar la sostenibilidad de los fondos de los seguros especializados'' (p. 25).
+De acuerdo con el estudio actuarial del fondo de pensiones (Seguro IVM) del IESS, realizado mediante la \textit{Valuación Actuarial del Seguro de Invalidez, Vejez y Muerte} (\citeyear{iessivm2020}), el objetivo principal No. 1 del Plan Estratégico del IESS 2018-2028 es ``Incrementar la sostenibilidad de los fondos de los seguros especializados'' (p. 25). 
 
 En este contexto, y considerando la importancia de la Seguridad Social para todos los individuos de una sociedad, es fundamental el control de las actividades que podrían comprometer la sostenibilidad financiera del fondo de pensiones o las acciones que generen consecuencias perjudiciales al sistema. 
 

@@ -34,7 +34,6 @@
 
 %%%%%%Comandos adicionales
 \usepackage{csquotes}
-\usepackage{natbib}
 \usepackage{longtable}
 \usepackage{multirow}
 \usepackage{multicol}
@@ -71,12 +70,38 @@
   linktoc = page]{hyperref}
   
 \setlength{\parskip}{0.9\baselineskip} % espacio entre parrafos
+\usepackage{setspace}
+\usepackage{etoolbox}  
 
-%\usepackage[backend=biber, style=apa]{biblatex}
+% Bibliografía
+\usepackage[style=apa, bibstyle=apa, citestyle=authoryear, backend=biber, natbib=true]{biblatex}
 
+\newbibmacro{legalcite}{
+  \textit{\printfield{shorttitle}}\,
+  (\printtext[bibhyperref]{\printfield{year}})
+}
 
+\DeclareCiteCommand{\legalcite}
+  {\usebibmacro{prenote}}
+  {\usebibmacro{citeindex}
+   \usebibmacro{legalcite}}
+  {\multicitedelim}
+  {\usebibmacro{postnote}
+}
 
-
+\newbibmacro{estcite}{
+  \textit{\printfield{shorttitle}}\,
+  (\printtext[bibhyperref]{\printfield{year}})
+}
+  
+\DeclareCiteCommand{\estcite}
+  {\usebibmacro{prenote}}
+  {\usebibmacro{citeindex}
+   \usebibmacro{estcite}}
+  {\multicitedelim}
+  {\usebibmacro{postnote}
+}
+  
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %------------------COMANDOS PARA EL TIPO DE LETRA---------------------------%
 %\usepackage{fontspec}
