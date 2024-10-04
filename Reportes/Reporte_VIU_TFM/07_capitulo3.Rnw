@@ -34,7 +34,7 @@ La presencia de estafas en la Seguridad Social, ya sea al momento de obtener ind
 
 Como se mencionó previamente, el sistema de Seguridad Social se basa en el principio de solidaridad intergeneracional. Por lo que, la ocurrencia de estafas representa una disminución de los recursos disponibles, impactando negativamente a toda la sociedad. De ahí surge la necesidad primordial de detectar estas situaciones y combatirlas a través de planes estratégicos, con la participación activa de las diferentes áreas del IESS.
 
-\subsection{Estudios acerca de Fraudes en los Sistemas de Seguridad Social}
+\subsection{Estudios previos acerca de Fraudes en los Sistemas de Seguridad Social}
 
 El campo de investigación referente a los fraudes en la Seguridad Social en Ecuador, por parte de los afiliados, está poco desarrollado. En contraste, en otros países, este tema ha sido ampliamente estudiado. Existen estudios que analizan los distintos tipos de fraudes, las posibles formas de detección y las medidas a implementar para combatirlos.
 
