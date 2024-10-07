@@ -123,24 +123,24 @@ Este tipo de algoritmos son aquellos que parten con datos etiquetados, donde la 
 
 \subsubsection{Support Vector Machine}\label{sec:svm}
 
-Es un método de Aprendizaje Supervisado usado para tareas de clasificación, regresión y detección de datos atípicos. Este algoritmo busca el hiperplano óptimo que separe los datos en dos clases, esto lo realiza maximizando el margen entre los puntos más cercanos de cada clase. Los puntos que se encuentran en los límites se conocen como vectores de soporte, y el centro del margen representa el hiperplano de separación óptimo \citep{meyer2009svm}.
+Es un método de Aprendizaje Supervisado usado para tareas de clasificación, regresión y detección de datos atípicos. Este algoritmo busca el hiperplano óptimo que separe los datos en dos clases, esto se lo realiza maximizando la distancia entre los puntos más cercanos de cada clase. Los puntos que se encuentran en los límites se conocen como vectores de soporte, y el centro del margen representa el hiperplano que realiza la separación óptima \citep{meyer2009svm}.
 
 \subsubsection{KNN}\label{sec:knn}
  
-El algoritmo KNN se basa en la clasificación de un punto de la base de datos considerando la categoría más frecuente entre sus k vecinos más cercanos, donde k es un parámetro establecido por el usuario. De esta manera, se etiqueta a cada punto con la clase predominante de la mayoría de vecinos. Se puede dar el mismo valor a todos los vecinos del punto. Sin embargo, también hay la posibilidad de dar el peso a cada vecino dependiendo de su distancia al punto \citep{9314060}.
+El algoritmo K-nearest neighbors (KNN) se basa en la clasificación de un punto de la base de datos considerando la categoría que es más frecuente entre sus k vecinos más cercanos, donde k es un parámetro que es establecido por el usuario. De esta manera, se etiqueta a cada punto con la clase que predomina en la mayoría de sus vecinos. Se puede dar el mismo valor a todos los vecinos del punto. Sin embargo, también hay la posibilidad de dar el peso a cada vecino dependiendo de su distancia al punto \citep{9314060}.
 
 \subsubsection{Árboles de decisión}\label{sec:arboles}
 
-Este algoritmo clasifica los elementos de estudio al plantear una serie de preguntas sobre las características que están asociadas a los elementos. En cada nodo se encuentra una pregunta, y a cada nodo hijo le corresponde una respuesta de la misma, siguiendo este proceso se forma una jerarquía. Así, los árboles se construyen aumentando nodos pregunta de manera incremental, utilizando los elementos de entramiento para determinar la elección de preguntas, donde una buena pregunta dividirá un conjunto de elementos de clases heterogéneas en subconjuntos con etiquetas más homogéneas, formando estratos tales que haya poca variación en cada uno de ellos. Existen varias medidas que evalúan el grado de impureza en los conjuntos de elementos, entre las principales encontramos la entropía y el índice de Gini. Este algoritmo tiene algunas ventajas, entre las cuales destacan su fácil interpretabilidad y su flexibilidad para el manejo de características numéricas y categóricas \citep{kingsford2008decisiontrees}. 
+Este algoritmo clasifica los elementos de estudio al plantear una serie de preguntas sobre las características que están asociadas a los elementos. En cada nodo se encuentra una pregunta, y a cada nodo hijo se le asigna una respuesta de la misma, formando una jerarquía al seguir este proceso. Así, los árboles se construyen aumentando nodos pregunta de manera incremental, utilizando los elementos de entramiento para determinar la elección de preguntas, donde una buena pregunta dividirá a un conjunto de elementos de clases heterogéneas en subconjuntos que tengan etiquetas más homogéneas, formando grupos con poca variación en ellos. Existen varias medidas que evalúan el grado de impureza en los conjuntos de elementos, entre las principales encontramos la entropía y el índice de Gini. Este algoritmo tiene algunas ventajas, entre las cuales destacan su fácil interpretabilidad y su flexibilidad para el manejo de características numéricas y categóricas \citep{kingsford2008decisiontrees}. 
 
 \subsubsection{Bagging}\label{sec:bagging}
 
-El Bagging es una técnica usada para mejorar la predicción de varios modelos. La misma extrae muestras Bootstrap de los datos y, sobre cada una de ellas, se aplica un método de predicción. Finalmente, se combinan los resultados obtenidos de las diferentes muestras. En el caso de clasificación, para obtener el resultado final, se vota de manera simple y así se encuentra la predicción general \citep{SUTTON2005303}.
+El Bagging es una técnica usada para mejorar la predicción de varios modelos. La misma extrae muestras bootstrap de los datos y, sobre cada una de ellas, se aplica un método de predicción. Finalmente, se combinan los resultados obtenidos de las diferentes muestras. En el caso de clasificación, para obtener el resultado final, se vota de manera simple y así se encuentra la predicción general \citep{SUTTON2005303}.
 
 
 \subsubsection{Random Forest}\label{sec:random_forest}
 
-Este algoritmo usa el método de Bagging para obtener múltiples conjuntos de entrenamiento diferentes entre ellos. Cada uno de estos conjuntos genera un árbol de decisión  que utiliza atributos aleatorios. Debido a la cantidad de árboles que este algoritmo genera, se concluye que el mismo es bueno para resistir el ruido y tiene una buena capacidad de clasificación. Dependiendo de la información dada, cada árbol generará un resultado y, finalmente, con la integración de los resultados de todos los árboles se obtendrá el resultado final \citep{moreno2023manual}.
+Este algoritmo usa el método de Bagging para obtener múltiples conjuntos de entrenamiento que sean diferentes entre ellos. Cada uno de estos conjuntos genera un árbol de decisión en el cual se usan atributos aleatorios. Debido a la gran cantidad de árboles que este algoritmo genera, se concluye que el mismo es bueno para resistir el ruido y tiene una buena capacidad de clasificación. Dependiendo de la información dada, cada árbol generará un resultado y, finalmente, con la integración de los resultados de todos los árboles se obtendrá el resultado final \citep{moreno2023manual}.
 
 Este algoritmo, en primer lugar, se encarga de seleccionar aleatoriamente un conjunto de datos con reemplazo del conjunto de entrenamiento usando el método de Bagging, formando así conjuntos de entrenamiento diversos. Luego, se escoge un grupo de variables de forma aleatoria y las escogidas se toman en cuenta para la división de nodos al construir los árboles. Finalmente, se construyen los árboles y el resultado final se obtendrá por métodos como votación por mayoría \citep{moreno2023manual}.
 
@@ -154,7 +154,7 @@ En este procedimiento se ajustan iterativamente nuevos modelos que van haciendo 
 
 \subsubsection{XGBoost}\label{sec:xgboost}
 
-Este algoritmo es una de las implementaciones más eficientes de árboles de decisión, el cual se h apotenciado por el gradiente. Se ha diseñado para optimizar el uso de memoria y aprovechar la potencia del hardware. Con esta técnica se disminuye el tiempo de ejecución, incluso su rendimiento es mejor que los modelos de aprendizaje profundo. La idea principal del mismo es construir secuencialmente subárboles que parten de un árbol original, tal que los mismo vayan reduciendo los errores de la función de costo del árbol anterior \citep{8906396}.
+Este algoritmo es una de las implementaciones más eficientes de árboles de decisión, el cual se ha potenciado por el gradiente. Se ha diseñado para optimizar el uso de memoria y dar uso máximo a la potencia del hardware. Con esta técnica se disminuye el tiempo de ejecución, incluso su rendimiento es mejor que los modelos de aprendizaje profundo. La idea principal del mismo es construir secuencialmente subárboles que parten de un árbol original, tal que los mismos vayan reduciendo los errores de la función de costo del árbol anterior \citep{8906396}.
 
 \subsection{Técnicas utilizadas}\label{sec:tec_us}
 
@@ -169,13 +169,13 @@ Para el balanceo de clases se usan los métodos oversampling y undersampling. De
 Las principales técnicas usadas para llevar acabo los distintos tipos de balanceo son SMOTE (Synthetic Minority Over-sampling Technique) y SMOTE + ENN (Edited Nearest Neighbors).
 
 \begin{itemize}
-\item SMOTE es un método de oversampling que genera nuevos ejemplos sintéticos de la clase minoritaria interpolando entre ejemplos existentes, lo que reduce el sobreajuste en modelos de clasificación. Este logra que las fronteras de decisión de la clase minoritaria se extiendan más dentro del espacio de la clase mayoritaria, lo que mejora el rendimiento del modelo.
-\item SMOTE + ENN combina la creación de nuevos ejemplos, mediante SMOTE, con la eliminación de ejemplos mal clasificados de ambas clases usando ENN, lo que elimina ruido y mejora la definición de los clústeres de clases. Este enfoque es útil especialmente en dominios donde hay pocos ejemplos de la clase minoritaria.
+\item SMOTE es un método de oversampling que genera nuevos ejemplos sintéticos de la clase minoritaria interpolando con las instancias existentes, lo que reduce el sobreajuste en modelos de clasificación. Este logra que las fronteras de decisión de la clase minoritaria vayam más adentro del espacio de la clase mayoritaria, lo que mejora el rendimiento del modelo.
+\item SMOTE + ENN combina la creación de nuevos ejemplos, mediante SMOTE, con la eliminación de ejemplos mal clasificados de ambas clases usando ENN, lo que elimina ruido y mejora la definición de los clústeres de clases. Este enfoque es útil especialmente en casos en los cuales hay pocos ejemplos de la clase minoritaria.
 \end{itemize}
 
 \subsubsection{Normalización}\label{sec:normalizacion}
 
-Según \textcite{Ali2014}, la normalización comprende el proceso de ajustar los datos para que los mismos se encuentren dentro de un rango específico, ya sea, entre 0 y 1 o entre -1 y 1. Este procedimiento es necesario cuando hay grandes diferencias en los rangos de las distintas características presentes en un conjunto de datos. Hay que tener en cuenta que su funcionalidad es mejor cuando no hay valores atípicos en los datos.
+Según \textcite{Ali2014}, la normalización comprende el proceso de ajustar los datos para que los mismos estén dentro de un rango específico, ya sea, entre 0 y 1 o entre -1 y 1. Este procedimiento es necesario cuando hay grandes diferencias en los rangos de las distintas características presentes en un conjunto de datos. Hay que tener en cuenta que este proceso tiene un mejor funcionamiento cuando no hay valores atípicos en los datos.
 
 \subsubsection{Validación Cruzada}\label{sec:val_cruzada}
 
