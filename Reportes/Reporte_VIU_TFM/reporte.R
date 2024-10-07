@@ -43,7 +43,11 @@ REP_file_latex_org <- c( paste( parametros$work_dir, 'Reportes/Bibliografia_TFT.
                          paste( parametros$work_dir, 'Reportes/Picture_TitlePage.jpg', sep = '' ),
                          paste( parametros$work_dir, 'Reportes/image3.png', sep = '' ),
                          paste( parametros$work_dir, 'Reportes/image5.png', sep = '' ),
-                         paste( parametros$work_dir, 'Reportes/image6.png', sep = '' )
+                         paste( parametros$work_dir, 'Reportes/image6.png', sep = '' ),
+                         paste( parametros$work_dir, 'Reportes/dbscan.png', sep = '' ),
+                         paste( parametros$work_dir, 'Reportes/jerarquico.png', sep = '' ),
+                         paste( parametros$work_dir, 'Reportes/kmeans.png', sep = '' ),
+                         paste( parametros$work_dir, 'Reportes/supervisados.png', sep = '' )
                         )
 
 
@@ -52,7 +56,11 @@ REP_file_latex_des <- c( paste( REP_rep_dir, 'Bibliografia_TFT.bib', sep = '' ),
                          paste( REP_rep_dir, 'graficos/', 'Picture_TitlePage.jpg', sep = '' ),
                          paste( REP_rep_dir, 'graficos/', 'image3.png', sep = '' ),
                          paste( REP_rep_dir, 'graficos/', 'image5.png', sep = '' ),
-                         paste( REP_rep_dir, 'graficos/', 'image6.png', sep = '' )
+                         paste( REP_rep_dir, 'graficos/', 'image6.png', sep = '' ),
+                         paste( REP_rep_dir, 'graficos/', 'dbscan.png', sep = '' ),
+                         paste( REP_rep_dir, 'graficos/', 'jerarquico.png', sep = '' ),
+                         paste( REP_rep_dir, 'graficos/', 'kmeans.png', sep = '' ),
+                         paste( REP_rep_dir, 'graficos/', 'supervisados.png', sep = '' )
                         )
 
 REP_file_latex_clean <- c( paste( REP_rep_dir, 'Bibliografia_TFT.bib', sep = '' ), 
