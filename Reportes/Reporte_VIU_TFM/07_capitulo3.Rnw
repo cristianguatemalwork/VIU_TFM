@@ -2,30 +2,30 @@
 
 \section{Sistema de Seguridad Social en Ecuador}\label{sistema_seg_soc}
 
-La normativa de la Seguridad Social en Ecuador está principalmente regulada por \estcite{ConsEcu:2008}, específicamente en el artículo 34, donde se establece lo siguiente:
+La normativa de la Seguridad Social en Ecuador está principalmente regulada por la \estcite{ConsEcu:2008}, específicamente en el artículo 34, donde se establece lo siguiente:
 
 \begin{quote}
 \setlength{\parindent}{1.27cm}
-El derecho a la seguridad social es un derecho irrenunciable de todas las personas, y será deber y responsabilidad primordial del Estado. La seguridad social se regirá por los principios de solidaridad, obligatoriedad, universalidad, equidad, eficiencia, subsidiaridad, suficiencia, transparencia y participación, para la atención de las necesidades individuales y colectivas. El Estado garantizará y hará efectivo el ejercicio pleno del derecho a la seguridad social, que incluye a las personas que realizan trabajo no remunerado en los hogares, actividades para el auto sustento en el campo, toda forma de trabajo autónomo y a quienes se encuentran en situación de desempleo.
+El derecho a la seguridad social es un derecho irrenunciable de todas las personas, y será deber y responsabilidad primordial del Estado. La seguridad social se regirá por los principios de solidaridad, obligatoriedad, universalidad, equidad, eficiencia, subsidiaridad, suficiencia, transparencia y participación, para la atención de las necesidades individuales y colectivas. El Estado garantizará y hará efectivo el ejercicio pleno del derecho a la seguridad social, que incluye a las personas que realizan trabajo no remunerado en los hogares, actividades para el auto sustento en el campo, toda forma de trabajo autónomo y a quienes se encuentran en situación de desempleo (p. 19).
 \end{quote}
 
 El IESS es la entidad responsable de brindar servicios y prestaciones de Seguridad Social, garantizando la protección de sus asegurados a nivel nacional. Esta institución está encargada de la protección tanto de la población urbana como rural, con o sin relación de dependencia laboral, ante contingencias como enfermedad, maternidad, riesgos laborales, discapacidad, cesantía, desempleo, invalidez, vejez y muerte. Los seguros cubiertos por el IESS incluyen: el Seguro del Sistema de Pensiones, el Seguro General de Salud Individual y Familiar, el Seguro General de Riesgos del Trabajo, el Seguro Social Campesino, así como los Fondos de Terceros y el Seguro de Desempleo \citep{iess_boletin_2022}. 
 
-El financiamiento de estos seguros proviene principalmente por las contribuciones individuales de los afiliados, el aporte patronal obligatorio de los empleadores públicos y privados, la contribución financiera obligatoria del Estado, reservas técnicas, rentas, y otro tipo de ingresos. Es necesario destacar que el funcionamiento de la Seguridad Social en el Ecuador se basa en el principio de solidaridad intergeneracional \citep{iess_boletin_2022}.
+El financiamiento de estos seguros proviene principalmente de las contribuciones individuales de los afiliados, el aporte patronal obligatorio de los empleadores públicos y privados, la contribución financiera obligatoria del Estado, reservas técnicas, rentas, y otro tipo de ingresos. Es necesario destacar que el funcionamiento de la Seguridad Social en el Ecuador se basa en el principio de solidaridad intergeneracional \citep{iess_boletin_2022}.
 
-Uno de los principales seguros es el Seguro del Sistema de Pensiones, también conocido como Seguro de Invalidez, Vejez y Muerte. Este seguro cubre prestaciones como la jubilación ordinaria por vejez, la jubilación por discapacidad, la jubilación por invalidez (incluyendo el subsidio transitorio por incapacidad), así como las pensiones de montepío y el auxilio de funerales [13].
+Uno de los principales seguros es el Seguro del Sistema de Pensiones, también conocido como Seguro de Invalidez, Vejez y Muerte. Este seguro cubre prestaciones como la jubilación ordinaria por vejez, la jubilación por discapacidad, la jubilación por invalidez (incluyendo las prestaciones temporales por incapacidad), así como las pensiones de montepío y el auxilio de funerales \citep{iess2024web}.
 
-Para acceder a estas prestaciones, los individuos deben cumplir determinadas condiciones establecidas en la \legalcite{LeySS}. Una vez que se cumplan estos requisitos, la cuantía de las prestaciones se determina en la \legalcite{ResIESS_CD100}, específicamente en el artículo 13. Según esta resolución, la pensión mensual por invalidez o vejez y el subsidio transitorio por incapacidad se calcularán multiplicando la base de cálculo, obtenida de acuerdo al procedimiento descrito en el artículo 2 de dicha resolución, por el coeficiente anual de años cumplisdos de imposiciones \citep{iessivm2020}. Donde, la base de cálculo se determina como el salario promedio de los cinco mejores años de la vida laboral del individuo.
+Para acceder a estas prestaciones, los individuos deben cumplir determinados requisitos establecidos en la \estcite{LeySS}. Una vez cumplidos, el monto de las prestaciones es determinado según lo dispuesto en la \estcite{ResIESS_CD100}, específicamente en el artículo 13. Este documento establece que la pensión mensual por invalidez o vejez, así como el subsidio transitorio por incapacidad, se calcularán multiplicando la base de cálculo, obtenida de acuerdo al procedimiento descrito en el artículo 2 de la misma resolución, por el coeficiente anual de años cumplidos de imposiciones \citep{iessivm2020}. Donde, la base de cálculo se determina como el salario promedio de los cinco mejores años de la vida laboral del individuo.
 
 \section{Desafíos de Integridad en la Seguridad Social}\label{estafas_ss}
 
 \subsection{Definición legal de estafa en Ecuador}
 
-Según el artículo 186 del Código Orgánico Integral Penal del Ecuador se define a la estafa como: 
+Según el artículo 186 del \estcite{coip_2014}, se define a la estafa como: 
 
 \begin{quote}
 \setlength{\parindent}{1.27cm}
-La persona que, para obtener un beneficio patrimonial para sí misma o para una tercera persona, mediante la simulación de hechos falsos o la deformación u ocultamiento de hechos verdaderos, induzca a error a otra, con el fin de que realice un acto que perjudique su patrimonio o el de una tercera, será sancionada con pena privativa de libertad de cinco a siete años.
+La persona que, para obtener un beneficio patrimonial para sí misma o para una tercera persona, mediante la simulación de hechos falsos o la deformación u ocultamiento de hechos verdaderos, induzca a error a otra, con el fin de que realice un acto que perjudique su patrimonio o el de una tercera, será sancionada con pena privativa de libertad de cinco a siete años (p. 31).
 \end{quote}
 
 \subsection{Impacto y medidas necesarias frente a las estafas en la Seguridad Social}
@@ -36,20 +36,20 @@ Como se mencionó previamente, el sistema de Seguridad Social se basa en el prin
 
 \subsection{Estudios previos acerca de Fraudes en los Sistemas de Seguridad Social}
 
-El campo de investigación referente a los fraudes en la Seguridad Social en Ecuador, por parte de los afiliados, está poco desarrollado. En contraste, en otros países, este tema ha sido ampliamente estudiado. Existen estudios que analizan los distintos tipos de fraudes, las posibles formas de detección y las medidas a implementar para combatirlos.
+El campo de investigación referente a los fraudes en la Seguridad Social en Ecuador, por parte de los afiliados, está poco desarrollado. En contraste, en otros países, este tema ha sido ampliamente estudiado. Existen diversas investigaciones que analizan los distintos tipos de fraudes, las posibles formas de detección y las medidas a implementar para combatirlos.
 
-\legalcite{aibar2012fraude} en su artículo realiza el estudio de las actividades ilegales presentadas en la Seguridad Social relacionadas a la omisión del pago de cuotas, la manipulación de las prestaciones indebidas y la creación de empresas ficticias en España. Enfatiza las repercusiones de las mismas, como la pérdida de ingresos en la caja única de la Seguridad Social, las inscripciones fraudulentas en el sistema, complicaciones para los trabajadores en el acceso a prestaciones, competencia desleal. Se han adoptado ciertas medidas para combatir el fraude como el fortalecimiento del intercambio y control de la información, análisis del riesgo e identificación de patrones de fraude, embargos preventivos para asegurar pago de deudad, control de bonificaicones y reducciones indebidas, creaciones de planes integrales contra el fraude. Finalmente, se reconoce la necesidad de innovar en medidas y herramienta tecnológicas para enfrentar el fraude.
+\estcite{aibar2012fraude} en su artículo realiza el estudio de las actividades ilegales presentadas en la Seguridad Social relacionadas a la omisión del pago de cuotas, la manipulación de las prestaciones indebidas y la creación de empresas ficticias en España. Enfatiza las repercusiones de las mismas, como la pérdida de ingresos en la caja única de la Seguridad Social, las inscripciones fraudulentas en el sistema, complicaciones para los trabajadores en el acceso a prestaciones, competencia desleal, entre otras. Por lo que, se han adoptado ciertas medidas para combatir el fraude como el fortalecimiento del intercambio y control de la información, análisis del riesgo e identificación de patrones de fraude, embargos preventivos para asegurar pago de deudas, control de bonificaciones y reducciones indebidas y, creaciones de planes integrales contra el fraude. Finalmente, se reconoce la necesidad de innovar en medidas y herramienta tecnológicas para enfrentar el fraude.
 
-De manera análoga, \legalcite{Rodriguez1999} aborda la problemática de uno de los tipos de fraude relacionado con los incrementos injustificados de las bases de cotización a la seguridad social. Este fenómeno cuando los trabajadores incrementan artificialmente sus bases de cotización en los últimos años laborales para recibir una pensión de jubilación más alta. Según este estudio, se atribuye que los casos de fraudes más comunes son cometidos por personas que tienen influencia sobre la empresa, como directivos o dueños, ya que tienen mayor facilidad para aumentar su salario.
-A pesar de que la detección del fraude es compleja debido a las diferentes estrategias para eludir normativas antifraude, se han tomado medidas como la limitación de incrementos salariales en los dos años previos a la jubilación que exceden cierto valor, permitir incrementos solo en ascensos o nuevas responsabilidades, y aplicación de códigos civiles y normativas específicas.
-La detección de fraudes implementada se da mediante informes de análisis de casos donde el trabajdor ha aumentado su base de cotización sin justificación. Se presta especial atención a trabajdores con posiciones de poder, se toma en cuena aumentos salarios desproporcionados, y se analizan patrones y presunciones. 
+De manera análoga, \estcite{Rodriguez1999} aborda la problemática de uno de los tipos de fraude relacionado con los incrementos injustificados de las bases de cotización a la seguridad social. Este fenómeno toma lugar cuando los trabajadores incrementan artificialmente sus bases de cotización en los últimos años laborales para recibir una pensión de jubilación más alta. Según este estudio, se atribuye que los casos de fraudes más comunes son cometidos por personas que tienen influencia sobre la empresa, como directivos o dueños, ya que tienen mayor facilidad para aumentar su salario.
+A pesar de que la detección del fraude es compleja, debido a las diferentes estrategias para eludir normativas antifraude, se han tomado medidas como la limitación de incrementos salariales en los dos años previos a la jubilación que exceden cierto valor, permitir incrementos solo en ascensos o nuevas responsabilidades, y aplicación de códigos civiles y normativas específicas.
+La detección de fraudes implementada se da mediante informes de análisis de casos donde el trabajdor ha aumentado su base de cotización sin justificación. Se presta especial atención a trabajdores con posiciones de poder, se toma en cuenta aumentos salariales desproporcionados, y se analizan patrones y presunciones. 
 
 
  \section{Machine Learning}\label{sec:machine_learning}
 
-El Machine Learning o Aprendizaje Automático comprende un conjunto de algoritmos y modelos computacionales evolutivos, los cuales se han diseñado con el fin de reproducir la inteligencia humana aprendiendo y mejorando su rendimiento a partir de los datos del entorno sin la intervención humana o tareas explícitamente programadas. Esto se logra analizando diferentes patrones y relaciones de los datos, a partir de los cuales se generan resultados \citep{ElNaqa2015}.
+El Machine Learning o Aprendizaje Automático comprende un conjunto de algoritmos y modelos computacionales evolutivos, los cuales se han diseñado con el fin de reproducir la inteligencia humana aprendiendo y mejorando su rendimiento basándose en los datos del entorno, sin la intervención humana o tareas explícitamente programadas. Esto se logra analizando diferentes patrones y relaciones de los datos, a partir de los cuales se generan resultados \citep{ElNaqa2015}.
 
-Este tipo de modelos se emplea principalmente en problemas que requieren ajustes complejos o un gran número de reglas, ya que estas técnicas simplifican el código y mejoran el rendimiento. También son eficaces para problemas complejos donde las técnicas tradicionales no obtienen buenas soluciones, así como en entornos dinámicos, en los cuales su capacidad para reentrenarse fácilmente con nuevos datos permite mantener el modelo actualizado. Además, son útiles para la obtención de información de problemas complejos y grandes volúmenes de datos \citep{geron2023hands}. 
+Este tipo de modelos se emplean, principalmente, en problemas que requieren ajustes complejos o un gran número de reglas, ya que estas técnicas simplifican el código y mejoran el rendimiento. También son eficaces para problemas complejos, donde las técnicas tradicionales no obtienen buenas soluciones, así como en entornos dinámicos, en los cuales su capacidad para reentrenarse fácilmente con nuevos datos permite mantener el modelo actualizado. Además, son útiles para la obtención de información proveniente de problemas complejos y grandes volúmenes de datos \citep{geron2023hands}. 
 
 \subsection{Algoritmos no supervisados}\label{sec:no_supervisados}
 
@@ -59,25 +59,56 @@ Varios problemas del entorno cuentan con datos que no están etiquetados, y etiq
 
 \subsubsection{K Means}\label{sec:k_means}
  
-Según \legalcite{kanagala2016comparative}, el algoritmo K-Means es un algoritmo de agrupamiento no supervisado, que agrupa o clasifica datos en grupos tomando en cuenta su similitud. Su objetivo es dividir los datos en k conjuntos definidos, donde k es un parámetro de entrada. La agrupación se dará de forma que la distancia de los puntos a los centroides de cada grupo sean minimizadas, asegurando la similaridad de los datos pertenecientes a cada grupo.
+Según \estcite{kanagala2016comparative}, el algoritmo K-Means es un procedimiento de agrupamiento no supervisado, que agrupa o clasifica datos en clústeres tomando en cuenta su similitud. Su objetivo es dividir los datos en k conjuntos definidos, donde k es un parámetro de entrada. La agrupación se dará de forma que la distancia de los puntos a los centroides de cada grupo sean minimizadas, garantizando la similaridad de los datos pertenecientes a cada clúster
 
 El funcionamiento de este algoritmo sigue los siguientes pasos: en primer lugar, se seleccionan arbitrariamente k elementos de la base de datos como las medias o centroides iniciales de los clústeres, se calcula la distancia de cada elemento hacia los centros de los clústeres y se asignan al clúster más cercano. Posteriormente, se vuelve a calcular el centroide de cada clúster como la media de los elementos que pertenecen al mismo. Finalmente, se repiten el paso 1 y 2 hasta que no haya cambio en los elementos que forman parte de cada conjunto \citep{kanagala2016comparative}.
 
+\begin{figure}
+    \centering
+    \includegraphics[width=0.65\linewidth]{graficos/kmeans}
+    \caption{ Resultados obtenidos con la aplicación del algoritmo K-means \citep{towardsdatascience_kmeans}.}
+    \label{fig:kmeans}
+\end{figure}
+
 \subsubsection{DBScan}\label{sec:dbscan}
 
-Según \legalcite{kanagala2016comparative}, DBScan es un algoritmo de agrupamiento basado en la densidad, ya identifica las regiones de alta densidad que están separadas entre sí por regiones de baja densidad. En este algoritmo los puntos se clasifican en tres tipos: punto central, aquellos que tienen más del mínimo de puntos especificado por el usuario (MinPts) dentro de un radio específico que igual lo determina el usuario (Eps); punto de frontera, los puntos que tienen menos punto que el número MinPts dentro de un radio Eps, pero un punto central se encuentra en su vecindad; y puntos de ruido, que son aquellos que no son centrales ni de bordes.
+Según \estcite{kanagala2016comparative}, DBScan es un algoritmo de agrupamiento basado en la densidad, ya identifica las regiones de alta densidad que están separadas entre sí por regiones de baja densidad. En este algoritmo los puntos se clasifican en tres tipos: punto central, aquellos que tienen más del mínimo de puntos especificado por el usuario (MinPts) dentro de un radio específico que igual lo determina el usuario (Eps); punto de frontera, los puntos que tienen menos punto que el número MinPts dentro de un radio Eps, pero un punto central se encuentra en su vecindad; y puntos de ruido, que son aquellos que no son centrales ni de bordes.
 
-El algoritmo, en primer lugar, identifica de qué tipo es cada puntos y se eliminan los puntos de ruido, o de otra forma, se identifican los puntos atípicos y se eliminan. Luego, se establece un borde entre los puntos cercanos unos a otros y se convierte cada grupo de puntos centrales que están conectados en grupos separados. Finalmente, los puntos frontera son asignados a los grupos de los puntos centrales que tengan asociados \citep{kanagala2016comparative}. 
+El algoritmo, en primer lugar, identifica de qué tipo es cada puntos y se eliminan los puntos de ruido, o de otra forma, se identifican los puntos atípicos y se eliminan. Luego, se establece un borde entre los puntos cercanos unos a otros y se convierte cada grupo de puntos centrales que están conectados en grupos separados. Finalmente, los puntos frontera son asignados a los grupos de los puntos centrales que tengan asociados \citep{kanagala2016comparative}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.5\linewidth]{graficos/dbscan.png}
+    \caption{ \textit{Un ejemplo ilustrativo del algoritmo DBSCAN, con minPts=3. El radio de los círculos representa la distancia Eps entre cada punto. Los puntos rojos son puntos centrales porque tienen al menos minPts vecinos entre sí. Los puntos amarillos son puntos frontera porque tienen menos de minPts puntos en sus vecindarios, y dentro de los mismos tienen un punto central. El punto azul se considera ruido porque no está dentro de la distancia Eps de ningún otro punto} \citep{aribido2021self}.}
+    \label{fig:dbscan}
+\end{figure}
 
 \subsubsection{Clúster jerárquico (de división)}\label{sec:cluster_jerarquico}
 
 El algoritmo de Clúster Jerárquico se basa en la división de los elementos de la base de datos, tomando en cuenta el orden en el que los mismos se dividen. Para la representación de este proceso se hace uso de árboles o dendogramas. El algoritmo inicia con un único clúster que contiene todos los elementos de la base de datos. Luego, los separa iterativamente, removiendo de los clústers aquellos elementos que no tienen similitudes con los demás. Finalmente, se continúa el proceso alcanzar el criterio de parada p que todos los elementos formen grupos de un solo elemento \citep{shetty2021hierarchical}. 
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.5\linewidth]{graficos/jerarquico.png}
+    \caption{ \textit{Clúster jerárquico aglomerativo} \citep{shetty2021hierarchical}.}
+    \label{fig:cluster_jerarquico}
+\end{figure}
 
 \subsection{Algoritmos supervisados}\label{sec:supervisados}
 
 Es una técnica de Aprendizaje Automático usada cuando el conjunto de datos se encuentra etiquetado, es decir, existe una preclasificación. Los datos son procesados y el algoritmo corrige sus errores iterativamente hasta que alcanza el nivel de precición requerido \citep{unnoba2020tratamiento}.
 
 Es decir, el modelo va a ser entrenado con un conjunto de datos con resultados conocidos, donde la respuesta correcta en su etiqueta asociada, de los cuales aprende realizando ajustes en sus parámetros. Esto con el fin de, posteriormente, realizar predicciones de las etiquetas de nuevas observaciones. Estos algoritmos se dividen en dos tipos: de regresión y de clasificación (falta cita).
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{graficos/supervisados.png}
+    \caption{ \textit{Descripción genérica del flujo de entrenamiento de un algoritmo supervisado} \citep{moreno2023manual}.}
+    \label{fig:supervisados}
+\end{figure}
+
+
+moreno2023manual
 
 \subsubsection{Algoritmos supervisados de clasificación}\label{sec:supervisado_clasificacion}
  
@@ -124,7 +155,7 @@ Para optimizar la eficiencia de los modelos en la obtención de resultados, fue 
 
 \subsubsection{Balanceo de clases}\label{sec:balanceo}
 
-Según \legalcite{batista2004balancing}, las técnicas de balanceo de clases son utilizadas para mejorar el rendimiento de los sistemas de aprendizaje automático en conjuntos de datos desequilibrados, puesto que en datos reales es frecuente la presencia de clases desbalanceadas, lo que puede favorecer a la clase mayoritaria al no incluir los patrones de la clase minoritaria, disminuyendo su precisión.
+Según \estcite{batista2004balancing}, las técnicas de balanceo de clases son utilizadas para mejorar el rendimiento de los sistemas de aprendizaje automático en conjuntos de datos desequilibrados, puesto que en datos reales es frecuente la presencia de clases desbalanceadas, lo que puede favorecer a la clase mayoritaria al no incluir los patrones de la clase minoritaria, disminuyendo su precisión.
 
 Para el balanceo de clases de usan los métodos oversampling y undersampling, donde el oversampling se encarga de generar copias de ejemplos de la clase minoritaria, pero puede incrementar el riesgo de sobreajuste, mientras el undersampling elimina ejemplos de la clase mayoritaria para equilibrar el conjunto, pero puede descartar datos útiles, afectando negativamente la capacidad del modelo para generalizar.
 
@@ -137,7 +168,7 @@ Las principales técnicas usadas para llevar acabo los distintos tipos de balanc
 
 \subsubsection{Normalización}\label{sec:normalizacion}
 
-Según \legalcite{Ali2014}, la normalización comprende el proceso de ajustar los datos para que los mismos se encuentren dentro de un rango específico, ya sea, entre 0 y 1 o entre -1 y 1. Este procedimiento es necesario cuando hay grandes diferencias en los rangos de las distintas características presentes en un conjunto de datos. Hay que tener en cuenta que su funcionalidad es mejor cuando no hay valores atípicos en los datos.
+Según \estcite{Ali2014}, la normalización comprende el proceso de ajustar los datos para que los mismos se encuentren dentro de un rango específico, ya sea, entre 0 y 1 o entre -1 y 1. Este procedimiento es necesario cuando hay grandes diferencias en los rangos de las distintas características presentes en un conjunto de datos. Hay que tener en cuenta que su funcionalidad es mejor cuando no hay valores atípicos en los datos.
 
 \subsubsection{Validación Cruzada}\label{sec:val_cruzada}
 
@@ -152,7 +183,7 @@ Se tienen diversas técnicas de aplicación de la Validación Cruzada entre las 
 
 \subsubsection{Método del Codo}\label{sec:codo}
 
-Según \legalcite{yuan2019kvalue}, el método del codo es una técnica bastante usada para determinar el número de clústers en los algoritmos de agrupamiento, sobre todo en K-means. Su propósito es encontrar el número de clústers, donde si se aumentan más, ya no hay una mejora significativa en la calidad de las agrupaciones. Este método, en primer lugar, grafica la suma se lo errores cuadrados dentro de los clústers dependiendo el número de clústers elegidos, k. Con el aumento de k, este error disminuye, pero después de cierto punto, la mejora se ve reducica y forma una curva semejante a un codo. Donde, el codo marca el número óptimo de clústers ya que a partir de ellos el resultado no se ve significativamente mejorado.
+Según \estcite{yuan2019kvalue}, el método del codo es una técnica bastante usada para determinar el número de clústers en los algoritmos de agrupamiento, sobre todo en K-means. Su propósito es encontrar el número de clústers, donde si se aumentan más, ya no hay una mejora significativa en la calidad de las agrupaciones. Este método, en primer lugar, grafica la suma se lo errores cuadrados dentro de los clústers dependiendo el número de clústers elegidos, k. Con el aumento de k, este error disminuye, pero después de cierto punto, la mejora se ve reducica y forma una curva semejante a un codo. Donde, el codo marca el número óptimo de clústers ya que a partir de ellos el resultado no se ve significativamente mejorado.
 
 \subsubsection{Análisis de componentes principales (ACP)}\label{sec:acp}
 
@@ -165,14 +196,14 @@ El PCA, en primer lugar, determina las direcciones de mayor varianza de los dato
  
 La investigación previa relacionada con la detección de fraude en el ámbito de la seguridad social, tanto en Ecuador como en otros países, es limitada. No obstante, el uso del Machine Learning en la detección de fraudes en otros campos es amplio, especialmente en el fraude con tarjetas de crédito, donde numerosos estudios han analizado tanto las consecuencias como las medidas para enfrentar estos delitos.
 
-En \legalcite{8123782}, se aborda la  detección de fraudes en transacciones de tarjetas de crédito, cuyo incremento se debe la aumento de las transacciones en línea, complicando la naturaleza de los comportamientos fraudulentos y su detección. En este estudio se comparan los algoritmos KNN, Naive Bayes y Regresión Logística,, utilizando datos altamente desequilibrados, donde solo el 0.172\% de las transacciones eran fraudulentas. Para mejorar la detección y reducir los falsos negativos, se aplicaron técnicas de submuestreo, sobremuestreo y balanceo híbrido. El método híbrido fue el más eficaz para, logrando un equilibrio entre las clases y conservando los patrones valiosos, y el mejor desempeño se obtuvo con el algoritmo KNN bajo una proporción 34:66 entre transacciones fraudulentas y no fraudulentas, alcanzando una precisión de 1, sensibilidad de 0.9375 y una exactitud de 0.9792.
+En \estcite{8123782}, se aborda la  detección de fraudes en transacciones de tarjetas de crédito, cuyo incremento se debe la aumento de las transacciones en línea, complicando la naturaleza de los comportamientos fraudulentos y su detección. En este estudio se comparan los algoritmos KNN, Naive Bayes y Regresión Logística,, utilizando datos altamente desequilibrados, donde solo el 0.172\% de las transacciones eran fraudulentas. Para mejorar la detección y reducir los falsos negativos, se aplicaron técnicas de submuestreo, sobremuestreo y balanceo híbrido. El método híbrido fue el más eficaz para, logrando un equilibrio entre las clases y conservando los patrones valiosos, y el mejor desempeño se obtuvo con el algoritmo KNN bajo una proporción 34:66 entre transacciones fraudulentas y no fraudulentas, alcanzando una precisión de 1, sensibilidad de 0.9375 y una exactitud de 0.9792.
 
-De manera similar, el estudio \legalcite{8717766} evaluó modelos como Random Forest y Naive Bayes para la detección de fraudes en las tarjetas de crédito. En este caso, se utilizó el sobremuestreo para mantener la información de la clase mayoritaria, y se hace enfásis en el uso de la técnica SMOTE para crear ejemplos sintéticos de la clase minoritaria.
+De manera similar, el estudio \estcite{8717766} evaluó modelos como Random Forest y Naive Bayes para la detección de fraudes en las tarjetas de crédito. En este caso, se utilizó el sobremuestreo para mantener la información de la clase mayoritaria, y se hace enfásis en el uso de la técnica SMOTE para crear ejemplos sintéticos de la clase minoritaria.
 También, menciona la importancia de la selección de variables y la partición de datos realizada con una distribución 80:20, con la cual el modelo Random Forest se destacó por su rendimiento, obteniendo una precisión de 79.21\%, recall de 81.63\% y exactitud de 99.93\%.
 
-Por otro lado, el paper \legalcite{10.2308/ajpt-50009} se centra en la detección de fraude en estados financieros. Al igual que en los estudios previos, se compararon distintos algoritmos, destacando que las redes neuronales artificiales funcionan bien en condiciones de equilibrio, pero su rendimiento disminuye ante un desequilibrio. Las máquinas de soporte vectorial (SVM) han demostrado tener un buen rendimiento con datos desequilibrados, aunque no son las más eficientes cuando existe comparación directa. Finalmente, los métodos de ensamble sobresalen frente a los otros métodos al mejorar su precisión cuando los datos están equilibrados. Además, se hace énfasis en que el rendimiento de los algoritmos puede varias dependiendo de los datos.
+Por otro lado, el paper \estcite{10.2308/ajpt-50009} se centra en la detección de fraude en estados financieros. Al igual que en los estudios previos, se compararon distintos algoritmos, destacando que las redes neuronales artificiales funcionan bien en condiciones de equilibrio, pero su rendimiento disminuye ante un desequilibrio. Las máquinas de soporte vectorial (SVM) han demostrado tener un buen rendimiento con datos desequilibrados, aunque no son las más eficientes cuando existe comparación directa. Finalmente, los métodos de ensamble sobresalen frente a los otros métodos al mejorar su precisión cuando los datos están equilibrados. Además, se hace énfasis en que el rendimiento de los algoritmos puede varias dependiendo de los datos.
 
-Finalmente, en \legalcite{9103880}, se busca identificar transacciones electrónicas fraudulentas mediante el uso de Xgboost, el cual superó a otros modelos como SVM, regresión logística y Random Forest, alcanzando un AUC-ROC de 0.952 y una precisión del 98.1\%. En este estudio, SMOTE se utilizó nuevamente para balancear los datos, se dio gran importancia a la ingeniería de características y de igual forma se realizó una optimización de hiperparámetros. Xgboost demostró ser particularmente efectivo en este contexto debido a su capacidad para manejar grandes volúmenes de características, mejorando tanto la velocidad de detección como la predicción.
+Finalmente, en \estcite{9103880}, se busca identificar transacciones electrónicas fraudulentas mediante el uso de Xgboost, el cual superó a otros modelos como SVM, regresión logística y Random Forest, alcanzando un AUC-ROC de 0.952 y una precisión del 98.1\%. En este estudio, SMOTE se utilizó nuevamente para balancear los datos, se dio gran importancia a la ingeniería de características y de igual forma se realizó una optimización de hiperparámetros. Xgboost demostró ser particularmente efectivo en este contexto debido a su capacidad para manejar grandes volúmenes de características, mejorando tanto la velocidad de detección como la predicción.
 
 Además de los trabajos enfocados en la detección de fraude, es crucial revisar estudios previos sobre las técnicas de detección de valores atípicos. El artículo \estcite{flores2018revision} destaca la efectividad de distintos algoritmos para este propósito, donde se concluye que los enfoques híbridos y basados en densidad son más eficaces cuando los datos no están distribuidos de manera uniforme. En contraste, los enfoques basados en distancia resultan útiles en situaciones más simples, mientras que los algoritmos de clustering, como el k-means, son menos recomendables debido a su sensibilidad al ruido. Los enfoques basados en distancia son especialmente eficientes para conjuntos de datos pequeños y con una distribución uniforme. De igual forma, el paper 1390-6542-enfoqueute-11-01-00056.pdf complementa estos hallazgos al mencionar que la combinación de los métodos chi-cuadrado, KNN y K-Means, en su conjunto de datos, logró una efectividad de 100\% en la detección de valores atípicos. Su efectividad se vio emjorada, puesto que el KNN identificó los puntos alejados de sus vecinos cercanos, mientras que K-Means ayudo a reducir los falsos negativos generado por el KNN, confirmando si los valores detectados eran realmente atípicos.
 
