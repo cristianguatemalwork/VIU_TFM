@@ -51,8 +51,28 @@ REP_file_latex_org <- c( paste( parametros$work_dir, 'Reportes/Bibliografia_TFT.
                          
                          #CLuster jerarquico
                          paste( parametros$work_dir, 'Reportes/algoritmo_cj_271_1.png', sep = '' ),
-                         paste( parametros$work_dir, 'Reportes/algoritmo_cj_20889867_1.png', sep = '' )
+                         paste( parametros$work_dir, 'Reportes/algoritmo_cj_20889867_1.png', sep = '' ),
+                         paste( parametros$work_dir, 'Reportes/algoritmo_cj_8804_2.png', sep = '' ),
+                         paste( parametros$work_dir, 'Reportes/algoritmo_cj_3071_2.png', sep = '' ),
+                         paste( parametros$work_dir, 'Reportes/algoritmo_cj_20857054_2.png', sep = '' ),
+                         paste( parametros$work_dir, 'Reportes/algoritmo_cj_10133_2.png', sep = '' ),
+                         paste( parametros$work_dir, 'Reportes/algoritmo_cj_20013447_2.png', sep = '' ),
+                         paste( parametros$work_dir, 'Reportes/algoritmo_cj_3608_2.png', sep = '' ),
+                         paste( parametros$work_dir, 'Reportes/algoritmo_cj_135752_2.png', sep = '' ),
+                         paste( parametros$work_dir, 'Reportes/algoritmo_cj_154409_2.png', sep = '' ),
+                         paste( parametros$work_dir, 'Reportes/algoritmo_cj_1908_2.png', sep = '' ),
+                         paste( parametros$work_dir, 'Reportes/algoritmo_cj_20847366_2.png', sep = '' ),
                          
+                         paste( parametros$work_dir, 'Reportes/algoritmo_cj_8804_3.png', sep = '' ),
+                         paste( parametros$work_dir, 'Reportes/algoritmo_cj_3071_3.png', sep = '' ),
+                         paste( parametros$work_dir, 'Reportes/algoritmo_cj_20857054_3.png', sep = '' ),
+                         paste( parametros$work_dir, 'Reportes/algoritmo_cj_10133_3.png', sep = '' ),
+                         paste( parametros$work_dir, 'Reportes/algoritmo_cj_20013447_3.png', sep = '' ),
+                         paste( parametros$work_dir, 'Reportes/algoritmo_cj_3608_3.png', sep = '' ),
+                         paste( parametros$work_dir, 'Reportes/algoritmo_cj_135752_3.png', sep = '' ),
+                         paste( parametros$work_dir, 'Reportes/algoritmo_cj_154409_3.png', sep = '' ),
+                         paste( parametros$work_dir, 'Reportes/algoritmo_cj_1908_3.png', sep = '' ),
+                         paste( parametros$work_dir, 'Reportes/algoritmo_cj_20847366_3.png', sep = '' )
                          
                         )
 
@@ -70,7 +90,28 @@ REP_file_latex_des <- c( paste( REP_rep_dir, 'Bibliografia_TFT.bib', sep = '' ),
                          
                          #CLuster jerarquico
                          paste( REP_rep_dir, 'graficos/', 'algoritmo_cj_271_1.png', sep = '' ),
-                         paste( REP_rep_dir, 'graficos/', 'algoritmo_cj_20889867_1.png', sep = '' )
+                         paste( REP_rep_dir, 'graficos/', 'algoritmo_cj_20889867_1.png', sep = '' ),
+                         paste( REP_rep_dir, 'graficos/', 'algoritmo_cj_8804_2.png', sep = '' ),
+                         paste( REP_rep_dir, 'graficos/', 'algoritmo_cj_3071_2.png', sep = '' ),
+                         paste( REP_rep_dir, 'graficos/', 'algoritmo_cj_20857054_2.png', sep = '' ),
+                         paste( REP_rep_dir, 'graficos/', 'algoritmo_cj_10133_2.png', sep = '' ),
+                         paste( REP_rep_dir, 'graficos/', 'algoritmo_cj_20013447_2.png', sep = '' ),
+                         paste( REP_rep_dir, 'graficos/', 'algoritmo_cj_3608_2.png', sep = '' ),
+                         paste( REP_rep_dir, 'graficos/', 'algoritmo_cj_135752_2.png', sep = '' ),
+                         paste( REP_rep_dir, 'graficos/', 'algoritmo_cj_154409_2.png', sep = '' ),
+                         paste( REP_rep_dir, 'graficos/', 'algoritmo_cj_1908_2.png', sep = '' ),
+                         paste( REP_rep_dir, 'graficos/', 'algoritmo_cj_20847366_2.png', sep = '' ),
+                         
+                         paste( REP_rep_dir, 'graficos/', 'algoritmo_cj_8804_3.png', sep = '' ),
+                         paste( REP_rep_dir, 'graficos/', 'algoritmo_cj_3071_3.png', sep = '' ),
+                         paste( REP_rep_dir, 'graficos/', 'algoritmo_cj_20857054_3.png', sep = '' ),
+                         paste( REP_rep_dir, 'graficos/', 'algoritmo_cj_10133_3.png', sep = '' ),
+                         paste( REP_rep_dir, 'graficos/', 'algoritmo_cj_20013447_3.png', sep = '' ),
+                         paste( REP_rep_dir, 'graficos/', 'algoritmo_cj_3608_3.png', sep = '' ),
+                         paste( REP_rep_dir, 'graficos/', 'algoritmo_cj_135752_3.png', sep = '' ),
+                         paste( REP_rep_dir, 'graficos/', 'algoritmo_cj_154409_3.png', sep = '' ),
+                         paste( REP_rep_dir, 'graficos/', 'algoritmo_cj_1908_3.png', sep = '' ),
+                         paste( REP_rep_dir, 'graficos/', 'algoritmo_cj_20847366_3.png', sep = '' )
                         )
 
 REP_file_latex_clean <- c( paste( REP_rep_dir, 'Bibliografia_TFT.bib', sep = '' ), 
