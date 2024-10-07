@@ -110,6 +110,56 @@ Este algoritmo, en primer lugar, se encarga de seleccionar aleatoriamente un con
 
 El Boosting es una técnica usada para mejorar la precisión de los modelos. Es similar al Bagging pero con la diferencia de que en esta técnica las muestras utilizadas en cada iteración no se extraen de la población de la misma forma. Si no, los casos que han sido clasificados incorrectamente en pasos anteriores, reciben un peso mayor en el siguiente paso. Así, este es un proceso interativo que incorpora pesos, y no toma un promedio simple para las predicciones \citep{SUTTON2005303}.
 
+\subsubsection{Gradient Boosting}\label{sec:gboosting}
+
+En este procedimiento se ajustan iterativamente nuevos modelos que van haciendo más precisa la estimación de la variable respuesta. Para ello, este algoritmo construye nuevos algoritmos que estén lo más correlacionados con el gradiente negativo de la función de pérdida, de donde, se tiene un proceso de optimización que se basa en minimizar la función de pérdida. La flexilidad de estos modelos hace que sean bastante personalizables, y permite utilizar una gran variedad de funciones de pérdida para mejorar la precisión \citep{natekin2013gradient}.
+
+\subsubsection{XGBoost}\label{sec:xgboost}
+
+Este algoritmo es una de las implementaciones más eficientes de árboles de decisión, el cual se h apotenciado por el gradiente. Se ha diseñado para optimizar el uso de memoria y aprovechar la potencia del hardware. Con esta técnica se disminuye el tiempo de ejecución, incluso su rendimiento es mejor que los modelos de aprendizaje profundo. La idea principal del mismo es construir secuencialmente subárboles que parten de un árbol original, tal que los mismo vayan reduciendo los errores de la función de costo del árbol anterior \citep{8906396}.
+
+\subsection{Técnicas utilizadas}\label{sec:tec_us}
+
+Para optimizar la eficiencia de los modelos en la obtención de resultados, fue necesario realizar un preprocesamiento de los datos. Este proceso incluyó la aplicación de diversas técnicas que ayudaron a mejorar tanto el rendimiento, como la precisión de los diferentes modelos.
+
+\subsubsection{Balanceo de clases}\label{sec:balanceo}
+
+Según \legalcite{batista2004balancing}, las técnicas de balanceo de clases son utilizadas para mejorar el rendimiento de los sistemas de aprendizaje automático en conjuntos de datos desequilibrados, puesto que en datos reales es frecuente la presencia de clases desbalanceadas, lo que puede favorecer a la clase mayoritaria al no incluir los patrones de la clase minoritaria, disminuyendo su precisión.
+
+Para el balanceo de clases de usan los métodos oversampling y undersampling, donde el oversampling se encarga de generar copias de ejemplos de la clase minoritaria, pero puede incrementar el riesgo de sobreajuste, mientras el undersampling elimina ejemplos de la clase mayoritaria para equilibrar el conjunto, pero puede descartar datos útiles, afectando negativamente la capacidad del modelo para generalizar.
+
+Las principales técnicas usadas para llevar acabo los distintos tipos de balanceo son SMOTE (Synthetic Minority Over-sampling Technique) y SMOTE + ENN (Edited Nearest Neighbors).
+
+\begin{itemize}
+\item SMOTE es un método de oversampling que genera nuevos ejemplos sintéticos de la clase minoritaria interpolando entre ejemplos existentes, lo que reduce el sobreajuste en modelos de clasificación. Este logra que las fronteras de decisión de la clase minoritaria se extiendan más dentro del espacio de la clase mayoritaria, lo que mejora el rendimiento del modelo.
+\item SMOTE + ENN combina la creación de nuevos ejemplos mediante SMOTE con la eliminación de ejemplos mal clasificados de ambas clases usando ENN, lo que elimina ruido y mejora la definición de los clústeres de clases. Este enfoque es útil especialmente en dominios donde hay pocos ejemplos de la clase minoritaria.
+\end{itemize}
+
+\subsubsection{Normalización}\label{sec:normalizacion}
+
+Según \legalcite{Ali2014}, la normalización comprende el proceso de ajustar los datos para que los mismos se encuentren dentro de un rango específico, ya sea, entre 0 y 1 o entre -1 y 1. Este procedimiento es necesario cuando hay grandes diferencias en los rangos de las distintas características presentes en un conjunto de datos. Hay que tener en cuenta que su funcionalidad es mejor cuando no hay valores atípicos en los datos.
+
+\subsubsection{Validación Cruzada}\label{sec:val_cruzada}
+
+La validación cruzada es una técnica que se utiliza para evaluar la capacidad de generalización de un modelo, su capacidad predictiva y precisión, a través de la división de los datos en conjuntos de entrenamiento y prueba. Ayuda a evitar el sobreajuste y mejora la replicabilidad de los resultados \citep{Koul2018}.
+
+Se tienen diversas técnicas de aplicación de la Validación Cruzada entre las cuales, las principales son:
+\begin{enumerate}
+\item Holdout: Se divide el conjunto una vez, entrenando en una parte y probando en la otra. Es simple, pero puede tener alta varianza.
+\item  k-Fold: Se divide el conjunto de datos en k partes, o folds. Se entrena el modelo en k-1 partes y se prueba en la parte restante, repitiendo el proceso k veces y promediando los resultados. Esto reduce la varianza y proporciona una evaluación del modelo confiable.
+\item Leave-One-Out Cross-Validation (LOOCV): Es un tipo de la técnica k-Fold donde k es el número total de observaciones. Cada observación se deja fuera una vez, y el modelo es entrenado con el resto de observaciones. Una desventaja del mismo es que puede ser computacionalmente costoso.
+\end{enumerate}
+
+\subsubsection{Método del Codo}\label{sec:codo}
+
+Según \legalcite{yuan2019kvalue}, el método del codo es una técnica bastante usada para determinar el número de clústers en los algoritmos de agrupamiento, sobre todo en K-means. Su propósito es encontrar el número de clústers, donde si se aumentan más, ya no hay una mejora significativa en la calidad de las agrupaciones. Este método, en primer lugar, grafica la suma se lo errores cuadrados dentro de los clústers dependiendo el número de clústers elegidos, k. Con el aumento de k, este error disminuye, pero después de cierto punto, la mejora se ve reducica y forma una curva semejante a un codo. Donde, el codo marca el número óptimo de clústers ya que a partir de ellos el resultado no se ve significativamente mejorado.
+
+\subsubsection{Análisis de componentes principales (ACP)}\label{sec:acp}
+
+El Análisis de Componentes Principales (PCA) es una técnica usada para la reducción de la dimensionalidad de las variables en un conjunto de datos, manteniendo la mayor cantidad de varianza posible. Se proyectan los datos originales en un espacio de menor dimensión tomando en cuenta la minimización de la distancia entre los puntos iniciales y los proyectados. \citep{wiskott2009pca}
+
+El PCA, en primer lugar, determina las direcciones de mayor varianza de los datos a través de una matriz de covarianza. Posteriormente, diagonaliza la matriz, encontrando sus valores propios. De esta forma se proyectan los datos en las nuevas dimensiones, disminuyen la dimensionalidad y preservando la mayor parte de información de los datos originales. \citep{wiskott2009pca}
+
 
 \section{Trabajos previos}\label{sec:trabajos_previos}
  
