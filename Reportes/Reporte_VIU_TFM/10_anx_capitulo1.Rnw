@@ -819,3 +819,110 @@ Año & Tasa de aportación & Tasa actuarial \\  \hline
 Ahora bien, se crean las variables \textit{N\_PRI}, \textit{N\_PUB}, \textit{N\_IND}, \textit{N\_VOL\_EX} y \textit{N\_VOL\_EC} que guardarán la información sobre las veces que el afiliado aporte en los sectores Privado, Público, Independiente, Voluntario del Exterior y Voluntario residente del Ecuador respectivamente.
 
 
+\section{Algoritmos de cluster jerárquico} \label{sec:alg_clus_jear}
+
+\begin{lstlisting}[style=pythonstyle]
+def cluster_jerarquico( data_si_dic ):
+    print('Algoritmo Cluster Jerárquico')
+    inicio = time.time()
+    nom = 'ATI_CJ'
+    data_val_ati = {}
+    for cedula in data_si_dic:
+
+        if( len( data_si_dic[ cedula ]['SALARIO'] ) > 1 ): #Para formar al menos un cluster
+
+            aux = np.array( data_si_dic[ cedula ]['SALARIO'] ).reshape(-1, 1)
+            Z = linkage( aux , method='single', metric='euclidean')
+
+            num_clusters = 2  # Puedes ajustar este valor según tus necesidades
+            clusters = fcluster(Z, num_clusters, criterion='maxclust')
+
+            if( len( np.unique(clusters) ) > 1 ): #Para considerar al menos 2 cluster
+                # Calcular el centroide de cada clúster
+                cluster_centers = np.array([[ np.nanmean(aux[clusters == i], axis=0)[0], i ] for i in range(1, num_clusters + 1)] ) 
+
+                Q1 = np.quantile(aux, 0.25)
+                Q3 = np.quantile(aux, 0.75)
+                IQR = Q3-Q1
+                LI = Q1 - 1.5 * IQR
+                LS = Q3 + 1.5 * IQR
+
+                cl_at = np.where( cluster_centers[:,0] > (LS +  1e-8) )[0]
+                cluster_centers[cl_at][:, 1]
+
+                mod_aux = np.zeros((len(aux), 2))
+                mod_aux[:, 0] = aux[:, 0]  # Copiar los valores originales de aux en la primera columna
+                mod_aux[np.isin(clusters, cluster_centers[cl_at][:, 1]), 1] = 1  # Asignar 1 en la segunda columna donde el cluster es 1
+
+                data_val_ati[cedula] = {'SALARIO': mod_aux[:, 0].tolist(),
+                                             nom : mod_aux[:, 1].tolist(),
+                                        'INDICE' : data_si_dic[ cedula ]['INDICE']}
+            else:
+                data_val_ati[cedula] = { 'SALARIO': aux.flatten().tolist(),
+                                               nom:  [-1] * len(aux),
+                                         'INDICE' : data_si_dic[ cedula ]['INDICE']} 
+
+        else:
+            data_val_ati[cedula] = { 'SALARIO': data_si_dic[ cedula ]['SALARIO'],
+                                           nom:  [-2] * len( data_si_dic[ cedula ]['SALARIO'] ),
+                                     'INDICE' : data_si_dic[ cedula ]['INDICE']}
+    fin = time.time()  
+    tm = fin-inicio
+    print('\tTiempo de ejecución es:',tm//3600,'horas con',tm%3600//60,'minutos y',tm%60,'segundos' )
+    
+    return data_val_ati
+
+\end{lstlisting}
+
+\subsection{Ejemplos de la clasificación y correciones}
+
+\begin{landscape}
+\begin{figure}[H]  
+    \centering
+    \begin{minipage}{0.35\textwidth}
+        \centering
+        \includegraphics[scale=0.19]{graficos/algoritmo_cj_20013447_2.png} 
+    \end{minipage}
+    \hfill  %
+    \begin{minipage}{0.35\textwidth}
+        \centering
+        \includegraphics[scale=0.19]{graficos/algoritmo_cj_3608_2.png} 
+    \end{minipage}
+    \hfill  %
+    \begin{minipage}{0.35\textwidth}
+        \centering
+        \includegraphics[scale=0.19]{graficos/algoritmo_cj_135752_2.png} 
+    \end{minipage}
+    \hfill  %
+    \begin{minipage}{0.35\textwidth}
+        \centering
+        \includegraphics[scale=0.19]{graficos/algoritmo_cj_154409_2.png} 
+    \end{minipage}
+   
+   \vfill 
+  \begin{minipage}{0.35\textwidth}
+        \centering
+        \includegraphics[scale=0.19]{graficos/algoritmo_cj_20013447_3.png} 
+    \end{minipage}
+     \hfill  %
+    \begin{minipage}{0.35\textwidth}
+        \centering
+        \includegraphics[scale=0.19]{graficos/algoritmo_cj_3608_3.png}  
+        
+    \end{minipage}
+    \hfill  %
+    \begin{minipage}{0.35\textwidth}
+        \centering
+        \includegraphics[scale=0.19]{graficos/algoritmo_cj_135752_3.png}  
+    \end{minipage}
+    \hfill  %
+    \begin{minipage}{0.35\textwidth}
+        \centering
+        \includegraphics[scale=0.19]{graficos/algoritmo_cj_154409_3.png}  
+    \end{minipage}
+
+\caption{\headlinecolor{\underline{Resultados de la aplicación del cluster jerárquico-Anexos }}}
+\label{fig:algoritmo_cj_depu_anex}  
+    
+\end{figure}
+\end{landscape}

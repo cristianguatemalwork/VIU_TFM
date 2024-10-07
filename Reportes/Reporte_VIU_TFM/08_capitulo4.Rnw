@@ -100,7 +100,8 @@ A manera general, en lo que sigue se describen las variables que fueron creadas 
 
 En base a los artículo 2 y 13 de la \legalcite{ ResIESS_CD100}, se procede a calcular la base de calculo. Para esto se crean las variables GRUPO\_SEL\footnote{Es una variable indicatriz, que toma los valores de 1, si para un mes x del año Y, el registro se cuenta para la base de cálculo; 0 caso contrario}, BASE\_CAL\footnote{Es el valor de la Base de Cálculo en concordancia con el artículo 2 de la \legalcite{ResIESS_CD100}}. Adicionalmente, se crean las variables SBU\footnote{Contiene la información del Salario Básico Unificado para los trabajadores del Ecuador}, cuyos valores son los presentes en \cite{bce_salarios}, INI\_CAL y FIN\_CAL que corresponde a las fechas máxima y mínima de la base de calculo respectivamente, y, M\_PRI, M\_PUB, M\_IND, M\_VOL\_EX y M\_VOL\_EC que guardarán la información sobre las veces que el afiliado aporte dentro de sus mejores años de aporte en los sectores Privado, Público, Independiente, Voluntario del Exterior y Voluntario residente del Ecuador respectivamente.
 
-El dataset resultante de este proceso se datos se llamará \textit{data\_l}, mismo que será utilizado para la discrimnación de la etiqueta de fraude o no fraude en las aportaciones.
+El dataset resultante de este proceso se datos se llamará \textit{data\_l}, mismo que será utilizado para la discrimnación de la etiqueta de fraude o no fraude en las aportaciones. Este tabulado contendrá 62.130.167 registros y 16 atributos, que corresponde a  442.570 personas. Adicionalmente se crean las variables \textit{LS1}, \textit{SAL\_PROM1}, \textit{LS2} y \textit{SAL\_PROM2}, que corresponden al límite superior\footnote{Se define como la suma entre el tercer cuartil + 1,5 veces el rango inter cuartilico } del bigote del diagrama de caja y sueldo promedio para los salarios históricos y a partir del año 2000\footnote{Debido a la crisis ecónomica por la cual atravezaba el Ecuador, a partir del año 2000 el país cambia los Sucres (como moneda nacional)  a dólares estadounidenses como moneda oficial \cite{Ecua_sucre_dolar}} en adelante, respectivamemte. Esta consideración se la realiza debido a que el país cambió su moneda, por lo que, las contribuciones realizadas en sucres y posteriormente transformación a dólares con la tasa de cambios a esa fecha eran significativamente menores al SBU del año 2000 y así en adelante. En este sentido, se considerarán los valores de las variables \textit{LS2} y \textit{SAL\_PROM2}.
+
 
 
 \subsection{Datos previos a la aplicación de aprendizaje supervizado}
@@ -117,6 +118,116 @@ La principal variable de interés en \textit{data\_afi} es el \textit{SALARIO}, 
 
 \section{Aprendizaje no supervizado}
 
-Para la ejecución de los algoritmos de aprendizaje no supervizado se utiliza la base de datos \textit{data\_l}. Las dimensiones son 62.130.167 filas  con 16 columnas. Los algoritmos utilizados son cluster jerarquico, k-mean y dbscan, puesto que los mismo me permiten realizar la busqueda de los salarios que son atipicos dentro del comportamiento salarial del afiliado.
+Para la ejecución de los algoritmos de aprendizaje no supervizado se utiliza la base de datos \textit{data\_l}. Los algoritmos utilizados son cluster jerarquico\footnote{Se utiliza la métrica single pues es la que ayuda a detectar outlier \cite{Hogde2004}}, k-mean y dbscan, puesto que los mismoS me permiten realizar la busqueda de los salarios que son atipicos dentro del comportamiento salarial del afiliado.
+
+\subsection{Cluster jerárquico}
+
+Para este análisis, solo se considerarán los valores  igual a uno (1) de la variable \textit{GRUPO\_SEL}, puesto que, estos registros son los meses y años de los cinco (5) mejores años de sueldo. 
+
+
+Como el algoritmo de cluster jerarquico requiere de gran capacidad computacional, se procedió a dividir el dataset \textit{data\_l} en dos grupos. El primer grupo (de nombre \textit{ul}) solo considerará a las personas que durante toda su vida laboral y en un mismo mes aportarón solo una vez en ese mes. El número de personas que tienen esta condición es 373.069. El segundo grupo será el complemento del primero (se llamará \textit{ml}) y contiene información de 69.501 personas
+
+Tanto para \textit{ul} como \textit{ml} se calculo el bigote superior de los sueldos  para cada persona(esta variable se llamara \textit{LS\_MS}, que corresponde al bigote superior de los mejores cinco mejores años de sueldo).
+
+En referencia a la literatura, al utilizar la métrica de single en el algoritmo de cluster jerárquico, se puede detectar registros atípicos, por lo cual, está métrica será la que se va a utilizar en nuestro análisis. El código utilizado es la función \textit{cluster\_jerarquico} del código de la sección \ref{sec:alg_clus_jear} de anexos. La idea general del código es considerar como máximo dos cluster y dentro de cada uno de ellos realizar el siguiente análisis:
+
+\begin{itemize}
+\item Si el número de cluster que se forman es mayor a 1, se calcula el centroide de cada cluster y si este valor es mayor a \textit{LS\_MS}, entonces todas las observaciones del cluster serán atipicas. La etiqueta de ese sueldo será 1.
+\item Si el  número de cluster formados es igual a 1, entonces la etiqueta será -1, valor que se corregíra despúes.
+\end{itemize}
+
+Los resultados de la aplicación de función \textit{cluster\_jerarquico}, muestran que hay 123.850 personas con al menos un sueldo atípico y 52.121 personas cuyos sueldos formaron un solo cluster.  A manera de ejemplo, se presetan los siguientes casos.
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.35]{graficos/algoritmo_cj_271_1.png}
+\caption{\headlinecolor{\underline{Cluster jerárquico: Caso 1}}}
+\label{fig:algoritmo_cj_271_1}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.35]{graficos/algoritmo_cj_20889867_1.png}
+\caption{\headlinecolor{\underline{Cluster jerárquico: Caso -1}}}
+\label{fig:algoritmo_cj_271_1}
+\end{figure}
+
+La clasificación anterior debe ser corregida debido a que hay sueldos que, el algortimo los clasifica como atípicos, pero por la naturaleza de su valor no lo deberían serlo. Estos valores recaen sobre los sueldos que son igual al SBU.
+
+Por otro lado, una segunda correción se realiza a los sueldos que formaron un solo cluster, pues el algoritmo no me determinó si en efecto eran o no valores atípicos, por lo que, si un sueldo fue clasificado como -1 y su valor es mayor al mínimo entre \textit{LS2} y \textit{LS\_MS} entonces el valor es atípico. 
+
+Una tercera corrección se hace para los sueldos de la data \textit{ml}, pues aquí la variable sueldo para un mes es la suma de todas las aportaciones que realizó en ese mes, por lo tanto, si una de las partes que componen la suma es mayor  al mínimo entre \textit{LS2} y \textit{LS\_MS}, entonces es sueldo si es atipico.
+
+En este sentido, en la primera fila de la figura \ref{fig:algoritmo_cj_depu} se muestra la clasificación del algoritmos, y en la segunda, las correccones realizadas en base a lo expuesto con anterioridad. 
+
+En la figura \ref{fig:algoritmo_cj_depu_anex} de la parte de anexos se muestran otros ejemplos.
+
+
+\begin{landscape}
+\begin{figure}[H]  
+    \centering
+    \begin{minipage}{0.35\textwidth}
+        \centering
+        \includegraphics[scale=0.19]{graficos/algoritmo_cj_8804_2.png} 
+    \end{minipage}
+    \hfill  %
+    \begin{minipage}{0.35\textwidth}
+        \centering
+        \includegraphics[scale=0.19]{graficos/algoritmo_cj_3071_2.png} 
+    \end{minipage}
+    \hfill  %
+    \begin{minipage}{0.35\textwidth}
+        \centering
+        \includegraphics[scale=0.19]{graficos/algoritmo_cj_20857054_2.png} 
+    \end{minipage}
+    \hfill  %
+    \begin{minipage}{0.35\textwidth}
+        \centering
+        \includegraphics[scale=0.19]{graficos/algoritmo_cj_10133_2.png} 
+    \end{minipage}
+   
+   \vfill 
+  \begin{minipage}{0.35\textwidth}
+        \centering
+        \includegraphics[scale=0.19]{graficos/algoritmo_cj_8804_3.png} 
+    \end{minipage}
+     \hfill  %
+    \begin{minipage}{0.35\textwidth}
+        \centering
+        \includegraphics[scale=0.19]{graficos/algoritmo_cj_3071_3.png}  
+        
+    \end{minipage}
+    \hfill  %
+    \begin{minipage}{0.35\textwidth}
+        \centering
+        \includegraphics[scale=0.19]{graficos/algoritmo_cj_20857054_3.png}  
+    \end{minipage}
+    \hfill  %
+    \begin{minipage}{0.35\textwidth}
+        \centering
+        \includegraphics[scale=0.19]{graficos/algoritmo_cj_10133_3.png}  
+    \end{minipage}
+
+\caption{\headlinecolor{\underline{Resultados de la aplicaicón del cluster jerárquico }}}
+\label{fig:algoritmo_cj_depu}  
+    
+\end{figure}
+
+Para que el lector pueda tener una visión más detalla del proceso, puede revisar el script \textit{VIU\_cluster\_jerarquico.ipynb} de \legalcite{CristianVIUTFM}.
+
+\section{K-Means}
+
+Otro algoritmo que tiene gran potencial para estimar valores atípicos es el k-means. En este sentido
+
+\end{landscape}
+
+
+
+
+
+
+
+
+
 
 
