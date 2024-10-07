@@ -219,19 +219,19 @@ A partir de esta estructura, se pueden calcular diversas métricas que describen
 \begin{itemize}
 \item Sensibilidad: Mide cúan bien un modelo identifica las instancias positivas, es decir, mide cuántas observaciones positivas se identificaron correctamente.
 
-\[ Sensibilidad = \frac{VP}{VP+FN}\]
+\[ \text{Sensibilidad} = \frac{VP}{VP+FN}\]
 
 \item Especificidad: Mide cuán bien un modelo puede identificar las clases negativas, es decir, se identifican de forma adecuada los casos que son realmente negativos.
 
-\[Especificidad = \frac{VN}{VN + FP}\]
+\[ \text{Especificidad} = \frac{VN}{VN + FP}\]
 
 \item Precisión: Identifica los casos correctamente clasificados como positivos tomando en cuenta todos los casos que fueron clasificados como positivos.
 
-\[ Precisión = \frac{VP}{VP+FP}\]
+\[ \text{Precisión} = \frac{VP}{VP+FP}\]
 
 \item Exactitud : Corresponde a todos los casos que se clasificaron de forma correcta, es decir, aquellos casos tanto positivos como negativos que fueron clasificados correctamente.
 
-\[ Exactitud = \frac{VP+VN}{Total}\]
+\[ \text{Exactitud} = \frac{VP+VN}{Total}\]
 
 \end{itemize}
 
