@@ -50,7 +50,8 @@ REP_file_latex_org <- c( paste( parametros$work_dir, 'Reportes/Bibliografia_TFT.
                          paste( parametros$work_dir, 'Reportes/supervisados.png', sep = '' ),
                          
                          #CLuster jerarquico
-                         paste( parametros$work_dir, 'Reportes/algoritmo_cl_271_1.png', sep = '' )
+                         paste( parametros$work_dir, 'Reportes/algoritmo_cj_271_1.png', sep = '' ),
+                         paste( parametros$work_dir, 'Reportes/algoritmo_cj_20889867_1.png', sep = '' )
                          
                          
                         )
@@ -68,8 +69,8 @@ REP_file_latex_des <- c( paste( REP_rep_dir, 'Bibliografia_TFT.bib', sep = '' ),
                          paste( REP_rep_dir, 'graficos/', 'supervisados.png', sep = '' ),
                          
                          #CLuster jerarquico
-                         paste( REP_rep_dir, 'graficos/', 'algoritmo_cl_271_1.png', sep = '' )
-                         
+                         paste( REP_rep_dir, 'graficos/', 'algoritmo_cj_271_1.png', sep = '' ),
+                         paste( REP_rep_dir, 'graficos/', 'algoritmo_cj_20889867_1.png', sep = '' )
                         )
 
 REP_file_latex_clean <- c( paste( REP_rep_dir, 'Bibliografia_TFT.bib', sep = '' ), 
