@@ -208,18 +208,22 @@ En la figura \ref{fig:algoritmo_cj_depu_anex} de la parte de anexos se muestran 
         \includegraphics[scale=0.19]{graficos/algoritmo_cj_10133_3.png}  
     \end{minipage}
 
-\caption{\headlinecolor{\underline{Resultados de la aplicaicón del cluster jerárquico }}}
+\caption{\headlinecolor{\underline{Resultados de la aplicaicón del cluster jerárquico para los casos 1 y -1 }}}
 \label{fig:algoritmo_cj_depu}  
     
 \end{figure}
 
+Como se observa de la gráfica anterior, la corrección es adecuado puesto que, se estarían clasificando como atípicos valores que no lo son.
+
 Para que el lector pueda tener una visión más detalla del proceso, puede revisar el script \textit{VIU\_cluster\_jerarquico.ipynb} de \legalcite{CristianVIUTFM}.
+
+\end{landscape}
 
 \section{K-Means}
 
-Otro algoritmo que tiene gran potencial para estimar valores atípicos es el k-means. En este sentido
+Otro algoritmo que tiene gran potencial para estimar valores atípicos es el k-means. En este sentido, se sigue un proceso similar al expuesto en cluster jerarquico con respecto a las consideraciones para \textit{GRUPO\_SEL}, \textit{data\_l}, \textit{ul}, \textit{ml} y \textit{LS\_MS}. La ejecución de este algoritmo requiere de un tiempo muy extenso de procesamiento  (24 horas en promedio). Por otro parte, siguiendo lo expresado en la literatura, este algoritmo se divide en dos casos, uno con los datos sin normalizar y el otro con los datos normalizados
 
-\end{landscape}
+
 
 
 
