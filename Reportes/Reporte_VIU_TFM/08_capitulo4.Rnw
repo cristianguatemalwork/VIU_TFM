@@ -78,6 +78,8 @@ El dataset de los afiliados contiene 68.062.270 filas y 12 columnas, el conjunto
 
 \subsection{Datos previos a la aplicación de aprendizaje supervizado}
 
+Una vez obtenida la etiqueta de atipico (valor 1) o no atipico (valor de 0) para los sueldos dentro de los cinco mejores años de los afiliados al IESS tras la implementación de los algoritmos de las secciones \ref{sec:apr_no_sup_cj}, \ref{sec:apr_no_sup_km} y \ref{sec:apr_no_sup_db}
+
 \section{Transformación de datos}
 
 \subsection{Datos previos a la aplicación de aprendizaje no supervizado}
@@ -120,7 +122,7 @@ La principal variable de interés en \textit{data\_afi} es el \textit{SALARIO},l
 
 Para la ejecución de los algoritmos de aprendizaje no supervizado se utiliza la base de datos \textit{data\_l}. Los algoritmos utilizados son Clúster Jerárquico\footnote{Se utiliza la métrica single pues es la que ayuda a detectar outlier \cite{Hogde2004}}, K-mean y DBscan, puesto que los mismos permiten realizar la búsqueda de los salarios que son atípicos dentro del comportamiento salarial del afiliado.
 
-\subsection{Clúster jerárquico}
+\subsection{Clúster jerárquico} \label{sec:apr_no_sup_cj}
 
 La selección de este algoritmo para la detección de atípicos se basa en sus ventajas para identificar la estructura inherente de los datos, lo que permite detectar aquellos que no pertenecen a ningún clúster. Además, proporciona una visión clara de la relación entre los datos atípicos y el resto de los datos mediante el uso de dendrogramas, lo que facilita visualizar las diferencias y relaciones entre ellos, enfocando el análisis hacia la dirección adecuada en este proceso \citep{Hodge2004} .
 
@@ -220,7 +222,7 @@ Para que el lector pueda tener una visión más detallada del proceso, puede rev
 
 \end{landscape}
 
-\section{K-Means}
+\section{K-Means} \label{sec:apr_no_sup_km}
 
 Otro algoritmo que tiene gran potencial para la estimación de valores atípicos es  K-means, destacando por su facilidad de implementación y forma de operar. Este método permite identificar observaciones atípicas de forma más óptima al detectar aquellos puntos que se desvían significativamente de los centroides de los clústeres que se han formado. Así, se localizan las anomalías que se alejan de los patrones de los distintos grupos, siendo una herramienta bastante útil para la detección de outliers \citep{wei2019msd}. 
 
@@ -382,7 +384,7 @@ Para que el lector pueda tener una visión más detallada del proceso, puede rev
 \end{landscape}
 
 
-\section{Dbscan}
+\section{Dbscan} \label{sec:apr_no_sup_db}
 
 Debido a las desventajas de utilizar K-means al momento de agrupar datos que tienen diferentes tamaños, densidades y forma (forma no globular) se opta por implementar el algoritmo DBSCAN, pues el mismo presenta la capacidad de identificación de clústeres con formas arbitrarias y densidades variables, lo que ayuda a la detección de valores atípicos en datos no homogéneos \citep{boucher2020outlier}. De igual forma, este método, al basarse en la densidad de los datos, es más preciso en la identificación de atípicos locales significativos, debido a su flexibilidad al identificarlos en áreas de menor densidad y su capacidad de manejar el ruido \citep{smiti2020outlier}.
 
@@ -393,6 +395,8 @@ En un ejercicio de determinar los parámetros (MinPts y Eps) que el algoritmo ne
 El proceso anterior nos da resultados para varias combinaciones de valores, por lo que, la función \textit{cal\_eps\_out} de la sección \ref{sec:alg_dbscan}, determiná los valores de Eps y MinPts  con los cuales se va a aplicar el algoritmo de DBSCAN, haciendo la consideración de que la selección abarque la mayor cantidad de valores atípicos con la menor cantidad de cluster. Bajo esta criterio tenemos que en \textit{ul} existen 316.552 personas con alguno registro de suledo atípico y en \textit{ml} existen 68.596 personas con tienen al menos una aportación atípica.
 
 Nuevamente es neceario hacer las correcciones indicadas en los dos métodos anteriores, por lo que, una vez realizas las correcciones, enb la figura \ref{fig:algoritmo_db_depu} se muestran los resultados.
+
+Para que el lector pueda tener una visión más detallada del proceso, puede revisar el script \textit{VIU\_dbscan.ipynb} de \legalcite{CristianVIUTFM}.
 
 \begin{landscape}
 
@@ -485,7 +489,7 @@ Nuevamente es neceario hacer las correcciones indicadas en los dos métodos ante
         \includegraphics[scale=0.17]{graficos/algoritmo_db_ati_154409_1.png}  
     \end{minipage}
 
-\caption{\headlinecolor{\underline{Resultados de la aplicación de DBSCAN }}}
+\caption{\headlinecolor{\underline{Resultados de la aplicación de DBSCAN}}}
 \label{fig:algoritmo_db_depu}  
     
 \end{figure}
