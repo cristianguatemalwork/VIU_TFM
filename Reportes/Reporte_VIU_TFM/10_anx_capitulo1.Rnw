@@ -1070,3 +1070,118 @@ def clasificacion_kmean( data_dic, n, val, tipo, duplicados ):
 
 \end{lstlisting}
 
+\section{Algoritmos DBSCAN} \label{sec:alg_dbscan}
+
+\begin{lstlisting}[style=pythonstyle]
+def valor_epsilon( data, val ):
+    
+    for ced in data:
+        aux = None
+        aux = np.array( data[ced][val] ).reshape(-1, 1)
+        eps = []
+        minpt = []
+        data[ced]['eps'] = []
+        data[ced]['min_pt'] = []
+
+        for i in range(1, 12):
+            vecinos = NearestNeighbors( n_neighbors = min( i, len(aux) ) + 1  )
+            vecinos_ajustado = vecinos.fit( aux )
+            distancias = vecinos_ajustado.kneighbors(aux )[0]
+            distancias1 = distancias[:, 1:]
+            distancias_ordenadas = np.sort(distancias1.ravel())
+
+            if len( np.unique( distancias_ordenadas ) )==1:
+                eps.append( 0.0 )
+                minpt.append( i + 1 )
+
+            if len( np.unique( distancias_ordenadas ) )!=1:
+                codo = KneeLocator(np.arange(len(distancias_ordenadas)), distancias_ordenadas, curve="convex", direction="increasing")
+
+                eps.append( distancias_ordenadas[codo.elbow])
+                minpt.append( i + 1 )
+
+        for i, eps in enumerate( eps ):
+            if eps not in data[ced]['eps']:
+                data[ced]['eps'].append( eps )
+                data[ced]['min_pt'].append( minpt[i] )
+\end{lstlisting}
+
+
+\begin{lstlisting}[style=pythonstyle]
+def esti_eps_out( data_dic, val ):
+    
+    for ced in data_dic:
+        aux =  np.array( data_dic[ced][val] ).reshape(-1, 1)
+        ep = data_dic[ced]['eps']
+        mt = data_dic[ced]['min_pt']
+
+        n_clusters = []
+        n_outliers = []
+        v_e = []
+        g_e = []
+        n_e = []
+
+        for j in range(0, len(ep) ):
+
+            if  ep[ j ] <= 0.1:
+                n_clusters.append( -1 )
+                n_outliers.append( -1 )
+                v_e.append( ep[ j ] )
+                g_e.append( j )
+                n_e.append( mt[j] )
+            
+            else:
+                var1 = rangos_valores(ep[ j ])
+                ini =  max(0.1, ep[ j ] - var1 )
+                for eps in np.linspace(ini, ep[ j ], 6):
+                        labels=None
+                        db = DBSCAN( eps, min_samples = mt[j] ).fit( aux )
+                        core_samples_mask = np.zeros_like( db.labels_, dtype=bool)
+                        core_samples_mask[db.core_sample_indices_] = True
+                        labels = db.labels_
+                        n_clusters.append( len(set(labels)) - (1 if -1 in labels else 0) )
+                        n_outliers.append( list(labels).count(-1) )
+                        v_e.append( eps ) 
+                        g_e.append( j )
+                        n_e.append( mt[j] )
+ 
+        ag = np.empty((len(v_e) , 5))   
+        ag[ :, 0 ] = g_e
+        ag[ :, 1 ] = v_e
+        ag[ :, 2 ] = n_e
+        ag[ :, 3 ] = n_clusters
+        ag[ :, 4 ] = n_outliers
+        data_dic[ced]['esti_eps_out'] = ag
+\end{lstlisting}
+
+
+\begin{lstlisting}[style=pythonstyle]
+#Seleccionar el valor de epsilon y los atipicos
+def cal_eps_out( data_dic ):
+    for ced in data_dic:
+        aux = data_dic[ced]['esti_eps_out']
+        aux1 =  np.array( data_dic[ced]['SALARIO'] ).reshape(-1, 1)
+        col1 = 4
+        col2 = 3
+
+        # Encontrar el valor máximo en la columna 4 (índice 3)
+        val1 = np.max(aux[:,  col1])
+
+        # Filtrar las filas que tienen el valor máximo en la columna 4
+        fil= aux[aux[:, col1] == val1]
+
+        # Encontrar la fila con el menor valor en la columna 3 (índice 2) entre las filas filtradas
+        indice = np.argmin( fil[:, col2 ])
+
+        # Seleccionar la fila correspondiente
+        fila_max_min =  fil[ indice]
+        data_dic[ced]['eps_c'] = fila_max_min[1]
+        data_dic[ced]['mpt_c'] = fila_max_min[2]
+        
+        if fila_max_min[1] ==0:
+            data_dic[ced]['ATI_DB'] = [-1] * ( len(aux1) )
+        else:
+            db = DBSCAN( eps = fila_max_min[1], min_samples = int(fila_max_min[2]) ).fit( aux1 )
+            data_dic[ced]['ATI_DB'] = (db.labels_).tolist()
+        
+\end{lstlisting}
