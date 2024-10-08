@@ -128,7 +128,7 @@ Para este análisis, solo se considerarán los valores  iguales a uno (1) de la 
 
 Como el algoritmo de Clúster Jerárquico requiere de gran capacidad computacional, se procedió a dividir el dataset \textit{data\_l} en dos grupos. El primer grupo (de nombre \textit{ul}) solo considerará a las personas que durante toda su vida laboral y en un mismo mes realizaron solo una aportación. El número de personas que tienen esta condición es 373.069. El segundo grupo será el complemento del primero (se llamará \textit{ml}) y contiene información de 69.501 personas
 
-Tanto para \textit{ul} como \textit{ml}, se calculó el bigote superior de los sueldos de cada persona(esta variable se llamará \textit{LS\_MS}, que corresponde al bigote superior de los mejores cinco mejores años de sueldo). 
+Tanto para \textit{ul} como \textit{ml}, se calculó el bigote superior de los sueldos de los cinco mejores años de cada persona, esta variable se llamará \textit{LS\_MS}.
 
 En referencia a la literatura, al utilizar la métrica de single en el algoritmo de clúster jerárquico, se puede detectar registros atípicos, por lo cual, está métrica será la que se va a utilizar en nuestro análisis. El código utilizado es la función \textit{cluster\_jerarquico} del código de la sección \ref{sec:alg_clus_jear} de anexos. La idea general del código es considerar como máximo dos clústeres y dentro de cada uno de ellos realizar el siguiente análisis:
 
