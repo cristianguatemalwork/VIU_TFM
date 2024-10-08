@@ -130,7 +130,7 @@ Como el algoritmo de Clúster Jerárquico requiere de gran capacidad computacion
 
 Tanto para \textit{ul} como \textit{ml}, se calculó el bigote superior de los sueldos de los cinco mejores años de cada persona, esta variable se llamará \textit{LS\_MS}.
 
-En referencia a la literatura, al utilizar la métrica de single en el algoritmo de clúster jerárquico, se puede detectar registros atípicos, por lo cual, está métrica será la que se va a utilizar en nuestro análisis. El código utilizado es la función \textit{cluster\_jerarquico} del código de la sección \ref{sec:alg_clus_jear} de anexos. La idea general del código es considerar como máximo dos clústeres y dentro de cada uno de ellos realizar el siguiente análisis:
+En referencia a la literatura, al utilizar la métrica single en el algoritmo de clúster jerárquico, se pueden detectar registros atípicos, por lo cual, está métrica será la que se va a utilizar en nuestro análisis. El código utilizado es la función \textit{cluster\_jerarquico} del código de la sección \ref{sec:alg_clus_jear} de anexos. La idea general del código es considerar como máximo dos clústeres y dentro de cada uno de ellos realizar el siguiente análisis:
 
 \begin{itemize}
 \item Si el número de clústeres que se forman es mayor a 1, se calcula el centroide de cada clúster y si este valor es mayor a \textit{LS\_MS}, entonces todas las observaciones del clúster serán atipicas. La etiqueta de ese sueldo será 1.
