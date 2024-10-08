@@ -137,7 +137,7 @@ En referencia a la literatura, al utilizar la métrica single en el algoritmo de
 \item Si el  número de clústeres formados es igual a 1, entonces la etiqueta será -1, valor que se corregirá después.
 \end{itemize}
 
-Los resultados de la aplicación dela función \textit{cluster\_jerarquico}, muestran que hay 123.850 personas con al menos un sueldo atípico y 52.121 personas cuyos sueldos formaron un solo clúster.  A manera de ejemplo, se presetan los siguientes casos.
+Los resultados de la aplicación de la función \textit{cluster\_jerarquico}, muestran que hay 123.850 personas con al menos un sueldo atípico y 52.121 personas cuyos sueldos formaron un solo clúster.  A manera de ejemplo, se presentan los siguientes casos.
 
 \begin{figure}[H]
 \centering
