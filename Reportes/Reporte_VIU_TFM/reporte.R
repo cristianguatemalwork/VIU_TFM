@@ -84,7 +84,31 @@ REP_file_latex_org <- c( paste( parametros$work_dir, 'Reportes/Bibliografia_TFT.
                          paste( parametros$work_dir, 'Reportes/algoritmo_km_135752_1.png', sep = '' ),
                          paste( parametros$work_dir, 'Reportes/algoritmo_km_154409_1.png', sep = '' ),
                          paste( parametros$work_dir, 'Reportes/algoritmo_km_1908_1.png', sep = '' ),
-                         paste( parametros$work_dir, 'Reportes/algoritmo_km_20847366_1.png', sep = '' )
+                         paste( parametros$work_dir, 'Reportes/algoritmo_km_20847366_1.png', sep = '' ),
+                         
+                         #DBSCAN
+                         paste( parametros$work_dir, 'Reportes/algoritmo_db_8804_1.png', sep = '' ),
+                         paste( parametros$work_dir, 'Reportes/algoritmo_db_3071_1.png', sep = '' ),
+                         paste( parametros$work_dir, 'Reportes/algoritmo_db_20857054_1.png', sep = '' ),
+                         paste( parametros$work_dir, 'Reportes/algoritmo_db_10133_1.png', sep = '' ),
+                         paste( parametros$work_dir, 'Reportes/algoritmo_db_20013447_1.png', sep = '' ),
+                         paste( parametros$work_dir, 'Reportes/algoritmo_db_3608_1.png', sep = '' ),
+                         paste( parametros$work_dir, 'Reportes/algoritmo_db_135752_1.png', sep = '' ),
+                         paste( parametros$work_dir, 'Reportes/algoritmo_db_154409_1.png', sep = '' ),
+                         paste( parametros$work_dir, 'Reportes/algoritmo_db_1908_1.png', sep = '' ),
+                         paste( parametros$work_dir, 'Reportes/algoritmo_db_20847366_1.png', sep = '' ),
+                         
+                         paste( parametros$work_dir, 'Reportes/algoritmo_db_ati_8804_1.png', sep = '' ),
+                         paste( parametros$work_dir, 'Reportes/algoritmo_db_ati_3071_1.png', sep = '' ),
+                         paste( parametros$work_dir, 'Reportes/algoritmo_db_ati_20857054_1.png', sep = '' ),
+                         paste( parametros$work_dir, 'Reportes/algoritmo_db_ati_10133_1.png', sep = '' ),
+                         paste( parametros$work_dir, 'Reportes/algoritmo_db_ati_20013447_1.png', sep = '' ),
+                         paste( parametros$work_dir, 'Reportes/algoritmo_db_ati_3608_1.png', sep = '' ),
+                         paste( parametros$work_dir, 'Reportes/algoritmo_db_ati_135752_1.png', sep = '' ),
+                         paste( parametros$work_dir, 'Reportes/algoritmo_db_ati_154409_1.png', sep = '' ),
+                         paste( parametros$work_dir, 'Reportes/algoritmo_db_ati_1908_1.png', sep = '' ),
+                         paste( parametros$work_dir, 'Reportes/algoritmo_db_ati_20847366_1.png', sep = '' )
+                         
                         )
 
 
@@ -134,7 +158,30 @@ REP_file_latex_des <- c( paste( REP_rep_dir, 'Bibliografia_TFT.bib', sep = '' ),
                          paste( REP_rep_dir, 'graficos/', 'algoritmo_km_135752_1.png', sep = '' ),
                          paste( REP_rep_dir, 'graficos/', 'algoritmo_km_154409_1.png', sep = '' ),
                          paste( REP_rep_dir, 'graficos/', 'algoritmo_km_1908_1.png', sep = '' ),
-                         paste( REP_rep_dir, 'graficos/', 'algoritmo_km_20847366_1.png', sep = '' )
+                         paste( REP_rep_dir, 'graficos/', 'algoritmo_km_20847366_1.png', sep = '' ),
+                         
+                         #DBSCAN
+                         paste( REP_rep_dir, 'graficos/', 'algoritmo_db_8804_1.png', sep = '' ),
+                         paste( REP_rep_dir, 'graficos/', 'algoritmo_db_3071_1.png', sep = '' ),
+                         paste( REP_rep_dir, 'graficos/', 'algoritmo_db_20857054_1.png', sep = '' ),
+                         paste( REP_rep_dir, 'graficos/', 'algoritmo_db_10133_1.png', sep = '' ),
+                         paste( REP_rep_dir, 'graficos/', 'algoritmo_db_20013447_1.png', sep = '' ),
+                         paste( REP_rep_dir, 'graficos/', 'algoritmo_db_3608_1.png', sep = '' ),
+                         paste( REP_rep_dir, 'graficos/', 'algoritmo_db_135752_1.png', sep = '' ),
+                         paste( REP_rep_dir, 'graficos/', 'algoritmo_db_154409_1.png', sep = '' ),
+                         paste( REP_rep_dir, 'graficos/', 'algoritmo_db_1908_1.png', sep = '' ),
+                         paste( REP_rep_dir, 'graficos/', 'algoritmo_db_20847366_1.png', sep = '' ),
+                         
+                         paste( REP_rep_dir, 'graficos/', 'algoritmo_db_ati_8804_1.png', sep = '' ),
+                         paste( REP_rep_dir, 'graficos/', 'algoritmo_db_ati_3071_1.png', sep = '' ),
+                         paste( REP_rep_dir, 'graficos/', 'algoritmo_db_ati_20857054_1.png', sep = '' ),
+                         paste( REP_rep_dir, 'graficos/', 'algoritmo_db_ati_10133_1.png', sep = '' ),
+                         paste( REP_rep_dir, 'graficos/', 'algoritmo_db_ati_20013447_1.png', sep = '' ),
+                         paste( REP_rep_dir, 'graficos/', 'algoritmo_db_ati_3608_1.png', sep = '' ),
+                         paste( REP_rep_dir, 'graficos/', 'algoritmo_db_ati_135752_1.png', sep = '' ),
+                         paste( REP_rep_dir, 'graficos/', 'algoritmo_db_ati_154409_1.png', sep = '' ),
+                         paste( REP_rep_dir, 'graficos/', 'algoritmo_db_ati_1908_1.png', sep = '' ),
+                         paste( REP_rep_dir, 'graficos/', 'algoritmo_db_ati_20847366_1.png', sep = '' )
                         )
 
 REP_file_latex_clean <- c( paste( REP_rep_dir, 'Bibliografia_TFT.bib', sep = '' ), 
