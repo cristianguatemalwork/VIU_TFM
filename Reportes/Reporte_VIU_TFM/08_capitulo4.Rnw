@@ -122,8 +122,9 @@ Para la ejecución de los algoritmos de aprendizaje no supervizado se utiliza la
 
 \subsection{Clúster jerárquico}
 
-Para este análisis, solo se considerarán los valores  iguales a uno (1) de la variable \textit{GRUPO\_SEL}, puesto que, estos registros son los meses y años de los cinco (5) mejores años de sueldo. 
+La selección de este algoritmo para la detección de atípicos se basa en sus ventajas para identificar la estructura inherente de los datos, lo que permite detectar aquellos que no pertenecen a ningún clúster. Además, proporciona una visión clara de la relación entre los datos atípicos y el resto de los datos mediante el uso de dendrogramas, lo que facilita visualizar las diferencias y relaciones entre ellos, enfocando el análisis hacia la dirección adecuada en este proceso \citep{Hodge2004} .
 
+Para este análisis, solo se considerarán los valores  iguales a uno (1) de la variable \textit{GRUPO\_SEL}, puesto que, estos registros son los meses y años de los cinco (5) mejores años de sueldo. 
 
 Como el algoritmo de Clúster Jerárquico requiere de gran capacidad computacional, se procedió a dividir el dataset \textit{data\_l} en dos grupos. El primer grupo (de nombre \textit{ul}) solo considerará a las personas que durante toda su vida laboral y en un mismo mes realizaron solo una aportación. El número de personas que tienen esta condición es 373.069. El segundo grupo será el complemento del primero (se llamará \textit{ml}) y contiene información de 69.501 personas
 
@@ -221,7 +222,9 @@ Para que el lector pueda tener una visión más detallada del proceso, puede rev
 
 \section{K-Means}
 
-Otro algoritmo que tiene gran potencial para estimar valores atípicos es  K-means. En este sentido, se sigue un proceso similar a lo expuesto en clúster jerárquico con respecto a las consideraciones para \textit{GRUPO\_SEL}, \textit{data\_l}, \textit{ul}, \textit{ml} y \textit{LS\_MS}. La ejecución de este algoritmo requiere de un tiempo muy extenso de procesamiento, debido a la gran cantidad de datos.
+Otro algoritmo que tiene gran potencial para la estimación de valores atípicos es  K-means, destacando por su facilidad de implementación y forma de operar. Este método permite identificar observaciones atípicas de forma más óptima al detectar aquellos puntos que se desvían significativamente de los centroides de los clústeres que se han formado. Así, se localizan las anomalías que se alejan de los patrones de los distintos grupos, siendo una herramienta bastante útil para la detección de outliers \citep{wei2019msd}. 
+
+En este sentido, se sigue un proceso similar a lo expuesto en clúster jerárquico con respecto a las consideraciones para \textit{GRUPO\_SEL}, \textit{data\_l}, \textit{ul}, \textit{ml} y \textit{LS\_MS}. La ejecución de este algoritmo requiere de un tiempo muy extenso de procesamiento, debido a la gran cantidad de datos.
 
 Por otra parte, siguiendo lo expresado en la literatura, este algoritmo se divide en cuatro casos, dos casos para los datos sin y con normalizado y otros dos casos para los datos con y sin datos duplicados, esto tiene la finalidad de mejorar la velocidad del procesamiento del algorimto de k-mean conforme lo exponen \cite{K-Means Clustering in Python: Efficiency of Preprocessing} y \cite{AdventuresinMachineLearning}. Con la finalidad de realizar un ejercicio didácico para estimar el número de clústeres que agruparán los salarios de cada persona, se hace una estimación (Véase la función \textit{num\_cluster} del código de la sección \ref{sec:alg_kmean}). Los casos serán abreviados por \textit{ATI\_KM\_M1} para datos con duplicados y sin normalización,  \textit{ATI\_KM\_M2}  para datos sin duplicados y sin normalización,  \textit{ATI\_KM\_M3} para datos con duplicados y  con normalizados; y, \textit{ATI\_KM\_43} para datos sin duplicados y con normalizados
 
@@ -381,7 +384,9 @@ Para que el lector pueda tener una visión más detallada del proceso, puede rev
 
 \section{Dbscan}
 
-Debido a las desventajas de utilizar k-means al momento de agrupar datos que tienen diferentes tamaños, densidades y forma (forma no globular) se opta por implementar el algoritmo DBSCAN, pues el mismo es adecuado para detectar outlier en los datos. Una vez más, se sigue un proceso similar a lo expuesto en clúster jerárquico con respecto a las consideraciones para \textit{GRUPO\_SEL}, \textit{data\_l}, \textit{ul}, \textit{ml} y \textit{LS\_MS}.
+Debido a las desventajas de utilizar K-means al momento de agrupar datos que tienen diferentes tamaños, densidades y forma (forma no globular) se opta por implementar el algoritmo DBSCAN, pues el mismo presenta la capacidad de identificación de clústeres con formas arbitrarias y densidades variables, lo que ayuda a la detección de valores atípicos en datos no homogéneos \citep{boucher2020outlier}. De igual forma, este método, al basarse en la densidad de los datos, es más preciso en la identificación de atípicos locales significativos, debido a su flexibilidad al identificarlos en áreas de menor densidad y su capacidad de manejar el ruido \citep{smiti2020outlier}.
+
+Una vez más, se sigue un proceso similar a lo expuesto en clúster jerárquico con respecto a las consideraciones para \textit{GRUPO\_SEL}, \textit{data\_l}, \textit{ul}, \textit{ml} y \textit{LS\_MS}.
 
 En un ejercicio de determinar los parámetros (MinPts y Eps) que el algoritmo necesita, se implementa la función \textit{valor\_epsilon} de la sección \ref{sec:alg_dbscan} de la parte de anexos. Esta función toma los K-ésismos vecinos más cercanos en un rango de 1 a 12\footnote{Se considera este valor  debido a que se esperaría que los 12 meses de aporte de un grupo de los mejores años tengan el mismo comportamiento} (MinPts) y determina el valor de \textit{epsilon} a través del método del codo. Si todas las distancias dadas por los k-esimos vecinos tienen el mismo valor, entonces el valor de \textit{epsilon} (Eps) es cero, puesto que se estará en el caso de un mismo valor de sueldo para los mejores años de sueldo. Con la función \textit{esti\_eps\_out} para un rango de valores de Eps, dados por MinPts, se calcula el número de cluster y de atípicos generados por DBSCAN.
 
