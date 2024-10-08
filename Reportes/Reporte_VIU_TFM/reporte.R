@@ -72,8 +72,19 @@ REP_file_latex_org <- c( paste( parametros$work_dir, 'Reportes/Bibliografia_TFT.
                          paste( parametros$work_dir, 'Reportes/algoritmo_cj_135752_3.png', sep = '' ),
                          paste( parametros$work_dir, 'Reportes/algoritmo_cj_154409_3.png', sep = '' ),
                          paste( parametros$work_dir, 'Reportes/algoritmo_cj_1908_3.png', sep = '' ),
-                         paste( parametros$work_dir, 'Reportes/algoritmo_cj_20847366_3.png', sep = '' )
+                         paste( parametros$work_dir, 'Reportes/algoritmo_cj_20847366_3.png', sep = '' ),
                          
+                         #kmean
+                         paste( parametros$work_dir, 'Reportes/algoritmo_km_8804_1.png', sep = '' ),
+                         paste( parametros$work_dir, 'Reportes/algoritmo_km_3071_1.png', sep = '' ),
+                         paste( parametros$work_dir, 'Reportes/algoritmo_km_20857054_1.png', sep = '' ),
+                         paste( parametros$work_dir, 'Reportes/algoritmo_km_10133_1.png', sep = '' ),
+                         paste( parametros$work_dir, 'Reportes/algoritmo_km_20013447_1.png', sep = '' ),
+                         paste( parametros$work_dir, 'Reportes/algoritmo_km_3608_1.png', sep = '' ),
+                         paste( parametros$work_dir, 'Reportes/algoritmo_km_135752_1.png', sep = '' ),
+                         paste( parametros$work_dir, 'Reportes/algoritmo_km_154409_1.png', sep = '' ),
+                         paste( parametros$work_dir, 'Reportes/algoritmo_km_1908_1.png', sep = '' ),
+                         paste( parametros$work_dir, 'Reportes/algoritmo_km_20847366_1.png', sep = '' )
                         )
 
 
@@ -111,7 +122,19 @@ REP_file_latex_des <- c( paste( REP_rep_dir, 'Bibliografia_TFT.bib', sep = '' ),
                          paste( REP_rep_dir, 'graficos/', 'algoritmo_cj_135752_3.png', sep = '' ),
                          paste( REP_rep_dir, 'graficos/', 'algoritmo_cj_154409_3.png', sep = '' ),
                          paste( REP_rep_dir, 'graficos/', 'algoritmo_cj_1908_3.png', sep = '' ),
-                         paste( REP_rep_dir, 'graficos/', 'algoritmo_cj_20847366_3.png', sep = '' )
+                         paste( REP_rep_dir, 'graficos/', 'algoritmo_cj_20847366_3.png', sep = '' ),
+                         
+                         #kmeans
+                         paste( REP_rep_dir, 'graficos/', 'algoritmo_km_8804_1.png', sep = '' ),
+                         paste( REP_rep_dir, 'graficos/', 'algoritmo_km_3071_1.png', sep = '' ),
+                         paste( REP_rep_dir, 'graficos/', 'algoritmo_km_20857054_1.png', sep = '' ),
+                         paste( REP_rep_dir, 'graficos/', 'algoritmo_km_10133_1.png', sep = '' ),
+                         paste( REP_rep_dir, 'graficos/', 'algoritmo_km_20013447_1.png', sep = '' ),
+                         paste( REP_rep_dir, 'graficos/', 'algoritmo_km_3608_1.png', sep = '' ),
+                         paste( REP_rep_dir, 'graficos/', 'algoritmo_km_135752_1.png', sep = '' ),
+                         paste( REP_rep_dir, 'graficos/', 'algoritmo_km_154409_1.png', sep = '' ),
+                         paste( REP_rep_dir, 'graficos/', 'algoritmo_km_1908_1.png', sep = '' ),
+                         paste( REP_rep_dir, 'graficos/', 'algoritmo_km_20847366_1.png', sep = '' )
                         )
 
 REP_file_latex_clean <- c( paste( REP_rep_dir, 'Bibliografia_TFT.bib', sep = '' ), 

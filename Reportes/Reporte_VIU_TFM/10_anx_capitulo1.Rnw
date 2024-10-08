@@ -926,3 +926,147 @@ def cluster_jerarquico( data_si_dic ):
     
 \end{figure}
 \end{landscape}
+
+
+\section{Algoritmos de k-mean} \label{sec:alg_kmean}
+
+\begin{lstlisting}[style=pythonstyle]
+#Determinar el número de cluster por el método del codo
+def num_cluster( data, num, num_sample, tipo, duplicados ):
+    print('*' * 102)
+    print('Determinación del número de clúster por el método del codo y silueta')
+    inicio = time.time()
+    
+    data_si_dic = data.copy()
+    
+    if( num_sample != 'todo' ):
+        sample_size = num_sample
+        sample_keys = random.sample( list(data_si_dic.keys()), min(sample_size, len(data_si_dic))) #Seleccion de cedulas
+        data_filt = {key: data_si_dic[key] for key in sample_keys if key in data_si_dic}
+    if (num_sample == 'todo' ):
+        data_filt = data_si_dic
+        
+    for ced  in data_filt:
+        
+        if( duplicados=='si'):
+            aux = np.array( data_filt[ced][ tipo ]).reshape(-1, 1)
+        
+        if( duplicados=='no'):
+            aux = np.unique( np.array( data_filt[ced][ tipo ])).reshape(-1, 1)
+        
+        if len(aux) <= 1:
+            data_filt[ced]['num_codo'] = 1
+            data_filt[ced]['max_silueta'] = 1
+           
+        
+        tf = min(num, len(aux) - 1) + 1
+        
+        distorsion = []
+        silueta = []
+
+        for i in range( 2, tf ):
+            km = KMeans( i, init = 'k-means++', n_init = 1, max_iter = 300, tol = 1e-4, random_state = semilla )
+            clustering = km.fit_predict( aux )
+
+            if( len( np.unique( clustering ) ) > 1):
+                distorsion.append( km.inertia_ )
+                silueta.append( metrics.silhouette_score(aux, clustering))
+            
+            else:
+                distorsion.append(0)
+                silueta.append(0)
+    
+        if( len(distorsion) > 1 and len(silueta) > 1 ):
+            data_filt[ced]['num_codo'] = kneed.KneeLocator(range(2, tf), distorsion[:tf], curve="convex", 
+                                                             direction="decreasing").elbow or 1
+    
+            data_filt[ced]['max_silueta'] =  max_clust_silueta( silueta )
+        
+        else:
+            data_filt[ced]['num_codo'] = 1
+            data_filt[ced]['max_silueta'] = 1
+
+    fin = time.time()  
+    print('\tTiempo de ejecución es: ',  (fin-inicio)//3600, ' horas con ' ,  (fin-inicio)%3600//60 , ' minutos y', (fin-inicio)%60, ' segundos' )
+    print('*' * 102)
+    return data_filt
+\end{lstlisting}
+
+\begin{lstlisting}[style=pythonstyle]
+#Se escojen dos cluster para trabajar
+def clasificacion_kmean( data_dic, n, val, tipo, duplicados ):
+    print('*' * 102)
+    print('Clasificación de las observaciones según cluster')
+    inicio = time.time()
+    
+    c_tipo = 'CLA_KM_M' + str( tipo )
+    n_tipo = 'ATI_KM_M' + str( tipo )
+    
+    nm1 = 'cent1_M'+ str( tipo )
+    nm2 = 'cent2_M'+ str( tipo )
+    ls = 'LS_M' + str( tipo)
+            
+    for ced in data_dic:
+        aux = None
+        
+        if( duplicados =='si'):
+            aux = np.array( data_dic[ced][ val ] ).reshape(-1, 1)
+        if( duplicados =='no'):
+            aux = np.unique( np.array( data_dic[ced][ val ] ) ).reshape(-1, 1)
+            
+        Q1 = np.quantile(aux, 0.25)
+        Q3 = np.quantile(aux, 0.75)
+        IQR = Q3-Q1
+        LI = Q1 - 1.5 * IQR
+        LS = Q3 + 1.5 * IQR
+
+        data_dic[ced][ls] = LS    
+            
+        if aux.shape[0] >= n:
+            
+            kmeans = KMeans( n_clusters = n, init = 'k-means++', n_init = 1, random_state = semilla)
+            clu = kmeans.fit_predict( aux ) + 1 
+            
+            data_dic[ced][c_tipo] = clu
+            
+            ncl = np.unique( clu )
+            centroide = np.array([[ np.nanmean( aux[clu == i], axis=0)[0], i ] for i in range(1, len(ncl) + 1)] ) 
+            
+            if len( ncl ) == 1:
+                data_dic[ced][n_tipo] =  [-2] * len( aux ) #Clasificacion unica de todos los valores
+                data_dic[ced][nm1] = centroide[:,0][0]
+                data_dic[ced][nm2] = centroide[:,0][0]
+                
+            else:
+                
+                data_dic[ced][nm1] =  centroide[:,0][0]
+                data_dic[ced][nm2] =  centroide[:,0][1]
+
+                cl_at = np.where( centroide[:,0] > (LS +  1e-8) )[0]
+                
+                mod_aux = np.zeros((len( aux ), 2) )
+                mod_aux[:, 0] = aux[:, 0]  
+                mod_aux[np.isin( clu, centroide[cl_at][:, 1]), 1] = 1
+                
+                data_dic[ced][n_tipo] = mod_aux[:, 1].tolist()
+                
+#                 if len(cl_at) ==0:
+#                     data_dic[ced][nm1] =  np.nanmean( aux )
+#                     data_dic[ced][nm2] =  np.nanmean( aux )
+                    
+#                 if len(cl_at)!=0: 
+#                     data_dic[ced][nm1] =  centroide[:,0][0]
+#                     data_dic[ced][nm2] =  centroide[:,0][1]
+            
+        else:
+            data_dic[ced][n_tipo] =  [-1] * len( aux )
+            data_dic[ced][c_tipo] = np.nan
+            data_dic[ced][nm1] =  np.nan
+            data_dic[ced][nm2] =  np.nan
+
+    fin = time.time()  
+    print('\tTiempo de ejecución es: ',  (fin-inicio)//3600, ' horas con ' ,  (fin-inicio)%3600//60 , ' minutos y', (fin-inicio)%60, ' segundos' )
+    print('*' * 102)
+
+\end{lstlisting}
+
