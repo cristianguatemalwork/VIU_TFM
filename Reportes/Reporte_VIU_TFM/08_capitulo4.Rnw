@@ -78,12 +78,14 @@ El dataset de los afiliados contiene 68.062.270 filas y 12 columnas, el conjunto
 
 \subsection{Datos previos a la aplicación de aprendizaje supervizado}
 
-Una vez obtenida la etiqueta de atipico (valor 1) o no atipico (valor de 0) para los sueldos dentro de los cinco mejores años de los afiliados al IESS tras la implementación de los algoritmos de las secciones \ref{sec:apr_no_sup_cj}, \ref{sec:apr_no_sup_km} y \ref{sec:apr_no_sup_db} se procede a a unir en un único conjunto de datos las variables que serán consideradas en el aprendizaje supervizado. Los atributos son básicamente los mimso que \texit{data_l}, pero se incluyen las variables \textit{ATI\_CJ}\footnote{Para los resultados de cluster jerárquico}, \textit{ATI\_KM}\footnote{Para los resultados de k-means} y \textit{ATI\_DB}\footnote{Para los resultados de dbscan}, cuyos valores son 0 o 1 para identificar si los sueldos son atipicos o no respectivamente. 
+Una vez obtenida la etiqueta de atipico (valor 1) o no atipico (valor de 0) para los sueldos dentro de los cinco mejores años de los afiliados al IESS tras la implementación de los algoritmos de las secciones \ref{sec:apr_no_sup_cj}, \ref{sec:apr_no_sup_km} y \ref{sec:apr_no_sup_db} se procede a a unir en un único conjunto de datos las variables que serán consideradas en el aprendizaje supervizado. Los atributos son básicamente los mismoa que \texit{data_l}, pero se incluyen las variables \textit{ATI\_CJ}\footnote{Para los resultados de cluster jerárquico}, \textit{ATI\_KM}\footnote{Para los resultados de k-means} y \textit{ATI\_DB}\footnote{Para los resultados de dbscan}, cuyos valores son 0 o 1 para identificar si los sueldos son atipicos o no respectivamente. La clasificación de las personas que tienen al menos un sueldo atípico con los tres algoritmos es muy similar (su valor es aproximadamente 171.158 personas). 
+
+Se crean las variables \textit{BCS\_CJ}, \textit{BCS\_KM} y \textit{BCS\_DB} que corresponden al cálculo de la variable \textit{BASE\_CAL} de la subsección \ref{subsec:trans_datos_no_super}, pero sin considerar las aportaciones que fueron clasificadas como atípicas. En los casos cuando el valor de esta variable es nulo, 
 
 
 \section{Transformación de datos}
 
-\subsection{Datos previos a la aplicación de aprendizaje no supervizado}
+\subsection{Datos previos a la aplicación de aprendizaje no supervizado}\label{subsec:trans_datos_no_super}
 
 Con la finalidad de aliviar el costo computacional, se transforman variables en atributos más sencillos y se crean variables que permitirán alcanzar el objetivo planteado. A manera general, todo el proceso de transformación de datos se describe en la sección \ref{sec:limpieza_datos} de la parte de anexos. Si el lector desea tener una experiencia más didáctica con todo el proceso, puede hacerlo visualizando el archivo  \textit{VIU\_clean\_data.ipynb} de \legalcite{CristianVIUTFM}.
 
