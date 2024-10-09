@@ -1,5 +1,5 @@
 \chapter{Códigos y conjuntos de datos utilizados}\label{cap:anexo1}
-\section{Fuentes de datos} \label{sec:fuentes_datos}
+\section{Fuentes de datos} \label{sec_anex:fuentes_datos}
 
 Dentro de todas las fuentes de información que dispone el Instituto Ecuatoriano de Seguridad Social, se consideran las bases de datos transaccionales que guardan la información de Historia Laboral y Prestacional. Adicionalmente, la información se complementa con los datos proporcionados por Registro Civil (entidad pública que guarda los datos personales de la población ecuatoriana).
 
@@ -1187,5 +1187,38 @@ def cal_eps_out( data_dic ):
 \end{lstlisting}
 
 \section{Limpieza de datos antes del aprendizaje supervisado} \label{sec:limpieza_datos_super}
+\begin{lstlisting}[style=pythonstyle]
+def pens_correc( data ):
+    inicio = time.time() 
 
+    cedula_1 = data[data.groupby('CEDULA_COD')['CEDULA_COD'].transform('size') == 1]['CEDULA_COD'].copy()
+    ul = data[   data['CEDULA_COD'].isin( cedula_1 )]
+    ml = data[  ~data['CEDULA_COD'].isin( cedula_1 )]
+
+    mask = ml.drop(columns=['ID_PRESTACION']).groupby('CEDULA_COD').transform(lambda x: (x == x.iloc[0]).all())
+    cedulas_iguales = ml[mask.all(axis=1)]['CEDULA_COD']
+    ml1 = ml[ ml['CEDULA_COD'].isin( cedulas_iguales)].groupby('CEDULA_COD').first().reset_index()
+
+    #Se corrigen los registros duplicados
+    ml2 = ml[ ~(ml['CEDULA_COD'].isin( cedulas_iguales))].copy()
+
+    vej_non_na = ml2[ml2['COEFICIENTE_CAL'].notna() ]
+    vej_non_na_unique = vej_non_na.sort_values('FECHA_DERECHO', ascending=False).drop_duplicates(subset='CEDULA_COD', keep='first')
+    vej_na = ml2[ml2['COEFICIENTE_CAL'].isna()]
+    vej_na_unique = vej_na.sort_values('FECHA_DERECHO', ascending=False).drop_duplicates(subset='CEDULA_COD', keep='first')
+    vej_na_unique_f = vej_na_unique[~vej_na_unique['CEDULA_COD'].isin(vej_non_na_unique['CEDULA_COD'])]
+    vej_combined = pd.concat([ vej_na_unique_f, vej_non_na_unique])
+
+    ml3 = vej_combined.reset_index().drop(columns = ['index'])
+    sal = pd.concat([ ul, ml1, ml3]) 
+    
+    return sal
+    
+    del ul, ml, mask, cedulas_iguales, ml1, ml2, ml3, vej_non_na, vej_non_na_unique,vej_na,vej_na_unique,vej_combined
+    gc.collect()
+    
+    fin = time.time()  
+    tm = fin - inicio
+    print('\tTiempo de ejecución es:',tm//3600,'horas con',tm%3600//60,'minutos y',tm%60,'segundos')
+\end{lstlisting}
 
