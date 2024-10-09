@@ -305,4 +305,71 @@ Entre las ventajas de esta integración encontramos la reproducibilidad de anál
 
 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
+
+Una vez entrenado el modelo se ha obtenido que la exactitud del mismo al ser aplicado a la base de datos de entrenamiento es de __\%. Para contrastar este resultado y evaluar el modelo se obtiene la matriz de confusión de las predicciones realizadas de la base de datos de testeo, que se encuentra a continuación:
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{|c|c|c|c|}
+\hline
+\cellcolor[HTML]{E65013} \textbf{Matriz de confusión} & \multicolumn{3}{c|}{\cellcolor[HTML]{FFA074} \textbf{Predicción}} \\ \hline
+\multirow{2}{*}{\cellcolor[HTML]{FFA074}} & & \textbf{No atípico} & \textbf{Atípico} \\
+\cline{2-4}
+\cellcolor[HTML]{FFA074} \textbf{Real}
+ & \textbf{No atípico}  & a: (TN) & b: (FP) \\ \cline{2-4}
+\cellcolor[HTML]{FFA074} & \textbf{Atípico} & c: (FN) & d: (TP) \\ \hline
+\end{tabular}
+\end{table}
+
+A partir de estos resultados, podemos extraer ciertas métricas que nos ayudarán a establecer la capacidad de predicción del modelo, es decir, si su funcionamiento es óptimo o no dependiendo de nuestros objetivos. Para ello, calcularemos las siguientes métricas:
+
+\[ \text{Sensibilidad} =  \]
+
+\[ \text{Especifidad} =  \]
+
+\[ \text{Precisión} =  \]
+
+\[ \text{Exactitud} =  \]
+
+En primer lugar, se puede observar que la exactitud del modelo probado en los datos de prueba y en los datos de testeo difiere en ___ puntos porcentuales. De donde, al ser una diferencia mínima podemos afirmar que el modelo no presenta sobreajuste. Específicamente, tenemos que el porcentaje de predicciones correctas, exactitud, del modelo aplicado a los datos de testeo es de __\%, lo que nos permite deducir que el modelo está siendo un buen clasificador debido a que existe un porcentaje alto de datos clasificados correctamente. Por otro lado, el número de datos atípicos clasificados correctamente, la sensibilidad, es de __\%. Es por ello que tenemos valores óptimos en ambas métricas, debido a que se tiene un porcentaje aceptable de valores clasificados correctamente. Y de igual forma, observamos que el número de atípicos que no fueron detectados es bajo.
+
+% General
+En este estudio, las medidas clave para la evaluación del modelo serán tanto la sensibilidad como la exactitud. Esto ya que la exactitud proporciona una visión general de qué tan bien el modelo clasifica los datos globalmente. No obstante, es necesario tener en cuenta los casos en los que los valores atípicos se han clasificado incorrectamente como no atípicos, lo que se obtiene restando a 1 la sensibilidad. Dado el contexto del estudio, la detección de valores atípicos es crucial, ya que la falta de identificación de uno de ellos puede generar más problemas que la mala clasificación de un valor no atípico como atípico. En este estudio, no detectar un atípico representa no identificar a una persona que ha cometido fraude, lo cual puede resultar en grandes pérdidas para la Seguridad Social. Por el contrario, si una persona que no ha cometido fraude es identificada como un valor atípico, únicamente se realizará una investigación más profunda, sin que esto resulte en mayores pérdidas económicas.
+
+
+
+Random Forest
+
+Este algoritmo construye múltiple árboles de decisión, es un modelo de ensable ya que mejora su predicción al promediar los resultados de varios árboles de decisión individuales. Cada árbol es construido con muestras aleatorias lo que ayuda a reducir la varianza y el sobreajuste que afecta a los árboles de decisión individuales. Además, entre otras ventajas encontramos que este algoritmo es eficiente en cuanto a las variables, ya que da métricas a la importancia de las variables y manerja la multicolinealidad de las mismas. También, maneja mejor los datos desbalanceados. Finalmente, dado a su flexibilidades con la detección de interacciones más complejas su capacidad predictiva es mayor. he2018random
+
+Bagging
+
+El Bootstrap Aggregating también conocido como Bagging es un modelo de ensable que mejora la precisión y estabilidad de modelos al reducir la varianza a través de la creación de subconjuntos aleatorios doonde se entrenan modelos independientes y cuyo resultado final se determina por voto mayoritario entre cada submodelo. Entre sus ventajas vemos que por uso de Bootstrap la varianza disminuye, se evita el sobreajuste y mejora la predicción. De igual forma, por su manera de implementación permite entramiento en paralelo que reduce el tiempo necesario. Finalemnte, vemos que su desempeño es bueno incluso cuando hay datos faltantes o hay una gran cantidad de variables.
+evolutionary_bagging_2022
+
+
+KNN
+
+Este es un método no paramétrico que clasifica los puntos según su distancia a los datos de entrenamiento. Se basa es que los puntos cercanos en el espacio de características suelen pertenecer a la misma clase, por lo que a los nuevos puntos se les asigna la etiqueta más común entre sys vecinos. Entre sus ventajas encontramos su facilidad de implementación, su flesibilidad cuando no se conoce la estructura subyacente del modelo, eficacia especialmente cuando hay una buena distribución de datos, y su robustez al ruido ya que permite ajustes para evitar influencia de valores atípicos. Finalmente, su rendimiento depende de la elección del parámetro k y la distancia usada.
+syriopoulos2023knn
+
+
+
+Gradient 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
