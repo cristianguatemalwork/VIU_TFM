@@ -1185,3 +1185,7 @@ def cal_eps_out( data_dic ):
             data_dic[ced]['ATI_DB'] = (db.labels_).tolist()
         
 \end{lstlisting}
+
+\section{Limpieza de datos antes del aprendizaje supervisado} \label{sec:limpieza_datos_super}
+
+

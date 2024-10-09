@@ -19,7 +19,7 @@ iess\_owner} y Prestacional\footnote{El componente Prestacional contiene de mane
 incrementos o mejoras en la pensión, tipo del seguro en que solicitó la pensión, etc. Este
 componente se encuentra cargado dentro del esquema pensiones\_owner}. Adicionalmente, la información se complementa con los datos proporcionados por Registro Civil (entidad pública que guarda los datos personales de la población ecuatoriana)
 
-\section{Selección de datos}
+\section{Selección de datos} \label{sec:seleccion_datos}
 
 Para tener información consolidada se debía de hacer joins entre las tablas de la sección \ref{sec:fuentes_datos} de la parte de anexos, lo cual implicaba tener en la tabla final un sinnúmero de variables que no estaban relacionadas directamente con el problema a abordar. De esta manera, de todo el conjunto de atributos iniciales se seleccionaron aquellos que permitirán describir el comportamiento del actual afiliado y abordar el objetivo planteado  dentro de nuestro proceso KDD.
 
@@ -66,26 +66,18 @@ Para los pensionistas tenemos un mismo esquema de información, mismo que se des
 
 Los atributos descritos anteriormente serán dividos en tres grupos, para las jubilaciones de vejez, invalidez y discapacidad. El nombre de estos conjuntos de datos serán \textit{data\_vej}, \textit{data\_inv} y \textit{data\_dis} para hacer referencia a la información de las jubilaciones de vejez, invalidez y discapacidad respectivamente.
 
-\section{Limpieza de datos}\label{cha_resul:limpieza}
 
-Para alcanzar el objetivo planteado, la limpieza de datos del presente proyecto se divide en dos partes. La primera parte se centra en el proceso de minería de datos para los datos utilizados antes de la ejecución de algoritmos de aprendizaje no supervizado para etiquetar los salarios y a las personas que generarón alguna aportación fraudelenta en función del comportamiento histórtico de los salarios a lo largo de su vida laboral. La seguna parte corresponde al preprocesamiento de la información resultante de los algoritmos no supervizados para su posterior implementación en los métodos supervizados.
+Los siguientes pasos del proceso KDD se dividen en dos partes, la primera parte se centra en el proceso de minería de datos para los datos utilizados antes de la ejecución de algoritmos de aprendizaje no supervizado, para etiquetar los salarios y a las personas que generarón alguna aportación fraudelenta en función del comportamiento histórtico de los salarios a lo largo de su vida laboral. La seguna parte corresponde al preprocesamiento de la información resultante de los algoritmos no supervizados para su posterior implementación en los métodos supervizados.
 
-\subsection{Datos previos a la aplicación de aprendizaje no supervizado}
+\section{Limpieza de datos antes del aprendizaje no supervizado}\label{cha_resul:limpieza_no_super}
+
 
 Además de considerar las explicaciones dadas en el penúltimo párrafo de la sección \ref{sec:fuentes_datos} de la parte de anexos, es importante mencionar que el conjunto de datos \textit{data\_afi} no va a presentar problemas con missing values ni datos inconsistentes en ningún atributo, debido a que estas novedades ya se resolvieron con anterioridad (desde el comienzo de construcción del dataset original). Por otro parte, las bases de datos de los pensionistas en ciertos atributos sí van a presentar problemas con datos perdidos, como por ejemplo la \textit{FECHA\_MUERTE}\footnote{Debido a que a la fecha de corte no todos los pensionistas están muertos}, \textit{NUMERO\_IMPOSICIONES}\footnote{Debido a que como el sistema del IESS tiene dos fuentes de información (HL Y HOST) algunos regustros no están correctamente migrados}, etc.
 
 El dataset de los afiliados contiene 68.062.270 filas y 12 columnas, el conjunto de datos de los pensionistas de vejez tiene 681.799 filas con 17 columnas, el de invalidez tiene 48.146 filas y 17 columnas  y los datos de discapacidad tiene 14.662 filas y 17 columnas.
 
-\subsection{Datos previos a la aplicación de aprendizaje supervizado}
 
-Una vez obtenida la etiqueta de atipico (valor 1) o no atipico (valor de 0) para los sueldos dentro de los cinco mejores años de los afiliados al IESS tras la implementación de los algoritmos de las secciones \ref{sec:apr_no_sup_cj}, \ref{sec:apr_no_sup_km} y \ref{sec:apr_no_sup_db} se procede a a unir en un único conjunto de datos las variables que serán consideradas en el aprendizaje supervizado. Los atributos son básicamente los mismoa que \texit{data_l}, pero se incluyen las variables \textit{ATI\_CJ}\footnote{Para los resultados de cluster jerárquico}, \textit{ATI\_KM}\footnote{Para los resultados de k-means} y \textit{ATI\_DB}\footnote{Para los resultados de dbscan}, cuyos valores son 0 o 1 para identificar si los sueldos son atipicos o no respectivamente. La clasificación de las personas que tienen al menos un sueldo atípico con los tres algoritmos es muy similar (su valor es aproximadamente 171.158 personas). 
-
-Se crean las variables \textit{BCS\_CJ}, \textit{BCS\_KM} y \textit{BCS\_DB} que corresponden al cálculo de la variable \textit{BASE\_CAL} de la subsección \ref{subsec:trans_datos_no_super}, pero sin considerar las aportaciones que fueron clasificadas como atípicas. En los casos cuando el valor de esta variable es nulo, 
-
-
-\section{Transformación de datos}
-
-\subsection{Datos previos a la aplicación de aprendizaje no supervizado}\label{subsec:trans_datos_no_super}
+\section{Transformación de datos antes del aprendizaje no supervizado}\label{subsec:trans_datos_no_super}
 
 Con la finalidad de aliviar el costo computacional, se transforman variables en atributos más sencillos y se crean variables que permitirán alcanzar el objetivo planteado. A manera general, todo el proceso de transformación de datos se describe en la sección \ref{sec:limpieza_datos} de la parte de anexos. Si el lector desea tener una experiencia más didáctica con todo el proceso, puede hacerlo visualizando el archivo  \textit{VIU\_clean\_data.ipynb} de \legalcite{CristianVIUTFM}.
 
@@ -106,20 +98,6 @@ A manera general, en lo que sigue se describen las variables que fueron creadas 
 En base a los artículos 2 y 13 de la \legalcite{ ResIESS_CD100}, se procede a calcular la base de cálculo. Para esto se crean las variables GRUPO\_SEL\footnote{Es una variable indicatriz, que toma los valores de 1, si para un mes x del año Y, el registro se cuenta para la base de cálculo; 0 caso contrario}, BASE\_CAL\footnote{Es el valor de la Base de Cálculo en concordancia con el artículo 2 de la \legalcite{ResIESS_CD100}}. Adicionalmente, se crean las variables SBU\footnote{Contiene la información del Salario Básico Unificado para los trabajadores del Ecuador}, cuyos valores son los presentes en \cite{bce_salarios}, INI\_CAL y FIN\_CAL que corresponde a las fechas máxima y mínima de la base de calculo respectivamente, y, M\_PRI, M\_PUB, M\_IND, M\_VOL\_EX y M\_VOL\_EC que guardarán la información sobre las veces que el afiliado aporte dentro de sus mejores años de aporte en los sectores Privado, Público, Independiente, Voluntario del Exterior y Voluntario residente del Ecuador respectivamente.
 
 El dataset resultante de este proceso se datos se llamará \textit{data\_l}, mismo que será utilizado para la discriminación de la etiqueta de fraude o no fraude en las aportaciones. Este tabulado contendrá 62.130.167 registros y 16 atributos, que corresponde a  442.570 personas. Adicionalmente, se crean las variables \textit{LS1}, \textit{SAL\_PROM1}, \textit{LS2} y \textit{SAL\_PROM2}, que corresponden al límite superior\footnote{Se define como la suma entre el tercer cuartil + 1,5 veces el rango inter cuartilico } del bigote del diagrama de caja y sueldo promedio para los salarios históricos y a partir del año 2000\footnote{Debido a la crisis ecónomica por la cual atravesaba el Ecuador, a partir del año 2000 el país cambia los Sucres (como moneda nacional)  a dólares estadounidenses como moneda oficial \cite{Ecua_sucre_dolar}} en adelante, respectivamemte. Esta consideración se la realiza debido a que el país cambió su moneda, por lo que, las contribuciones realizadas en sucres y posterior transformación a dólares con la tasa de cambios a esa fecha eran significativamente menores al SBU del año 2000 y así en adelante. En este sentido, se considerarán los valores de las variables \textit{LS2} y \textit{SAL\_PROM2}.
-
-
-
-\subsection{Datos previos a la aplicación de aprendizaje supervizado}
-
-Una vez que finalizado el 
-
-\subsection{Tratamiento de valores perdidos}
-
-Como ya se expuso anteriormente, \textit{data\_afi} no contiene valores perdidos. Pero por el contrario \textit{data\_vej}, \textit{data\_inv} y \textit{data\_dis} si va a tener variables con valores perdidos, principalmente en las variables \textit{FECHA\_MUERTE}, \textit{NUMERO\_IMPOSICIONES} pero estos valores son corregidos con los valores del dataset previo a la aplicación de aprendizaje supervizado.
-
-\subsection{Tratamiento de outliers}
-
-La principal variable de interés en \textit{data\_afi} es el \textit{SALARIO},la misma permitirá discriminar si las personas realizaron algún tipo de fraude para obtener un mejor beneficio pensional a largo plazo. En este sentido, no se realiza ninguna corrección de sus valores pues es justamente lo que queremos detectar con los algoritmos de aprendizaje no supervizado.
 
 \section{Aprendizaje no supervizado}
 
@@ -225,7 +203,7 @@ Para que el lector pueda tener una visión más detallada del proceso, puede rev
 
 \end{landscape}
 
-\section{K-Means} \label{sec:apr_no_sup_km}
+\subsection{K-Means} \label{sec:apr_no_sup_km}
 
 Otro algoritmo que tiene gran potencial para la estimación de valores atípicos es  K-means, destacando por su facilidad de implementación y forma de operar. Este método permite identificar observaciones atípicas de forma más óptima al detectar aquellos puntos que se desvían significativamente de los centroides de los clústeres que se han formado. Así, se localizan las anomalías que se alejan de los patrones de los distintos grupos, siendo una herramienta bastante útil para la detección de outliers \citep{wei2019msd}. 
 
@@ -387,7 +365,7 @@ Para que el lector pueda tener una visión más detallada del proceso, puede rev
 \end{landscape}
 
 
-\section{Dbscan} \label{sec:apr_no_sup_db}
+\subsection{Dbscan} \label{sec:apr_no_sup_db}
 
 Debido a las desventajas de utilizar K-means al momento de agrupar datos que tienen diferentes tamaños, densidades y forma (forma no globular) se opta por implementar el algoritmo DBSCAN, pues el mismo presenta la capacidad de identificación de clústeres con formas arbitrarias y densidades variables, lo que ayuda a la detección de valores atípicos en datos no homogéneos \citep{boucher2020outlier}. De igual forma, este método, al basarse en la densidad de los datos, es más preciso en la identificación de atípicos locales significativos, debido a su flexibilidad al identificarlos en áreas de menor densidad y su capacidad de manejar el ruido \citep{smiti2020outlier}.
 
@@ -500,3 +478,224 @@ Para que el lector pueda tener una visión más detallada del proceso, puede rev
 
 \end{landscape}
 
+\section{Limpieza de datos antes del aprendizaje supervizado}\label{cha_resul:limpieza_super}
+
+Una vez obtenida la etiqueta de atipico (valor 1) o no atipico (valor de 0) para los sueldos dentro de los cinco mejores años de los afiliados al IESS tras la implementación de los algoritmos de las secciones \ref{sec:apr_no_sup_cj}, \ref{sec:apr_no_sup_km} y \ref{sec:apr_no_sup_db} se procede a a unir en un único conjunto de datos las variables que serán consideradas en el aprendizaje supervizado. Los atributos son básicamente los mismos que \textit{data\_l}, pero se incluyen las variables \textit{ATI\_CJ}\footnote{Para los resultados de cluster jerárquico}, \textit{ATI\_KM}\footnote{Para los resultados de k-means} y \textit{ATI\_DB}\footnote{Para los resultados de dbscan}, cuyos valores son 0 o 1 para identificar si los sueldos son atipicos o no respectivamente. La clasificación y el número de personas que tienen al menos un sueldo atípico con los tres algoritmos es muy similar (su valor es aproximadamente 171.158 personas).
+
+Como es importante tener conocimiento de cuanta es la afectación en el cálculo de la pensión de las personas que hicieron fraude, se crean las variables \textit{BCS\_CJ}, \textit{BCS\_KM} y \textit{BCS\_DB} que corresponden al cálculo de la variable \textit{BASE\_CAL} de la subsección \ref{subsec:trans_datos_no_super}, pero sin considerar las aportaciones que fueron clasificadas como atípicas. En los casos cuando el valor de esta variable es nulo, debido a que todos los sueldos de esa persona fueron clasificados como atípicos, se le asigna a las variables de la base de cálculo sin atípicos, el valor mínimo entre \textit{LS2} y \textit{LS\_MS}. Ejemplos de estos casos se presenta en la figura \ref{fig:sueldos_unicos_atipicos} y claramente se observa que no necesariamente las aportaciones fraudulentas se dan en los últimos cincos años de la vida laboral del afiliado.
+
+Por otra parte, en la figura \ref{fig:base_calculo_sin_atipicos} se muestran ejemplos de como es la afectación en la base de cálculo si no se consideran estos valores atípics. La primera fila de la figura muestran los casos en los que la razón entre la base de calculo orginal (\textit{BASE\_CAL}) sobre la corrección de la misma sin considerar sueldos atípicos  es menor a diez (10) veces, la segunda final corresponde a si la razón está entre 10 y 20 veces, la tercera fila si la razón está entre 20 y 30 veces y la última si la razón es mayor o 30 veces. Graficamente se puede observar la forma en que distan estas dos bases de cálculo, valores que en algunos casos son afectados por un único valor atípico o grupos de atípicos que van desde 5 o hasta su totalidad de registros.
+
+% la sección \ref{sec:limpieza_datos_super} de anexo
+
+\begin{landscape}
+
+\begin{figure}[H]  
+    \centering
+    \begin{minipage}{0.35\textwidth}
+        \centering
+        \includegraphics[scale=0.17]{graficos/algoritmo_ATI_CJ_29231_1.png} 
+    \end{minipage}
+    \hfill  %
+    \begin{minipage}{0.35\textwidth}
+        \centering
+        \includegraphics[scale=0.17]{graficos/algoritmo_ATI_CJ_9886_1.png} 
+    \end{minipage}
+    \hfill  %
+    \begin{minipage}{0.35\textwidth}
+        \centering
+        \includegraphics[scale=0.17]{graficos/algoritmo_ATI_CJ_18457_1.png} 
+    \end{minipage}
+    \hfill  %
+    \begin{minipage}{0.35\textwidth}
+        \centering
+        \includegraphics[scale=0.17]{graficos/algoritmo_ATI_CJ_18587_1.png} 
+    \end{minipage}
+   
+   \vfill 
+  \begin{minipage}{0.35\textwidth}
+        \centering
+        \includegraphics[scale=0.17]{graficos/algoritmo_ATI_CJ_28952_1.png} 
+    \end{minipage}
+     \hfill  %
+    \begin{minipage}{0.35\textwidth}
+        \centering
+        \includegraphics[scale=0.19]{graficos/algoritmo_ATI_KM_32065_1.png}  
+        
+    \end{minipage}
+    \hfill  %
+    \begin{minipage}{0.35\textwidth}
+        \centering
+        \includegraphics[scale=0.17]{graficos/algoritmo_ATI_KM_77614_1.png}  
+    \end{minipage}
+    \hfill  %
+    \begin{minipage}{0.35\textwidth}
+        \centering
+        \includegraphics[scale=0.17]{graficos/algoritmo_ATI_KM_82208_1.png}  
+    \end{minipage}
+
+ \vfill
+    \begin{minipage}{0.35\textwidth}
+        \centering
+        \includegraphics[scale=0.17]{graficos/algoritmo_ATI_KM_91427_1.png} 
+    \end{minipage}
+    \hfill  %
+    \begin{minipage}{0.35\textwidth}
+        \centering
+        \includegraphics[scale=0.17]{graficos/algoritmo_ATI_DB_6037_1.png} 
+    \end{minipage}
+    \hfill  %
+    \begin{minipage}{0.35\textwidth}
+        \centering
+        \includegraphics[scale=0.17]{graficos/algoritmo_ATI_DB_8851_1.png} 
+    \end{minipage}
+    \hfill  %
+    \begin{minipage}{0.35\textwidth}
+        \centering
+        \includegraphics[scale=0.17]{graficos/algoritmo_ATI_DB_9315_1.png} 
+    \end{minipage}
+   
+   \vfill 
+  \begin{minipage}{0.35\textwidth}
+        \centering
+        \includegraphics[scale=0.17]{graficos/algoritmo_ATI_DB_20856876_1.png} 
+    \end{minipage}
+     \hfill  %
+    \begin{minipage}{0.35\textwidth}
+        \centering
+        \includegraphics[scale=0.17]{graficos/algoritmo_ATI_DB_20878541_1.png}  
+        
+    \end{minipage}
+    \hfill  %
+    \begin{minipage}{0.35\textwidth}
+        \centering
+        \includegraphics[scale=0.17]{graficos/algoritmo_ATI_DB_20889867_1.png}  
+    \end{minipage}
+    \hfill  %
+    \begin{minipage}{0.35\textwidth}
+        \centering
+        \includegraphics[scale=0.17]{graficos/algoritmo_ATI_DB_177653_1.png}  
+    \end{minipage}
+\caption{\headlinecolor{\underline{Ejemplos de sueldos cuyos valores son todos atípicos}}}
+\label{fig:sueldos_unicos_atipicos}  
+
+    
+\end{figure}
+
+
+\end{landscape}
+
+
+\begin{landscape}
+
+\begin{figure}[H]  
+    \centering
+    \begin{minipage}{0.35\textwidth}
+        \centering
+        \includegraphics[scale=0.17]{graficos/base_sin_ati_CJ_4382_1.png} 
+    \end{minipage}
+    \hfill  %
+    \begin{minipage}{0.35\textwidth}
+        \centering
+        \includegraphics[scale=0.17]{graficos/base_sin_ati_CJ_26246_1.png} 
+    \end{minipage}
+    \hfill  %
+    \begin{minipage}{0.35\textwidth}
+        \centering
+        \includegraphics[scale=0.17]{graficos/base_sin_ati_CJ_2141271_1.png} 
+    \end{minipage}
+    \hfill  %
+    \begin{minipage}{0.35\textwidth}
+        \centering
+        \includegraphics[scale=0.17]{graficos/base_sin_ati_CJ_10351659_1.png} 
+    \end{minipage}
+   
+   \vfill 
+  \begin{minipage}{0.35\textwidth}
+        \centering
+        \includegraphics[scale=0.17]{graficos/base_sin_ati_CJ_1844848_1.png} 
+    \end{minipage}
+     \hfill  %
+    \begin{minipage}{0.35\textwidth}
+        \centering
+        \includegraphics[scale=0.19]{graficos/base_sin_ati_CJ_5287079_1.png}  
+        
+    \end{minipage}
+    \hfill  %
+    \begin{minipage}{0.35\textwidth}
+        \centering
+        \includegraphics[scale=0.17]{graficos/base_sin_ati_CJ_5414462_1.png}  
+    \end{minipage}
+    \hfill  %
+    \begin{minipage}{0.35\textwidth}
+        \centering
+        \includegraphics[scale=0.17]{graficos/base_sin_ati_CJ_13290239_1.png}  
+    \end{minipage}
+
+ \vfill
+    \begin{minipage}{0.35\textwidth}
+        \centering
+        \includegraphics[scale=0.17]{graficos/base_sin_ati_CJ_5579649_1.png} 
+    \end{minipage}
+    \hfill  %
+    \begin{minipage}{0.35\textwidth}
+        \centering
+        \includegraphics[scale=0.17]{graficos/base_sin_ati_CJ_16132025_1.png} 
+    \end{minipage}
+    \hfill  %
+    \begin{minipage}{0.35\textwidth}
+        \centering
+        \includegraphics[scale=0.17]{graficos/base_sin_ati_CJ_16445975_1.png} 
+    \end{minipage}
+    \hfill  %
+    \begin{minipage}{0.35\textwidth}
+        \centering
+        \includegraphics[scale=0.17]{graficos/base_sin_ati_CJ_16508727_1.png} 
+    \end{minipage}
+   
+   \vfill 
+  \begin{minipage}{0.35\textwidth}
+        \centering
+        \includegraphics[scale=0.17]{graficos/base_sin_ati_CJ_110456_1.png} 
+    \end{minipage}
+     \hfill  %
+    \begin{minipage}{0.35\textwidth}
+        \centering
+        \includegraphics[scale=0.17]{graficos/base_sin_ati_CJ_172889_1.png}  
+        
+    \end{minipage}
+    \hfill  %
+    \begin{minipage}{0.35\textwidth}
+        \centering
+        \includegraphics[scale=0.17]{graficos/base_sin_ati_CJ_16135176_1.png}  
+    \end{minipage}
+    \hfill  %
+    \begin{minipage}{0.35\textwidth}
+        \centering
+        \includegraphics[scale=0.17]{graficos/base_sin_ati_CJ_13161696_1.png}  
+    \end{minipage}
+
+\caption{\headlinecolor{\underline{Ejemplos de la correción de la base de calculo  sin considerar sueldos atípicos}}}
+\label{fig:base_calculo_sin_atipicos}  
+    
+\end{figure}
+
+
+\end{landscape}
+
+
+Ahora se procede a analizar la base de datos de los pensionistas. Como la estructura de los datos para los pensionistas de vejez, invalidez y discapacidad es la misma y se rige a lo mostrado en la sección \ref{sec:seleccion_datos}, se indica solo el proceso de limpieza para los pensionistas de vejez y para el resto, la idea es la misma.
+
+En primera instancia, se crea una variable adicional que es \tetxit{IMPO\_2023}, misma que contiene la información del número de imposiciones calculadas de los pensionitas.
+
+\section{Transformación de datos antes del aprendizaje supervizado}\label{subsec:trans_datos_super}
+
+
+
+\section{Tratamiento de valores perdidos}
+
+Como ya se expuso anteriormente, \textit{data\_afi} no contiene valores perdidos. Pero por el contrario \textit{data\_vej}, \textit{data\_inv} y \textit{data\_dis} si va a tener variables con valores perdidos, principalmente en las variables \textit{FECHA\_MUERTE}, \textit{NUMERO\_IMPOSICIONES} pero estos valores son corregidos con los valores del dataset previo a la aplicación de aprendizaje supervizado.
+
+\section{Tratamiento de outliers}
+
+La principal variable de interés en \textit{data\_afi} es el \textit{SALARIO},la misma permitirá discriminar si las personas realizaron algún tipo de fraude para obtener un mejor beneficio pensional a largo plazo. En este sentido, no se realiza ninguna corrección de sus valores pues es justamente lo que queremos detectar con los algoritmos de aprendizaje no supervizado.

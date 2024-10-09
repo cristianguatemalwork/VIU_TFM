@@ -1,1 +1,12 @@
 \chapter{Conclusiones y trabajos futuros}\label{cap:concl_trab_fut}
+
+\section{Conclusiones}
+
+Es importante eliminar la idea errónera de que las aportaciones fraudulentas se da en los últimos cinco años de la vida laboral del afiliado, con la finalidad que la Base de cálculo coincida con esos sueldos. Los datos muestran que son un sinnúmero de aspectos que abarcan los sueldos fraudulentos. En algunos caso, una única aportación alterna todo el comportamiento, en otros, un grupo de 12 de los mejores año, aportes fraudulentos entre años y así. Por lo cual, no es fácil detectar un patrón de actividad fraudulenta.
+
+
+\section{Trabajos futuros}
+
+\section{Limitaciones e inconvenientes}
+
+Como el sistema de historia laboral del IESS migró del sistema HOST a HL, no fue posible obtener toda la información de las aportaciones. En algunos casos se debe a que no se digitalizó toda la información y los expedientes aún son físicos, por lo cual, cuando una persona solicita su pensión, van a registros físicos a verificar las aportaciones.

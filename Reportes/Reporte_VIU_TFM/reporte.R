@@ -107,8 +107,45 @@ REP_file_latex_org <- c( paste( parametros$work_dir, 'Reportes/Bibliografia_TFT.
                          paste( parametros$work_dir, 'Reportes/algoritmo_db_ati_135752_1.png', sep = '' ),
                          paste( parametros$work_dir, 'Reportes/algoritmo_db_ati_154409_1.png', sep = '' ),
                          paste( parametros$work_dir, 'Reportes/algoritmo_db_ati_1908_1.png', sep = '' ),
-                         paste( parametros$work_dir, 'Reportes/algoritmo_db_ati_20847366_1.png', sep = '' )
+                         paste( parametros$work_dir, 'Reportes/algoritmo_db_ati_20847366_1.png', sep = '' ),
                          
+                         # Sueldoso todo atipico
+                         paste( parametros$work_dir, 'Reportes/algoritmo_ATI_CJ_29231_1.png', sep = '' ),
+                         paste( parametros$work_dir, 'Reportes/algoritmo_ATI_CJ_9886_1.png', sep = '' ),
+                         paste( parametros$work_dir, 'Reportes/algoritmo_ATI_CJ_18457_1.png', sep = '' ),
+                         paste( parametros$work_dir, 'Reportes/algoritmo_ATI_CJ_18587_1.png', sep = '' ),
+                         paste( parametros$work_dir, 'Reportes/algoritmo_ATI_CJ_28952_1.png', sep = '' ),
+                         
+                         paste( parametros$work_dir, 'Reportes/algoritmo_ATI_KM_32065_1.png', sep = '' ),
+                         paste( parametros$work_dir, 'Reportes/algoritmo_ATI_KM_77614_1.png', sep = '' ),
+                         paste( parametros$work_dir, 'Reportes/algoritmo_ATI_KM_82208_1.png', sep = '' ),
+                         paste( parametros$work_dir, 'Reportes/algoritmo_ATI_KM_91427_1.png', sep = '' ),
+                         
+                         paste( parametros$work_dir, 'Reportes/algoritmo_ATI_DB_6037_1.png', sep = '' ),
+                         paste( parametros$work_dir, 'Reportes/algoritmo_ATI_DB_8851_1.png', sep = '' ),
+                         paste( parametros$work_dir, 'Reportes/algoritmo_ATI_DB_9315_1.png', sep = '' ),
+                         paste( parametros$work_dir, 'Reportes/algoritmo_ATI_DB_20856876_1.png', sep = '' ),
+                         paste( parametros$work_dir, 'Reportes/algoritmo_ATI_DB_20878541_1.png', sep = '' ),
+                         paste( parametros$work_dir, 'Reportes/algoritmo_ATI_DB_20889867_1.png', sep = '' ),
+                         paste( parametros$work_dir, 'Reportes/algoritmo_ATI_DB_177653_1.png', sep = '' ),
+                         
+                         #Corrección de base de calculo
+                         paste( parametros$work_dir, 'Reportes/base_sin_ati_CJ_4382_1.png', sep = '' ),
+                         paste( parametros$work_dir, 'Reportes/base_sin_ati_CJ_26246_1.png', sep = '' ),
+                         paste( parametros$work_dir, 'Reportes/base_sin_ati_CJ_2141271_1.png', sep = '' ),
+                         paste( parametros$work_dir, 'Reportes/base_sin_ati_CJ_10351659_1.png', sep = '' ),
+                         paste( parametros$work_dir, 'Reportes/base_sin_ati_CJ_1844848_1.png', sep = '' ),
+                         paste( parametros$work_dir, 'Reportes/base_sin_ati_CJ_5287079_1.png', sep = '' ),
+                         paste( parametros$work_dir, 'Reportes/base_sin_ati_CJ_5414462_1.png', sep = '' ),
+                         paste( parametros$work_dir, 'Reportes/base_sin_ati_CJ_13290239_1.png', sep = '' ),
+                         paste( parametros$work_dir, 'Reportes/base_sin_ati_CJ_5579649_1.png', sep = '' ),
+                         paste( parametros$work_dir, 'Reportes/base_sin_ati_CJ_16132025_1.png', sep = '' ),
+                         paste( parametros$work_dir, 'Reportes/base_sin_ati_CJ_16445975_1.png', sep = '' ),
+                         paste( parametros$work_dir, 'Reportes/base_sin_ati_CJ_16508727_1.png', sep = '' ),
+                         paste( parametros$work_dir, 'Reportes/base_sin_ati_CJ_110456_1.png', sep = '' ),
+                         paste( parametros$work_dir, 'Reportes/base_sin_ati_CJ_172889_1.png', sep = '' ),
+                         paste( parametros$work_dir, 'Reportes/base_sin_ati_CJ_16135176_1.png', sep = '' ),
+                         paste( parametros$work_dir, 'Reportes/base_sin_ati_CJ_13161696_1.png', sep = '' )
                         )
 
 
@@ -181,7 +218,45 @@ REP_file_latex_des <- c( paste( REP_rep_dir, 'Bibliografia_TFT.bib', sep = '' ),
                          paste( REP_rep_dir, 'graficos/', 'algoritmo_db_ati_135752_1.png', sep = '' ),
                          paste( REP_rep_dir, 'graficos/', 'algoritmo_db_ati_154409_1.png', sep = '' ),
                          paste( REP_rep_dir, 'graficos/', 'algoritmo_db_ati_1908_1.png', sep = '' ),
-                         paste( REP_rep_dir, 'graficos/', 'algoritmo_db_ati_20847366_1.png', sep = '' )
+                         paste( REP_rep_dir, 'graficos/', 'algoritmo_db_ati_20847366_1.png', sep = '' ),
+                         
+                         #Sueldos iguales
+                         paste( REP_rep_dir, 'graficos/', 'algoritmo_ATI_CJ_29231_1.png', sep = '' ),
+                         paste( REP_rep_dir, 'graficos/', 'algoritmo_ATI_CJ_9886_1.png', sep = '' ),
+                         paste( REP_rep_dir, 'graficos/', 'algoritmo_ATI_CJ_18457_1.png', sep = '' ),
+                         paste( REP_rep_dir, 'graficos/', 'algoritmo_ATI_CJ_18587_1.png', sep = '' ),
+                         paste( REP_rep_dir, 'graficos/', 'algoritmo_ATI_CJ_28952_1.png', sep = '' ),
+                         
+                         paste( REP_rep_dir, 'graficos/', 'algoritmo_ATI_KM_32065_1.png', sep = '' ),
+                         paste( REP_rep_dir, 'graficos/', 'algoritmo_ATI_KM_77614_1.png', sep = '' ),
+                         paste( REP_rep_dir, 'graficos/', 'algoritmo_ATI_KM_82208_1.png', sep = '' ),
+                         paste( REP_rep_dir, 'graficos/', 'algoritmo_ATI_KM_91427_1.png', sep = '' ),
+                         
+                         paste( REP_rep_dir, 'graficos/', 'algoritmo_ATI_DB_6037_1.png', sep = '' ),
+                         paste( REP_rep_dir, 'graficos/', 'algoritmo_ATI_DB_8851_1.png', sep = '' ),
+                         paste( REP_rep_dir, 'graficos/', 'algoritmo_ATI_DB_9315_1.png', sep = '' ),
+                         paste( REP_rep_dir, 'graficos/', 'algoritmo_ATI_DB_20856876_1.png', sep = '' ),
+                         paste( REP_rep_dir, 'graficos/', 'algoritmo_ATI_DB_20878541_1.png', sep = '' ),
+                         paste( REP_rep_dir, 'graficos/', 'algoritmo_ATI_DB_20889867_1.png', sep = '' ),
+                         paste( REP_rep_dir, 'graficos/', 'algoritmo_ATI_DB_177653_1.png', sep = '' ),
+                         
+                         #Corrección de base de calculo
+                         paste( REP_rep_dir, 'graficos/', 'base_sin_ati_CJ_4382_1.png', sep = '' ),
+                         paste( REP_rep_dir, 'graficos/', 'base_sin_ati_CJ_26246_1.png', sep = '' ),
+                         paste( REP_rep_dir, 'graficos/', 'base_sin_ati_CJ_2141271_1.png', sep = '' ),
+                         paste( REP_rep_dir, 'graficos/', 'base_sin_ati_CJ_10351659_1.png', sep = '' ),
+                         paste( REP_rep_dir, 'graficos/', 'base_sin_ati_CJ_1844848_1.png', sep = '' ),
+                         paste( REP_rep_dir, 'graficos/', 'base_sin_ati_CJ_5287079_1.png', sep = '' ),
+                         paste( REP_rep_dir, 'graficos/', 'base_sin_ati_CJ_5414462_1.png', sep = '' ),
+                         paste( REP_rep_dir, 'graficos/', 'base_sin_ati_CJ_13290239_1.png', sep = '' ),
+                         paste( REP_rep_dir, 'graficos/', 'base_sin_ati_CJ_5579649_1.png', sep = '' ),
+                         paste( REP_rep_dir, 'graficos/', 'base_sin_ati_CJ_16132025_1.png', sep = '' ),
+                         paste( REP_rep_dir, 'graficos/', 'base_sin_ati_CJ_16445975_1.png', sep = '' ),
+                         paste( REP_rep_dir, 'graficos/', 'base_sin_ati_CJ_16508727_1.png', sep = '' ),
+                         paste( REP_rep_dir, 'graficos/', 'base_sin_ati_CJ_110456_1.png', sep = '' ),
+                         paste( REP_rep_dir, 'graficos/', 'base_sin_ati_CJ_172889_1.png', sep = '' ),
+                         paste( REP_rep_dir, 'graficos/', 'base_sin_ati_CJ_16135176_1.png', sep = '' ),
+                         paste( REP_rep_dir, 'graficos/', 'base_sin_ati_CJ_13161696_1.png', sep = '' )
                         )
 
 REP_file_latex_clean <- c( paste( REP_rep_dir, 'Bibliografia_TFT.bib', sep = '' ), 
