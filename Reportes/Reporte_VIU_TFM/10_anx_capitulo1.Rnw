@@ -1222,3 +1222,35 @@ def pens_correc( data ):
     print('\tTiempo de ejecución es:',tm//3600,'horas con',tm%3600//60,'minutos y',tm%60,'segundos')
 \end{lstlisting}
 
+\section{Algoritmo KNN} \label{sec_anexos:knn}
+\begin{lstlisting}[style=pythonstyle]
+inicio = time.time()
+cv = KFold(n_splits = 5, shuffle = True, random_state = semilla )
+
+for i, weights in enumerate(['uniform', 'distance']):
+    total_scores = []
+    for n_neighbors in range(1,30):
+        fold_accuracy = []
+        knn = neighbors.KNeighborsClassifier( n_neighbors, weights = weights, n_jobs = -1 )
+        for train_fold, test_fold in cv.split( train_acp ):
+            # División train test aleatoria
+            f_train = train_acp.loc[ train_fold ]
+            f_test = train_acp.loc[ test_fold ]
+            # entrenamiento y ejecución del modelo
+            knn.fit( X = f_train.drop(['TARGET'], axis=1),
+                     y = f_train['TARGET'])
+            y_pred = knn.predict(X = f_test.drop(['TARGET'], axis = 1))
+            # evaluación del modelo
+            acc = accuracy_score(f_test['TARGET'], y_pred)
+            fold_accuracy.append(acc)
+        total_scores.append(sum(fold_accuracy)/len(fold_accuracy))
+
+    plt.plot(range(1,len(total_scores)+1), total_scores, marker='o', label=weights )
+    print ('Max Value ' +  weights + " : " +  str(max(total_scores)) +" (" + str(np.argmax(total_scores) + 1) + ")")
+    plt.ylabel('Acc')
+    plt.savefig('KNN.png')
+
+fin = time.time()  
+tm= fin-inicio
+print('Tiempo de ejecución es:',tm//3600,'horas con',tm%3600//60,'minutos y', tm%60,'segundos' )
+\end{lstlisting}
