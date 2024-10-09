@@ -145,7 +145,13 @@ REP_file_latex_org <- c( paste( parametros$work_dir, 'Reportes/Bibliografia_TFT.
                          paste( parametros$work_dir, 'Reportes/base_sin_ati_CJ_110456_1.png', sep = '' ),
                          paste( parametros$work_dir, 'Reportes/base_sin_ati_CJ_172889_1.png', sep = '' ),
                          paste( parametros$work_dir, 'Reportes/base_sin_ati_CJ_16135176_1.png', sep = '' ),
-                         paste( parametros$work_dir, 'Reportes/base_sin_ati_CJ_13161696_1.png', sep = '' )
+                         paste( parametros$work_dir, 'Reportes/base_sin_ati_CJ_13161696_1.png', sep = '' ),
+                         
+                         #KNN
+                         paste( parametros$work_dir, 'Reportes/algortimo_knn_acp.png', sep = '' ),
+                         paste( parametros$work_dir, 'Reportes/confusion_matrix_algoritmo_knn_acp.png', sep = '' ),
+                         paste( parametros$work_dir, 'Reportes/algortimo_knn_bal_acp.png', sep = '' ),
+                         paste( parametros$work_dir, 'Reportes/confusion_matrix_algoritmo_knn_bal_acp.png', sep = '' )
                         )
 
 
@@ -256,7 +262,13 @@ REP_file_latex_des <- c( paste( REP_rep_dir, 'Bibliografia_TFT.bib', sep = '' ),
                          paste( REP_rep_dir, 'graficos/', 'base_sin_ati_CJ_110456_1.png', sep = '' ),
                          paste( REP_rep_dir, 'graficos/', 'base_sin_ati_CJ_172889_1.png', sep = '' ),
                          paste( REP_rep_dir, 'graficos/', 'base_sin_ati_CJ_16135176_1.png', sep = '' ),
-                         paste( REP_rep_dir, 'graficos/', 'base_sin_ati_CJ_13161696_1.png', sep = '' )
+                         paste( REP_rep_dir, 'graficos/', 'base_sin_ati_CJ_13161696_1.png', sep = '' ),
+                         
+                         #knn
+                         paste( REP_rep_dir, 'graficos/', 'algortimo_knn_acp.png', sep = '' ),
+                         paste( REP_rep_dir, 'graficos/', 'confusion_matrix_algoritmo_knn_acp.png', sep = '' ),
+                         paste( REP_rep_dir, 'graficos/', 'algortimo_knn_bal_acp.png', sep = '' ),
+                         paste( REP_rep_dir, 'graficos/', 'confusion_matrix_algoritmo_knn_bal_acp.png', sep = '' )
                         )
 
 REP_file_latex_clean <- c( paste( REP_rep_dir, 'Bibliografia_TFT.bib', sep = '' ), 

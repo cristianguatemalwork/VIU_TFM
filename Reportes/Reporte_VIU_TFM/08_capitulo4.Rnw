@@ -721,8 +721,69 @@ El proceso a manera más detallada se encuentra en elscript \textit{VIU\_analisi
 
 Adicionalmente, si \textit{LS2} o \textit{SAL\_PROM2} son nulos se los completa con los valores de \textit{LS1} y \textit{SAL\_PROM1} respectivamente. Por otra parte, también es necesaria la creación de las variables \textit{EDAD\_J}\footnote{Corresponde la diferencia entra la fecha del derecho para poder solicitar la jubilación con la fecha de nacimiento del afiliado}, \textit{TIEM\_T}\footnote{Corresponde a la diferencia entre la fecha actual con la fecha de nacimiento de la persona} y \textit{TIEM\_MA}\footnote{Corresponde a la diferencia entre las variables \textit{RANGO\_INI\_5MEJ} y \textit{RANGO\_FIN\_5MEJ}, dividido para 30}. Como parte complementaria, a las variables del número de veces que el afiliado aporte históricamente en los diferentes sectores se la divide para la variable \textit{MES\_AS}; y se reescala a las varaibles del número de veces que el afiliado aportó, en los cinco mejores años, sobre el número de aportaciones total en los cinco mejores años de sueldo. Estás variables tendrán el mismo nombre de las variables del número de aportaciones en los sectores, en sus respectivos casos, concatenado con el término \textit{\_P}.
 
-El aspecto más importante a tener en cuenta es la creación de la variable objetivo (de nombre \textit{TARGET}), misma que contiene la etiqueta de si el pensionistas realizó o no una aportación fraudulenta. La construcción de esta variable considera a todos los valores de \textit{CJ}, \textit{KM} y \textit{DB}. Si todos los valores  son 1 a la vez será etiquetado como pensionistas que hizo fraude, pero si uno de los valores no es 1 entonces será no etiquetado como no fraude. Un mayor detalle de el proceso de los dos últimos párrafos de esta sección se presenta en \textit{VIU\_ml\_preparacion\_data.ipynb} de \legalcite{CristianVIUTFM}.
+El aspecto más importante a tener en cuenta es la creación de la variable objetivo (de nombre \textit{TARGET}), misma que contiene la etiqueta de si el pensionistas realizó o no una aportación fraudulenta. La construcción de esta variable considera a todos los valores de \textit{CJ}, \textit{KM} y \textit{DB}. Si todos los valores  son 1 a la vez será etiquetado como pensionistas que hizo fraude, pero si uno de los valores no es 1 entonces será no etiquetado como no fraude. Así, los atributos con los cuales se va a implementar la parte del aprendizaje superviaso es \textit{SEXO}, \textit{NUMERO\_IMPOSICIONES}, \textit{BASE\_CAL}, \textit{N\_MESES}, \textit{PRES}, \textit{LS2}, \textit{SAL\_PROM2}, \textit{LS\_MS}, \textit{TIEM\_T}, \textit{TIEM\_MA}, \textit{MES\_AS}, \textit{SUELDO}, \textit{N\_PRI\_P}, \textit{N\_PUB\_P}, \textit{N\_IND\_P}, \textit{N\_VOL\_EC\_P}, \textit{N\_VOL\_EX\_P}, \textit{M\_PRI\_P}, \textit{M\_PUB\_P}, \textit{M\_IND\_P}, \textit{M\_VOL\_EC\_P}, \textit{M\_VOL\_EX\_P}, \textit{EDAD\_J}, \textit{TARGET}.  Todo esto se guardará en el dataset de nombre \textit{data}.
+
+
+Un mayor detalle de el proceso de los dos últimos párrafos de esta sección se presenta en \textit{VIU\_ml\_preparacion\_data.ipynb} de \legalcite{CristianVIUTFM}.
 
 %Aprendizaje supervisado----------------------------------------------------------------------------
 \section{Aprendizaje supervizado}
+
+Previa aplicación de los algoritmos de aprendisaje supervisado es de importancia la determinación de los atributos que son los más significativos para el análisis y así evitar la maldición de la dimensionalidad. Esto tiene como fin evitar considerar una variable que no aporte nada a la predicción de los modelos y genera un tiempo de ejecución de los algoritmos muy elevado. En este sentido se plantean dos enfoques, uno considerando nuevas características dadas por el análisis de componentes principales (ACP) y el otro con la utilización de algoritmos de aprendizaje no supervizado.
+
+\subsection{Selección de carácterísticas dadas por el ACP}\label{sub_apre_cara_acp}
+
+Como se menciona en \cite{tesis_guatemal_epn} y \cite{wiskott2009pca}, el objetivo del ACP es dadas $X_1, X_2, \ldots, X_n$ variables, hallar $n$ nuevas varriables que son combinación lineal de las variables iniciales, de tal manera que $r$ ($r<n$) recojan la mayor cantidad de información posible sobre los atributos $X_1, X_2, \ldots, X_n$. Antes de la utilización del ACP, es necesario como se menciona en \cite{tesis_guatemal_epn}, ``verificar si la correlación entre las variables analizadas es lo suficientemente grande como para poder justificar la factorización de la matriz de coeficientes de correlación'' (p. 90). Esto se logra mediante el Test de Esfericidad de Bartlett y el Índice Kaiser-Meyer-Olkin (KMO). 
+
+El resultado de aplicar el test de esfericidad nos da un p-valor menor a 0, lo cual nos permite decir que estadísticamente las variables están correlacionadas. No obstante, el valor de KMO es 0,4720 lo cual da señales que no es factible\footnote{En \cite{tesis_guatemal_epn} se manifiesta que si los valores del KMO están entre 0,5 y 1 es apropiado aplicar un ACP} realizar un ACP. En este sentido, tenemos los suficientes argumentos para no realizar el ACP. Sin embargo, con la finalidad de comparar los resultados que nos darán los métodos supervizados y el ACP, se procede a implementarlo. 
+
+La primera parte es dividir a los datos de \textit{data} en \textit{train} y \textit{test}. En este punto y en lo que se sigue se considera que el 20\% de los datos serán para el conjunto de test. Luego se normalizan los atributos de train con excepción de las variables \textit{SEXO}\footnote{Sus valores son 0 para hombres y 1 para mujer}, \textit{PRES}\footnote{Sus valores son 0 para pensionistas de discapacidad, 1 para pensionistas de invalidez y 2 para pensionistas de vejez}, \textit{N\_PRI\_P}, \textit{N\_PUB\_P}, \textit{N\_IND\_P}, \textit{N\_VOL\_EC\_P}, \textit{N\_VOL\_EX\_P}, \textit{M\_PRI\_P}, \textit{M\_PUB\_P}, \textit{M\_IND\_P}, \textit{M\_VOL\_EC\_P}, \textit{M\_VOL\_EX\_P} y \textit{TARGET}. No se consideró a las variables con terminación en \textit{\_P} pues ya estan en escala de 0 a 1. Los parámetros de la normalización en el \textit{train} se utilizan para normalizar el \textit{test}.
+
+Tras la aplicación del ACP, en la octava componente se recoje el 92,60\% de la información de las variables originales. Es así que se utiliza este número de componentes y se proyectan los datos normalizados del train y del test en estas nuevas componentes. Esta variablles tomarán los nombres \textit{PC1}, \textit{PC2}, \textit{PC3}, \textit{PC4}, \textit{PC5}, \textit{PC6}, \textit{PC7} y \textit{PC8}.
+
+\subsection{Selección de carácterísticas dadas por métodos no supervisados}\label{sub_apre_cara_no_super}
+
+
+
+\subsection{KNN}
+
+Utilizando los códigos provistos en la matería de Machine Learning, se procede a parametrizar la elección KNeighbors en el rango de 1 a 30 y los pesos (ponderaciones) serán dados por \textit{uniform} y \textit{distance}. Se ejecutará validación cruzada y como medida de éxito vamos a utilizar el Accuracy. El código se presenta en la sección \ref{sec_anexos:knn} de anexos.
+ 
+Los resultados se muestran en la figura \ref{fig:algoritmo_knn_acp}, por lo que, la elección de los parametros es con 29 vecinos y la ponderación es dada por \textit{distance}. El valor del accuracy en los datos del test es 0,7483230571176909. La matriz de confusión se muestra en la figura \ref{fig:matriz_conf_knn_acp}
+
+\begin{figure}[H]
+\centering
+  \begin{minipage}{0.35\textwidth}
+    \centering
+    \includegraphics[scale=0.35]{graficos/algortimo_knn_acp.png}
+    \caption{\headlinecolor{\underline{Estimación del número de vecinos y peso para el KNN con ACP}}}
+    \label{fig:algoritmo_knn_acp}
+  \end{minipage}
+\hfill  %
+  \begin{minipage}{0.35\textwidth}
+    \centering
+    \includegraphics[scale=0.35]{graficos/confusion_matrix_algoritmo_knn_acp.png}
+    \caption{\headlinecolor{\underline{Estimación del número de vecinos y peso para el KNN con ACP}}}
+    \label{fig:matriz_conf_knn_acp}
+  \end{minipage}
+\end{figure}
+
+Ahora bien, se repite el mismo proceso descrito en la seccion \ref{sub_apre_cara_acp} pero con una balanceo de clases. Lo que se hace es posterior al proceso de normalización de train y test, generar un balanceo de clases con el método \textit{SMOTEENN}. El proceso de normalización considera lo mismo que fue descrito anteriormente y se tiene que en la octava componente se recoje el 93,12\% de la información de las variables originales y se vuelve a aplicar  el código se presenta en la sección \ref{sec_anexos:knn} de anexos. Los resultados se muestran en la figura \ref{fig:algoritmo_knn_bal_acp}, por lo que, la elección de los parametros es con 2 vecinos y la ponderación es dada por \textit{distance}. El valor del accuracy en los datos del test es 0.7128644668789665. La matriz de confusión se muestra en la figura \ref{fig:matriz_conf_knn_bal_acp}.
+
+\begin{figure}[H]
+\centering
+  \begin{minipage}{0.35\textwidth}
+    \centering
+    \includegraphics[scale=0.35]{graficos/algortimo_knn_bal_acp.png}
+    \caption{\headlinecolor{\underline{Estimación del número de vecinos y peso para el KNN con balanceo y ACP}}}
+    \label{fig:algoritmo_knn_bal_acp}
+  \end{minipage}
+\hfill  %
+  \begin{minipage}{0.35\textwidth}
+    \centering
+    \includegraphics[scale=0.35]{graficos/confusion_matrix_algoritmo_knn_bal_acp.png}
+    \caption{\headlinecolor{\underline{Estimación del número de vecinos y peso para el KNN con balacneo y ACP}}}
+    \label{fig:matriz_conf_knn_bal_acp}
+  \end{minipage}
+\end{figure}
 
