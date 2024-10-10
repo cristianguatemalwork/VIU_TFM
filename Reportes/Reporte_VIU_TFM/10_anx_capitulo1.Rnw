@@ -1279,7 +1279,7 @@ print('Tiempo de ejecución es:',tm//3600,'horas con',tm%3600//60,'minutos y', t
         \includegraphics[scale=0.35]{graficos/confusion_matrix_algoritmo_knn_ml.png}
         \captionsetup{width=0.9\textwidth} 
         \caption{\headlinecolor{{Matriz de confusión para el KNN y  \textit{variables\_ml}}}}
-        \label{fig:matriz_conf_knn_bal_ml}
+        \label{fig:matriz_conf_knn_ml}
     \end{minipage}
      \hfill
     \begin{minipage}{0.32\textwidth}
