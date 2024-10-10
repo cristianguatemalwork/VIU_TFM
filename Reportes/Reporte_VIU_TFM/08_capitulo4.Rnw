@@ -741,13 +741,15 @@ La primera parte es dividir a los datos de \textit{data} en \textit{train} y \te
 
 Tras la aplicación del ACP en el conjunto de datos de train, en la octava componente se recoje el 92,60\% de la información de las variables originales. Es así que, se utiliza este número de componentes y se proyectan los datos normalizados del train y del test en las mismas. Estas variables tomarán los nombres \textit{PC1}, \textit{PC2}, \textit{PC3}, \textit{PC4}, \textit{PC5}, \textit{PC6}, \textit{PC7} y \textit{PC8}.
 
+Ahora bien, se repite el mismo proceso descrito anteriormente, pero con una balanceo de clases. Lo que se hace es que posterior al proceso de normalización de train y test, generar un balanceo de clases con el método \textit{SMOTEENN}. Se aplica el ACP y se tiene que en la octava componente se recoje el 93,12\% de la información de las variables originales. Después se proyectan los datos del train y test normalizados y balanceados en estás nuevas componentes principales y el nombre de las variables será \textit{PC1\_bal}, \textit{PC2\_bal}, \textit{PC3\_bal}, \textit{PC4\_bal}, \textit{PC5\_bal}, \textit{PC6\_bal}, \textit{PC7\_bal} y \textit{PC8\_bal}
+
 \subsection{Selección de características dadas por métodos no supervisados}\label{sub_apre_cara_no_super}
 
 
 
 \subsection{KNN}
 
-Utilizando los códigos provistos en la materia de Machine Learning, se procede a parametrizar la elección KNeighbors en el rango de 1 a 30 y los pesos (ponderaciones) serán dados por \textit{uniform} y \textit{distance}. Se ejecutará validación cruzada y como medida de éxito vamos a utilizar el Accuracy. El código se presenta en la sección \ref{sec_anexos:knn} de anexos.
+Utilizando los códigos provistos en la materia de Machine Learning y las variables\textit{PC1}, \textit{PC2}, \textit{PC3}, \textit{PC4}, \textit{PC5}, \textit{PC6}, \textit{PC7}, \textit{PC8}, se procede a parametrizar la elección KNeighbors en el rango de 1 a 30 y los pesos (ponderaciones) serán dados por \textit{uniform} y \textit{distance}. Se ejecutará validación cruzada y como medida de éxito vamos a utilizar el Accuracy. El código se presenta en la sección \ref{sec_anexos:knn} de anexos.
  
 Los resultados se muestran en la figura \ref{fig:algoritmo_knn_acp}, por lo que, la elección de los parámetros es con 29 vecinos y la ponderación es dada por \textit{distance}. El valor del accuracy en los datos de test es 0,7483230571176909. La matriz de confusión se muestra en la figura \ref{fig:matriz_conf_knn_acp}
 
@@ -768,7 +770,8 @@ Los resultados se muestran en la figura \ref{fig:algoritmo_knn_acp}, por lo que,
   \end{minipage}
 \end{figure}
 
-Ahora bien, se repite el mismo proceso descrito en la sección \ref{sub_apre_cara_acp} pero con una balanceo de clases. Lo que se hace es posterior al proceso de normalización de train y test, es generar un balanceo de clases con el método \textit{SMOTEENN}. El proceso de normalización considera lo mismo que fue descrito anteriormente y se tiene que en la octava componente se recoje el 93,12\% de la información de las variables originales y se vuelve a aplicar  el código que se presenta en la sección \ref{sec_anexos:knn} de anexos. Los resultados se muestran en la figura \ref{fig:algoritmo_knn_bal_acp}, por lo que, la elección de los parámetros es con 2 vecinos y la ponderación es dada por \textit{distance}. El valor del accuracy en los datos del test es 0.7128644668789665. La matriz de confusión se muestra en la figura \ref{fig:matriz_conf_knn_bal_acp}.
+
+Repitiendo el proceso anterior  para las variables \textit{PC1\_bal}, \textit{PC2\_bal}, \textit{PC3\_bal}, \textit{PC4\_bal}, \textit{PC5\_bal}, \textit{PC6\_bal}, \textit{PC7\_bal} y \textit{PC8\_bal}, los resultados se muestran en la figura \ref{fig:algoritmo_knn_bal_acp}, por lo que, la elección de los parámetros es con 2 vecinos y la ponderación es dada por \textit{distance}. El valor del accuracy en los datos del test es 0.7128644668789665. La matriz de confusión se muestra en la figura \ref{fig:matriz_conf_knn_bal_acp}.
 
 \begin{figure}[H]
 \centering
