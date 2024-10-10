@@ -871,9 +871,11 @@ Al considerar las variables de descritas en el último párrafo de \ref{sub_apre
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.35]{graficos/algortimo_knn_ml.png}
-\caption{\headlinecolor{\underline{Estimación del número de vecinos y peso para el KNN con balanceo y ACP}}}
+\caption{\headlinecolor{\underline{Estimación del número de vecinos y peso para el KNN y \textit{variables\_ml}}}}
 \label{fig:algoritmo_knn_bal_acp}
 \end{figure}
+
+El acurracy del mismo al ser aplicado en los datos del test es de 0.7706935880931409
 
 
 Se realiza un proceso de balanceo de clases para \textit{variables\_ml}, siguiendo el enfoque mostrado en el último párrafo de la subsección \ref{sub_apre_cara_acp}. A este conjunto de datos resultante, se aplica la validación cruzada con parametrización de KNeighbors en el rango de 1 a 30 y pesos en \textit{uniform} y \textit{distance}. Los resultados se muestran en la figura \ref{fig:algoritmo_knn_bal_ml}.
@@ -884,6 +886,8 @@ Se realiza un proceso de balanceo de clases para \textit{variables\_ml}, siguien
 \caption{\headlinecolor{\underline{Estimación del número de vecinos y peso para el KNN con balanceo y \textit{variables\_ml}}}}
 \label{fig:algoritmo_knn_bal_ml}
 \end{figure}
+
+El accuracy es 0.7272624613230345
 
 Para ver con mayor detalle  todo el proceso realizado para este algorimo vaya a \textit{VIU\_ml\_knn.ipynb} de \legalcite{CristianVIUTFM}.
 
