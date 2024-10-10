@@ -4,11 +4,11 @@
 
 Conforme a lo expuesto en el capítulo introductorio y en consonancia con los objetivos planteados, el propósito de este trabajo de fin de máster es que, mediante las aportaciones que los pensionistas realizaron durante su vida laboral, detectar mediante técnicas de aprendizaje no supervizado aquellas que son fraudulentas y luego generar un modelo de aprendizaje supervizado que permita discriminar los perfiles de los potenciales afiliados que podrían realizar un tipo de fraude en función del comportamiento de su materia gravada\footnote{Es todo ingreso susceptible de apreciación pecuniaria, percibido por la persona afiliada, o en caso del trabajo no remunerado del hogar, por su unidad económica familiar.} para la generación de sus aportaciones.\\
 
-En primer paso es la generación de una adecuado proceso KKD (en función de lo descrito en la seccón xxxxx), para que a partir de los datos primarios que dispone el IESS, generar el conocimiento adecuado que permita dar solución al problema planteado. En las siguientes secciones de muestra cada una de las fases del proceso KKD.
+El primer paso es la generación de un adecuado proceso KKD (en función de lo descrito en la sección xxxxx), para que a partir de los datos primarios que dispone el IESS, generar el conocimiento adecuado que permita dar solución al problema planteado. En las siguientes secciones se muestra cada una de las fases del proceso KKD.
 
 Un aspecto importante a considerar es que la información inicial (se llamará \textit{data\_afi}) con la cual se generó la primera parte del proceso KDD es resultado de un preprocesamiento a las bases transaccionales del IESS, por lo que, su manipulación fue realizada mediante lenguaje \textit{pl/SQL} en la base de datos \textit{oracle}. El esquema de las tablas transaccionales y el código utilizado para la generación de la información inicial se detallan en el anexo \ref{cap:anexo1}. La fecha de extracción de la información fue a mayo 2024 y el análisis se centra con fecha de corte al 31 de diciembre de 2023. Esta fecha indica que se analizarán todos los registros anteriores a la misma.
 
-Adicionalmente, es preciso indicar que todo el proceso de limpieza, preprocesamiento y transformación de datos se lo realizó usando el lenguaje de programación \textit{Python} mediante versionamiento a través de la herramienta \textit{git}, creando un repositorio en Github. El nombre de este repositorio es \textit{VIU\_TFM} (Véase \legalcite{CristianVIUTFM}) y en el mismo se encuentran script de python que fueron utilizados para alcanzar el objetivo planteado y script de R utilizados en la edición del presente proyecto en formato \texttt{\LaTeX}.
+Adicionalmente, es preciso indicar que todo el proceso de limpieza, preprocesamiento y transformación de datos se realizó usando el lenguaje de programación \textit{Python} mediante versionamiento a través de la herramienta \textit{git}, creando un repositorio en Github. El nombre de este repositorio es \textit{VIU\_TFM} (Véase \legalcite{CristianVIUTFM}) y en el mismo se encuentran los scripts de Python que fueron utilizados para alcanzar el objetivo planteado y los scripts de R utilizados en la edición del presente proyecto en formato \texttt{\LaTeX}.
 
 
 \section{Fuente de datos}
@@ -17,24 +17,24 @@ Dentro de todas las fuentes de información que dispone el Instituto Ecuatoriano
 sueldos, transiciones entre seguros, etc. La HL se encuentra cargada dentro del esquema
 iess\_owner} y Prestacional\footnote{El componente Prestacional contiene de manera general la información del pensionista del IESS, incluyendo campos como su información personal, monto de su pensión,
 incrementos o mejoras en la pensión, tipo del seguro en que solicitó la pensión, etc. Este
-componente se encuentra cargado dentro del esquema pensiones\_owner}. Adicionalmente, la información se complementa con los datos proporcionados por Registro Civil (entidad pública que guarda los datos personales de la población ecuatoriana)
+componente se encuentra cargado dentro del esquema pensiones\_owner}. Adicionalmente, la información se complementa con los datos proporcionados por el Registro Civil (entidad pública que guarda los datos personales de la población ecuatoriana).
 
 \section{Selección de datos} \label{sec:seleccion_datos}
 
-Para tener información consolidada se debía de hacer joins entre las tablas de la sección \ref{sec:fuentes_datos} de la parte de anexos, lo cual implicaba tener en la tabla final un sinnúmero de variables que no estaban relacionadas directamente con el problema a abordar. De esta manera, de todo el conjunto de atributos iniciales se seleccionaron aquellos que permitirán describir el comportamiento del actual afiliado y abordar el objetivo planteado  dentro de nuestro proceso KDD.
+Para tener información consolidada se debía de hacer joins entre las tablas de la sección \ref{sec:fuentes_datos} de la parte de anexos, lo cual implicaba tener en la tabla final un sinnúmero de variables que no estaban relacionadas directamente con el problema a abordar. De esta manera, de todo el conjunto de atributos iniciales, se seleccionaron aquellos que permitirán describir el comportamiento del actual afiliado y abordar el objetivo planteado dentro de nuestro proceso KDD.
 
 Los atributos seleccionados dentro del dataset \textit{data\_afi} son los siguientes:
 
 \begin{multicols}{2}  
     \begin{itemize}
-        \item CEDULA\_COD: Secuencial que indentifica al afiliado,\\[-0.75cm]
+        \item CEDULA\_COD: Secuencial que identifica al afiliado,\\[-0.75cm]
         \item ANIO: Corresponde al año del pago de la planilla del afiliado,\\[-0.75cm]
         \item MES: Corresponde al mes del pago de la planilla del afilaido,
     \end{itemize}
     \begin{itemize}  
         \item CODSEC: Corresponde a la abreviación del sector en el cual trabajó el afiliado,\\[-0.75cm]
         \item SECTOR: Corresponde al sector en el cual trabajó el afiliado,\\[-0.75cm]
-        \item SALARIO: Corresponde al salario sobre el cual aporte el afiliado,
+        \item SALARIO: Corresponde al salario sobre el cual aportó el afiliado,
     \end{itemize}
 \end{multicols}
 
@@ -42,7 +42,7 @@ Para los pensionistas tenemos un mismo esquema de información, mismo que se des
 
 \begin{multicols}{2}  
     \begin{itemize}
-        \item CEDULA\_COD: Secuencial que indentifica al pensionista,\\[-0.75cm]
+        \item CEDULA\_COD: Secuencial que identifica al pensionista,\\[-0.75cm]
         \item SEXO: Corresponde al sexo del pensionista,\\[-0.75cm]
         \item FECHA\_NACIMIENTO: Corresponde a la fecha de nacimiento del pensionista,\\[-0.75cm]
         \item FECHA\_MUERTE: Corresponde a la fecha de muerte del pensionista,\\[-0.75cm]
@@ -52,8 +52,8 @@ Para los pensionistas tenemos un mismo esquema de información, mismo que se des
         \item NUMERO\_IMPOSICIONES: Corresponde al número de imposiciones\footnote{Una imposición correspnde a treinta (30) días laborados} al momento de la jubilación,\\[-0.75cm]
         \item COEFICIENTE\_REAL: Corresponde al valor del coeficiente\footnote{Es el valor del coeficiente anual de años cumplidos de imposiciones acorde a la \legalcite{ResIESS_CD100}} dentro del sistema Prestacional,\\[-0.75cm]
         \item COEFICIENTE\_CALCULADO: Corresponde al valor del coeficiente calculado en base a la historia laboral,\\[-0.75cm]
-        \item PROMEDIO\_SUELDO\_REAL: Corresponde a la base de cálculo\footnote{Para el cómputo de la base de cálculo de la pensión, se procederá a la suma de doce (12) meses de imposiciones consecutivas y ese resultado se dividirá para doce (12). Obtenido así el promedio mensual de los sueldos o salarios de cada año de imposiciones del afiliado, se seleccionarán los cinco (5) promedio mensuales de mayor cuantía y el resultado de la suma se dividirá para cinco (5)} del promedio de los años de mejores sueldos o salarios sobre los cuales se aportó dentro del sistema Prestacional,\\[-0.75cm]
-        \item PROMEDIO\_CAL: Corresponde al la base de cálculo estimada en función de los cinco (5) mejroes años de sueldo sobre los cuales aportó,\\[-0.75cm]
+        \item PROMEDIO\_SUELDO\_REAL: Corresponde a la base de cálculo\footnote{Para el cómputo de la base de cálculo de la pensión, se procederá a la suma de doce (12) meses de imposiciones consecutivas y ese resultado se dividirá para doce (12). Obteniendo así el promedio mensual de los sueldos o salarios de cada año de imposiciones del afiliado, se seleccionarán los cinco (5) promedio mensuales de mayor cuantía y el resultado de la suma se dividirá para cinco (5)} del promedio de los años de mejores sueldos o salarios sobre los cuales se aportó dentro del sistema Prestacional,\\[-0.75cm]
+        \item PROMEDIO\_CAL: Corresponde a la base de cálculo estimada en función de los cinco (5) mejores años de sueldo sobre los cuales aportó,\\[-0.75cm]
         \item VALOR\_PENSION: Corresponde a la pensión calculada en el sistema Prestacional,\\[-0.75cm]
         \item PENSION\_CAL: Corresponde a la pensión calculada en función del artículo 13\footnote{La pensión mensual por invalidez o vejez y el subsidio transitorio por incapacidad será igual al resultado de la multiplicación de la Base de Cálculo de la \legalcite{ResIESS_CD100}, por el coeficiente anual de años cumplidos de imposiciones. De los 40 años en adelante se incrementará el 0,0125 por cada año de imposiciones adicionales.} de la \legalcite{ResIESS_CD100},\\[-0.75cm]
         \item ID\_PRESTACION: Corresponde al identificador único de la prestación,\\[-0.75cm]
@@ -64,30 +64,30 @@ Para los pensionistas tenemos un mismo esquema de información, mismo que se des
     \end{itemize}
 \end{multicols}
 
-Los atributos descritos anteriormente serán dividos en tres grupos, para las jubilaciones de vejez, invalidez y discapacidad. El nombre de estos conjuntos de datos serán \textit{data\_vej}, \textit{data\_inv} y \textit{data\_dis} para hacer referencia a la información de las jubilaciones de vejez, invalidez y discapacidad respectivamente.
+Los atributos descritos anteriormente serán divididos en tres grupos, para las jubilaciones de vejez, invalidez y discapacidad. El nombre de estos conjuntos de datos serán \textit{data\_vej}, \textit{data\_inv} y \textit{data\_dis} para hacer referencia a la información de las jubilaciones de vejez, invalidez y discapacidad, respectivamente.
 
 
-Los siguientes pasos del proceso KDD se dividen en dos partes, la primera parte se centra en el proceso de minería de datos para los datos utilizados antes de la ejecución de algoritmos de aprendizaje no supervizado, para etiquetar los salarios y a las personas que generarón alguna aportación fraudelenta en función del comportamiento histórtico de los salarios a lo largo de su vida laboral. La seguna parte corresponde al preprocesamiento de la información resultante de los algoritmos no supervizados para su posterior implementación en los métodos supervizados.
+Los siguientes pasos del proceso KDD se dividen en dos partes. La primera parte se centra en el proceso de minería de datos para los datos utilizados antes de la ejecución de algoritmos de aprendizaje no supervizado, para etiquetar los salarios y a las personas que generaron alguna aportación fraudelenta en función del comportamiento histórico de los salarios a lo largo de su vida laboral. La seguna parte corresponde al preprocesamiento de la información resultante de los algoritmos no supervizados para su posterior implementación en los métodos supervisados.
 
 
 \section{Tratamiento de valores perdidos}
 
-Como ya se expuso anteriormente, \textit{data\_afi} no contiene valores perdidos. Pero por el contrario \textit{data\_vej}, \textit{data\_inv} y \textit{data\_dis} si va a tener variables con valores perdidos, principalmente en las variables \textit{FECHA\_MUERTE}, \textit{NUMERO\_IMPOSICIONES} pero estos valores son corregidos con los valores del dataset previo a la aplicación de aprendizaje supervizado.
+Como ya se expuso anteriormente, \textit{data\_afi} no contiene valores perdidos. Pero por el contrario \textit{data\_vej}, \textit{data\_inv} y \textit{data\_dis} sí van a tener variables con valores perdidos, principalmente en las variables \textit{FECHA\_MUERTE}, \textit{NUMERO\_IMPOSICIONES} pero estos valores son corregidos con los valores del dataset previo a la aplicación de aprendizaje supervisado.
 
 \section{Tratamiento de outliers}
 
-La principal variable de interés en \textit{data\_afi} es el \textit{SALARIO},la misma permitirá discriminar si las personas realizaron algún tipo de fraude para obtener un mejor beneficio pensional a largo plazo. En este sentido, no se realiza ninguna corrección de sus valores pues es justamente lo que queremos detectar con los algoritmos de aprendizaje no supervizado.
+La principal variable de interés en \textit{data\_afi} es el \textit{SALARIO},la misma permitirá discriminar si las personas realizaron algún tipo de fraude para obtener un mejor beneficio pensional a largo plazo. En este sentido, no se realiza ninguna corrección de sus valores pues es justamente lo que queremos detectar con los algoritmos de aprendizaje no supervisado.
 
 
-\section{Limpieza de datos antes del aprendizaje no supervizado}\label{cha_resul:limpieza_no_super}
+\section{Limpieza de datos antes del aprendizaje no supervisado}\label{cha_resul:limpieza_no_super}
 
 
-Además de considerar las explicaciones dadas en el penúltimo párrafo de la sección \ref{sec:fuentes_datos} de la parte de anexos, es importante mencionar que el conjunto de datos \textit{data\_afi} no va a presentar problemas con missing values ni datos inconsistentes en ningún atributo, debido a que estas novedades ya se resolvieron con anterioridad (desde el comienzo de construcción del dataset original). Por otro parte, las bases de datos de los pensionistas en ciertos atributos sí van a presentar problemas con datos perdidos, como por ejemplo la \textit{FECHA\_MUERTE}\footnote{Debido a que a la fecha de corte no todos los pensionistas están muertos}, \textit{NUMERO\_IMPOSICIONES}\footnote{Debido a que como el sistema del IESS tiene dos fuentes de información (HL Y HOST) algunos regustros no están correctamente migrados}, etc.
+Además de considerar las explicaciones dadas en el penúltimo párrafo de la sección \ref{sec:fuentes_datos} de la parte de anexos, es importante mencionar que el conjunto de datos \textit{data\_afi} no va a presentar problemas con missing values ni datos inconsistentes en ningún atributo, debido a que estas novedades ya se resolvieron con anterioridad (desde el comienzo de construcción del dataset original). Por otro parte, las bases de datos de los pensionistas, en ciertos atributos, sí van a presentar problemas con datos perdidos, como por ejemplo la \textit{FECHA\_MUERTE}\footnote{Debido a que a la fecha de corte no todos los pensionistas están muertos}, \textit{NUMERO\_IMPOSICIONES}\footnote{Debido a que como el sistema del IESS tiene dos fuentes de información (HL Y HOST) algunos registros no están correctamente migrados}, etc.
 
-El dataset de los afiliados contiene 68.062.270 filas y 12 columnas, el conjunto de datos de los pensionistas de vejez tiene 681.799 filas con 17 columnas, el de invalidez tiene 48.146 filas y 17 columnas  y los datos de discapacidad tiene 14.662 filas y 17 columnas.
+El dataset de los afiliados contiene 68.062.270 filas y 12 columnas, el conjunto de datos de los pensionistas de vejez tiene 681.799 filas con 17 columnas, el de invalidez tiene 48.146 filas y 17 columnas y los datos de discapacidad tiene 14.662 filas y 17 columnas.
 
 
-\section{Transformación de datos antes del aprendizaje no supervizado}\label{subsec:trans_datos_no_super}
+\section{Transformación de datos antes del aprendizaje no supervisado}\label{subsec:trans_datos_no_super}
 
 Con la finalidad de aliviar el costo computacional, se transforman variables en atributos más sencillos y se crean variables que permitirán alcanzar el objetivo planteado. A manera general, todo el proceso de transformación de datos se describe en la sección \ref{sec:limpieza_datos} de la parte de anexos. Si el lector desea tener una experiencia más didáctica con todo el proceso, puede hacerlo visualizando el archivo  \textit{VIU\_clean\_data.ipynb} de \legalcite{CristianVIUTFM}.
 
@@ -95,23 +95,23 @@ A manera general, en lo que sigue se describen las variables que fueron creadas 
 
 \begin{itemize}
 \item SUELDO: Corresponde a la suma de la materia gravada histórica del afiliado hasta el momento de su jubilación, \\[-0.75cm]
-\item APORTE: Corresponde a la suma del aporte\footnote{Es la multiplicación entre la materia gravada del afiliado, mes a mes, con el valor de la tasa de aportación. Estos valores se presentan en la tabla \ref{tab:info_tasa_aport_actuarial} de la sección \ref{sec:limpieza_datos} de la parte de anexo.} del afiliado hasta el momento de su jubilación,\\[-0.75cm]
-\item INTERES\_APORTE: Corresponde a la suma por concepto del interés\footnote{Corresponde a la multiplicación entre la variable APORTE, mes a mes, con la tasa de interés actuarial. Estos valores se presentan en la tabla \ref{tab:info_tasa_aport_actuarial} de la sección \ref{sec:limpieza_datos} de la parte de anexo.} que genero el aporte del afiliado durante su vida laboral.\\[-0.75cm]
-\item FIN\_HL: Corresponde a la fecha de la última planilla genera por concepto de aportes durante a vida laboral del afiliado\\[-0.75cm]
-\item INI\_HL: Corresponde a la fecha de la primera planilla genera por concepto de aportes durante a vida laboral del afiliado\\[-0.75cm]
-\item MES\_AS: Corresponde al número de meses aportados\footnote{Es el conteo del número de veces no únicos, es decir, si una persona aporte dos o más veces en el mismo mes, se le cuenta dos o más veces} durante la vida laboral del afiliado\\[-0.75cm]
-\item MES\_TU: Corresponde al número de meses distintos\footnote{Es el conteo del núemro de meses únicos, es decir, si una persona aportó dos o más veces en el mismo mes, solo se le contabiliza como una vez} aportados durante la vida laboral del afiliado,\\[-0.75cm]
-\item  N\_PRI, N\_PUB, N\_IND, N\_VOL\_EX y N\_VOL\_EC: Guardan la información sobre las veces que el afiliado aporte en los sectores Privado, Público, Independiente, Voluntario del Exterior y Voluntario residente del Ecuador respectivamente.
+\item APORTE: Corresponde a la suma del aporte\footnote{Es la multiplicación entre la materia gravada del afiliado, mes a mes, con el valor de la tasa de aportación. Estos valores se presentan en la tabla \ref{tab:info_tasa_aport_actuarial} de la sección \ref{sec:limpieza_datos} de la parte de anexos.} del afiliado hasta el momento de su jubilación,\\[-0.75cm]
+\item INTERES\_APORTE: Corresponde a la suma por concepto del interés\footnote{Corresponde a la multiplicación entre la variable APORTE, mes a mes, con la tasa de interés actuarial. Estos valores se presentan en la tabla \ref{tab:info_tasa_aport_actuarial} de la sección \ref{sec:limpieza_datos} de la parte de anexos.} que generó el aporte del afiliado durante su vida laboral.\\[-0.75cm]
+\item FIN\_HL: Corresponde a la fecha de la última planilla generada por concepto de aportes durante a vida laboral del afiliado\\[-0.75cm]
+\item INI\_HL: Corresponde a la fecha de la primera planilla generada por concepto de aportes durante a vida laboral del afiliado\\[-0.75cm]
+\item MES\_AS: Corresponde al número de meses aportados\footnote{Es el conteo del número de veces no únicos, es decir, si una persona aporta dos o más veces en el mismo mes, se le cuenta dos o más veces} durante la vida laboral del afiliado\\[-0.75cm]
+\item MES\_TU: Corresponde al número de meses distintos\footnote{Es el conteo del número de meses únicos, es decir, si una persona aportó dos o más veces en el mismo mes, solo se le contabiliza como una vez} aportados durante la vida laboral del afiliado,\\[-0.75cm]
+\item  N\_PRI, N\_PUB, N\_IND, N\_VOL\_EX y N\_VOL\_EC: Guardan la información sobre las veces que el afiliado aporta en los sectores Privado, Público, Independiente, Voluntario del Exterior y Voluntario residente del Ecuador, respectivamente.
 
 \end{itemize}
 
-En base a los artículos 2 y 13 de la \legalcite{ ResIESS_CD100}, se procede a calcular la base de cálculo. Para esto se crean las variables GRUPO\_SEL\footnote{Es una variable indicatriz, que toma los valores de 1, si para un mes x del año Y, el registro se cuenta para la base de cálculo; 0 caso contrario}, BASE\_CAL\footnote{Es el valor de la Base de Cálculo en concordancia con el artículo 2 de la \legalcite{ResIESS_CD100}}. Adicionalmente, se crean las variables SBU\footnote{Contiene la información del Salario Básico Unificado para los trabajadores del Ecuador}, cuyos valores son los presentes en \cite{bce_salarios}, INI\_CAL y FIN\_CAL que corresponde a las fechas máxima y mínima de la base de calculo respectivamente, y, M\_PRI, M\_PUB, M\_IND, M\_VOL\_EX y M\_VOL\_EC que guardarán la información sobre las veces que el afiliado aporte dentro de sus mejores años de aporte en los sectores Privado, Público, Independiente, Voluntario del Exterior y Voluntario residente del Ecuador respectivamente.
+En base a los artículos 2 y 13 de la \legalcite{ ResIESS_CD100}, se procede a calcular la base de cálculo. Para esto se crean las variables GRUPO\_SEL\footnote{Es una variable indicatriz, que toma los valores de 1, si para un mes x del año Y, el registro se cuenta para la base de cálculo; 0 caso contrario}, BASE\_CAL\footnote{Es el valor de la Base de Cálculo en concordancia con el artículo 2 de la \legalcite{ResIESS_CD100}}. Adicionalmente, se crean las variables SBU\footnote{Contiene la información del Salario Básico Unificado para los trabajadores del Ecuador}, cuyos valores son los presentes en \cite{bce_salarios}, INI\_CAL y FIN\_CAL que corresponden a la fecha máxima y mínima de la base de cálculo, respectivamente. Y, M\_PRI, M\_PUB, M\_IND, M\_VOL\_EX y M\_VOL\_EC que guardarán la información sobre las veces que el afiliado aporte dentro de sus mejores años de aportación en los sectores Privado, Público, Independiente, Voluntario del Exterior y Voluntario residente del Ecuador, respectivamente.
 
-El dataset resultante de este proceso se datos se llamará \textit{data\_l}, mismo que será utilizado para la discriminación de la etiqueta de fraude o no fraude en las aportaciones. Este tabulado contendrá 62.130.167 registros y 16 atributos, que corresponde a  442.570 personas. Adicionalmente, se crean las variables \textit{LS1}, \textit{SAL\_PROM1}, \textit{LS2} y \textit{SAL\_PROM2}, que corresponden al límite superior\footnote{Se define como la suma entre el tercer cuartil + 1,5 veces el rango inter cuartilico } del bigote del diagrama de caja y sueldo promedio para los salarios históricos y a partir del año 2000\footnote{Debido a la crisis ecónomica por la cual atravesaba el Ecuador, a partir del año 2000 el país cambia los Sucres (como moneda nacional)  a dólares estadounidenses como moneda oficial \cite{Ecua_sucre_dolar}} en adelante, respectivamemte. Esta consideración se la realiza debido a que el país cambió su moneda, por lo que, las contribuciones realizadas en sucres y posterior transformación a dólares con la tasa de cambios a esa fecha eran significativamente menores al SBU del año 2000 y así en adelante. En este sentido, se considerarán los valores de las variables \textit{LS2} y \textit{SAL\_PROM2}.
+El dataset resultante de este proceso de datos se llamará \textit{data\_l}, mismo que será utilizado para la discriminación de la etiqueta de fraude o no fraude en las aportaciones. Este tabulado contendrá 62.130.167 registros y 16 atributos, que corresponden a  442.570 personas. Adicionalmente, se crean las variables \textit{LS1}, \textit{SAL\_PROM1}, \textit{LS2} y \textit{SAL\_PROM2}, que corresponden al límite superior\footnote{Se define como la suma entre el tercer cuartil + 1,5 veces el rango inter cuartilico } del bigote del diagrama de caja y sueldo promedio para los salarios históricos y a partir del año 2000\footnote{Debido a la crisis ecónomica por la cual atravesaba el Ecuador, a partir del año 2000 el país cambia los Sucres (como moneda nacional)  a dólares estadounidenses como moneda oficial \cite{Ecua_sucre_dolar}} en adelante, respectivamemte. Esta consideración se la realiza debido a que el país cambió su moneda, por lo que, las contribuciones realizadas en sucres y posterior transformación a dólares con la tasa de cambios a esa fecha eran significativamente menores al SBU del año 2000 y así en adelante. En este sentido, se considerarán los valores de las variables \textit{LS2} y \textit{SAL\_PROM2}.
 
-\section{Aprendizaje no supervizado}
+\section{Aprendizaje no supervisado}
 
-Para la ejecución de los algoritmos de aprendizaje no supervizado se utiliza la base de datos \textit{data\_l}. Los algoritmos utilizados son Clúster Jerárquico\footnote{Se utiliza la métrica single pues es la que ayuda a detectar outlier \cite{Hogde2004}}, K-mean y DBscan, puesto que los mismos permiten realizar la búsqueda de los salarios que son atípicos dentro del comportamiento salarial del afiliado.
+Para la ejecución de los algoritmos de aprendizaje no supervisado se utiliza la base de datos \textit{data\_l}. Los algoritmos utilizados son Clúster Jerárquico\footnote{Se utiliza la métrica single pues es la que ayuda a detectar outlier \cite{Hogde2004}}, K-mean y DBscan, puesto que los mismos permiten realizar la búsqueda de los salarios que son atípicos dentro del comportamiento salarial del afiliado.
 
 \subsection{Clúster jerárquico} \label{sec:apr_no_sup_cj}
 
@@ -123,7 +123,7 @@ Como el algoritmo de Clúster Jerárquico requiere de gran capacidad computacion
 
 Tanto para \textit{ul} como \textit{ml}, se calculó el bigote superior de los sueldos de los cinco mejores años de cada persona, esta variable se llamará \textit{LS\_MS}.
 
-En referencia a la literatura, al utilizar la métrica single en el algoritmo de clúster jerárquico, se pueden detectar registros atípicos, por lo cual, está métrica será la que se va a utilizar en nuestro análisis. El código utilizado es la función \textit{cluster\_jerarquico} del código de la sección \ref{sec:alg_clus_jear} de anexos. La idea general del código es considerar como máximo dos clústeres y dentro de cada uno de ellos realizar el siguiente análisis:
+En referencia a la literatura, al utilizar la métrica single en el algoritmo de Clúster Jerárquico, se pueden detectar registros atípicos, por lo cual, está métrica será la que se va a utilizar en nuestro análisis. El código utilizado es la función \textit{cluster\_jerarquico} del código de la sección \ref{sec:alg_clus_jear} de anexos. La idea general del código es considerar como máximo dos clústeres y dentro de cada uno de ellos realizar el siguiente análisis:
 
 \begin{itemize}
 \item Si el número de clústeres que se forman es mayor a 1, se calcula el centroide de cada clúster. Si este valor es mayor a \textit{LS\_MS}, entonces todas las observaciones del clúster serán atípicas y se etiquetarán con el valor de 1. Caso contrario, su etiqueta será 0.
@@ -152,7 +152,7 @@ Por otro lado, una segunda correción se realiza a los sueldos que formaron un s
 
 Una tercera corrección se hace para los sueldos de la data \textit{ml}, pues aquí la variable sueldo para un mes es la suma de todas las aportaciones que se realizaron en ese mes, por lo tanto, si una de las partes que componen la suma es mayor  al mínimo entre \textit{LS2} y \textit{LS\_MS}, entonces ese sueldo sí es atípico.
 
-En este sentido, en la primera fila de la figura \ref{fig:algoritmo_cj_depu} se muestra la clasificación del algoritmos, y en la segunda, las correccones realizadas en base a lo expuesto con anterioridad. 
+En este sentido, en la primera fila de la figura \ref{fig:algoritmo_cj_depu} se muestra la clasificación del algoritmos, y en la segunda, las correcciones realizadas en base a lo expuesto con anterioridad. 
 
 En la figura \ref{fig:algoritmo_cj_depu_anex} de la parte de anexos se muestran otros ejemplos.
 
@@ -217,11 +217,11 @@ Para que el lector pueda tener una visión más detallada del proceso, puede rev
 
 Otro algoritmo que tiene gran potencial para la estimación de valores atípicos es  K-means, destacando por su facilidad de implementación y forma de operar. Este método permite identificar observaciones atípicas de forma más óptima al detectar aquellos puntos que se desvían significativamente de los centroides de los clústeres que se han formado. Así, se localizan las anomalías que se alejan de los patrones de los distintos grupos, siendo una herramienta bastante útil para la detección de outliers \citep{wei2019msd}. 
 
-En este sentido, se sigue un proceso similar a lo expuesto en clúster jerárquico con respecto a las consideraciones para \textit{GRUPO\_SEL}, \textit{data\_l}, \textit{ul}, \textit{ml} y \textit{LS\_MS}. La ejecución de este algoritmo requiere de un tiempo muy extenso de procesamiento, debido a la gran cantidad de datos.
+En este sentido, se sigue un proceso similar a lo expuesto en Clúster Jerárquico con respecto a las consideraciones para \textit{GRUPO\_SEL}, \textit{data\_l}, \textit{ul}, \textit{ml} y \textit{LS\_MS}. La ejecución de este algoritmo requiere de un tiempo muy extenso de procesamiento, debido a la gran cantidad de datos.
 
 Por otra parte, siguiendo lo expresado en la literatura, este algoritmo se divide en cuatro casos, dos casos para los datos sin y con normalización y otros dos casos para los datos con y sin datos duplicados, esto tiene la finalidad de mejorar la velocidad del procesamiento del algoritmo de K-means conforme lo exponen \cite{K-Means Clustering in Python: Efficiency of Preprocessing} y \cite{AdventuresinMachineLearning}. Con la finalidad de realizar un ejercicio didácico para estimar el número de clústeres que agruparán los salarios de cada persona, se hace una estimación (Véase la función \textit{num\_cluster} del código de la sección \ref{sec:alg_kmean}). Los casos serán abreviados por \textit{ATI\_KM\_M1} para datos con duplicados y sin normalización,  \textit{ATI\_KM\_M2}  para datos sin duplicados y sin normalización,  \textit{ATI\_KM\_M3} para datos con duplicados y  con normalizados; y, \textit{ATI\_KM\_43} para datos sin duplicados y con normalizados
 
-Los métodos que nos servirán para estimar el número de cluster, para los datos de \textit{ul} y \textit{ml}, son por el método del codo y por el método de la silueta.
+Los métodos que nos servirán para estimar el número de clústeres, para los datos de \textit{ul} y \textit{ml}, son por el método del codo y por el método de la silueta.
 
 Para \textit{ul}
 \begin{itemize}
@@ -239,7 +239,7 @@ Para \textit{ml}
 \item Caso \textit{ATI\_KM\_M4}.- Método del codo es 2.066 y la silueta de 2.529,
 \end{itemize}
 
-Como se puede apreciar, el número de clústeres toma valores entre 2 y 3 aproximadamente, lo cual va acorde a considerar  que nuestra clasificación  solo  considerará dos (2) clústeres, puesto que, se hace el supuesto que los salarios se agruparán en los clústeres de sin y con atípicos, respectivamente. La función que se utilizará es \textit{clasificacion\_kmean} del código de la sección \ref{sec:alg_kmean}. Es importante notar que, con la finalidad de mejorar la elección inicial de los centroides, se considera el método \textit{k-means++}.
+Como se puede apreciar, el número de clústeres toma valores entre 2 y 3 aproximadamente, lo cual va acorde a considerar  que nuestra clasificación  solo  considerará dos (2) clústeres, puesto que, se hace el supuesto que los salarios se agruparán en los clústeres de sin y con atípicos, respectivamente. La función que se utilizará es \textit{clasificacion\_kmean} del código de la sección \ref{sec:alg_kmean}. Es importante notar que, con la finalidad de mejorar la elección inicial de los centroides, se considera el método \textit{K-means++}.
 
 Tras aplicar \textit{clasificacion\_kmean}, tenemos que si el número de clústeres\footnote{Independientemente de considerar que se formen dos clústeres, el algoritmo generaba uno o dos clúster, lo cual dependía del comportamiento de los datos} generados es mayor a 1, se calcula el centroide de cada clúster y si estos valores son mayores a \textit{LS\_MS}  entonces todas las observaciones del clúster serán atípicas, por lo que, su etiqueta será 1. Por otra parte, si el número de clústeres es igual a 1, entonces la etiqueta será igual a -2, puesto que solo se formó un único clúster. Ahora bien, al momento  de considerar o no los valores repetidos, la mayoría de los casos se comportaban como lo que ya se expuso anteriormente. Sin embargo, existían casos en donde al eliminar los duplicados, el promedio de los cinco mejores años era un único valor, por lo cual, cuando se daban estos casos, la etiqueta era -1. Los resultados se presentan en la tabla \ref{tab:resul_kmean_pre}, cuyos valores hacen mención a las personas que al menos tienen un sueldo que corresponde a una categoría  de los cuatro casos anteriores.
 
@@ -313,7 +313,7 @@ data
 \end{longtable}
 \endgroup
 
-Como se puede apreciar en la tabla anterior, practicamente los cuatro casos nos dan la misma clasificación en cantidad de personas, la diferencia solo radica en el tiempo de procesamiento de los resultados, puesto que, cuando se trabajaba con los datos sin normalizar y con duplicados, el tiempo de ejecución era muy elevado en comparación al caso de los datos normalizados y sin duplicados. En los resultados de la aplicación de K-means se deben hacer las mismas correcciones que para el clúster jerárquico.
+Como se puede apreciar en la tabla anterior, prácticamente los cuatro casos nos dan la misma clasificación en cantidad de personas, la diferencia solo radica en el tiempo de procesamiento de los resultados, puesto que, cuando se trabajaba con los datos sin normalizar y con duplicados, el tiempo de ejecución era muy elevado en comparación al caso de los datos normalizados y sin duplicados. En los resultados de la aplicación de K-means se deben hacer las mismas correcciones que para el clúster jerárquico.
 
 Una vez realizadas las correcciones respectivas, se procede a crear una variable que considere los cuatro casos y determine la etiqueta de si el sueldo es o no atípico. La regla a utilizar es considerar de las cuatros caso, el máximo de su valor, es decir, si tres variables para un sueldo determinado tienen el valor 0  y en la otra tiene el valor de 1, entonces la etiqueta será 1. Todo esto se realiza a nivel de persona y a nivel de sueldo , considerando los valores de las variables \textit{ATI\_KM\_M1}, \textit{ATI\_KM\_M2}, \textit{ATI\_KM\_M3} y \textit{ATI\_KM\_M4}. El atributo que contiene esta información será llamado \textit{ATI\_KM}.
 
@@ -379,13 +379,13 @@ Para que el lector pueda tener una visión más detallada del proceso, puede rev
 
 Debido a las desventajas de utilizar K-means al momento de agrupar datos que tienen diferentes tamaños, densidades y forma (forma no globular) se opta por implementar el algoritmo DBSCAN, pues el mismo presenta la capacidad de identificación de clústeres con formas arbitrarias y densidades variables, lo que ayuda a la detección de valores atípicos en datos no homogéneos \citep{boucher2020outlier}. De igual forma, este método, al basarse en la densidad de los datos, es más preciso en la identificación de atípicos locales significativos, debido a su flexibilidad al identificarlos en áreas de menor densidad y su capacidad de manejar el ruido \citep{smiti2020outlier}.
 
-Una vez más, se sigue un proceso similar a lo expuesto en clúster jerárquico con respecto a las consideraciones para \textit{GRUPO\_SEL}, \textit{data\_l}, \textit{ul}, \textit{ml} y \textit{LS\_MS}.
+Una vez más, se sigue un proceso similar a lo expuesto en Clúster Jerárquico con respecto a las consideraciones para \textit{GRUPO\_SEL}, \textit{data\_l}, \textit{ul}, \textit{ml} y \textit{LS\_MS}.
 
-En un ejercicio de determinar los parámetros (MinPts y Eps) que el algoritmo necesita, se implementa la función \textit{valor\_epsilon} de la sección \ref{sec:alg_dbscan} de la parte de anexos. Esta función toma los K-ésismos vecinos más cercanos en un rango de 1 a 12\footnote{Se considera este valor  debido a que se esperaría que los 12 meses de aporte de un grupo de los mejores años tengan el mismo comportamiento} (MinPts) y determina el valor de \textit{epsilon} a través del método del codo. Si todas las distancias dadas por los k-esimos vecinos tienen el mismo valor, entonces el valor de \textit{epsilon} (Eps) es cero, puesto que se estará en el caso de un mismo valor de sueldo para los mejores años de sueldo. Con la función \textit{esti\_eps\_out} para un rango de valores de Eps, dados por MinPts, se calcula el número de cluster y de atípicos generados por DBSCAN.
+En un ejercicio de determinar los parámetros (MinPts y Eps) que el algoritmo necesita, se implementa la función \textit{valor\_epsilon} de la sección \ref{sec:alg_dbscan} de la parte de anexos. Esta función toma los K-ésimos vecinos más cercanos en un rango de 1 a 12\footnote{Se considera este valor  debido a que se esperaría que los 12 meses de aporte de un grupo de los mejores años tengan el mismo comportamiento} (MinPts) y determina el valor de \textit{épsilon} a través del método del codo. Si todas las distancias dadas por los k-ésimos vecinos tienen el mismo valor, entonces el valor de \textit{épsilon} (Eps) es cero, puesto que se estará en el caso de un mismo valor de sueldo para los mejores años de sueldo. Con la función \textit{esti\_eps\_out} para un rango de valores de Eps, dados por MinPts, se calcula el número de clústeres y de atípicos generados por DBSCAN.
 
-El proceso anterior nos da resultados para varias combinaciones de valores, por lo que, la función \textit{cal\_eps\_out} de la sección \ref{sec:alg_dbscan}, determiná los valores de Eps y MinPts  con los cuales se va a aplicar el algoritmo de DBSCAN, haciendo la consideración de que la selección abarque la mayor cantidad de valores atípicos con la menor cantidad de cluster. Bajo esta criterio tenemos que en \textit{ul} existen 316.552 personas con alguno registro de suledo atípico y en \textit{ml} existen 68.596 personas con tienen al menos una aportación atípica.
+El proceso anterior nos da resultados para varias combinaciones de valores, por lo que, la función \textit{cal\_eps\_out} de la sección \ref{sec:alg_dbscan}, determiná los valores de Eps y MinPts  con los cuales se va a aplicar el algoritmo de DBSCAN, haciendo la consideración de que la selección abarque la mayor cantidad de valores atípicos con la menor cantidad de clústeres. Bajo este criterio tenemos que en \textit{ul} existen 316.552 personas con algún registro de sueldos atípico y en \textit{ml} existen 68.596 personas que tienen al menos una aportación atípica.
 
-Nuevamente es neceario hacer las correcciones indicadas en los dos métodos anteriores, por lo que, una vez realizas las correcciones, enb la figura \ref{fig:algoritmo_db_depu} se muestran los resultados.
+Nuevamente, es necesario hacer las correcciones indicadas en los dos métodos anteriores, por lo que, una vez realizadas las correcciones, en la figura \ref{fig:algoritmo_db_depu} se muestran los resultados.
 
 Para que el lector pueda tener una visión más detallada del proceso, puede revisar el script \textit{VIU\_dbscan.ipynb} de \legalcite{CristianVIUTFM}.
 
@@ -488,17 +488,17 @@ Para que el lector pueda tener una visión más detallada del proceso, puede rev
 
 \end{landscape}
 
-\section{Limpieza de datos antes del aprendizaje supervizado}\label{cha_resul:limpieza_super}
+\section{Limpieza de datos antes del aprendizaje supervisado}\label{cha_resul:limpieza_super}
 
-Una vez obtenida la etiqueta de atipico (valor 1) o no atipico (valor de 0) para los sueldos dentro de los cinco mejores años de los afiliados al IESS tras la implementación de los algoritmos de las secciones \ref{sec:apr_no_sup_cj}, \ref{sec:apr_no_sup_km} y \ref{sec:apr_no_sup_db} se procede a a unir en un único conjunto de datos las variables que serán consideradas en el aprendizaje supervizado. Los atributos son básicamente los mismos que \textit{data\_l}, pero se incluyen las variables \textit{ATI\_CJ}\footnote{Para los resultados de cluster jerárquico}, \textit{ATI\_KM}\footnote{Para los resultados de k-means} y \textit{ATI\_DB}\footnote{Para los resultados de dbscan}, cuyos valores son 0 o 1 para identificar si los sueldos son atipicos o no respectivamente. La clasificación y el número de personas que tienen al menos un sueldo atípico con los tres algoritmos es muy similar (su valor es aproximadamente 171.158 personas).
+Una vez obtenida la etiqueta de atípico (valor 1) o no atípico (valor de 0) para los sueldos dentro de los cinco mejores años de los afiliados al IESS tras la implementación de los algoritmos de las secciones \ref{sec:apr_no_sup_cj}, \ref{sec:apr_no_sup_km} y \ref{sec:apr_no_sup_db} se procede a unir en un único conjunto de datos las variables que serán consideradas en el aprendizaje supervisado. Los atributos son básicamente los mismos que \textit{data\_l}, pero se incluyen las variables \textit{ATI\_CJ}\footnote{Para los resultados de Clúster Jerárquico}, \textit{ATI\_KM}\footnote{Para los resultados de K-means} y \textit{ATI\_DB}\footnote{Para los resultados de DBSCAN}, cuyos valores son 0 o 1 para identificar si los sueldos son atípicos o no, respectivamente. La clasificación y el número de personas que tienen al menos un sueldo atípico con los tres algoritmos es muy similar (su valor es aproximadamente 171.158 personas).
 
 Como es importante tener conocimiento de cuanta es la afectación en el cálculo de la pensión de las personas que hicieron fraude, se crean las variables \textit{BCS\_CJ}, \textit{BCS\_KM} y \textit{BCS\_DB} que corresponden al cálculo de la variable \textit{BASE\_CAL} de la subsección \ref{subsec:trans_datos_no_super}, pero sin considerar las aportaciones que fueron clasificadas como atípicas. En los casos cuando el valor de esta variable es nulo, debido a que todos los sueldos de esa persona fueron clasificados como atípicos, se le asigna a las variables de la base de cálculo sin atípicos, el valor mínimo entre \textit{LS2} y \textit{LS\_MS}. El dataset que contiene toda esta información se llama \textit{data\_ati}.
 
 Ejemplos de lo casos en los que todos los suelos de los mejores años fueron clasificados como atípicos se presenta en la figura \ref{fig:sueldos_unicos_atipicos}; y, claramente se observa que no necesariamente las aportaciones fraudulentas se dan en los últimos cincos años de la vida laboral del afiliado.
 
-Por otra parte, en la figura \ref{fig:base_calculo_sin_atipicos} se muestran ejemplos de como es la afectación en la base de cálculo si no se consideran estos valores atípics. La primera fila de la figura muestran los casos en los que la razón entre la base de calculo orginal (\textit{BASE\_CAL}) sobre la corrección de la misma sin considerar sueldos atípicos  es menor a diez (10) veces, la segunda final corresponde a si la razón está entre 10 y 20 veces, la tercera fila si la razón está entre 20 y 30 veces y la última si la razón es mayor o 30 veces. Graficamente se puede observar la forma en que distan estas dos bases de cálculo, valores que en algunos casos son afectados por un único valor atípico o grupos de atípicos que van desde 5 o hasta su totalidad de registros.
+Por otra parte, en la figura \ref{fig:base_calculo_sin_atipicos} se muestran ejemplos de cómo es la afectación en la base de cálculo si no se consideran estos valores atípicos. La primera fila de la figura muestra los casos en los que la razón entre la base de cálculo original (\textit{BASE\_CAL}) sobre la corrección de la misma sin considerar sueldos atípicos  es menor a diez (10) veces, la segunda final corresponde a si la razón está entre 10 y 20 veces, la tercera fila si la razón está entre 20 y 30 veces y la última si la razón es mayor o 30 veces. Gráficamente se puede observar la forma en que distan estas dos bases de cálculo, valores que en algunos casos son afectados por un único valor atípico o grupos de atípicos que van desde 5 o hasta su totalidad de registros.
 
-Adicionalmente, en \textit{data\_ati} se crean las variables \textit{CJ}, \textit{KM} y \textit{DB}, cuyos valores corresponde al valor máximo de las etiquetas de las clasificaciones dadas por los algoritmos no supervisados, es decir, si un persona tiene al menos un sueldo con etiqueta de atípico, entonces esa persona será etiquetada como atípica.
+Adicionalmente, en \textit{data\_ati} se crean las variables \textit{CJ}, \textit{KM} y \textit{DB}, cuyos valores corresponden al valor máximo de las etiquetas de las clasificaciones dadas por los algoritmos no supervisados, es decir, si un persona tiene al menos un sueldo con etiqueta de atípico, entonces esa persona será etiquetada como atípica.
 
 
 \begin{landscape}
@@ -698,11 +698,11 @@ Adicionalmente, en \textit{data\_ati} se crean las variables \textit{CJ}, \texti
 
 Ahora se procede a analizar la base de datos de los pensionistas. Como la estructura de los datos para los pensionistas de vejez, invalidez y discapacidad es la misma y se rige a lo mostrado en la sección \ref{sec:seleccion_datos}, se indica solo el proceso de limpieza para los pensionistas de vejez (el dataset se llamará \textit{vej}) y para el resto, la idea es la misma.
 
-En primera instancia, en \textit{vej} se crea una variable adicional que es \textit{IMPO\_2023}, misma que contiene la información del número de imposiciones calculadas de los pensionitas. Una vez analizada la información que se encuentra en el sistema de información \textit{PRESTACIONAL} (para más detalle véase la sección \ref{sec_anex:fuentes_datos} de anexos), se observan varios registros duplicados para los pensionistas, lo cual es erróneo porque solo debería existir un único registro prestacional para cada pensionistas. Es por ello que se crea la función \textit{pens\_correc} de la sección \ref{sec:limpieza_datos_super} de anexos para corregir esta situación. La idea es escoger el primer registro duplicado e ir eliminado los posibles casos, en función de la completitud de la información.
+En primera instancia, en \textit{vej} se crea una variable adicional que es \textit{IMPO\_2023}, misma que contiene la información del número de imposiciones calculadas de los pensionistas. Una vez analizada la información que se encuentra en el sistema de información \textit{PRESTACIONAL} (para más detalle véase la sección \ref{sec_anex:fuentes_datos} de anexos), se observan varios registros duplicados para los pensionistas, lo cual es erróneo porque solo debería existir un único registro prestacional para cada pensionista. Es por ello que se crea la función \textit{pens\_correc} de la sección \ref{sec:limpieza_datos_super} de anexos para corregir esta situación. La idea es escoger el primer registro duplicado e ir eliminando los posibles casos, en función de la completitud de la información.
 
-\section{Transformación de datos antes del aprendizaje supervizado}\label{subsec:trans_datos_super}
+\section{Transformación de datos antes del aprendizaje supervisado}\label{subsec:trans_datos_super}
 
-Los resultados de la sección anterior para el caso de los pensionistas deben ser corregidos, porque, se evidencia que la información de \textit{NUMERO\_IMPOSICIONES} y \textit{COEFICIENTE\_CAL} está con valores nulos o tiene un valor de cero, lo cual es imposible, puesto que tanto el número de imposiciones como el valor del coeficiente son fundamentales en el cálculo de la pensión \legalcite{ResIESS_CD100}. Las afectaciones que tiene la variable  \textit{COEFICIENTE\_CAL} están directamente correlacionadas con el valor de \textit{NUMERO\_IMPOSICIONES}. En este sentido, ser realizaron la siguientes correcciones:
+Los resultados de la sección anterior para el caso de los pensionistas deben ser corregidos, porque, se evidencia que la información de \textit{NUMERO\_IMPOSICIONES} y \textit{COEFICIENTE\_CAL} está con valores nulos o tiene un valor de cero, lo cual es imposible, puesto que tanto el número de imposiciones como el valor del coeficiente son fundamentales en el cálculo de la pensión \legalcite{ResIESS_CD100}. Las afectaciones que tiene la variable  \textit{COEFICIENTE\_CAL} están directamente correlacionadas con el valor de \textit{NUMERO\_IMPOSICIONES}. En este sentido, se realizaron la siguientes correcciones:
 
 \begin{itemize}
 \item Cuando el número de imposiciones es cero, se lo completa con los valores de \textit{IMPO\_2023},
@@ -713,43 +713,50 @@ Los resultados de la sección anterior para el caso de los pensionistas deben se
 
 De \textit{data\_ati} se escogen las variables \textit{CEDULA\_COD}, \textit{INI\_CAL}, \textit{FIN\_CAL}, \textit{BASE\_CAL}, \textit{LS1}, \textit{SAL\_PROM1}, \textit{LS2}, \textit{SAL\_PROM2}, \textit{LS\_MS}, \textit{BCS\_CJ}, \textit{BCS\_KM}, \textit{BCS\_DB}, \textit{CJ}, \textit{KM} y \textit{DB} para luego hacer un left join con\footnote{Se da prioridad a la información de \textit{vej} y se busca en la tabla \textit{data\_ati}} los resultados de los datos de los pensionistas de vejez.
 
-Realizando el mismo proceso para los pensionistas de invalidez y discapacidad se crea una única tabla (de nombre \textit{pen}), haciendo una concatenación por filas, con la información  de los pensionistas. Esta tabla contiene 686.479 filas con 33 columnas. Sin embargo, dados los problemas mostrados en \textit{NUMERO\_IMPOSICIONES} y \textit{COEFICIENTE\_CAL}, en \textit{pen} existen registros de pensionistas cuya información no se encuentra en \textit{data\_ati}, por lo cual, solo se trabajará con los registros que son diferentes de nulo en la varaible \textit{BASE\_CAL}. Esto da como consecuencia que se trabaje con 442.979 filas y 33 columnas. En un paso adicional, a este conjunto de datos se le agregan las variables \textit{MES\_AS}, \textit{MES\_TU}, \textit{SUELDO}, \textit{APORTE}, \textit{INTERES\_APORTE}, \textit{N\_PRI}, \textit{N\_PUB}, \textit{N\_IND}, \textit{N\_VOL\_EX}, \textit{N\_VOL\_EC}, \textit{M\_PRI}, \textit{M\_PUB}, \textit{M\_IND}, \textit{M\_VOL\_EX} y \textit{M\_VOL\_EC} descritas en la sección \ref{subsec:trans_datos_no_super}.
+Realizando el mismo proceso para los pensionistas de invalidez y discapacidad se crea una única tabla (de nombre \textit{pen}), haciendo una concatenación por filas, con la información  de los pensionistas. Esta tabla contiene 686.479 filas con 33 columnas. Sin embargo, dados los problemas mostrados en \textit{NUMERO\_IMPOSICIONES} y \textit{COEFICIENTE\_CAL}, en \textit{pen} existen registros de pensionistas cuya información no se encuentra en \textit{data\_ati}, por lo cual, solo se trabajará con los registros que son diferentes de nulo en la variable \textit{BASE\_CAL}. Esto da como consecuencia que se trabaje con 442.979 filas y 33 columnas. En un paso adicional, a este conjunto de datos se le agregan las variables \textit{MES\_AS}, \textit{MES\_TU}, \textit{SUELDO}, \textit{APORTE}, \textit{INTERES\_APORTE}, \textit{N\_PRI}, \textit{N\_PUB}, \textit{N\_IND}, \textit{N\_VOL\_EX}, \textit{N\_VOL\_EC}, \textit{M\_PRI}, \textit{M\_PUB}, \textit{M\_IND}, \textit{M\_VOL\_EX} y \textit{M\_VOL\_EC} descritas en la sección \ref{subsec:trans_datos_no_super}.
 
-Por otra parte, se crean las variables \textit{PEN\_CJ}, \textit{PEN\_KM} y \textit{PEN\_DB} que corresponden al cálculo de las pensiones corregidas en función del artículo 13 de la \legalcite{ResIESS_CD100}, es decir se multiplica base de cálculo  corregidas (es decir, sin considerar los sueldos atípicos) por la variable \textit{COEFICIENTE\_CAL}. 
+Por otra parte, se crean las variables \textit{PEN\_CJ}, \textit{PEN\_KM} y \textit{PEN\_DB} que corresponden al cálculo de las pensiones corregidas en función del artículo 13 de la \legalcite{ResIESS_CD100}, es decir, se multiplica la base de cálculo corregida (es decir, sin considerar los sueldos atípicos) por la variable \textit{COEFICIENTE\_CAL}. 
 
 El proceso a manera más detallada se encuentra en el script \textit{VIU\_analisis\_atipicos.ipynb} de \legalcite{CristianVIUTFM}.
 
-Adicionalmente, si \textit{LS2} o \textit{SAL\_PROM2} son nulos se los completa con los valores de \textit{LS1} y \textit{SAL\_PROM1}, respectivamente. Por otra parte, también es necesaria la creación de las variables \textit{EDAD\_J}\footnote{Corresponde la diferencia entra la fecha del derecho para poder solicitar la jubilación con la fecha de nacimiento del afiliado}, \textit{TIEM\_T}\footnote{Corresponde a la diferencia entre la fecha actual con la fecha de nacimiento de la persona} y \textit{TIEM\_MA}\footnote{Corresponde a la diferencia entre las variables \textit{RANGO\_INI\_5MEJ} y \textit{RANGO\_FIN\_5MEJ}, dividido para 30}. Como parte complementaria, a las variables del número de veces que el afiliado aporta históricamente en los diferentes sectores se la divide para la variable \textit{MES\_AS}; y se reescala a las varaibles del número de veces que el afiliado aportó, en los cinco mejores años, sobre el número de aportaciones totales en los cinco mejores años de sueldo. Estás variables tendrán el mismo nombre de las variables del número de aportaciones en los sectores, en sus respectivos casos, concatenado con el término \textit{\_P}.
+Adicionalmente, si \textit{LS2} o \textit{SAL\_PROM2} son nulos se los completa con los valores de \textit{LS1} y \textit{SAL\_PROM1}, respectivamente. Por otra parte, también es necesaria la creación de las variables \textit{EDAD\_J}\footnote{Corresponde a la diferencia entre la fecha del derecho para poder solicitar la jubilación con la fecha de nacimiento del afiliado}, \textit{TIEM\_T}\footnote{Corresponde a la diferencia entre la fecha actual con la fecha de nacimiento de la persona} y \textit{TIEM\_MA}\footnote{Corresponde a la diferencia entre las variables \textit{RANGO\_INI\_5MEJ} y \textit{RANGO\_FIN\_5MEJ}, dividido para 30}. Como parte complementaria, a las variables del número de veces que el afiliado aporta históricamente en los diferentes sectores se la divide para la variable \textit{MES\_AS}; y se reescala a las variables del número de veces que el afiliado aportó, en los cinco mejores años, sobre el número de aportaciones totales en los cinco mejores años de sueldo. Estás variables tendrán el mismo nombre de las variables del número de aportaciones en los sectores, en sus respectivos casos, concatenado con el término \textit{\_P}.
 
-El aspecto más importante a tener en cuenta es la creación de la variable objetivo (de nombre \textit{TARGET}), misma que contiene la etiqueta de si el pensionistas realizó o no una aportación fraudulenta. La construcción de esta variable considera a todos los valores de \textit{CJ}, \textit{KM} y \textit{DB}. Si todos los valores  son 1 a la vez será etiquetado como pensionistas que hicieron fraude, pero si uno de los valores no es 1 entonces no será etiquetado como fraude. Así, los atributos con los cuales se va a implementar la parte del aprendizaje supervisado son \textit{SEXO}, \textit{NUMERO\_IMPOSICIONES}, \textit{BASE\_CAL}, \textit{N\_MESES}, \textit{PRES}, \textit{LS2}, \textit{SAL\_PROM2}, \textit{LS\_MS}, \textit{TIEM\_T}, \textit{TIEM\_MA}, \textit{MES\_AS}, \textit{SUELDO}, \textit{N\_PRI\_P}, \textit{N\_PUB\_P}, \textit{N\_IND\_P}, \textit{N\_VOL\_EC\_P}, \textit{N\_VOL\_EX\_P}, \textit{M\_PRI\_P}, \textit{M\_PUB\_P}, \textit{M\_IND\_P}, \textit{M\_VOL\_EC\_P}, \textit{M\_VOL\_EX\_P}, \textit{EDAD\_J}, \textit{TARGET}.  Todo esto se guardará en el dataset de nombre \textit{data}.
+El aspecto más importante a tener en cuenta es la creación de la variable objetivo (de nombre \textit{TARGET}), misma que contiene la etiqueta de si el pensionista realizó o no una aportación fraudulenta. La construcción de esta variable considera a todos los valores de \textit{CJ}, \textit{KM} y \textit{DB}. Si todos los valores  son 1 a la vez será etiquetado como pensionistas que hicieron fraude, pero si uno de los valores no es 1 entonces no será etiquetado como fraude. Así, los atributos con los cuales se va a implementar la parte del aprendizaje supervisado son \textit{SEXO}, \textit{NUMERO\_IMPOSICIONES}, \textit{BASE\_CAL}, \textit{N\_MESES}, \textit{PRES}, \textit{LS2}, \textit{SAL\_PROM2}, \textit{LS\_MS}, \textit{TIEM\_T}, \textit{TIEM\_MA}, \textit{MES\_AS}, \textit{SUELDO}, \textit{N\_PRI\_P}, \textit{N\_PUB\_P}, \textit{N\_IND\_P}, \textit{N\_VOL\_EC\_P}, \textit{N\_VOL\_EX\_P}, \textit{M\_PRI\_P}, \textit{M\_PUB\_P}, \textit{M\_IND\_P}, \textit{M\_VOL\_EC\_P}, \textit{M\_VOL\_EX\_P}, \textit{EDAD\_J}, \textit{TARGET}.  Todo esto se guardará en el dataset de nombre \textit{data}.
 
 
-Un mayor detalle de el proceso de los dos últimos párrafos de esta sección se presenta en \textit{VIU\_ml\_preparacion\_data.ipynb} de \legalcite{CristianVIUTFM}.
+Un mayor detalle del proceso de los dos últimos párrafos de esta sección se presenta en \textit{VIU\_ml\_preparacion\_data.ipynb} de \legalcite{CristianVIUTFM}.
 
 %Aprendizaje supervisado----------------------------------------------------------------------------
-\section{Aprendizaje supervizado}
+\section{Aprendizaje supervisado}
 
 Previo a la aplicación de los algoritmos de aprendizaje supervisado es fundamental la determinación de los atributos que son los más significativos para el análisis y así evitar la maldición de la dimensionalidad. Esto tiene como fin evitar considerar una variable que no aporte nada a la predicción de los modelos y genere un tiempo de ejecución de los algoritmos muy elevado. En este sentido, se plantean dos enfoques, uno considerando nuevas características dadas por el análisis de componentes principales (ACP) y el otro con la utilización de algoritmos de aprendizaje no supervizado.
 
 \subsection{Selección de características dadas por el ACP}\label{sub_apre_cara_acp}
 
-Como se menciona en \cite{tesis_guatemal_epn} y \cite{wiskott2009pca}, el objetivo del ACP es, dadas $X_1, X_2, \ldots, X_n$ variables, hallar $n$ nuevas varriables que son combinaciones lineales de las variables iniciales, de tal manera que $r$ ($r<n$) recojan la mayor cantidad de información posible sobre los atributos $X_1, X_2, \ldots, X_n$. Antes de la utilización del ACP es necesario, como se menciona en \cite{tesis_guatemal_epn}, ``verificar si la correlación entre las variables analizadas es lo suficientemente grande como para poder justificar la factorización de la matriz de coeficientes de correlación'' (p. 90). Esto se logra mediante el Test de Esfericidad de Bartlett y el Índice Kaiser-Meyer-Olkin (KMO). 
+Como se menciona en \cite{tesis_guatemal_epn} y \cite{wiskott2009pca}, el objetivo del ACP es, dadas $X_1, X_2, \ldots, X_n$ variables, hallar $n$ nuevas variables que son combinaciones lineales de las variables iniciales, de tal manera que $r$ ($r<n$) recojan la mayor cantidad de información posible sobre los atributos $X_1, X_2, \ldots, X_n$. Antes de la utilización del ACP es necesario, como se menciona en \cite{tesis_guatemal_epn}, ``verificar si la correlación entre las variables analizadas es lo suficientemente grande como para poder justificar la factorización de la matriz de coeficientes de correlación'' (p. 90). Esto se logra mediante el Test de Esfericidad de Bartlett y el Índice Kaiser-Meyer-Olkin (KMO). 
 
 El resultado de aplicar el test de esfericidad nos da un p-valor menor a 0, lo cual nos permite decir que estadísticamente las variables están correlacionadas. No obstante, el valor de KMO es 0,4720, lo cual da señales que no es factible\footnote{En \cite{tesis_guatemal_epn} se manifiesta que si los valores del KMO están entre 0,5 y 1 es apropiado aplicar un ACP} realizar un ACP. En este sentido, tenemos los suficientes argumentos para no realizar el ACP. Sin embargo, con la finalidad de comparar los resultados que nos darán los métodos supervizados y el ACP, se procede a implementarlo. 
 
-La primera parte es dividir a los datos de \textit{data} en \textit{train} y \textit{test}. En este punto y en lo que se sigue se considera que el 20\% de los datos serán para el conjunto de test. Luego se normalizan los atributos de train con excepción de las variables \textit{SEXO}\footnote{Sus valores son 0 para hombres y 1 para mujer}, \textit{PRES}\footnote{Sus valores son 0 para pensionistas de discapacidad, 1 para pensionistas de invalidez y 2 para pensionistas de vejez}, \textit{N\_PRI\_P}, \textit{N\_PUB\_P}, \textit{N\_IND\_P}, \textit{N\_VOL\_EC\_P}, \textit{N\_VOL\_EX\_P}, \textit{M\_PRI\_P}, \textit{M\_PUB\_P}, \textit{M\_IND\_P}, \textit{M\_VOL\_EC\_P}, \textit{M\_VOL\_EX\_P} y \textit{TARGET}. No se consideró a las variables con terminación en \textit{\_P} pues ya estan en escala de 0 a 1. Los parámetros de la normalización en el \textit{train} se utilizan para normalizar los datos de \textit{test}.
+La primera parte es dividir a los datos de \textit{data} en \textit{train} y \textit{test}. En este punto y en lo que sigue se considera que el 20\% de los datos serán para el conjunto de test. Luego se normalizan los atributos de train con excepción de las variables \textit{SEXO}\footnote{Sus valores son 0 para hombres y 1 para mujer}, \textit{PRES}\footnote{Sus valores son 0 para pensionistas de discapacidad, 1 para pensionistas de invalidez y 2 para pensionistas de vejez}, \textit{N\_PRI\_P}, \textit{N\_PUB\_P}, \textit{N\_IND\_P}, \textit{N\_VOL\_EC\_P}, \textit{N\_VOL\_EX\_P}, \textit{M\_PRI\_P}, \textit{M\_PUB\_P}, \textit{M\_IND\_P}, \textit{M\_VOL\_EC\_P}, \textit{M\_VOL\_EX\_P} y \textit{TARGET}. No se consideró a las variables con terminación en \textit{\_P} pues ya estan en escala de 0 a 1. Los parámetros de la normalización en el \textit{train} se utilizan para normalizar los datos de \textit{test}.
 
 Tras la aplicación del ACP en el conjunto de datos de train, en la octava componente se recoje el 92,60\% de la información de las variables originales. Es así que, se utiliza este número de componentes y se proyectan los datos normalizados del train y del test en las mismas. Estas variables tomarán los nombres \textit{PC1}, \textit{PC2}, \textit{PC3}, \textit{PC4}, \textit{PC5}, \textit{PC6}, \textit{PC7} y \textit{PC8}.
 
-Ahora bien, se repite el mismo proceso descrito anteriormente, pero con una balanceo de clases. Lo que se hace es que posterior al proceso de normalización de train y test, generar un balanceo de clases con el método \textit{SMOTEENN}. Se aplica el ACP y se tiene que en la octava componente se recoje el 93,12\% de la información de las variables originales. Después se proyectan los datos del train y test normalizados y balanceados en estás nuevas componentes principales y el nombre de las variables será \textit{PC1\_bal}, \textit{PC2\_bal}, \textit{PC3\_bal}, \textit{PC4\_bal}, \textit{PC5\_bal}, \textit{PC6\_bal}, \textit{PC7\_bal} y \textit{PC8\_bal}
+Ahora bien, se repite el mismo proceso descrito anteriormente, pero con una balanceo de clases. Lo que se hace es que posterior al proceso de normalización de train y test, generar un balanceo de clases con el método \textit{SMOTEENN}. Se aplica el ACP y se tiene que en la octava componente se recoje el 93,12\% de la información de las variables originales. Después se proyectan los datos del train y test normalizados y balanceados en estás nuevas componentes principales y el nombre de las variables será \textit{PC1\_bal}, \textit{PC2\_bal}, \textit{PC3\_bal}, \textit{PC4\_bal}, \textit{PC5\_bal}, \textit{PC6\_bal}, \textit{PC7\_bal} y \textit{PC8\_bal}.
+
+Como se expuso anteriormente, esta parte es solo didáctica, por lo que estás variables solo serán consideradas en la implementación del algoritmo \textit{KNN}.
 
 \subsection{Selección de características dadas por métodos no supervisados}\label{sub_apre_cara_no_super}
 
 Con la ayuda de técnicas del aprendizaje no supervisado se van a seleccionar las variables más significativas para utilizarlas en la implementación  de los algoritmos de aprendizaje supervisado. Lo primero a realizar es normalizar a \textit{data} sin los atributos \textit{SEXO}, \textit{PRES}, \textit{N\_PRI\_P}, \textit{N\_PUB\_P}, \textit{N\_IND\_P}, \textit{N\_VOL\_EC\_P}, \textit{N\_VOL\_EX\_P}, \textit{M\_PRI\_P}, \textit{M\_PUB\_P}, \textit{M\_IND\_P}, \textit{M\_VOL\_EC\_P}, \textit{M\_VOL\_EX\_P} y \textit{TARGET}, en base a la justificación del párrafo tres de la subsección \ref{sub_apre_cara_acp}. Se aplica el proceso MinMaxScaler() a la transpuesta de la data resultante (el resultado se llamará \textit{features\_norm}).
 
-El primer enfoque es aplicar a \textit{features\_norm} el cluster jerárquico con la métrica \textit{single}. El resultado se presenta en la figura \ref{}
+El primer enfoque es aplicar a \textit{features\_norm} el cluster jerárquico con la métrica \textit{single}. El resultado se presenta en la figura \ref{fig:dendograma_sel_atri_cj}.
 
-grafica aqui del dendograma
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.35]{graficos/dendograma_sel_carac_cj.png}
+\caption{\headlinecolor{\underline{Dendograma para la selección de atributos}}}
+\label{fig:dendograma_sel_atri_cj}
+\end{figure}
 
 Visualmente, se realiza el corte en 100 y se generan 12 agrupaciones. La asignación de las variables en sus respectivos cluster es la siguiente:
 
@@ -768,7 +775,7 @@ Visualmente, se realiza el corte en 100 y se generan 12 agrupaciones. La asignac
 \item Cluster 12: \textit{N\_PRI\_P},
 \end{itemize}
 
-El segundo enfoque es utilizar DBSCAN para identificar ouliter y con ello detectar a las características que son diferentes a las demás y que nos ayudarán en el problema de la maldición de la dimensionalidad. En este sentido, para \textit{features\_norm} y con $minPts = 3$, se va a determinar el valor de epsilon. En la giura \ref{fig:sele_dbscan_atributos} se ven los resultados. El valor de epsilon a utilizar es de 198.1671.
+El segundo enfoque es utilizar DBSCAN para identificar ouliters y con ello detectar a las características que son diferentes a las demás y que nos ayudarán en el problema de la maldición de la dimensionalidad. En este sentido, para \textit{features\_norm} y tomando $minPts = 3$ debido a su simplicidad de implementación y ya que ha demostrado obtener buenos resultados, se va a determinar el valor de epsilon. En la figura \ref{fig:sele_dbscan_atributos} se ven los resultados. El valor de epsilon a utilizar es de 198.1671.
 
 
 \begin{figure}[H]
@@ -778,7 +785,7 @@ El segundo enfoque es utilizar DBSCAN para identificar ouliter y con ello detect
 \label{fig:sele_dbscan_atributos}
 \end{figure}
 
-Se amplia rango de busqueda para el valor de epsilon y se escoje el valor de epsilon igual a 64, que genera 2 cluster con 17 atributos atípicos. El detalle de esta clasificación se presenta a continuación:
+Se amplía el rango de búsqueda para el valor de epsilon y se escoje el valor de epsilon igual a 64, que genera 2 clústeres con 17 atributos atípicos. El detalle de esta clasificación se presenta a continuación:
 
 \begin{itemize}
 \item Cluster 1: \textit{NUMERO\_IMPOSICIONES}, \textit{PRES} y \textit{TIEM\_MA},
@@ -786,77 +793,157 @@ Se amplia rango de busqueda para el valor de epsilon y se escoje el valor de eps
 \item Atípicos: \textit{SEXO}, \textit{BASE\_CAL}, \textit{N\_MESES}, \textit{LS2}, \textit{SAL\_PROM2}, \textit{LS\_MS}, \textit{TIEM\_T}, \textit{MES\_AS}, \textit{SUELDO}, \textit{N\_PRI\_P}, \textit{N\_PUB\_P}, \textit{N\_IND\_P}, \textit{N\_VOL\_EC\_P}, \textit{M\_PUB\_P}, \textit{M\_IND\_P}, \textit{M\_VOL\_EC\_P} y \textit{TARGET}
 \end{itemize}
 
-En base a los resultados se la selección de características dadas por el cluster jerárquico y DBSCAN, las variables a considerar en lo que sigue son \textit{BASE\_CAL}, \textit{LS2}, \textit{SAL\_PROM2}, \textit{LS\_MS}, \textit{SUELDO}, \textit{SEXO}, \textit{PRES}, \textit{N\_PRI\_P}, \textit{N\_PUB\_P}, \textit{N\_IND\_P}, \textit{N\_VOL\_EC\_P}, \textit{N\_VOL\_EX\_P}, \textit{M\_PRI\_P}, \textit{M\_PUB\_P}, \textit{M\_IND\_P}, \textit{M\_VOL\_EC\_P}, \textit{M\_VOL\_EX\_P}, \textit{NUMERO\_IMPOSICIONES}, \textit{TIEM\_T} y \textit{TARGET}. Por facilidad, al gruipo de estas varaibles se llamará \textit{variables\_ml}.
+En base a los resultados de la selección de características dadas por el clúster jerárquico y DBSCAN, las variables a considerar en lo que sigue son \textit{BASE\_CAL}, \textit{LS2}, \textit{SAL\_PROM2}, \textit{LS\_MS}, \textit{SUELDO}, \textit{SEXO}, \textit{PRES}, \textit{N\_PRI\_P}, \textit{N\_PUB\_P}, \textit{N\_IND\_P}, \textit{N\_VOL\_EC\_P}, \textit{N\_VOL\_EX\_P}, \textit{M\_PRI\_P}, \textit{M\_PUB\_P}, \textit{M\_IND\_P}, \textit{M\_VOL\_EC\_P}, \textit{M\_VOL\_EX\_P}, \textit{NUMERO\_IMPOSICIONES}, \textit{TIEM\_T} y \textit{TARGET}. Por facilidad, al grupo de estas variables se llamará \textit{variables\_ml} y las mismas serán utilizadas en la implementación de todos los algortimos de aprendizaje supervisado a utilizar.
 
 \subsection{KNN}
 
-Utilizando los códigos provistos en la materia de Machine Learning y las variables\textit{PC1}, \textit{PC2}, \textit{PC3}, \textit{PC4}, \textit{PC5}, \textit{PC6}, \textit{PC7}, \textit{PC8}, se procede a parametrizar la elección KNeighbors en el rango de 1 a 30 y los pesos (ponderaciones) serán dados por \textit{uniform} y \textit{distance}. Se ejecutará validación cruzada y como medida de éxito vamos a utilizar el Accuracy. El código se presenta en la sección \ref{sec_anexos:knn} de anexos.
+El KNN es un método no paramétrico que clasifica los puntos según su distancia a los datos de entrenamiento. De donde, a los nuevos puntos se les asigna la etiqueta más común entre sus vecinos. Entre sus ventajas encontramos su facilidad de implementación, su flexibilidad cuando no se conoce la estructura subyacente del modelo, eficacia especialmente cuando hay una buena distribución de datos, y su robustez al ruido ya que permite modificaciones con el fin de disminuir la influencia de valores atípicos. Es necesario tener en cuenta que su rendimiento depende de la elección tanto del número de vecinos como del peso usado \citep{syriopoulos2023knn}.
+
+Utilizando los códigos provistos en la materia de Machine Learning y las variables \textit{PC1}, \textit{PC2}, \textit{PC3}, \textit{PC4}, \textit{PC5}, \textit{PC6}, \textit{PC7}, \textit{PC8}, se procede a parametrizar la elección KNeighbors en el rango de 1 a 30 y los pesos (ponderaciones) serán dados por \textit{uniform} y \textit{distance}. Se ejecutará validación cruzada y como medida de éxito vamos a utilizar el Accuracy. El código se presenta en la sección \ref{sec_anexos:knn} de anexos.
  
-Los resultados se muestran en la figura \ref{fig:algoritmo_knn_acp}, por lo que, la elección de los parámetros es con 29 vecinos y la ponderación es dada por \textit{distance}. El valor del accuracy en los datos de test es 0,7483230571176909. La matriz de confusión se muestra en la figura \ref{fig:matriz_conf_knn_acp}
+Los resultados se muestran en la figura \ref{fig:algoritmo_knn_acp}, por lo que, la elección de los parámetros es con 29 vecinos y la ponderación es dada por \textit{distance}. 
 
 \begin{figure}[H]
 \centering
-  \begin{minipage}{0.35\textwidth}
-    \centering
-    \includegraphics[scale=0.35]{graficos/algortimo_knn_acp.png}
-    \caption{\headlinecolor{\underline{Estimación del número de vecinos y peso para el KNN con ACP}}}
-    \label{fig:algoritmo_knn_acp}
-  \end{minipage}
-\hfill  %
-  \begin{minipage}{0.35\textwidth}
-    \centering
-    \includegraphics[scale=0.35]{graficos/confusion_matrix_algoritmo_knn_acp.png}
-    \caption{\headlinecolor{\underline{Estimación del número de vecinos y peso para el KNN con ACP}}}
-    \label{fig:matriz_conf_knn_acp}
-  \end{minipage}
+\includegraphics[scale=0.35]{graficos/algortimo_knn_acp.png}
+\caption{\headlinecolor{\underline{Estimación del número de vecinos y peso para el KNN con ACP}}}
+\label{fig:algoritmo_knn_acp}
 \end{figure}
 
+En este estudio, las medidas clave para la evaluación del modelo serán tanto la sensibilidad como el accuracy. Esto ya que el accuracy proporciona una visión general de qué tan bien el modelo clasifica los datos globalmente. No obstante, es necesario tener en cuenta los casos en los que los valores atípicos se han clasificado incorrectamente como no atípicos, lo que se obtiene restando a 1 la sensibilidad. Dado el contexto del estudio, la detección de valores atípicos es crucial, ya que la falta de identificación de uno de ellos puede generar más problemas que la mala clasificación de un valor no atípico como atípico. En este estudio, no detectar un atípico representa no identificar a una persona que ha cometido fraude, lo cual puede resultar en grandes pérdidas para la Seguridad Social. Por el contrario, si una persona que no ha cometido fraude es identificada como un valor atípico, únicamente se realizará una investigación más profunda, sin que esto resulte en mayores pérdidas económicas.
 
-Repitiendo el proceso anterior  para las variables \textit{PC1\_bal}, \textit{PC2\_bal}, \textit{PC3\_bal}, \textit{PC4\_bal}, \textit{PC5\_bal}, \textit{PC6\_bal}, \textit{PC7\_bal} y \textit{PC8\_bal}, los resultados se muestran en la figura \ref{fig:algoritmo_knn_bal_acp}, por lo que, la elección de los parámetros es con 2 vecinos y la ponderación es dada por \textit{distance}. El valor del accuracy en los datos del test es 0.7128644668789665. La matriz de confusión se muestra en la figura \ref{fig:matriz_conf_knn_bal_acp}.
+Tomando esto en cuenta, una vez entrenado el modelo con los parámetros previamente adquiridos, se ha obtenido que el acurracy del mismo al ser aplicado en los datos del test es de 0,7483230571176909. Para contrastar este resultado y evaluar el modelo se obtiene la matriz de confusión de las predicciones realizadas de la base de datos de testeo, que se encuentra en la tabla \ref{tab:mc_knn_1} y en la figura \ref{fig:matriz_conf_knn_acp} en anexos.
+
+\begin{table}[h!]
+\centering
+\resizebox{0.5\textwidth}{!}{
+\begin{tabular}{|c|c|c|c|}
+\hline
+\cellcolor[HTML]{E65013} \textbf{Matriz de confusión} & \multicolumn{3}{c|}{\cellcolor[HTML]{FFA074} \textbf{Predicción}} \\ \hline
+\multirow{2}{*}{\cellcolor[HTML]{FFA074}} & & \textbf{No atípico} & \textbf{Atípico} \\
+\cline{2-4}
+\cellcolor[HTML]{FFA074} \textbf{Real}
+ & \textbf{No atípico}  & a: (TN) & b: (FP) \\ \cline{2-4}
+\cellcolor[HTML]{FFA074} & \textbf{Atípico} & c: (FN) & d: (TP) \\ \hline
+\end{tabular}
+}
+\caption{\headlinecolor{\underline{Matriz de confusión para el KNN con ACP}}}
+\label{tab:mc_knn_1}
+\end{table}
+
+A partir de estos resultados, podemos extraer ciertas métricas, a parte del accuracy que nos ayudarán a establecer la capacidad de predicción del modelo, es decir, si su funcionamiento es óptimo o no dependiendo de nuestros objetivos. Para ello, tenemos que en este modelo la sensibilidad es de 0.48, la especifidad es de  y finalmente la exactitud es de .
+
+
+Repitiendo el proceso anterior  para las variables \textit{PC1\_bal}, \textit{PC2\_bal}, \textit{PC3\_bal}, \textit{PC4\_bal}, \textit{PC5\_bal}, \textit{PC6\_bal}, \textit{PC7\_bal} y \textit{PC8\_bal}, los resultados se muestran en la figura \ref{fig:algoritmo_knn_bal_acp}, por lo que, la elección de los parámetros es con 2 vecinos y la ponderación es dada por \textit{distance}. 
 
 \begin{figure}[H]
 \centering
-  \begin{minipage}{0.35\textwidth}
-    \centering
-    \includegraphics[scale=0.35]{graficos/algortimo_knn_bal_acp.png}
-    \caption{\headlinecolor{\underline{Estimación del número de vecinos y peso para el KNN con balanceo y ACP}}}
-    \label{fig:algoritmo_knn_bal_acp}
-  \end{minipage}
-\hfill  %
-  \begin{minipage}{0.35\textwidth}
-    \centering
-    \includegraphics[scale=0.35]{graficos/confusion_matrix_algoritmo_knn_bal_acp.png}
-    \caption{\headlinecolor{\underline{Estimación del número de vecinos y peso para el KNN con balanceo y ACP}}}
-    \label{fig:matriz_conf_knn_bal_acp}
-  \end{minipage}
+\includegraphics[scale=0.35]{graficos/algortimo_knn_bal_acp.png}
+\caption{\headlinecolor{\underline{Estimación del número de vecinos y peso para el KNN con balanceo y ACP}}}
+\label{fig:algoritmo_knn_bal_acp}
 \end{figure}
+
+Una vez entrenado el modelo con estos parámetros, se ha obtenido que el acurracy del mismo al ser aplicado en los datos del test es de 0.7128644668789665. Para contrastar este resultado y evaluar el modelo se obtiene la matriz de confusión que se encuentra en la tabla \ref{tab:mc_knn_2} y e n la figura \ref{fig:matriz_conf_knn_bal_acp} en anexos.
+
+\begin{table}[h!]
+\centering
+\resizebox{0.5\textwidth}{!}{
+\begin{tabular}{|c|c|c|c|}
+\hline
+\cellcolor[HTML]{E65013} \textbf{Matriz de confusión} & \multicolumn{3}{c|}{\cellcolor[HTML]{FFA074} \textbf{Predicción}} \\ \hline
+\multirow{2}{*}{\cellcolor[HTML]{FFA074}} & & \textbf{No atípico} & \textbf{Atípico} \\
+\cline{2-4}
+\cellcolor[HTML]{FFA074} \textbf{Real}
+ & \textbf{No atípico}  & a: (TN) & b: (FP) \\ \cline{2-4}
+\cellcolor[HTML]{FFA074} & \textbf{Atípico} & c: (FN) & d: (TP) \\ \hline
+\end{tabular}
+}
+\caption{\headlinecolor{\underline{Matriz de confusión para el KNN con balanceo y ACP}}}
+\label{tab:mc_knn_2}
+\end{table}
+
+
+A partir de estos resultados obtenemos que este modelo tiene sensibilidad de 0.28, especifidad es de  y finalmente exactitud  de .
+
 
 Al considerar las variables de descritas en el último párrafo de \ref{sub_apre_cara_no_super}, realizando lo descrito en el párrafo tres de la subsección \ref{sub_apre_cara_acp} para estas variables, parametrizando la elección KNeighbors en el rango de 1 a 30 y los pesos  por \textit{uniform} y \textit{distance}, se ejecuta validación cruzada que tiene como medida de éxito el Accuracy, tenemos que:
 
 Buscar graficas 
 
 
-Se realiza un proceso de balanceo de clases para \textit{variables\_ml}, siguiendo el enfoque mostrado en el último párrafo de la subsección \ref{sub_apre_cara_acp}. A este conjunto de datos resultante, se aplica la validación cruzada con parametrización de KNeighbors en el rango de 1 a 30 y pesos en \textit{uniform} y \textit{distance}. Los resultados se muestran en la figura \ref{fig:algoritmo_knn_bal_ml}. El valor del accuracy en los datos del test es 0,7272624613230345 .La matriz de confusión se muestra en la figura \ref{fig:matriz_conf_knn_bal_ml}.
+Se realiza un proceso de balanceo de clases para \textit{variables\_ml}, siguiendo el enfoque mostrado en el último párrafo de la subsección \ref{sub_apre_cara_acp}. A este conjunto de datos resultante, se aplica la validación cruzada con parametrización de KNeighbors en el rango de 1 a 30 y pesos en \textit{uniform} y \textit{distance}. Los resultados se muestran en la figura \ref{fig:algoritmo_knn_bal_ml}.
 
 \begin{figure}[H]
 \centering
-  \begin{minipage}{0.35\textwidth}
-    \centering
-    \includegraphics[scale=0.35]{graficos/algortimo_knn_bal_ml.jpeg}
-    \caption{\headlinecolor{\underline{Estimación del número de vecinos y peso para el KNN con balanceo y \textit{variables\_ml}}}}
-    \label{fig:algoritmo_knn_bal_ml}
-  \end{minipage}
-\hfill  %
-  \begin{minipage}{0.35\textwidth}
-    \centering
-    \includegraphics[scale=0.35]{graficos/confusion_matrix_algoritmo_knn_bal_ml.png}
-    \caption{\headlinecolor{\underline{Matriz de confusión para el KNN con balanceo y \textit{variables\_ml}}}}
-    \label{fig:matriz_conf_knn_bal_ml}
-  \end{minipage}
+\includegraphics[scale=0.35]{graficos/algortimo_knn_bal_ml.jpeg}
+\caption{\headlinecolor{\underline{Estimación del número de vecinos y peso para el KNN con balanceo y \textit{variables\_ml}}}}
+\label{fig:algoritmo_knn_bal_ml}
 \end{figure}
 
 Para ver con mayor detalle  todo el proceso realizado para este algorimo vaya a \textit{VIU\_ml\_knn.ipynb} de \legalcite{CristianVIUTFM}.
 
 \subsection{Árboles y conjuntos de modelos}\label{sub_seccion:arboles}
 
+Considerando a \textit{variables\_ml}, se implementa un único árbol de decisión realizando la validación cruzada. Los parámetros generales que se consideran son que el número de fold es 10, \textit{gini} como  criterio de evaluación de las divisiones, la profundidad del árbol estará en el rango de 2 a 100 y la medida de éxito será el accuracy.
 
+Los resultados se presentan en la figura \ref{fig:algortimo_arbol_simple}, por lo que la profundidad del árbol será de 14.
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.35]{graficos/algortimo_arbol_simple.png}
+\caption{\headlinecolor{\underline{Estimación de la profundidad  del árbol}}}
+\label{fig:algortimo_arbol_simple}
+\end{figure}
+
+Una vez que el modelo ha sido entrenado con estos parámetros, se ha obtenido que el acurracy del mismo al ser aplicado en los datos del train y test son de 0.8432114867764302 y 0.7994218217133049, respectivamente. Para contrastar este resultado y evaluar el modelo se obtiene la matriz de confusión que se encuentra en la tabla \ref{tab:arbol_simple} y en la figura \ref{fig:confusion_matrix_algoritmo_arbol_simple} en anexos.
+
+\begin{table}[H]
+\centering
+\resizebox{0.5\textwidth}{!}{
+\begin{tabular}{|c|c|c|c|}
+\hline
+\cellcolor[HTML]{E65013} \textbf{Matriz de confusión} & \multicolumn{3}{c|}{\cellcolor[HTML]{FFA074} \textbf{Predicción}} \\ \hline
+\multirow{2}{*}{\cellcolor[HTML]{FFA074}} &  & \textbf{No atípico} & \textbf{Atípico} \\ \cline{2-4} 
+\cellcolor[HTML]{FFA074} \textbf{Real}   & \textbf{No atípico}  & 50158 & 7975 \\ \cline{2-4} 
+\cellcolor[HTML]{FFA074}                  & \textbf{Atípico}     & 9787 & 20634 \\ \hline
+\end{tabular}
+}
+\caption{\headlinecolor{\underline{Matriz de confusión para árboles simples}}}
+\label{tab:arbol_simple}
+\end{table}
+
+A partir de estos resultados obtenemos que este modelo tiene sensibilidad de 0.8367337, especifidad de 0.7212416 y finalmente, exactitud  de 0.7994218.
+
+La cuatro variablaes más importantes son \textit{BASE\_CAL} (28,07\%), \textit{LS2} (19,46\%), \textit{LS\_MS} (16,21\%) y \textit{M\_PRI\_P} (14,52\%)
+
+Se repite el mismo proceso, pero realizando un balanceo de clases, con lo cual tenemos que en la figura \ref{fig:algortimo_arbol_simple_bal}, que la profundidad del árbol es de 15.
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.35]{graficos/algortimo_arbol_simple_bal.png}
+\caption{\headlinecolor{\underline{Estimación de la profundidad del árbol con datos balanceados}}}
+\label{fig:algortimo_arbol_simple_bal}
+\end{figure}
+
+Una vez que el modelo ha sido entrenado con estos parámetros, se ha obtenido que el acurracy del mismo al ser aplicado en los datos del train y test son de 0.964122359796067 y 0.7735167242586445, respectivamente. Para contrastar este resultado y evaluar el modelo se obtiene la matriz de confusión que se encuentra en la tabla \ref{tab:arbol_simple_bal} y en la figura \ref{fig:confusion_matrix_algoritmo_arbol_simple_bal} en anexos.
+
+\begin{table}[H]
+\centering
+\resizebox{0.5\textwidth}{!}{
+\begin{tabular}{|c|c|c|c|}
+\hline
+\cellcolor[HTML]{E65013} \textbf{Matriz de confusión} & \multicolumn{3}{c|}{\cellcolor[HTML]{FFA074} \textbf{Predicción}} \\ \hline
+\multirow{2}{*}{\cellcolor[HTML]{FFA074}} &  & \textbf{No atípico} & \textbf{Atípico} \\ \cline{2-4} 
+\cellcolor[HTML]{FFA074} \textbf{Real}   & \textbf{No atípico}  & 43944 & 14189 \\ \cline{2-4} 
+\cellcolor[HTML]{FFA074}                  & \textbf{Atípico}     & 5867 & 24554 \\ \hline
+\end{tabular}
+}
+\caption{\headlinecolor{\underline{Matriz de confusión para árboles simples balanceados}}}
+\label{tab:arbol_simple_bal}
+\end{table}
+
+A partir de estos resultados obtenemos que este modelo tiene sensibilidad de \Sexpr{43944/(43944 + 5867)}, especifidad de \Sexpr{24554/(24554+14189)} y finalmente, exactitud  de \Sexpr{(43944+24554)/(43944+24554 +5867 + 14189)}.
+
+
+
+La cuatro variablaes más importantes son \textit{BASE\_CAL} (33,23\%), \textit{LS2} (18,98\%), \textit{N\_PRI\_P	} (18,21\%) y \textit{SAL\_PROM2	} (6,98\%).

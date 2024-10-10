@@ -1223,6 +1223,7 @@ def pens_correc( data ):
 \end{lstlisting}
 
 \section{Algoritmo KNN} \label{sec_anexos:knn}
+
 \begin{lstlisting}[style=pythonstyle]
 inicio = time.time()
 cv = KFold(n_splits = 5, shuffle = True, random_state = semilla )
@@ -1254,3 +1255,103 @@ fin = time.time()
 tm= fin-inicio
 print('Tiempo de ejecución es:',tm//3600,'horas con',tm%3600//60,'minutos y', tm%60,'segundos' )
 \end{lstlisting}
+
+
+% \begin{figure}[H]
+% \centering
+% \includegraphics[scale=0.35]{graficos/confusion_matrix_algoritmo_knn_acp.png}
+% \caption{\headlinecolor{\underline{Matriz de confusión para el KNN con ACP}}}
+% \label{fig:matriz_conf_knn_acp}
+% \end{figure}
+% 
+% \begin{figure}[H]
+% \centering
+% \includegraphics[scale=0.35]{graficos/confusion_matrix_algoritmo_knn_bal_acp.png}
+% \caption{\headlinecolor{\underline{Matriz de confusión para el KNN con balanceo y ACP}}}
+% \label{fig:matriz_conf_knn_bal_acp}
+% \end{figure}
+% 
+% \begin{figure}[H]
+% \centering
+% \includegraphics[scale=0.35]{graficos/confusion_matrix_algoritmo_knn_bal_ml.png}
+% \caption{\headlinecolor{\underline{Matriz de confusión para el KNN con balanceo y \textit{variables\_ml}}}}
+% \label{fig:matriz_conf_knn_bal_ml}
+% \end{figure}
+
+\begin{figure}[H]
+    \centering
+    \begin{minipage}{0.32\textwidth}
+        \centering
+        \includegraphics[scale=0.35]{graficos/confusion_matrix_algoritmo_knn_acp.png}
+        \captionsetup{width=0.9\textwidth} 
+        \caption{\headlinecolor{{Matriz de confusión para el KNN con ACP}}}
+        \label{fig:matriz_conf_knn_acp}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.32\textwidth}
+        \centering
+        \includegraphics[scale=0.35]{graficos/confusion_matrix_algoritmo_knn_bal_acp.png}
+        \captionsetup{width=0.9\textwidth} 
+        \caption{\headlinecolor{{Matriz de confusión para el KNN con balanceo y ACP}}}
+        \label{fig:matriz_conf_knn_bal_acp}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.32\textwidth}
+        \centering
+        \includegraphics[scale=0.35]{graficos/confusion_matrix_algoritmo_knn_bal_ml.png}
+        \captionsetup{width=0.9\textwidth} 
+        \caption{\headlinecolor{{Matriz de confusión para el KNN con balanceo y       \textit{variables\_ml}}}}
+        \label{fig:matriz_conf_knn_bal_ml}
+    \end{minipage}
+\end{figure}
+
+\section{Algoritmo de árboles} \label{sec_anexos:arboles}
+\begin{lstlisting}[style=pythonstyle]
+inicio = time.time()
+cv = KFold( n_splits = 10, shuffle = True, random_state=semilla) #
+
+total_scores = []
+for i in range(2, 100):
+   model = DecisionTreeClassifier(criterion='gini', max_depth=i, random_state = semilla)
+   fold_accuracy = []
+   for train_fold, test_fold in cv.split( train ):
+      # División train test aleatoria
+      f_train = train.loc[train_fold]
+      f_test = train.loc[test_fold]
+      # entrenamiento y ejecución del modelo
+      model.fit( X = f_train.drop(['TARGET'], axis=1), y = f_train['TARGET'])
+      y_pred = model.predict(X = f_test.drop(['TARGET'], axis = 1))
+      # evaluación del modelo
+      acc = accuracy_score(f_test['TARGET'], y_pred)
+      fold_accuracy.append(acc)
+   total_scores.append(sum(fold_accuracy)/len(fold_accuracy))
+
+max_depth = np.argmax(total_scores) + 2 # +2 porque range(2, 50) y argmax
+# devuelve el índice del vector cuyo valor es máximo, y ese vector está indexado comenzando en 0
+print ('Max Depth Value ' + str(max(total_scores)) +" (" + str(max_depth) + ")")
+
+plt.plot(range(1,len(total_scores)+1), total_scores, marker='o')
+plt.ylabel('ACC')
+
+plt.show()
+
+fin = time.time()  
+tm= fin-inicio
+print('Tiempo de ejecución es:',tm//3600,'horas con',tm%3600//60,'minutos y', tm%60,'segundos' )
+\end{lstlisting}
+
+El tiempo de ejecución fue de 5 horas
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.35]{graficos/confusion_matrix_algoritmo_arbol_simple.png}
+\caption{\headlinecolor{\underline{Matriz de confusión para el algortimo del arbol simple}}}
+\label{fig:confusion_matrix_algoritmo_arbol_simple}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.35]{graficos/confusion_matrix_algoritmo_arbol_simple_bal.png}
+\caption{\headlinecolor{\underline{Matriz de confusión para el algortimo del arbol simple balanaceado}}}
+\label{fig:confusion_matrix_algoritmo_arbol_simple_bal}
+\end{figure}
