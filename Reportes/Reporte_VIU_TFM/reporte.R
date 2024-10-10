@@ -157,6 +157,8 @@ REP_file_latex_org <- c( paste( parametros$work_dir, 'Reportes/Bibliografia_TFT.
                          paste( parametros$work_dir, 'Reportes/algortimo_knn_bal_acp.png', sep = '' ),
                          paste( parametros$work_dir, 'Reportes/confusion_matrix_algoritmo_knn_bal_acp.png', sep = '' ),
                          
+                         paste( parametros$work_dir, 'Reportes/algortimo_knn_ml.png', sep = '' ),
+                         paste( parametros$work_dir, 'Reportes/confusion_matrix_algoritmo_knn_ml.png', sep = '' ),
                          paste( parametros$work_dir, 'Reportes/algortimo_knn_bal_ml.jpeg', sep = '' ),
                          paste( parametros$work_dir, 'Reportes/confusion_matrix_algoritmo_knn_bal_ml.png', sep = '' ),
                          
@@ -287,6 +289,8 @@ REP_file_latex_des <- c( paste( REP_rep_dir, 'Bibliografia_TFT.bib', sep = '' ),
                          paste( REP_rep_dir, 'graficos/', 'algortimo_knn_bal_acp.png', sep = '' ),
                          paste( REP_rep_dir, 'graficos/', 'confusion_matrix_algoritmo_knn_bal_acp.png', sep = '' ),
                          
+                         paste( REP_rep_dir, 'graficos/', 'algortimo_knn_ml.png', sep = '' ),
+                         paste( REP_rep_dir, 'graficos/', 'confusion_matrix_algoritmo_knn_ml.png', sep = '' ),
                          paste( REP_rep_dir, 'graficos/', 'algortimo_knn_bal_ml.jpeg', sep = '' ),
                          paste( REP_rep_dir, 'graficos/', 'confusion_matrix_algoritmo_knn_bal_ml.png', sep = '' ),
                          

@@ -868,7 +868,12 @@ A partir de estos resultados obtenemos que este modelo tiene sensibilidad de 0.2
 
 Al considerar las variables de descritas en el último párrafo de \ref{sub_apre_cara_no_super}, realizando lo descrito en el párrafo tres de la subsección \ref{sub_apre_cara_acp} para estas variables, parametrizando la elección KNeighbors en el rango de 1 a 30 y los pesos  por \textit{uniform} y \textit{distance}, se ejecuta validación cruzada que tiene como medida de éxito el Accuracy, tenemos que:
 
-Buscar graficas 
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.35]{graficos/algortimo_knn_ml.png}
+\caption{\headlinecolor{\underline{Estimación del número de vecinos y peso para el KNN con balanceo y ACP}}}
+\label{fig:algoritmo_knn_bal_acp}
+\end{figure}
 
 
 Se realiza un proceso de balanceo de clases para \textit{variables\_ml}, siguiendo el enfoque mostrado en el último párrafo de la subsección \ref{sub_apre_cara_acp}. A este conjunto de datos resultante, se aplica la validación cruzada con parametrización de KNeighbors en el rango de 1 a 30 y pesos en \textit{uniform} y \textit{distance}. Los resultados se muestran en la figura \ref{fig:algoritmo_knn_bal_ml}.
@@ -943,7 +948,14 @@ Una vez que el modelo ha sido entrenado con estos parámetros, se ha obtenido qu
 \end{table}
 
 A partir de estos resultados obtenemos que este modelo tiene sensibilidad de \Sexpr{43944/(43944 + 5867)}, especifidad de \Sexpr{24554/(24554+14189)} y finalmente, exactitud  de \Sexpr{(43944+24554)/(43944+24554 +5867 + 14189)}.
-
-
-
 La cuatro variablaes más importantes son \textit{BASE\_CAL} (33,23\%), \textit{LS2} (18,98\%), \textit{N\_PRI\_P	} (18,21\%) y \textit{SAL\_PROM2	} (6,98\%).
+
+Generalmente, los árboles individuales son propensos a generar overfitting, lo que provoca que su eficacia sea muy poca al momento de predecir el comportamiento de los datos que no fueron considerados en la etapa de entrenamiento. Es así que, con el fin de evitar el sobreajuste se plantea un conjunto de modelos y así tener un mejor rendimiento predictivo.  Los métodos de muestreo que se van a considerar son \textit{RandomForestClassifier} (es el algoritmo de Random Forest utilizado para clasificación), \textit{AdaBoostClassifier} (Boosting) y \textit{GradientBoostingClassifier} (Boosting). Para la selección de los parámetros se utilizará la optimización de hiperparámetros con las herramientas de \textit{RandomizedSearch} y \textit{GridSearch}.
+
+
+\subsubsection{RandomForestClassifier}
+
+
+
+
+

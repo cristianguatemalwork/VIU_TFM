@@ -1295,12 +1295,20 @@ print('Tiempo de ejecución es:',tm//3600,'horas con',tm%3600//60,'minutos y', t
         \caption{\headlinecolor{{Matriz de confusión para el KNN con balanceo y ACP}}}
         \label{fig:matriz_conf_knn_bal_acp}
     \end{minipage}
-    \hfill
+    \vfill
+    \begin{minipage}{0.32\textwidth}
+        \centering
+        \includegraphics[scale=0.35]{graficos/confusion_matrix_algoritmo_knn_ml.png}
+        \captionsetup{width=0.9\textwidth} 
+        \caption{\headlinecolor{{Matriz de confusión para el KNN y  \textit{variables\_ml}}}}
+        \label{fig:matriz_conf_knn_bal_ml}
+    \end{minipage}
+     \hfill
     \begin{minipage}{0.32\textwidth}
         \centering
         \includegraphics[scale=0.35]{graficos/confusion_matrix_algoritmo_knn_bal_ml.png}
         \captionsetup{width=0.9\textwidth} 
-        \caption{\headlinecolor{{Matriz de confusión para el KNN con balanceo y       \textit{variables\_ml}}}}
+        \caption{\headlinecolor{{Matriz de confusión para el KNN con balanceo y \textit{variables\_ml}}}}
         \label{fig:matriz_conf_knn_bal_ml}
     \end{minipage}
 \end{figure}
