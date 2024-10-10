@@ -741,15 +741,22 @@ La primera parte es dividir a los datos de \textit{data} en \textit{train} y \te
 
 Tras la aplicación del ACP en el conjunto de datos de train, en la octava componente se recoje el 92,60\% de la información de las variables originales. Es así que, se utiliza este número de componentes y se proyectan los datos normalizados del train y del test en las mismas. Estas variables tomarán los nombres \textit{PC1}, \textit{PC2}, \textit{PC3}, \textit{PC4}, \textit{PC5}, \textit{PC6}, \textit{PC7} y \textit{PC8}.
 
-Ahora bien, se repite el mismo proceso descrito anteriormente, pero con una balanceo de clases. Lo que se hace es que posterior al proceso de normalización de train y test, generar un balanceo de clases con el método \textit{SMOTEENN}. Se aplica el ACP y se tiene que en la octava componente se recoje el 93,12\% de la información de las variables originales. Después se proyectan los datos del train y test normalizados y balanceados en estás nuevas componentes principales y el nombre de las variables será \textit{PC1\_bal}, \textit{PC2\_bal}, \textit{PC3\_bal}, \textit{PC4\_bal}, \textit{PC5\_bal}, \textit{PC6\_bal}, \textit{PC7\_bal} y \textit{PC8\_bal}
+Ahora bien, se repite el mismo proceso descrito anteriormente, pero con una balanceo de clases. Lo que se hace es que posterior al proceso de normalización de train y test, generar un balanceo de clases con el método \textit{SMOTEENN}. Se aplica el ACP y se tiene que en la octava componente se recoje el 93,12\% de la información de las variables originales. Después se proyectan los datos del train y test normalizados y balanceados en estás nuevas componentes principales y el nombre de las variables será \textit{PC1\_bal}, \textit{PC2\_bal}, \textit{PC3\_bal}, \textit{PC4\_bal}, \textit{PC5\_bal}, \textit{PC6\_bal}, \textit{PC7\_bal} y \textit{PC8\_bal}.
+
+Como se expuso anteriormente, esta parte es solo didáctica, por lo que estás variables solo serán consideradas en la implementación del algoritmo \textit{KNN}.
 
 \subsection{Selección de características dadas por métodos no supervisados}\label{sub_apre_cara_no_super}
 
 Con la ayuda de técnicas del aprendizaje no supervisado se van a seleccionar las variables más significativas para utilizarlas en la implementación  de los algoritmos de aprendizaje supervisado. Lo primero a realizar es normalizar a \textit{data} sin los atributos \textit{SEXO}, \textit{PRES}, \textit{N\_PRI\_P}, \textit{N\_PUB\_P}, \textit{N\_IND\_P}, \textit{N\_VOL\_EC\_P}, \textit{N\_VOL\_EX\_P}, \textit{M\_PRI\_P}, \textit{M\_PUB\_P}, \textit{M\_IND\_P}, \textit{M\_VOL\_EC\_P}, \textit{M\_VOL\_EX\_P} y \textit{TARGET}, en base a la justificación del párrafo tres de la subsección \ref{sub_apre_cara_acp}. Se aplica el proceso MinMaxScaler() a la transpuesta de la data resultante (el resultado se llamará \textit{features\_norm}).
 
-El primer enfoque es aplicar a \textit{features\_norm} el cluster jerárquico con la métrica \textit{single}. El resultado se presenta en la figura \ref{}
+El primer enfoque es aplicar a \textit{features\_norm} el cluster jerárquico con la métrica \textit{single}. El resultado se presenta en la figura \ref{fig:dendograma_sel_atri_cj}.
 
-grafica aqui del dendograma
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.35]{graficos/dendograma_sel_carac_cj.png}
+\caption{\headlinecolor{\underline{Dendograma para la selección de atributos}}}
+\label{fig:dendograma_sel_atri_cj}
+\end{figure}
 
 Visualmente, se realiza el corte en 100 y se generan 12 agrupaciones. La asignación de las variables en sus respectivos cluster es la siguiente:
 
@@ -786,7 +793,7 @@ Se amplía el rango de búsqueda para el valor de epsilon y se escoje el valor d
 \item Atípicos: \textit{SEXO}, \textit{BASE\_CAL}, \textit{N\_MESES}, \textit{LS2}, \textit{SAL\_PROM2}, \textit{LS\_MS}, \textit{TIEM\_T}, \textit{MES\_AS}, \textit{SUELDO}, \textit{N\_PRI\_P}, \textit{N\_PUB\_P}, \textit{N\_IND\_P}, \textit{N\_VOL\_EC\_P}, \textit{M\_PUB\_P}, \textit{M\_IND\_P}, \textit{M\_VOL\_EC\_P} y \textit{TARGET}
 \end{itemize}
 
-En base a los resultados de la selección de características dadas por el clúster jerárquico y DBSCAN, las variables a considerar en lo que sigue son \textit{BASE\_CAL}, \textit{LS2}, \textit{SAL\_PROM2}, \textit{LS\_MS}, \textit{SUELDO}, \textit{SEXO}, \textit{PRES}, \textit{N\_PRI\_P}, \textit{N\_PUB\_P}, \textit{N\_IND\_P}, \textit{N\_VOL\_EC\_P}, \textit{N\_VOL\_EX\_P}, \textit{M\_PRI\_P}, \textit{M\_PUB\_P}, \textit{M\_IND\_P}, \textit{M\_VOL\_EC\_P}, \textit{M\_VOL\_EX\_P}, \textit{NUMERO\_IMPOSICIONES}, \textit{TIEM\_T} y \textit{TARGET}. Por facilidad, al grupo de estas variables se llamará \textit{variables\_ml}.
+En base a los resultados de la selección de características dadas por el clúster jerárquico y DBSCAN, las variables a considerar en lo que sigue son \textit{BASE\_CAL}, \textit{LS2}, \textit{SAL\_PROM2}, \textit{LS\_MS}, \textit{SUELDO}, \textit{SEXO}, \textit{PRES}, \textit{N\_PRI\_P}, \textit{N\_PUB\_P}, \textit{N\_IND\_P}, \textit{N\_VOL\_EC\_P}, \textit{N\_VOL\_EX\_P}, \textit{M\_PRI\_P}, \textit{M\_PUB\_P}, \textit{M\_IND\_P}, \textit{M\_VOL\_EC\_P}, \textit{M\_VOL\_EX\_P}, \textit{NUMERO\_IMPOSICIONES}, \textit{TIEM\_T} y \textit{TARGET}. Por facilidad, al grupo de estas variables se llamará \textit{variables\_ml} y las mismas serán utilizadas en la implementación de todos los algortimos de aprendizaje supervisado a utilizar.
 
 \subsection{KNN}
 
@@ -877,9 +884,20 @@ Para ver con mayor detalle  todo el proceso realizado para este algorimo vaya a 
 
 \subsection{Árboles y conjuntos de modelos}\label{sub_seccion:arboles}
 
-Una vez que el modelo ha sido entrenado con estos parámetros, se ha obtenido que el acurracy del mismo al ser aplicado en los datos del test es de 0,7272624613230345. Para contrastar este resultado y evaluar el modelo se obtiene la matriz de confusión que se encuentra en la tabla \ref{tab:mc_knn_2} y en la figura \ref{fig:matriz_conf_knn_bal_ml} en anexos.
+Considerando a \textit{variables\_ml}, se implementa un único árbol de deción realizando la validación cruzada. Los parámetros generales que se consideran son que el númeto de fold es 10, \textit{gini} como  criterio de evaluación de las divisiones, la profundidad del árbol estára en el rango de 2 a 100 y la medida de éxisto será el accuracy.
 
-\begin{table}[h!]
+Los resultados se presentan en la figura \ref{fig:algortimo_arbol_simple}, por lo que la profundidad del árbol será de 14.
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.35]{graficos/algortimo_arbol_simple.png}
+\caption{\headlinecolor{\underline{Estimación de la profundidad  del árbol}}}
+\label{fig:algortimo_arbol_simple}
+\end{figure}
+
+Una vez que el modelo ha sido entrenado con estos parámetros, se ha obtenido que el acurracy del mismo al ser aplicado en los datos del train y test son de 0.8432114867764302 y 0.7994218217133049 respectivamente. Para contrastar este resultado y evaluar el modelo se obtiene la matriz de confusión que se encuentra en la tabla \ref{tab:mc_knn_2} y en la figura \ref{fig:confusion_matrix_algoritmo_arbol_simple} en anexos.
+
+\begin{table}[H]
 \centering
 \resizebox{0.5\textwidth}{!}{
 \begin{tabular}{|c|c|c|c|}
@@ -896,3 +914,16 @@ Una vez que el modelo ha sido entrenado con estos parámetros, se ha obtenido qu
 
 A partir de estos resultados obtenemos que este modelo tiene sensibilidad de 0.21, especifidad es de  y finalmente exactitud  de .
 
+La cuatro variablaes más importantes son \textit{BASE\_CAL} (28,07\%), \textit{LS2} (19,46\%), \textit{LS\_MS} (16,21\%) y \textit{M\_PRI\_P} (14,52\%)
+
+Se repite el mismo proceso, pero realizando un balanceo de clases, con lo cual tenemos que en la figura \ref{fig:algortimo_arbol_simple_bal}, la profunidad del árbol es de 15.
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.35]{graficos/algortimo_arbol_simple_bal.png}
+\caption{\headlinecolor{\underline{Estimación de la profundidad del árbol con datos balanceados}}}
+\label{fig:algortimo_arbol_simple_bal}
+\end{figure}
+
+
+La cuatro variablaes más importantes son \textit{BASE\_CAL} (33,23\%), \textit{LS2} (18,98\%), \textit{N\_PRI\_P	} (18,21\%) y \textit{SAL\_PROM2	} (6,98\%).
