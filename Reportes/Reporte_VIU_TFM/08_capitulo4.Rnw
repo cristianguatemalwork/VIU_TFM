@@ -745,7 +745,48 @@ Ahora bien, se repite el mismo proceso descrito anteriormente, pero con una bala
 
 \subsection{Selección de características dadas por métodos no supervisados}\label{sub_apre_cara_no_super}
 
+Con la ayuda de técnicas del aprendizaje no supervisado se van a seleccionar las variables más significativas para utilizarlas en la implementación  de los algoritmos de aprendizaje supervisado. Lo primero a realizar es normalizar a \textit{data} sin los atributos \textit{SEXO}, \textit{PRES}, \textit{N\_PRI\_P}, \textit{N\_PUB\_P}, \textit{N\_IND\_P}, \textit{N\_VOL\_EC\_P}, \textit{N\_VOL\_EX\_P}, \textit{M\_PRI\_P}, \textit{M\_PUB\_P}, \textit{M\_IND\_P}, \textit{M\_VOL\_EC\_P}, \textit{M\_VOL\_EX\_P} y \textit{TARGET}, en base a la justificación del párrafo tres de la subsección \ref{sub_apre_cara_acp}. Se aplica el proceso MinMaxScaler() a la transpuesta de la data resultante (el resultado se llamará \textit{features\_norm}).
 
+El primer enfoque es aplicar a \textit{features\_norm} el cluster jerárquico con la métrica \textit{single}. El resultado se presenta en la figura \ref{}
+
+grafica aqui del dendograma
+
+Visualmente, se realiza el corte en 100 y se generan 12 agrupaciones. La asignación de las variables en sus respectivos cluster es la siguiente:
+
+\begin{itemize}
+\item Cluster 1: \textit{SEXO} y \textit{BASE\_CAL},
+\item Cluster 2: \textit{SAL\_PROM2},
+\item Cluster 3: \textit{MES\_AS},
+\item Cluster 4: \textit{N\_IND\_P} y \textit{M\_IND\_P},
+\item Cluster 5: \textit{NUMERO\_IMPOSICIONES}, \textit{N\_MESES}, \textit{PRES}, \textit{LS2} y \textit{TIEM\_MA},
+\item Cluster 6: \textit{N\_PUB\_P} y \textit{M\_PUB\_P},
+\item Cluster 7: \textit{N\_VOL\_EC\_P}, \textit{N\_VOL\_EX\_P}, \textit{M\_PRI\_P}, \textit{M\_VOL\_EC\_P}, \textit{M\_VOL\_EX\_P} y \textit{EDAD\_J},
+\item Cluster 8: \textit{TARGET},
+\item Cluster 9: \textit{SUELDO},
+\item Cluster 10: \textit{LS\_MS},
+\item Cluster 11: \textit{TIEM\_T},
+\item Cluster 12: \textit{N\_PRI\_P},
+\end{itemize}
+
+El segundo enfoque es utilizar DBSCAN para identificar ouliter y con ello detectar a las características que son diferentes a las demás y que nos ayudarán en el problema de la maldición de la dimensionalidad. En este sentido, para \textit{features\_norm} y con $minPts = 3$, se va a determinar el valor de epsilon. En la giura \ref{fig:sele_dbscan_atributos} se ven los resultados. El valor de epsilon a utilizar es de 198.1671.
+
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.35]{graficos/valor_epsilon_feacture_norm.png}
+\caption{\headlinecolor{\underline{Estimación del valor de epsilon para la selección de atributos}}}
+\label{fig:sele_dbscan_atributos}
+\end{figure}
+
+Se amplia rango de busqueda para el valor de epsilon y se escoje el valor de epsilon igual a 64, que genera 2 cluster con 17 atributos atípicos. El detalle de esta clasificación se presenta a continuación:
+
+\begin{itemize}
+\item Cluster 1: \textit{NUMERO\_IMPOSICIONES}, \textit{PRES} y \textit{TIEM\_MA},
+\item Cluster 2: \textit{N\_VOL\_EX\_P}, \textit{M\_PRI\_P}, \textit{M\_VOL\_EX\_P} y \textit{EDAD\_J},
+\item Atípicos: \textit{SEXO}, \textit{BASE\_CAL}, \textit{N\_MESES}, \textit{LS2}, \textit{SAL\_PROM2}, \textit{LS\_MS}, \textit{TIEM\_T}, \textit{MES\_AS}, \textit{SUELDO}, \textit{N\_PRI\_P}, \textit{N\_PUB\_P}, \textit{N\_IND\_P}, \textit{N\_VOL\_EC\_P}, \textit{M\_PUB\_P}, \textit{M\_IND\_P}, \textit{M\_VOL\_EC\_P} y \textit{TARGET}
+\end{itemize}
+
+En base a los resultados se la selección de características dadas por el cluster jerárquico y DBSCAN, las variables a considerar en lo que sigue son \textit{BASE\_CAL}, \textit{LS2}, \textit{SAL\_PROM2}, \textit{LS\_MS}, \textit{SUELDO}, \textit{SEXO}, \textit{PRES}, \textit{N\_PRI\_P}, \textit{N\_PUB\_P}, \textit{N\_IND\_P}, \textit{N\_VOL\_EC\_P}, \textit{N\_VOL\_EX\_P}, \textit{M\_PRI\_P}, \textit{M\_PUB\_P}, \textit{M\_IND\_P}, \textit{M\_VOL\_EC\_P}, \textit{M\_VOL\_EX\_P}, \textit{NUMERO\_IMPOSICIONES}, \textit{TIEM\_T} y \textit{TARGET}. Por facilidad, al gruipo de estas varaibles se llamará \textit{variables\_ml}.
 
 \subsection{KNN}
 
@@ -789,4 +830,33 @@ Repitiendo el proceso anterior  para las variables \textit{PC1\_bal}, \textit{PC
     \label{fig:matriz_conf_knn_bal_acp}
   \end{minipage}
 \end{figure}
+
+Al considerar las variables de descritas en el último párrafo de \ref{sub_apre_cara_no_super}, realizando lo descrito en el párrafo tres de la subsección \ref{sub_apre_cara_acp} para estas variables, parametrizando la elección KNeighbors en el rango de 1 a 30 y los pesos  por \textit{uniform} y \textit{distance}, se ejecuta validación cruzada que tiene como medida de éxito el Accuracy, tenemos que:
+
+Buscar graficas 
+
+
+Se realiza un proceso de balanceo de clases para \textit{variables\_ml}, siguiendo el enfoque mostrado en el último párrafo de la subsección \ref{sub_apre_cara_acp}. A este conjunto de datos resultante, se aplica la validación cruzada con parametrización de KNeighbors en el rango de 1 a 30 y pesos en \textit{uniform} y \textit{distance}. Los resultados se muestran en la figura \ref{fig:algoritmo_knn_bal_ml}. El valor del accuracy en los datos del test es 0,7272624613230345 .La matriz de confusión se muestra en la figura \ref{fig:matriz_conf_knn_bal_ml}.
+
+\begin{figure}[H]
+\centering
+  \begin{minipage}{0.35\textwidth}
+    \centering
+    \includegraphics[scale=0.35]{graficos/algortimo_knn_bal_ml.jpeg}
+    \caption{\headlinecolor{\underline{Estimación del número de vecinos y peso para el KNN con balanceo y \textit{variables\_ml}}}}
+    \label{fig:algoritmo_knn_bal_ml}
+  \end{minipage}
+\hfill  %
+  \begin{minipage}{0.35\textwidth}
+    \centering
+    \includegraphics[scale=0.35]{graficos/confusion_matrix_algoritmo_knn_bal_ml.png}
+    \caption{\headlinecolor{\underline{Matriz de confusión para el KNN con balanceo y \textit{variables\_ml}}}}
+    \label{fig:matriz_conf_knn_bal_ml}
+  \end{minipage}
+\end{figure}
+
+Para ver con mayor detalle  todo el proceso realizado para este algorimo vaya a \textit{VIU\_ml\_knn.ipynb} de \legalcite{CristianVIUTFM}.
+
+\subsection{Árboles y conjuntos de modelos}\label{sub_seccion:arboles}
+
 
