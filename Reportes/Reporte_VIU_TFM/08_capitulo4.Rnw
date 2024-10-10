@@ -884,7 +884,7 @@ Para ver con mayor detalle  todo el proceso realizado para este algorimo vaya a 
 
 \subsection{Árboles y conjuntos de modelos}\label{sub_seccion:arboles}
 
-Considerando a \textit{variables\_ml}, se implementa un único árbol de deción realizando la validación cruzada. Los parámetros generales que se consideran son que el númeto de fold es 10, \textit{gini} como  criterio de evaluación de las divisiones, la profundidad del árbol estára en el rango de 2 a 100 y la medida de éxisto será el accuracy.
+Considerando a \textit{variables\_ml}, se implementa un único árbol de decisión realizando la validación cruzada. Los parámetros generales que se consideran son que el número de fold es 10, \textit{gini} como  criterio de evaluación de las divisiones, la profundidad del árbol estará en el rango de 2 a 100 y la medida de éxito será el accuracy.
 
 Los resultados se presentan en la figura \ref{fig:algortimo_arbol_simple}, por lo que la profundidad del árbol será de 14.
 
@@ -895,7 +895,7 @@ Los resultados se presentan en la figura \ref{fig:algortimo_arbol_simple}, por l
 \label{fig:algortimo_arbol_simple}
 \end{figure}
 
-Una vez que el modelo ha sido entrenado con estos parámetros, se ha obtenido que el acurracy del mismo al ser aplicado en los datos del train y test son de 0.8432114867764302 y 0.7994218217133049 respectivamente. Para contrastar este resultado y evaluar el modelo se obtiene la matriz de confusión que se encuentra en la tabla \ref{tab:mc_knn_2} y en la figura \ref{fig:confusion_matrix_algoritmo_arbol_simple} en anexos.
+Una vez que el modelo ha sido entrenado con estos parámetros, se ha obtenido que el acurracy del mismo al ser aplicado en los datos del train y test son de 0.8432114867764302 y 0.7994218217133049, respectivamente. Para contrastar este resultado y evaluar el modelo se obtiene la matriz de confusión que se encuentra en la tabla \ref{tab:arbol_simple} y en la figura \ref{fig:confusion_matrix_algoritmo_arbol_simple} en anexos.
 
 \begin{table}[H]
 \centering
@@ -904,19 +904,19 @@ Una vez que el modelo ha sido entrenado con estos parámetros, se ha obtenido qu
 \hline
 \cellcolor[HTML]{E65013} \textbf{Matriz de confusión} & \multicolumn{3}{c|}{\cellcolor[HTML]{FFA074} \textbf{Predicción}} \\ \hline
 \multirow{2}{*}{\cellcolor[HTML]{FFA074}} &  & \textbf{No atípico} & \textbf{Atípico} \\ \cline{2-4} 
-\cellcolor[HTML]{FFA074} \textbf{Real}   & \textbf{No atípico}  & a: (TN) & b: (FP) \\ \cline{2-4} 
-\cellcolor[HTML]{FFA074}                  & \textbf{Atípico}     & c: (FN) & d: (TP) \\ \hline
+\cellcolor[HTML]{FFA074} \textbf{Real}   & \textbf{No atípico}  & 50158 & 7975 \\ \cline{2-4} 
+\cellcolor[HTML]{FFA074}                  & \textbf{Atípico}     & 9787 & 20634 \\ \hline
 \end{tabular}
 }
-\caption{\headlinecolor{\underline{Matriz de confusión para el KNN con balanceo y \textit{variables\_ml}}}}
-\label{tab:mc_knn_2}
+\caption{\headlinecolor{\underline{Matriz de confusión para árboles simples}}}
+\label{tab:arbol_simple}
 \end{table}
 
-A partir de estos resultados obtenemos que este modelo tiene sensibilidad de 0.21, especifidad es de  y finalmente exactitud  de .
+A partir de estos resultados obtenemos que este modelo tiene sensibilidad de 0.8367337, especifidad de 0.7212416 y finalmente, exactitud  de 0.7994218.
 
 La cuatro variablaes más importantes son \textit{BASE\_CAL} (28,07\%), \textit{LS2} (19,46\%), \textit{LS\_MS} (16,21\%) y \textit{M\_PRI\_P} (14,52\%)
 
-Se repite el mismo proceso, pero realizando un balanceo de clases, con lo cual tenemos que en la figura \ref{fig:algortimo_arbol_simple_bal}, la profunidad del árbol es de 15.
+Se repite el mismo proceso, pero realizando un balanceo de clases, con lo cual tenemos que en la figura \ref{fig:algortimo_arbol_simple_bal}, que la profundidad del árbol es de 15.
 
 \begin{figure}[H]
 \centering
@@ -924,6 +924,26 @@ Se repite el mismo proceso, pero realizando un balanceo de clases, con lo cual t
 \caption{\headlinecolor{\underline{Estimación de la profundidad del árbol con datos balanceados}}}
 \label{fig:algortimo_arbol_simple_bal}
 \end{figure}
+
+Una vez que el modelo ha sido entrenado con estos parámetros, se ha obtenido que el acurracy del mismo al ser aplicado en los datos del train y test son de 0.964122359796067 y 0.7735167242586445, respectivamente. Para contrastar este resultado y evaluar el modelo se obtiene la matriz de confusión que se encuentra en la tabla \ref{tab:arbol_simple_bal} y en la figura \ref{fig:confusion_matrix_algoritmo_arbol_simple_bal} en anexos.
+
+\begin{table}[H]
+\centering
+\resizebox{0.5\textwidth}{!}{
+\begin{tabular}{|c|c|c|c|}
+\hline
+\cellcolor[HTML]{E65013} \textbf{Matriz de confusión} & \multicolumn{3}{c|}{\cellcolor[HTML]{FFA074} \textbf{Predicción}} \\ \hline
+\multirow{2}{*}{\cellcolor[HTML]{FFA074}} &  & \textbf{No atípico} & \textbf{Atípico} \\ \cline{2-4} 
+\cellcolor[HTML]{FFA074} \textbf{Real}   & \textbf{No atípico}  & 43944 & 14189 \\ \cline{2-4} 
+\cellcolor[HTML]{FFA074}                  & \textbf{Atípico}     & 5867 & 24554 \\ \hline
+\end{tabular}
+}
+\caption{\headlinecolor{\underline{Matriz de confusión para árboles simples balanceados}}}
+\label{tab:arbol_simple_bal}
+\end{table}
+
+A partir de estos resultados obtenemos que este modelo tiene sensibilidad de \Sexpr{43944/(43944 + 5867)}, especifidad de \Sexpr{24554/(24554+14189)} y finalmente, exactitud  de \Sexpr{(43944+24554)/(43944+24554 +5867 + 14189)}.
+
 
 
 La cuatro variablaes más importantes son \textit{BASE\_CAL} (33,23\%), \textit{LS2} (18,98\%), \textit{N\_PRI\_P	} (18,21\%) y \textit{SAL\_PROM2	} (6,98\%).

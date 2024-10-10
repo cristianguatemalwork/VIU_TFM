@@ -1353,5 +1353,5 @@ El tiempo de ejecución fue de 5 horas
 \centering
 \includegraphics[scale=0.35]{graficos/confusion_matrix_algoritmo_arbol_simple_bal.png}
 \caption{\headlinecolor{\underline{Matriz de confusión para el algortimo del arbol simple balanaceado}}}
-\label{fig:confusion_matrix_algoritmo_arbol_simple}
+\label{fig:confusion_matrix_algoritmo_arbol_simple_bal}
 \end{figure}
