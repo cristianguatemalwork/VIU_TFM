@@ -1341,3 +1341,66 @@ El tiempo de ejecución fue de 5 horas
 \caption{\headlinecolor{\underline{Matriz de confusión para el algortimo del arbol simple balanaceado}}}
 \label{fig:confusion_matrix_algoritmo_arbol_simple_bal}
 \end{figure}
+
+\section{Conjunto de modelos} \label{sec_anexos:conjunto_modelos}
+
+\subsection{RandomForestClassifier}  \label{sec_anexos:conjunto_modelos_RandomForestClassifier}
+
+Búsqueda de hiperparámetros por \textit{RandomizedSearchCV}
+
+\begin{lstlisting}[style=pythonstyle]
+param_dist_r_rfc = { "n_estimators":[4,8,16,32,64,128],
+                     "criterion": ['gini', 'entropy', 'log_loss'],
+                     "max_depth": [16, 12,8,4, 2, None], # Maximum number of levels in tree,
+                     "min_samples_split": sp_randint(2, 50), #  Minimum number of samples required to split a node
+                     "min_samples_leaf": sp_randint(1, 50), # Minimum number of samples required at each leaf node
+                     "max_features": ['sqrt', 'log2', None], # Number of features to consider at every split (1.0 is the old 'auto')
+                     "bootstrap": [True, False], # Method of selecting samples for training each tree
+                     "class_weight":['balanced', 'balanced_subsample']
+                     }
+\end{lstlisting}
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.35]{graficos/confusion_matrix_algoritmo_RandomForestClassifier_random_search.png}
+\caption{\headlinecolor{\underline{Matriz de confusión para el algortimo con RandomizedSearch}}}
+\label{fig:confusion_matrix_algoritmo_RandomForestClassifier_random_search}
+\end{figure}
+
+Búsqueda de hiperparámetros por \textit{GridSearchCV}
+
+\begin{lstlisting}[style=pythonstyle]
+param_dist_g_rfc = { "n_estimators":[28,30,32,34,36],
+                    "criterion": ['log_loss'],
+                    "max_depth": [None], 
+                    "min_samples_split": [20,22,24,26,28], 
+                    "min_samples_leaf": [4,6,8,10,12], 
+                    "max_features": [None], 
+                    "bootstrap": [True], 
+                    "class_weight":['balanced_subsample']
+                   }
+\end{lstlisting}
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.35]{graficos/confusion_matrix_algoritmo_RandomForestClassifier_grid_search.png}
+\caption{\headlinecolor{\underline{Matriz de confusión para el algortimo con GridSearchCV}}}
+\label{fig:confusion_matrix_algoritmo_RandomForestClassifier_grid_search}
+\end{figure}
+
+\subsection{AdaBoostClassifier}  \label{sec_anexos:conjunto_modelos_AdaBoostClassifier}
+Búsqueda de hiperparámetros por \textit{RandomizedSearchCV}
+
+\begin{lstlisting}[style=pythonstyle]
+param_dist_r_booc = { "n_estimators":[4,8,16,32,64,128],
+                     "learning_rate" :[0.01,0.05,0.1],
+                     "algorithm" : ['SAMME', 'SAMME.R']
+                     }
+\end{lstlisting}
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.35]{graficos/confusion_matrix_algoritmo_AdaBoostClassifier_random_search.png}
+\caption{\headlinecolor{\underline{Matriz de confusión para el algortimo con RandomizedSearch}}}
+\label{fig:confusion_matrix_algoritmo_AdaBoostClassifier_random_search}
+\end{figure}

@@ -921,7 +921,7 @@ Una vez que el modelo ha sido entrenado con estos parámetros, se ha obtenido qu
 \label{tab:arbol_simple}
 \end{table}
 
-A partir de estos resultados obtenemos que este modelo tiene sensibilidad de 0.8367337, especifidad de 0.7212416 y finalmente, exactitud  de 0.7994218.
+A partir de estos resultados obtenemos que este modelo tiene sensibilidad de 0.8367337, especifidad de 0.7212416 y finalmente, exactitud  de 0.7994218217133049
 
 La cuatro variablaes más importantes son \textit{BASE\_CAL} (28,07\%), \textit{LS2} (19,46\%), \textit{LS\_MS} (16,21\%) y \textit{M\_PRI\_P} (14,52\%)
 
@@ -959,7 +959,42 @@ Generalmente, los árboles individuales son propensos a generar overfitting, lo 
 
 \subsubsection{RandomForestClassifier}
 
+La primera parte es una selección  aleatoria de los  valores de hiperparámetros requeridos por \textit{RandomForestClassifier} mediante Random Search. El rango de valores se presenta en la subseción \ref{sec_anexos:conjunto_modelos_RandomForestClassifier} de anexos. Los parámetros son 
 
+\begin{lstlisting}[style=pythonstyle]
+RandomForestClassifier(class_weight='balanced_subsample', criterion='log_loss',
+                       max_features=None, min_samples_leaf=8,
+                       min_samples_split=24, n_estimators=32, n_jobs=-1,
+                       random_state=8)
+\end{lstlisting}
 
+Con esto se entrena el modelo y tenemos que el accuracy del train y test es  0.9013257447433205 y 0.825089775730063 respectivamente.
 
+La cuatro variablaes más importantes son \textit{BASE\_CAL} (26,53\%), \textit{LS2} (17,07\%), \textit{LS\_MS} (16,30\%) y \textit{SAL\_PROM2} (8,91\%).
 
+Con la ayuda de los parámetros anteriores se realiza la búsqueda en cuadrícula mediante Grid Search. El rango de valores se presenta en la subseción \ref{sec_anexos:conjunto_modelos_RandomForestClassifier} de anexos. Los resultados de esto nos da
+
+\begin{lstlisting}[style=pythonstyle]
+RandomForestClassifier(class_weight='balanced_subsample', criterion='log_loss',
+                       max_features=None, min_samples_leaf=4,
+                       min_samples_split=20, n_estimators=30, n_jobs=-1,
+                       random_state=8)
+\end{lstlisting}
+
+El accuracy del train y test es 0.9275357409038553 y 0.8278903268062425 respectivamente.
+
+La cuatro variablaes más importantes son \textit{BASE\_CAL} (25,50\%), \textit{LS2} (16,66\%), \textit{LS\_MS} (16,12\%) y \textit{SAL\_PROM2} (9,22\%).
+
+\subsubsection{AdaBoostClassifier}
+
+ El rango de valores se presenta en la subseción \ref{sec_anexos:conjunto_modelos_AdaBoostClassifier} de anexos. Los parámetros son
+
+\begin{lstlisting}[style=pythonstyle]
+AdaBoostClassifier(algorithm='SAMME',
+                   estimator=DecisionTreeClassifier(random_state=8),
+                   learning_rate=0.01, n_estimators=4, random_state=8)
+\end{lstlisting}
+
+El accuracy del train y test es 1 y 0.7768480249339386 respectivamente.
+
+La cuatro variablaes más importantes son \textit{BASE\_CAL} (21,89\%), \textit{LS2} (16,11\%), \textit{LS\_MS} (15,40\%) y \textit{SAL\_PROM2} (10,03\%).
