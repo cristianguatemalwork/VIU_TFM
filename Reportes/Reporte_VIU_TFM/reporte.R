@@ -172,7 +172,8 @@ REP_file_latex_org <- c( paste( parametros$work_dir, 'Reportes/Bibliografia_TFT.
                          paste( parametros$work_dir, 'Reportes/confusion_matrix_algoritmo_RandomForestClassifier_random_search.png', sep = '' ),
                          paste( parametros$work_dir, 'Reportes/confusion_matrix_algoritmo_RandomForestClassifier_grid_search.png', sep = '' ),
                          #AdaBoostClassifier
-                         paste( parametros$work_dir, 'Reportes/confusion_matrix_algoritmo_AdaBoostClassifier_random_search.png', sep = '' )
+                         paste( parametros$work_dir, 'Reportes/confusion_matrix_algoritmo_AdaBoostClassifier_random_search.png', sep = '' ),
+                         paste( parametros$work_dir, 'Reportes/confusion_matrix_algoritmo_AdaBoostClassifier_grid_search.png', sep = '' )
                         )
 
 
@@ -310,7 +311,8 @@ REP_file_latex_des <- c( paste( REP_rep_dir, 'Bibliografia_TFT.bib', sep = '' ),
                          paste( REP_rep_dir, 'graficos/', 'confusion_matrix_algoritmo_RandomForestClassifier_random_search.png', sep = '' ),
                          paste( REP_rep_dir, 'graficos/', 'confusion_matrix_algoritmo_RandomForestClassifier_grid_search.png', sep = '' ),
                          #AdaBoostClassifier
-                         paste( REP_rep_dir, 'graficos/', 'confusion_matrix_algoritmo_AdaBoostClassifier_random_search.png', sep = '' )
+                         paste( REP_rep_dir, 'graficos/', 'confusion_matrix_algoritmo_AdaBoostClassifier_random_search.png', sep = '' ),
+                         paste( REP_rep_dir, 'graficos/', 'confusion_matrix_algoritmo_AdaBoostClassifier_grid_search.png', sep = '' )
                          
                         )
 

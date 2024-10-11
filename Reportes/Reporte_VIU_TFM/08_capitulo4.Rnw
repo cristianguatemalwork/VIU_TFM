@@ -1040,3 +1040,27 @@ AdaBoostClassifier(algorithm='SAMME',
 El accuracy del train y test es 1 y 0.7768480249339386 respectivamente.
 
 La cuatro variablaes más importantes son \textit{BASE\_CAL} (21,89\%), \textit{LS2} (16,11\%), \textit{LS\_MS} (15,40\%) y \textit{SAL\_PROM2} (10,03\%).
+
+La búsqueda en cuadrícula mediante Grid Search  se presenta en la subseción \ref{sec_anexos:conjunto_modelos_RandomForestClassifier} de anexos. Los resultados de esto nos da
+
+\begin{lstlisting}[style=pythonstyle]
+AdaBoostClassifier(algorithm='SAMME',
+                   estimator=DecisionTreeClassifier(random_state=8),
+                   learning_rate=0.005, n_estimators=1, random_state=8)
+\end{lstlisting}
+
+El accuracy del train y test es 1 y 0.7768480249339386 respectivamente.
+
+La cuatro variablaes más importantes son \textit{BASE\_CAL} (21,89\%), \textit{LS2} (16,11\%), \textit{LS\_MS} (15,40\%) y \textit{SAL\_PROM2} (10,03\%).
+
+
+\subsubsection{GradientBoostingClassifier}
+
+ El rango de valores se presenta en la subseción \ref{sec_anexos:conjunto_modelos_GradientBoostingClassifier} de anexos. Los parámetros son
+
+\begin{lstlisting}[style=pythonstyle]
+AdaBoostClassifier(algorithm='SAMME',
+                   estimator=DecisionTreeClassifier(random_state=8),
+                   learning_rate=0.01, n_estimators=4, random_state=8)
+\end{lstlisting}
+
