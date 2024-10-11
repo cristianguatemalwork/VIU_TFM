@@ -1064,3 +1064,40 @@ AdaBoostClassifier(algorithm='SAMME',
                    learning_rate=0.01, n_estimators=4, random_state=8)
 \end{lstlisting}
 
+\subsection{XGBClassifier}\label{sub_seccion:XGBClassifier}
+
+\begin{lstlisting}[style=pythonstyle]
+XGBClassifier(base_score=None, booster=None, callbacks=None,
+              colsample_bylevel=None, colsample_bynode=None,
+              colsample_bytree=1.0, device=None, early_stopping_rounds=None,
+              enable_categorical=False, eval_metric='mlogloss',
+              feature_types=None, gamma=0.1, grow_policy=None,
+              importance_type=None, interaction_constraints=None,
+              learning_rate=0.1, max_bin=None, max_cat_threshold=None,
+              max_cat_to_onehot=None, max_delta_step=None, max_depth=11,
+              max_leaves=None, min_child_weight=1, missing=nan,
+              monotone_constraints=None, multi_strategy=None, n_estimators=450,
+              n_jobs=None, num_parallel_tree=None, random_state=8, ...)
+\end{lstlisting}
+
+El accuracy del train y test es 0.9264488334801364 y 0.8252817489893173 respectivamente.
+
+La cuatro variablaes más importantes son \textit{BASE\_CAL} (11,37\%), \textit{M\_PRI\_P} (10,42\%), \textit{N\_PRI\_P} (9,99\%) y \textit{M\_PUB\_P} (8,04\%).
+
+
+\subsection{Redes Neuronales}\label{sub_seccion:redes_neuronales}
+
+La búsqueda en cuadrícula mediante Grid Search  se presenta en la subseción \ref{sec_anexos:conjunto_modelos_redes} de anexos. Los resultados de esto nos da
+
+\begin{lstlisting}[style=pythonstyle]
+MLPClassifier(hidden_layer_sizes=(200,), max_iter=100, random_state=8)
+\end{lstlisting}
+
+El accuracy del train y test es 0.8101412697337218 y 0.8048083655170856 respectivamente.
+
+Con un balanceo de clases y usando lo anterior tenemos que
+
+\begin{lstlisting}[style=pythonstyle]
+MLPClassifier(hidden_layer_sizes=(250,), max_iter=100, random_state=8)
+\end{lstlisting}
+El accuracy del train y test es 0.7625855410258148 y 0.7582604964202634 respectivamente.

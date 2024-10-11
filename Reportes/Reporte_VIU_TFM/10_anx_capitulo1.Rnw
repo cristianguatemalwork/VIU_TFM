@@ -1434,3 +1434,75 @@ param_dist_r_graboo = { "n_estimators":[4,8,16,32,64,128],
                         "max_features": ['sqrt', 'log2', None]
                      }
 \end{lstlisting}
+
+
+\subsection{XGBClassifier}  \label{sec_anexos:conjunto_modelos_XGBClassifier}
+
+\begin{lstlisting}[style=pythonstyle]
+param_dis_r_xgb = { 'n_estimators': np.arange(50, 500, 50),  
+                    'learning_rate': [0.01, 0.1, 0.2, 0.3],  
+                    'max_depth': np.arange(3, 15, 1),  
+                    'min_child_weight': np.arange(1, 10, 1),  
+                    'subsample': [0.6, 0.8, 1.0],  
+                    'colsample_bytree': [0.6, 0.8, 1.0],  
+                    'gamma': [0, 0.1, 0.2, 0.3],  
+                    }
+\end{lstlisting}
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.35]{graficos/confusion_matrix_algoritmo_XGBClassifier_random_search.png}
+\caption{\headlinecolor{\underline{Matriz de confusión para el algortimo con RandomSearchCV}}}
+\label{fig:confusion_matrix_algoritmo_XGBClassifier_random_search}
+\end{figure}
+
+\begin{lstlisting}[style=pythonstyle]
+param_dis_g_xgb = { 'n_estimators': np.arange(400, 450, 500),  
+                    'learning_rate': [0.05, 0.1, 0.2 ],  
+                    'max_depth': np.arange(3, 15, 1),  
+                    'min_child_weight': np.arange(1, 10, 1),  
+                    'subsample': [0.6, 0.8, 1.0],  
+                    'colsample_bytree': [ 1.0, 2.0, 3.0],  
+                    'gamma': [0.05, 0.1, 0.15],  
+                    }
+\end{lstlisting}
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.35]{graficos/confusion_matrix_algoritmo_XGBClassifier_grid_search.png}
+\caption{\headlinecolor{\underline{Matriz de confusión para el algortimo con GridSearchCV}}}
+\label{fig:confusion_matrix_algoritmo_XGBClassifier_grid_search}
+\end{figure}
+
+
+\subsection{Redes neuronales}  \label{sec_anexos:conjunto_modelos_redes}
+
+\begin{lstlisting}[style=pythonstyle]
+param_dist_red = {  'hidden_layer_sizes': [(100,), (150,),(200,),(250,)],
+                    'activation': ['relu', 'logistic', 'identify', 'tanh'],
+                    'alpha': [0.0001, 0.001, 0.01]
+                    }
+\end{lstlisting}
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.35]{graficos/confusion_matrix_algoritmo_redes_grid_search.png}
+\caption{\headlinecolor{\underline{Matriz de confusión para el algortimo con GridSearchCV}}}
+\label{fig:confusion_matrix_algoritmo_redes_grid_search}
+\end{figure}
+
+Con un balanceo de clases
+
+\begin{lstlisting}[style=pythonstyle]
+param_dist_red = {  'hidden_layer_sizes': [(100,), (150,),(200,),(250,)],
+                    'activation': ['relu', 'logistic', 'identify', 'tanh'],
+                    'alpha': [0.0001, 0.001, 0.01]
+                    }
+\end{lstlisting}
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.35]{graficos/confusion_matrix_algoritmo_redes_bal_grid_search.png}
+\caption{\headlinecolor{\underline{Matriz de confusión para el algortimo balanceado con GridSearchCV}}}
+\label{fig:confusion_matrix_algoritmo_redes_bal_grid_search.png}
+\end{figure}
