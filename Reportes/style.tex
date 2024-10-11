@@ -96,9 +96,12 @@
 \usepackage[style=apa, bibstyle=apa, citestyle=authoryear, backend=biber, natbib=true]{biblatex}
 
 \newbibmacro{legalcite}{
-  \textit{\printfield{shorttitle}}\,
+  \unskip% Elimina espacios antes de la citación
+  \printfield{shorttitle}\,
   (\printtext[bibhyperref]{\printfield{year}})
+  \unskip
 }
+
 
 \DeclareCiteCommand{\legalcite}
   {\usebibmacro{prenote}}
@@ -121,15 +124,8 @@
   {\usebibmacro{postnote}
 }
 
-
-\usepackage[belowskip=0pt,aboveskip=0pt]{caption}
-
-\captionsetup[figure]{format=hang,justification=Centering,singlelinecheck=true,width=1.0\textwidth,
-font=small,position=top,belowskip=0pt,aboveskip=0pt}
-\captionsetup[table]{format=hang,justification=Centering,singlelinecheck=true,width=1.0\textwidth,
-font=small,position=top,belowskip=0pt,aboveskip=0pt}
-
 \usepackage{subcaption}
+\usepackage[none]{hyphenat}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %------------------COMANDOS PARA EL TIPO DE LETRA---------------------------%
@@ -173,3 +169,4 @@ font=small,position=top,belowskip=0pt,aboveskip=0pt}
 
 \pagestyle{plain}
 
+\sloppy
