@@ -24,7 +24,7 @@ De esta forma, el principal problema que este trabajo de titulación busca abord
 
 Para lograr este fin, las técnicas de aprendizaje no supervisado de clusterización jerárquica, k-mean y dbscan, permitirán identificar  si dentro de las cotizaciones históricas realizadas por los pensionistas, existen aportes fraudulentos (atípicos). Posteriormente, mediante una adecuada selección de características (dadas por el análisis de componentens principales y dbscan), validación cruzada y optimización de hiperparámetros, se implementará el algoritmo KNN y las técnicas de árboles de decisión, conjuntos de modelos, XGBClassifier y redes neuronales para generar modelos de aprendizaje supervisado que permitan predecir como se comportarán los sueldos los actuales afiliados. Todos estos modelos serán comparados con la métrica del accuracy.
 
-En el segundo capítulose detalla el objetivo general y los específicos  alcanzar con el presente trabajo de fin de máster.
+En el segundo capítulo se detalla el objetivo general y los específicos  alcanzar con el presente trabajo de fin de máster.
 
 En el tercer capítulo se describe el estado del arte y marco teórico que permitirán contextualizar la detección de aportaciones fraudulentas que realizaron los pensionistas, a lo largo de su vida laboral, en el IESS. Así como, los distintos enfoques que se han utilizado para explicar fenómenos similares, en conjunto con toda la tecnología y algoritmos utilizados en el presente proyecto.
 

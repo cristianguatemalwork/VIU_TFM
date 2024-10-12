@@ -2,20 +2,19 @@
 
 \section{Sistema de Seguridad Social en Ecuador}\label{sistema_seg_soc}
 
-La normativa de la Seguridad Social en Ecuador está principalmente regulada por la \estcite{ConsEcu:2008}, específicamente en el artículo 34, donde se establece lo siguiente:
+La base normativa de la Seguridad Social en Ecuador está principalmente regulada por la \legalcite{ConsEcu:2008}, específicamente en el artículo 34, donde se establece que:
 
-\begin{quote}
-\setlength{\parindent}{1.27cm}
-El derecho a la seguridad social es un derecho irrenunciable de todas las personas, y será deber y responsabilidad primordial del Estado. La seguridad social se regirá por los principios de solidaridad, obligatoriedad, universalidad, equidad, eficiencia, subsidiaridad, suficiencia, transparencia y participación, para la atención de las necesidades individuales y colectivas. El Estado garantizará y hará efectivo el ejercicio pleno del derecho a la seguridad social, que incluye a las personas que realizan trabajo no remunerado en los hogares, actividades para el auto sustento en el campo, toda forma de trabajo autónomo y a quienes se encuentran en situación de desempleo (p. 19).
-\end{quote}
+\begin{displayquote}
+Art. 34 .- El derecho a la seguridad social es un derecho irrenunciable de todas las personas, y será deber y responsabilidad primordial del Estado. La seguridad social se regirá por los principios de solidaridad, obligatoriedad, universalidad, equidad, eficiencia, subsidiaridad, suficiencia, transparencia y participación, para la atención de las necesidades individuales y colectivas. El Estado garantizará y hará efectivo el ejercicio pleno del derecho a la seguridad social, que incluye a las personas que realizan trabajo no remunerado en los hogares, actividades para el auto sustento en el campo, toda forma de trabajo autónomo y a quienes se encuentran en situación de desempleo (p. 19).
+\end{displayquote}
 
 El IESS es la entidad responsable de brindar servicios y prestaciones de Seguridad Social, garantizando la protección de sus asegurados a nivel nacional. Esta institución está encargada de la protección tanto de la población urbana como rural, con o sin relación de dependencia laboral, ante contingencias como enfermedad, maternidad, riesgos laborales, discapacidad, cesantía, desempleo, invalidez, vejez y muerte. Los seguros cubiertos por el IESS incluyen: el Seguro del Sistema de Pensiones, el Seguro General de Salud Individual y Familiar, el Seguro General de Riesgos del Trabajo, el Seguro Social Campesino, así como los Fondos de Terceros y el Seguro de Desempleo \citep{iessboletin2022}. 
 
 El financiamiento de estos seguros proviene principalmente de las contribuciones individuales de los afiliados, el aporte patronal obligatorio de los empleadores públicos y privados, la contribución financiera obligatoria del Estado, reservas técnicas, rentas, y otro tipo de ingresos. Es necesario destacar que el funcionamiento de la Seguridad Social en el Ecuador se basa en el principio de solidaridad intergeneracional \citep{iessboletin2022}.
 
-Uno de los principales seguros es el Seguro del Sistema de Pensiones, también conocido como Seguro de Invalidez, Vejez y Muerte. Este seguro cubre prestaciones como la jubilación ordinaria por vejez, la jubilación por discapacidad, la jubilación por invalidez (incluyendo las prestaciones temporales por incapacidad), así como las pensiones de montepío y el auxilio de funerales \citep{iess2024web}.
+Uno de los principales seguros es el Seguro del Sistema de Pensiones, también conocido como Seguro de Invalidez, Vejez y Muerte (Seguro IVM). Este seguro cubre prestaciones como la jubilación ordinaria por vejez, la jubilación por discapacidad, la jubilación por invalidez (incluyendo las prestaciones temporales por incapacidad), así como las pensiones de montepío y el auxilio de funerales \citep{iess2024web}.
 
-Para acceder a estas prestaciones, los individuos deben cumplir determinados requisitos establecidos en la \estcite{LeySS}. Una vez cumplidos, el monto de las prestaciones es determinado según lo dispuesto en la \estcite{ResIESS_CD100}, específicamente en el artículo 13. Este documento establece que la pensión mensual por invalidez o vejez, así como el subsidio transitorio por incapacidad, se calcularán multiplicando la base de cálculo, obtenida de acuerdo al procedimiento descrito en el artículo 2 de la misma resolución, por el coeficiente anual de años cumplidos de imposiciones \citep{iessivm2020}. Donde, la base de cálculo se determina como el salario promedio de los cinco mejores años de la vida laboral del individuo.
+Para acceder a estas prestaciones, los individuos deben cumplir determinados requisitos\footnote{Relacionados principalmente con la edad y el número de imposiciones. Una imposición se define como 30 días de trabajo} establecidos en la \legalcite{LeySS}. Una vez cumplidos estos requisitos, el monto de las prestaciones es determinado según lo dispuesto en el artículo 13  de la \legalcite{ResIESS_CD100}. Este artículo establece que la pensión mensual por invalidez o vejez, así como el subsidio transitorio por incapacidad, se calcularán multiplicando la base de cálculo, obtenida de acuerdo al procedimiento descrito en el artículo 2 de la misma resolución, por el coeficiente anual de años cumplidos de imposiciones. La base de cálculo se determina como el salario promedio de los cinco mejores años de la vida laboral del individuo.
 
 \section{Desafíos de Integridad en la Seguridad Social}\label{estafas_ss}
 
@@ -23,29 +22,30 @@ Para acceder a estas prestaciones, los individuos deben cumplir determinados req
 
 Según el artículo 186 del \estcite{coip_2014}, se define a la estafa como: 
 
-\begin{quote}
-\setlength{\parindent}{1.27cm}
+\begin{displayquote}
+
 La persona que, para obtener un beneficio patrimonial para sí misma o para una tercera persona, mediante la simulación de hechos falsos o la deformación u ocultamiento de hechos verdaderos, induzca a error a otra, con el fin de que realice un acto que perjudique su patrimonio o el de una tercera, será sancionada con pena privativa de libertad de cinco a siete años (p. 31).
-\end{quote}
+\end{displayquote}
 
 \subsection{Impacto y medidas necesarias frente a las estafas en la Seguridad Social}
 
-La presencia de estafas en la Seguridad Social, ya sea al momento de obtener indebidamente prestaciones o al ejecutar acciones fraudulentas, supone un fenómeno social con graves consecuencias para toda la sociedad, afectando especialmente a ciertos grupos. Estas prácticas no solo conllevan a un deterioro social, sino que también provocan un importante desequilibrio en los recursos y gastos del sistema de Seguridad Social, cuyas consecuencias pueden afectar a una amplia parte de la población. Por ello, el estudio, la detección y el control mediante la implementación de medidas contra este tipo de fraudes son fundamentales para garantizar la sostenibilidad y el desarrollo de dicho sistema.
+La presencia de estafas en la Seguridad Social, ya sea al momento de obtener indebidamente prestaciones o al ejecutar acciones fraudulentas, supone un fenómeno social con graves consecuencias para toda la sociedad, afectando especialmente a ciertos grupos. Estas prácticas no solo conllevan a un deterioro social, sino que también provocan un importante desequilibrio en los recursos y gastos del sistema de Seguridad Social, cuyas consecuencias pueden afectar a una amplia parte de la población. Por ello, el estudio, la detección y el control mediante la implementación de medidas correctivas contra este tipo de fraudes son fundamentales para garantizar la sostenibilidad y el desarrollo de dicho sistema.
 
 Como se mencionó previamente, el sistema de Seguridad Social se basa en el principio de solidaridad intergeneracional. Por lo que, la ocurrencia de estafas representa una disminución de los recursos disponibles, impactando negativamente a toda la sociedad. De ahí surge la necesidad primordial de detectar estas situaciones y combatirlas a través de planes estratégicos, con la participación activa de las diferentes áreas del IESS.
 
 \subsection{Estudios previos acerca de Fraudes en los Sistemas de Seguridad Social}
 
-El campo de investigación referente a los fraudes en la Seguridad Social en Ecuador, por parte de los afiliados, está poco desarrollado. En contraste, en otros países, este tema ha sido ampliamente estudiado. Existen diversas investigaciones que analizan los distintos tipos de fraudes, las posibles formas de detección y las medidas a implementar para combatirlos.
+El campo de investigación referente a los fraudes en la Seguridad Social en Ecuador, realizado por parte de los afiliados, está poco desarrollado. En contraste, en otros países, este tema ha sido ampliamente estudiado. Existen diversas investigaciones que analizan los distintos tipos de fraudes, las posibles formas de detección y las medidas a implementar para combatirlos.
 
-\textcite{aibar2012fraude} realiza el estudio de las actividades ilegales presentadas en la Seguridad Social relacionadas a la omisión del pago de cuotas, la manipulación de las prestaciones indebidas y la creación de empresas ficticias en España. Enfatiza las repercusiones de las mismas, como la pérdida de ingresos en la caja única de la Seguridad Social, las inscripciones fraudulentas en el sistema, complicaciones para los trabajadores en el acceso a prestaciones, competencia desleal, entre otras. Por lo que, se han adoptado ciertas medidas para combatir el fraude como el fortalecimiento del intercambio y control de la información, análisis del riesgo e identificación de patrones de fraude, embargos preventivos para asegurar pago de deudas, control de bonificaciones y reducciones indebidas y, creaciones de planes integrales contra el fraude. Finalmente, se reconoce la necesidad de innovar en medidas y herramienta tecnológicas para enfrentar el fraude.
+\textcite{aibar2012fraude} realiza el estudio de las actividades ilegales presentadas en la Seguridad Social, relacionadas a la omisión del pago de cuotas, la manipulación de las prestaciones indebidas y la creación de empresas ficticias en España. Enfatiza las repercusiones de las mismas, como la pérdida de ingresos en la caja única de la Seguridad Social, las inscripciones fraudulentas en el sistema, complicaciones para los trabajadores en el acceso a prestaciones, competencia desleal, entre otras. Es por ello que, se han adoptado ciertas medidas para combatir el fraude como el fortalecimiento del intercambio y control de la información, análisis del riesgo e identificación de patrones de fraude, embargos preventivos para asegurar pago de deudas, control de bonificaciones y reducciones indebidas; y, creaciones de planes integrales contra el fraude. Finalmente, se reconoce la necesidad de innovar en medidas y herramienta tecnológicas para enfrentar el fraude.
 
 De manera análoga, \textcite{Rodriguez1999} aborda la problemática de uno de los tipos de fraude relacionado con los incrementos injustificados de las bases de cotización a la seguridad social. Este fenómeno toma lugar cuando los trabajadores incrementan artificialmente sus bases de cotización en los últimos años laborales para recibir una pensión de jubilación más alta. Según este estudio, se atribuye que los casos de fraudes más comunes son cometidos por personas que tienen influencia sobre la empresa, como directivos o dueños, ya que tienen mayor facilidad para aumentar su salario.
 A pesar de que la detección del fraude es compleja, debido a las diferentes estrategias para eludir normativas antifraude, se han tomado medidas como la limitación de incrementos salariales en los dos años previos a la jubilación que exceden cierto valor, permitir incrementos solo en ascensos o nuevas responsabilidades, y aplicación de códigos civiles y normativas específicas.
-La detección de fraudes implementada se da mediante informes de análisis de casos donde el trabajdor ha aumentado su base de cotización sin justificación. Se presta especial atención a trabajdores con posiciones de poder, se toma en cuenta aumentos salariales desproporcionados, y se analizan patrones y presunciones. 
+La detección de fraudes implementada se da mediante informes de análisis de casos donde el trabajador ha aumentado su base de cotización sin justificación. Se presta especial atención a trabajadores con posiciones de poder, se toma en cuenta aumentos salariales desproporcionados, y se analizan patrones y presunciones. 
 
+\section{Proceso KDD}\label{sec:proceso_kdd}
 
- \section{Machine Learning}\label{sec:machine_learning}
+\section{Machine Learning}\label{sec:machine_learning}
 
 El Machine Learning o Aprendizaje Automático comprende un conjunto de algoritmos y modelos computacionales evolutivos, los cuales se han diseñado con el fin de reproducir la inteligencia humana aprendiendo y mejorando su rendimiento basándose en los datos del entorno, sin la intervención humana o tareas explícitamente programadas. Esto se logra analizando diferentes patrones y relaciones de los datos, a partir de los cuales se generan resultados \citep{ElNaqa2015}.
 
@@ -53,9 +53,24 @@ Este tipo de modelos se emplean, principalmente, en problemas que requieren ajus
 
 \subsection{Algoritmos no supervisados}\label{sec:no_supervisados}
 
-Los algoritmos no supervisados son un enfoque del Aprendizaje Automático, cuyo objetivo es detectar patrones en puntos que no tienen estructura o etiquetas. Por lo que, el modelo es provisto únicamente de los datos de entrada pero no de los resultados asociados de salida. Por la naturaleza del mismo, no se necesita de supervisión humana, ya que el mismo modelo identifica y analiza los datos. \citep{alloghani2020systematic}.
+Los algoritmos no supervisados son un enfoque del Aprendizaje Automático, cuyo objetivo es detectar patrones en puntos que no tienen estructura o etiquetas. Por lo que, el modelo es provisto únicamente de los datos de entrada pero no de los resultados asociados a la salida. Por la naturaleza del mismo, no se necesita de supervisión humana, ya que el mismo modelo identifica y analiza los datos. \citep{alloghani2020systematic}.
 
 Varios problemas del entorno cuentan con datos que no están etiquetados, y etiquetarlos resulta en un proceso que consume una gran cantidad de tiempo y requiere intervención humana. Por lo tanto, la importancia de estos algoritmos radica en que los mismos permiten automatizar el proceso de codificación, y de esta forma, ayudan a la investigación de datos no procesados o desconocidos. También, por su naturaleza, estos modelos son útiles para trabajar con una gran cantidad de datos y detectar patrones. \citep{naeem2023unsupervised}.
+
+
+\subsubsection{Clustering jerárquico (de división)}\label{sec:cluster_jerarquico}
+
+El algoritmo de Clustering Jerárquico se basa en la división de los elementos de la base de datos, tomando en cuenta el orden en el que los mismos se dividen. Para la representación de este proceso se hace uso de árboles o dendogramas. El algoritmo inicia con un único clúster que contiene todos los elementos de la base de datos. Luego, los separa iterativamente, removiendo de los clústeres aquellos elementos que no tienen similitudes con los demás. Finalmente, se continúa con el proceso hasta alcanzar el criterio de parada o que todos los elementos formen grupos de un solo elemento,  \citep{shetty2021hierarchical}. 
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.45]{graficos/jerarquico.png}
+\caption{\headlinecolor{\underline{Clustering jerárquico}}}
+\label{fig:cluster_jerarquico}
+\vspace{2mm}
+\small \textit{Fuente:} \textit{Clúster jerárquico} \citep{shetty2021hierarchical}.
+\end{figure}
+
 
 \subsubsection{K Means}\label{sec:k_means}
  
@@ -65,39 +80,28 @@ El funcionamiento de este algoritmo sigue los siguientes pasos: en primer lugar,
 
 \begin{figure}[H]
 \centering
-\includegraphics[scale=0.35]{graficos/kmeans.png}
+\includegraphics[scale=0.40]{graficos/kmeans.png}
 \caption{\headlinecolor{\underline{Algoritmo K-Means}}}
 \label{fig:kmeans}
 \vspace{2mm}
 \small \textit{Fuente:} Resultados obtenidos con la aplicación del algoritmo K-means \citep{towardsdatascience_kmeans}.
 \end{figure}
 
+La eficacia de este modelo está condicionada a la elección inicial de los centroides, por lo que, en ciertos casos los resultados no son los esperados. Por este motivo, una mejora sustancia a este algoritmo es la utilización de k-means++. La diferencia radica principalmente en que la elección de los centroides utiliza una distribución de probabilidad proporcional a la distancia. Esto quiere decir que, cuanta más distancia exista entre un (los) centroide(s) con el resto de elemwntos,  más probabilidad tiene ese elemento de ser elegido.
+
 \subsubsection{DBScan}\label{sec:dbscan}
 
-Según \textcite{kanagala2016comparative}, DBScan es un algoritmo de agrupamiento basado en la densidad, ya identifica las regiones de alta concentración de puntos, las cuales están separadas entre sí por áreas de baja concentración. En este algoritmo, los puntos se clasifican en tres tipos: punto central, aquellos que tienen más del mínimo de puntos especificado por el usuario (MinPts) dentro de un radio específico que, de igual forma, lo determina el usuario (Eps); punto de frontera, los puntos que dentro de un radio Eps tienen menos puntos que el número MinPts, pero un punto central se encuentra en su vecindad; y puntos de ruido, que son aquellos que no son centrales ni de frontera
+Según \textcite{kanagala2016comparative}, DBScan es un algoritmo de agrupamiento basado en la densidad, ya identifica las regiones de alta concentración de puntos, las cuales están separadas entre sí por áreas de baja concentración. En este algoritmo, los puntos se clasifican en tres tipos: punto core (central), aquellos que tienen más del mínimo de puntos (MinPts) especificado por el usuario dentro de un radio (Eps) de igual forma especificado por el usuario; punto border (frontera), los puntos que dentro de un radio Eps tienen menos puntos que el número MinPts, pero un punto core se encuentra en su vecindad; y puntos de ruido, que son aquellos que no son core ni border.
 
 El algoritmo, en primer lugar, identifica de qué tipo es cada punto y se eliminan los puntos de ruido, o dicho de otra forma, se identifican los puntos atípicos y se eliminan. Luego, se establece un borde entre los puntos cercanos unos a otros y se convierte cada grupo de puntos centrales que están conectados en grupos separados. Finalmente, los puntos frontera son asignados a los grupos de los puntos centrales que tengan asociados \citep{kanagala2016comparative}
 
 \begin{figure}[H]
 \centering
-\includegraphics[scale=0.35]{graficos/dbscan.png}
-\caption{\headlinecolor{\underline{Ejemplo de implementación del algoritmo DBSCAN}}}
+\includegraphics[scale=0.30]{graficos/dbscan.png}
+\caption{\headlinecolor{\underline{Ejemplo ilustrativo del algoritmo DBSCAN}}}
 \label{fig:dbscan}
 \vspace{2mm}
-\small \textit{Fuente:} \textit{Un ejemplo ilustrativo del algoritmo DBSCAN, con minPts=3. El radio de los círculos representa la distancia Eps entre cada punto. Los puntos rojos son puntos centrales porque tienen al menos minPts vecinos entre sí. Los puntos amarillos son puntos frontera porque tienen menos de minPts puntos en sus vecindarios, y dentro de los mismos tienen un punto central. El punto azul se considera ruido porque no está dentro de la distancia Eps de ningún otro punto} \citep{aribido2021self}.
-\end{figure}
-
-\subsubsection{Clustering jerárquico (de división)}\label{sec:cluster_jerarquico}
-
-El algoritmo de Clustering Jerárquico se basa en la división de los elementos de la base de datos, tomando en cuenta el orden en el que los mismos se dividen. Para la representación de este proceso se hace uso de árboles o dendogramas. El algoritmo inicia con un único clúster que contiene todos los elementos de la base de datos. Luego, los separa iterativamente, removiendo de los clústeres aquellos elementos que no tienen similitudes con los demás. Finalmente, se continúa con el proceso hasta alcanzar el criterio de parada o que todos los elementos formen grupos de un solo elemento,  \citep{shetty2021hierarchical}. 
-
-\begin{figure}[H]
-\centering
-\includegraphics[scale=0.35]{graficos/jerarquico.png}
-\caption{\headlinecolor{\underline{Clustering jerárquico}}}
-\label{fig:cluster_jerarquico}
-\vspace{2mm}
-\small \textit{Fuente:} \textit{Clúster jerárquico} \citep{shetty2021hierarchical}.
+\small \textit{Fuente:} \textit{Un ejemplo ilustrativo del algoritmo DBSCAN, con MinPts=3. El radio de los círculos representa la distancia Eps entre cada punto. Los puntos rojos son puntos centrales porque tienen al menos M JinPts vecinos entre sí. Los puntos amarillos son puntos frontera porque tienen menos de minPts puntos en sus vecindarios, y dentro de los mismos tienen un punto central. El punto azul se considera ruido porque no está dentro de la distancia Eps de ningún otro punto} \citep{aribido2021self}.
 \end{figure}
 
 
@@ -105,7 +109,7 @@ El algoritmo de Clustering Jerárquico se basa en la división de los elementos 
 
 Es una técnica de Aprendizaje Automático usada cuando el conjunto de datos se encuentra etiquetado, es decir, existe una preclasificación. Los datos son procesados y el algoritmo corrige sus errores iterativamente hasta que alcanza el nivel de precición requerido \citep{unnoba2020tratamiento}.
 
-De esta forma, el modelo va a ser entrenado con un conjunto de datos con resultados conocidos, donde la respuesta correcta en su etiqueta asociada, de los cuales aprende realizando ajustes a sus parámetros. Esto con el fin de, posteriormente, realizar predicciones de las etiquetas de nuevas observaciones. Estos algoritmos se dividen en dos tipos: de regresión y de clasificación \citep{moreno2023manual}.
+De esta forma, el modelo va a ser entrenado con un conjunto de datos con resultados conocidos, donde la respuesta correcta es su etiqueta asociada, de los cuales aprende realizando ajustes a sus parámetros. Posteriormente, realizará predicciones de las etiquetas de nuevas observaciones. Estos algoritmos se dividen en dos tipos: de regresión y de clasificación \citep{moreno2023manual}.
 
 \begin{figure}[H]
 \centering
@@ -116,14 +120,15 @@ De esta forma, el modelo va a ser entrenado con un conjunto de datos con resulta
 \small \textit{Fuente:} Descripción genérica del flujo de entrenamiento de un algoritmo supervisado \citep{moreno2023manual}.
 \end{figure}
 
+En concordancia con el objetivo del presente trabajo de titulación, en lo que sigue se describirán los algoritmos para clasificación a utilizar.
 
 \subsubsection{Algoritmos supervisados de clasificación}\label{sec:supervisado_clasificacion}
  
 Este tipo de algoritmos son aquellos que parten con datos etiquetados, donde la variable dependiente es conocida y su tipo es categórica. Una vez entrenado el modelo, se aplica a datos nuevos y permite realizar una predicción de a qué categoría pertenece la información nueva \citep{moreno2023manual}.
-
-\subsubsection{Support Vector Machine}\label{sec:svm}
-
-Es un método de Aprendizaje Supervisado usado para tareas de clasificación, regresión y detección de datos atípicos. Este algoritmo busca el hiperplano óptimo que separe los datos en dos clases, esto se lo realiza maximizando la distancia entre los puntos más cercanos de cada clase. Los puntos que se encuentran en los límites se conocen como vectores de soporte, y el centro del margen representa el hiperplano que realiza la separación óptima \citep{meyer2009svm}.
+% 
+% \subsubsection{Support Vector Machine}\label{sec:svm}
+% 
+% Es un método de Aprendizaje Supervisado usado para tareas de clasificación, regresión y detección de datos atípicos. Este algoritmo busca el hiperplano óptimo que separe los datos en dos clases, esto se lo realiza maximizando la distancia entre los puntos más cercanos de cada clase. Los puntos que se encuentran en los límites se conocen como vectores de soporte, y el centro del margen representa el hiperplano que realiza la separación óptima \citep{meyer2009svm}.
 
 \subsubsection{KNN}\label{sec:knn}
  
@@ -156,6 +161,8 @@ En este procedimiento se ajustan iterativamente nuevos modelos que van haciendo 
 
 Este algoritmo es una de las implementaciones más eficientes de árboles de decisión, el cual se ha potenciado por el gradiente. Se ha diseñado para optimizar el uso de memoria y dar uso máximo a la potencia del hardware. Con esta técnica se disminuye el tiempo de ejecución, incluso su rendimiento es mejor que los modelos de aprendizaje profundo. La idea principal del mismo es construir secuencialmente subárboles que parten de un árbol original, tal que los mismos vayan reduciendo los errores de la función de costo del árbol anterior \citep{8906396}.
 
+\subsubsection{Redes neuronales}\label{sec:redes_neuronales}
+
 \subsection{Técnicas utilizadas}\label{sec:tec_us}
 
 Para optimizar la eficiencia de los modelos en la obtención de resultados, fue necesario realizar un preprocesamiento de los datos. Este proceso incluyó la aplicación de diversas técnicas que ayudaron a mejorar tanto el rendimiento, como la precisión de los diferentes modelos.
@@ -164,12 +171,12 @@ Para optimizar la eficiencia de los modelos en la obtención de resultados, fue 
 
 Según \textcite{batista2004balancing}, las técnicas de balanceo de clases son utilizadas para mejorar el rendimiento de los sistemas de aprendizaje automático en conjuntos de datos desequilibrados. Esto ya que en datos reales es frecuente la presencia de clases desbalanceadas, lo que puede favorecer a la clase mayoritaria al no incluir los patrones de la clase minoritaria, disminuyendo su precisión.
 
-Para el balanceo de clases se usan los métodos oversampling y undersampling. De donde, el oversampling se encarga de generar copias de ejemplos de la clase minoritaria, pero puede incrementar el riesgo de sobreajuste. Mientras que, el undersampling elimina ejemplos de la clase mayoritaria para equilibrar el conjunto, pero puede descartar datos útiles, afectando negativamente la capacidad del modelo para generalizar.
+Para el balanceo de clases se usan los métodos oversampling y undersampling. El oversampling se encarga de generar copias de ejemplos de la clase minoritaria, pero puede incrementar el riesgo de sobreajuste. Mientras que, el undersampling elimina ejemplos de la clase mayoritaria para equilibrar el conjunto, pero puede descartar datos útiles, afectando negativamente la capacidad del modelo para generalizar.
 
 Las principales técnicas usadas para llevar acabo los distintos tipos de balanceo son SMOTE (Synthetic Minority Over-sampling Technique) y SMOTE + ENN (Edited Nearest Neighbors).
 
 \begin{itemize}
-\item SMOTE es un método de oversampling que genera nuevos ejemplos sintéticos de la clase minoritaria interpolando con las instancias existentes, lo que reduce el sobreajuste en modelos de clasificación. Este logra que las fronteras de decisión de la clase minoritaria vayam más adentro del espacio de la clase mayoritaria, lo que mejora el rendimiento del modelo.
+\item SMOTE es un método de oversampling que genera nuevos ejemplos sintéticos de la clase minoritaria interpolando con las instancias existentes, lo que reduce el sobreajuste en modelos de clasificación. Este logra que las fronteras de decisión de la clase minoritaria vayan más adentro del espacio de la clase mayoritaria, lo que mejora el rendimiento del modelo.
 \item SMOTE + ENN combina la creación de nuevos ejemplos, mediante SMOTE, con la eliminación de ejemplos mal clasificados de ambas clases usando ENN, lo que elimina ruido y mejora la definición de los clústeres de clases. Este enfoque es útil especialmente en casos en los cuales hay pocos ejemplos de la clase minoritaria.
 \end{itemize}
 
@@ -192,7 +199,7 @@ Se tienen diversas técnicas de aplicación de la Validación Cruzada entre las 
 
 Según \textcite{yuan2019kvalue}, el método del codo es una técnica bastante usada para determinar el número de clústers en los algoritmos de agrupamiento, sobre todo en K-means. Su propósito es encontrar el número de clústers, donde si se aumentan más, ya no hay una mejora significativa en la calidad de las agrupaciones. Este método, en primer lugar, grafica la suma se lo errores cuadrados dentro de los clústers dependiendo el número de clústers elegidos, k. Con el aumento de k, este error disminuye, pero después de cierto punto, la mejora se ve reducica y forma una curva semejante a un codo. Donde, el codo marca el número óptimo de clústers ya que a partir de ellos el resultado no se ve significativamente mejorado.
 
-\subsubsection{Análisis de componentes principales (ACP)}\label{sec:acp}
+\subsubsection{Análisis de componentes principales (PCA)}\label{sec:acp}
 
 El Análisis de Componentes Principales (PCA) es una técnica usada para la reducción de la dimensionalidad de las variables en un conjunto de datos, manteniendo la mayor cantidad de varianza posible. Se proyectan los datos originales en un espacio de menor dimensión tomando en cuenta la minimización de la distancia entre los puntos iniciales y los proyectados. \citep{wiskott2009pca}
 
@@ -201,23 +208,23 @@ El PCA, en primer lugar, determina las direcciones de mayor varianza de los dato
 
 \subsubsection{Optimización de Hiperparámetros}\label{sec:hiperparametros}
 
-Según \textcite{opthip}, la optimización de hiperparámetros es un proceso fundamental debido a su importancia para mejorar el rendimiento de los algoritmos de aprendizaje automáticos ya que con él se controlan los aspectos importantes de un modelo como la tasa de aprendizaje, parámetros de regularización, entre otros. Las diferentes elecciones de hiperparámetro llevan a rendimientos vairables, por lo que encontrar una buena configuración de los mismo es necesario para mejorar la precisión del modelo. Con este propósito, tenemos dos estrategias de búsqueda:
+Según \textcite{opthip}, la optimización de hiperparámetros es un proceso fundamental debido a su importancia para mejorar el rendimiento de los algoritmos de aprendizaje automáticos ya que con él se controlan los aspectos importantes de un modelo como la tasa de aprendizaje, parámetros de regularización, entre otros. Las diferentes elecciones de hiperparámetro llevan a rendimientos varIables, por lo que encontrar una buena configuración de los mismo es necesario para mejorar la precisión del modelo. Con este propósito, tenemos dos estrategias de búsqueda:
 
 \begin{itemize}
 
-\item Grid Search: Esta estrategia busca optimizar los hiperparámetros en un espacio discreto determinado. Se seleccionan conjuntos de valores para cada parámetro y posteriormente, se prueban todas las combinaciones posibles. Una desventaja de este método es que al combinar todas las posibilidades, el método se vuelve computacionalmente ineficiente, sobre todo en espacios de alta dimensionalidad.
-
 \item Random Search: Este método selecciona aleatoriamente valores de hiperparámetros dentro de un rango específico, sin probar todas las combinaciones ya que realiza selecciones aleatorias independientes de valores de hiperparámetros. Por tanto, este modelo permite evaluar combinaciones potencialmente prometedoras en una cantidad de tiempo menor.
+
+\item Grid Search: Esta estrategia busca optimizar los hiperparámetros en un espacio discreto determinado. Se seleccionan conjuntos de valores para cada parámetro y posteriormente, se prueban todas las combinaciones posibles. Una desventaja de este método es que al combinar todas las posibilidades, el método se vuelve computacionalmente ineficiente, sobre todo en espacios de alta dimensionalidad.
 
 \end{itemize}
 
 
 \subsection{Validación de resultados en modelos de clasificación}\label{sec:validacion}
 
-Según \textcite{FAWCETT2006861}, una de las herramientas más comunes para evaluar el rendimiento de un modelo de clasificación, la matriz de confusión. La misma tiene como objetivo medir el funcionamiento de un algoritmo comparando los valores reales con los resultados obtenidos con el mismo, donde los resultados pueden formar parte de cuatro categorías:
+Según \textcite{FAWCETT2006861}, una de las herramientas más comunes para evaluar el rendimiento de un modelo de clasificación, es la matriz de confusión. La misma tiene como objetivo medir el funcionamiento de un algoritmo comparando los valores reales con los resultados obtenidos con el mismo, donde los resultados pueden formar parte de cuatro categorías:
 
 \begin{itemize}
-\item Verdaderos positivos (VP): Casos donde el modelo predice una clase positiva incorrectamente.
+\item Verdaderos positivos (VP): Casos donde el modelo predice una clase positiva correctamente.
 \item Falsos Positivos (FP): Casos donde el modelo predice incorrectamente una clase positiva.
 \item Verdaderos Negativos (VN): Casos en los cuales el modelo predice correctamente una clase negativa.
 \item Falsos Negativos (FN): Casos donde se prdice una clase negativa de forma incorrecta.
@@ -297,7 +304,7 @@ Las librerías utilizadas para cumplir con los propósitos del trabajo fueron la
 
 \subsection{R}
 
-R es un lenguaje de programación y un entorno de software diseñado para el análisis estadístico y la visualización de datos, desarrollado en la década de 1990.  Este lenguaje permite una amplia gama de funciones, entre las cuales se destaca su capacidad de integración con otros lenguajes, como Latex. Esto representa una gran ventaja, especialmente para la creación de documentos técnicos y académicos. 
+R es un lenguaje de programación y un entorno de software diseñado para el análisis estadístico y la visualización de datos, desarrollado en la década de 1990.  Este lenguaje permite una amplia gama de funciones, entre las cuales se destaca su capacidad de integración con otros lenguajes, como \LaTeX. Esto representa una gran ventaja, especialmente para la creación de documentos técnicos y académicos. 
 
 Entre las ventajas de esta integración encontramos la reproducibilidad de análisis y resultados, facilidad para crear gráficos de calidad y de tener una tipografía adecuada, así como la integración de diversos contenidos. Además, R incorpora potentes herramientas para la gestión de referencias, permite la automatización de informes, simplifica manejo de datos complejos, y fundamentalmente, ofrece la posibilidad del versionamiento y el control de cambios.
 
