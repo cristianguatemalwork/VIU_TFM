@@ -835,7 +835,7 @@ Tomando esto en cuenta, una vez entrenado el modelo con los parámetros previame
 \label{tab:mc_knn_1}
 \end{table}
 
-A partir de estos resultados, podemos extraer ciertas métricas, a parte del accuracy que nos ayudarán a establecer la capacidad de predicción del modelo, es decir, si su funcionamiento es óptimo o no dependiendo de nuestros objetivos. Para ello, tenemos que en este modelo la sensibilidad es de \Sexpr{15710/(15710+14711)}, la especifidad es de \Sexpr{50557/(50557+7576)} y finalmente la exactitud es de \Sexpr{(50557+15710)/(50557+15710+14711+7576)}.
+A partir de estos resultados, podemos extraer ciertas métricas, a parte del accuracy que nos ayudarán a establecer la capacidad de predicción del modelo, es decir, si su funcionamiento es óptimo o no dependiendo de nuestros objetivos. Para ello, tenemos que en este modelo la sensibilidad es de \Sexpr{15710/(15710+14711)}, la especifidad es de \Sexpr{50557/(50557+7576)} y y finalmente, la precisión es de \Sexpr{15710/(15710+7576)}.
 
 
 Repitiendo el proceso anterior  para las variables \textit{PC1\_bal}, \textit{PC2\_bal}, \textit{PC3\_bal}, \textit{PC4\_bal}, \textit{PC5\_bal}, \textit{PC6\_bal}, \textit{PC7\_bal} y \textit{PC8\_bal}, los resultados se muestran en la figura \ref{fig:algoritmo_knn_bal_acp}, por lo que, la elección de los parámetros es con 2 vecinos y la ponderación es dada por \textit{distance}. 
@@ -867,7 +867,7 @@ Una vez entrenado el modelo con estos parámetros, se ha obtenido que el acurrac
 \end{table}
 
 
-A partir de estos resultados obtenemos que este modelo tiene sensibilidad de \Sexpr{21967/(21967+8454)}, especifidad es de \Sexpr{41160/(41160+16973)} y finalmente exactitud  de \Sexpr{(21967+41160)/(21967+41160+8454+16973)}.
+A partir de estos resultados obtenemos que este modelo tiene sensibilidad de \Sexpr{21967/(21967+8454)}, especifidad es de \Sexpr{41160/(41160+16973)} y finalmente, precisión  de \Sexpr{21967/(21967+16973)}.
 
 
 Al considerar las variables de descritas en el último párrafo de \ref{sub_apre_cara_no_super}, realizando lo descrito en el párrafo tres de la subsección \ref{sub_apre_cara_acp} para estas variables, parametrizando la elección KNeighbors en el rango de 1 a 30 y los pesos  por \textit{uniform} y \textit{distance}, se ejecuta validación cruzada que tiene como medida de éxito el Accuracy, tenemos que:
@@ -899,7 +899,7 @@ Una vez entrenado el modelo con estos parámetros, se ha obtenido que el acurrac
 \end{table}
 
 
-A partir de estos resultados obtenemos que este modelo tiene sensibilidad de \Sexpr{17045/(17045+13376)}, especifidad es de \Sexpr{51203/(51203+6930)} y finalmente exactitud  de \Sexpr{(51203+17045)/(51203+17045+13376+6930)}.
+A partir de estos resultados obtenemos que este modelo tiene sensibilidad de \Sexpr{17045/(17045+13376)}, especifidad es de \Sexpr{51203/(51203+6930)} y finalmente, precisión  de \Sexpr{17045/(17045+6930)}.
 
 
 Se realiza un proceso de balanceo de clases para \textit{variables\_ml}, siguiendo el enfoque mostrado en el último párrafo de la subsección \ref{sub_apre_cara_acp}. A este conjunto de datos resultante, se aplica la validación cruzada con parametrización de KNeighbors en el rango de 1 a 30 y pesos en \textit{uniform} y \textit{distance}. Los resultados se muestran en la figura \ref{fig:algoritmo_knn_bal_ml}.
@@ -931,7 +931,7 @@ Una vez entrenado el modelo con estos parámetros, se ha obtenido que el acurrac
 \end{table}
 
 
-A partir de estos resultados obtenemos que este modelo tiene sensibilidad de \Sexpr{24110/(24110+6311)}, especifidad es de \Sexpr{40929/(40929+17841)} y finalmente exactitud  de \Sexpr{(40929+24110)/(40929+24110+6311+17841)}.
+A partir de estos resultados obtenemos que este modelo tiene sensibilidad de \Sexpr{24110/(24110+6311)}, especifidad es de \Sexpr{40929/(40929+17841)} y finalmente, precisión  de \Sexpr{24110/(24110+17841)}.
 
 
 Para ver con mayor detalle  todo el proceso realizado para este algorimo vaya a \textit{VIU\_ml\_knn.ipynb} de \legalcite{CristianVIUTFM}.
@@ -966,7 +966,7 @@ Una vez que el modelo ha sido entrenado con estos parámetros, se ha obtenido qu
 \label{tab:arbol_simple}
 \end{table}
 
-A partir de estos resultados obtenemos que este modelo tiene sensibilidad de \Sexpr{20634/(20634+9787)}, especifidad de \Sexpr{50158/(50158+7975)} y finalmente, exactitud de \Sexpr{(50158+20634)/(50158+20634+7975+9787)}.
+A partir de estos resultados obtenemos que este modelo tiene sensibilidad de \Sexpr{20634/(20634+9787)}, especifidad de \Sexpr{50158/(50158+7975)} y finalmente, precisión  de \Sexpr{20634/(20634+7975)}.
 
 
 La cuatro variables más importantes son \textit{BASE\_CAL} (28,07\%), \textit{LS2} (19,46\%), \textit{LS\_MS} (16,21\%) y \textit{M\_PRI\_P} (14,52\%)
@@ -997,7 +997,8 @@ Una vez que el modelo ha sido entrenado con estos parámetros, se ha obtenido qu
 \label{tab:arbol_simple_bal}
 \end{table}
 
-A partir de estos resultados obtenemos que este modelo tiene sensibilidad de \Sexpr{24554/(24554 + 5867)}, especifidad de \Sexpr{43944/(43944+14189)} y finalmente, exactitud  de \Sexpr{(43944+24554)/(43944+24554 +5867 + 14189)}.
+A partir de estos resultados obtenemos que este modelo tiene sensibilidad de \Sexpr{24554/(24554 + 5867)}, especifidad de \Sexpr{43944/(43944+14189)} y finalmente, precisión  de \Sexpr{24554/(24554+14189)}.
+
 La cuatro variables más importantes son \textit{BASE\_CAL} (33,23\%), \textit{LS2} (18,98\%), \textit{N\_PRI\_P	} (18,21\%) y \textit{SAL\_PROM2	} (6,98\%).
 
 Generalmente, los árboles individuales son propensos a generar overfitting, lo que provoca que su eficacia sea muy poca al momento de predecir el comportamiento de los datos que no fueron considerados en la etapa de entrenamiento. Es así que, con el fin de evitar el sobreajuste se plantea un conjunto de modelos y así tener un mejor rendimiento predictivo.  Los métodos de muestreo que se van a considerar son \textit{RandomForestClassifier} (es el algoritmo de Random Forest utilizado para clasificación), \textit{AdaBoostClassifier} (Boosting) y \textit{GradientBoostingClassifier} (Boosting). Para la selección de los parámetros se utilizará la optimización de hiperparámetros con las herramientas de \textit{RandomizedSearch} y \textit{GridSearch}.
@@ -1014,7 +1015,24 @@ RandomForestClassifier(class_weight='balanced_subsample', criterion='log_loss',
                        random_state=8)
 \end{lstlisting}
 
-Con esto se entrena el modelo y tenemos que el accuracy del train y test es  0.9013257447433205 y 0.825089775730063 respectivamente.
+Con esto se entrena el modelo y tenemos que el accuracy del train y test es  0.9013257447433205 y 0.825089775730063, respectivamente. Para contrastar este resultado y evaluar el modelo se obtiene la matriz de confusión que se encuentra en la tabla \ref{tab:random_forest_randoms} y en la figura \ref{fig:confusion_matrix_algoritmo_RandomForestClassifier_random_search} en anexos.
+
+\begin{table}[H]
+\centering
+\resizebox{0.5\textwidth}{!}{
+\begin{tabular}{|c|c|c|c|}
+\hline
+\cellcolor[HTML]{E65013} \textbf{Matriz de confusión} & \multicolumn{3}{c|}{\cellcolor[HTML]{FFA074} \textbf{Predicción}} \\ \hline
+\multirow{2}{*}{\cellcolor[HTML]{FFA074}} &  & \textbf{No atípico} & \textbf{Atípico} \\ \cline{2-4} 
+\cellcolor[HTML]{FFA074} \textbf{Real}   & \textbf{No atípico}  & 48142 & 9991 \\ \cline{2-4} 
+\cellcolor[HTML]{FFA074}                  & \textbf{Atípico}     & 5498 & 24923 \\ \hline
+\end{tabular}
+}
+\caption{\headlinecolor{\underline{Matriz de confusión para el algoritmo con RandomizedSearch}}}
+\label{tab:random_forest_randoms}
+\end{table}
+
+A partir de estos resultados obtenemos que este modelo tiene sensibilidad de \Sexpr{24923/(24923 + 5498)}, especifidad de \Sexpr{48142/(48142+9991)} y finalmente, precisión  de \Sexpr{24923/(24923+9991)}.
 
 La cuatro variablaes más importantes son \textit{BASE\_CAL} (26,53\%), \textit{LS2} (17,07\%), \textit{LS\_MS} (16,30\%) y \textit{SAL\_PROM2} (8,91\%).
 
@@ -1027,7 +1045,24 @@ RandomForestClassifier(class_weight='balanced_subsample', criterion='log_loss',
                        random_state=8)
 \end{lstlisting}
 
-El accuracy del train y test es 0.9275357409038553 y 0.8278903268062425 respectivamente.
+Con esto se entrena el modelo y tenemos que el accuracy del train y test es 0.9275357409038553 y 0.8278903268062425, respectivamente. Para contrastar este resultado y evaluar el modelo se obtiene la matriz de confusión que se encuentra en la tabla \ref{tab:random_forest_randomg} y en la figura \ref{fig:confusion_matrix_algoritmo_RandomForestClassifier_grid_search} en anexos.
+
+\begin{table}[H]
+\centering
+\resizebox{0.5\textwidth}{!}{
+\begin{tabular}{|c|c|c|c|}
+\hline
+\cellcolor[HTML]{E65013} \textbf{Matriz de confusión} & \multicolumn{3}{c|}{\cellcolor[HTML]{FFA074} \textbf{Predicción}} \\ \hline
+\multirow{2}{*}{\cellcolor[HTML]{FFA074}} &  & \textbf{No atípico} & \textbf{Atípico} \\ \cline{2-4} 
+\cellcolor[HTML]{FFA074} \textbf{Real}   & \textbf{No atípico}  & 48828 & 9305 \\ \cline{2-4} 
+\cellcolor[HTML]{FFA074}                  & \textbf{Atípico}     & 5936 & 24485 \\ \hline
+\end{tabular}
+}
+\caption{\headlinecolor{\underline{Matriz de confusión para el algoritmo con GridSearchCV}}}
+\label{tab:random_forest_randomg}
+\end{table}
+
+A partir de estos resultados obtenemos que este modelo tiene sensibilidad de \Sexpr{24485/(24485 + 5936)}, especifidad de \Sexpr{48828/(48828+9305)} y finalmente, precisión  de \Sexpr{24485/(24485+9305)}.
 
 La cuatro variablaes más importantes son \textit{BASE\_CAL} (25,50\%), \textit{LS2} (16,66\%), \textit{LS\_MS} (16,12\%) y \textit{SAL\_PROM2} (9,22\%).
 
@@ -1041,7 +1076,24 @@ AdaBoostClassifier(algorithm='SAMME',
                    learning_rate=0.01, n_estimators=4, random_state=8)
 \end{lstlisting}
 
-El accuracy del train y test es 1 y 0.7768480249339386 respectivamente.
+Con esto se entrena el modelo y tenemos que el accuracy del train y test es 1 y 0.7768480249339386, respectivamente. Para contrastar este resultado y evaluar el modelo se obtiene la matriz de confusión que se encuentra en la tabla \ref{tab:AdaBoost_random_search} y en la figura \ref{fig:confusion_matrix_algoritmo_AdaBoostClassifier_random_search} en anexos.
+
+\begin{table}[H]
+\centering
+\resizebox{0.5\textwidth}{!}{
+\begin{tabular}{|c|c|c|c|}
+\hline
+\cellcolor[HTML]{E65013} \textbf{Matriz de confusión} & \multicolumn{3}{c|}{\cellcolor[HTML]{FFA074} \textbf{Predicción}} \\ \hline
+\multirow{2}{*}{\cellcolor[HTML]{FFA074}} &  & \textbf{No atípico} & \textbf{Atípico} \\ \cline{2-4} 
+\cellcolor[HTML]{FFA074} \textbf{Real}   & \textbf{No atípico}  & 48268 & 9865 \\ \cline{2-4} 
+\cellcolor[HTML]{FFA074}                  & \textbf{Atípico}     & 9896 & 20525 \\ \hline
+\end{tabular}
+}
+\caption{\headlinecolor{\underline{Matriz de confusión para el algoritmo con RandomizedSearch}}}
+\label{tab:AdaBoost_random_search}
+\end{table}
+
+A partir de estos resultados obtenemos que este modelo tiene sensibilidad de \Sexpr{20525/(20525 + 9896)}, especifidad de \Sexpr{48268/(48268+9865)} y finalmente, precisión  de \Sexpr{20525/(20525+9865)}.
 
 La cuatro variablaes más importantes son \textit{BASE\_CAL} (21,89\%), \textit{LS2} (16,11\%), \textit{LS\_MS} (15,40\%) y \textit{SAL\_PROM2} (10,03\%).
 
@@ -1053,7 +1105,24 @@ AdaBoostClassifier(algorithm='SAMME',
                    learning_rate=0.005, n_estimators=1, random_state=8)
 \end{lstlisting}
 
-El accuracy del train y test es 1 y 0.7768480249339386 respectivamente.
+Con esto se entrena el modelo y tenemos que el accuracy del train y test es 1 y 0.7768480249339386, respectivamente. Para contrastar este resultado y evaluar el modelo se obtiene la matriz de confusión que se encuentra en la tabla \ref{tab:AdaBoost_grid_search} y en la figura \ref{fig:confusion_matrix_algoritmo_AdaBoostClassifier_grid_search} en anexos.
+
+\begin{table}[H]
+\centering
+\resizebox{0.5\textwidth}{!}{
+\begin{tabular}{|c|c|c|c|}
+\hline
+\cellcolor[HTML]{E65013} \textbf{Matriz de confusión} & \multicolumn{3}{c|}{\cellcolor[HTML]{FFA074} \textbf{Predicción}} \\ \hline
+\multirow{2}{*}{\cellcolor[HTML]{FFA074}} &  & \textbf{No atípico} & \textbf{Atípico} \\ \cline{2-4} 
+\cellcolor[HTML]{FFA074} \textbf{Real}   & \textbf{No atípico}  & 48268 & 9865 \\ \cline{2-4} 
+\cellcolor[HTML]{FFA074}                  & \textbf{Atípico}     & 9896 & 20525 \\ \hline
+\end{tabular}
+}
+\caption{\headlinecolor{\underline{Matriz de confusión para el algoritmo con RandomizedSearch}}}
+\label{tab:AdaBoost_grid_search}
+\end{table}
+
+A partir de estos resultados obtenemos que este modelo tiene sensibilidad de \Sexpr{20525/(20525 + 9896)}, especifidad de \Sexpr{48268/(48268+9865)} y finalmente, precisión  de \Sexpr{20525/(20525+9865)}.
 
 La cuatro variablaes más importantes son \textit{BASE\_CAL} (21,89\%), \textit{LS2} (16,11\%), \textit{LS\_MS} (15,40\%) y \textit{SAL\_PROM2} (10,03\%).
 
@@ -1084,7 +1153,24 @@ XGBClassifier(base_score=None, booster=None, callbacks=None,
               n_jobs=None, num_parallel_tree=None, random_state=8, ...)
 \end{lstlisting}
 
-El accuracy del train y test es 0.9264488334801364 y 0.8252817489893173 respectivamente.
+Con esto se entrena el modelo y tenemos que el accuracy del train y test es 0.9264488334801364 y 0.8252817489893173, respectivamente. Para contrastar este resultado y evaluar el modelo se obtiene la matriz de confusión que se encuentra en la tabla \ref{tab:XGBClassifier_random_search} y en la figura \ref{fig:confusion_matrix_algoritmo_XGBClassifier_random_search} en anexos.
+
+\begin{table}[H]
+\centering
+\resizebox{0.5\textwidth}{!}{
+\begin{tabular}{|c|c|c|c|}
+\hline
+\cellcolor[HTML]{E65013} \textbf{Matriz de confusión} & \multicolumn{3}{c|}{\cellcolor[HTML]{FFA074} \textbf{Predicción}} \\ \hline
+\multirow{2}{*}{\cellcolor[HTML]{FFA074}} &  & \textbf{No atípico} & \textbf{Atípico} \\ \cline{2-4} 
+\cellcolor[HTML]{FFA074} \textbf{Real}   & \textbf{No atípico}  & 48268 & 9865 \\ \cline{2-4} 
+\cellcolor[HTML]{FFA074}                  & \textbf{Atípico}     & 9896 & 20525 \\ \hline
+\end{tabular}
+}
+\caption{\headlinecolor{\underline{Matriz de confusión para el algoritmo con RandomSearch}}}
+\label{tab:XGBClassifier_random_search}
+\end{table}
+
+A partir de estos resultados obtenemos que este modelo tiene sensibilidad de \Sexpr{20525/(20525 + 9896)}, especifidad de \Sexpr{48268/(48268+9865)} y finalmente, precisión  de \Sexpr{20525/(20525+9865)}.
 
 La cuatro variablaes más importantes son \textit{BASE\_CAL} (11,37\%), \textit{M\_PRI\_P} (10,42\%), \textit{N\_PRI\_P} (9,99\%) y \textit{M\_PUB\_P} (8,04\%).
 
