@@ -1145,6 +1145,25 @@ AdaBoostClassifier(algorithm='SAMME',
                    learning_rate=0.01, n_estimators=4, random_state=8)
 \end{lstlisting}
 
+Con esto se entrena el modelo y tenemos que el accuracy del train y test es 0.9999971768638345 y 0.837059873071798, respectivamente. Para contrastar este resultado y evaluar el modelo se obtiene la matriz de confusión que se encuentra en la tabla \ref{tab:gradientboosting} y en la figura \ref{fig:confusion_matrix_algoritmo_GradientBoostingClassifier_random_search} en anexos.
+
+\begin{table}[H]
+\centering
+\resizebox{0.5\textwidth}{!}{
+\begin{tabular}{|c|c|c|c|}
+\hline
+\cellcolor[HTML]{E65013} \textbf{Matriz de confusión} & \multicolumn{3}{c|}{\cellcolor[HTML]{FFA074} \textbf{Predicción}} \\ \hline
+\multirow{2}{*}{\cellcolor[HTML]{FFA074}} &  & \textbf{No atípico} & \textbf{Atípico} \\ \cline{2-4} 
+\cellcolor[HTML]{FFA074} \textbf{Real}   & \textbf{No atípico}  & 51538 & 6595 \\ \cline{2-4} 
+\cellcolor[HTML]{FFA074}                  & \textbf{Atípico}     & 7834 & 22587 \\ \hline
+\end{tabular}
+}
+\caption{\headlinecolor{\underline{Matriz de confusión para Gradient Boosting con Random Search}}}
+\label{tab:gradientboosting}
+\end{table}
+
+A partir de estos resultados obtenemos que este modelo tiene sensibilidad de \Sexpr{22587/(22587 + 7834)}, especifidad de \Sexpr{51538/(51538+6595)} y finalmente, precisión  de \Sexpr{22587/(22587+6595)}.
+
 \subsection{XGBClassifier}\label{sub_seccion:XGBClassifier}
 
 \begin{lstlisting}[style=pythonstyle]
@@ -1258,33 +1277,64 @@ A partir de estos resultados obtenemos que este modelo tiene sensibilidad de \Se
 
 \section{Comparación de Resultados}\label{seccion:comparacion_resultados}
 
-Para defininir cuáles modelos de aprendizaje supervisado son más efectivos y apropiados para el problema de estudio de este Trabajo de Fin de Máster es necesario realizar una comparación de las métricas de cada uno de ellos. Con ello, los mismos pueden ser evaluados y podemos obtener tanto sus ventajas como desventajas. A continuación encontramos una tabla comparativa de los resultados obtenidos:
+Para determinar qué modelos de aprendizaje supervisado son más efectivos y apropiados para el problema de estudio de este Trabajo de Fin de Máster, es necesario realizar una comparación de las métricas de cada uno de ellos. Con ello, los mismos pueden ser evaluados y podemos obtener tanto sus fortalezas como sus debilidades. A continuación, en la tabla comparativa \ref{tab:comparacion} encontramos los resultados obtenidos.
 
-% \begin{table}[H]
-% \centering
-% \resizebox{0.75\textwidth}{!}{
-% \begin{tabular}{|c|c|c|c|c|c|}
-% \hline
-% \cellcolor[HTML]{E65013} \textbf{Modelo} & \cellcolor[HTML]{E65013} \textbf{Exactitud}& 
-% \cellcolor[HTML]{E65013} \textbf{Sensibilidad}& \cellcolor[HTML]{E65013} \textbf{Especifidad}&
-% \cellcolor[HTML]{E65013} \textbf{Precisión} & \cellcolor[HTML]{E65013} \textbf{Diferencia Exactitud}\\ 
-% \hline
-% \textbf{KNN con ACP} & 0.74832& 0.51642& 0.86968 & 0.67465& 0.25168 \\ 
-% \hline
-% \textbf{KNN con balanceo y ACP} & 0.71286& 0.7221& 0.70803& 0.56412& 0.28714 \\ 
-% \hline
-% \textbf{KNN con variables_ml} & & & & &  \\ 
-% \hline
-% \textbf{Matriz de confusión} & & & & &  \\ 
-% \hline
-% \textbf{Matriz de confusión} & & & & &  \\ 
-% \hline
-% \end{tabular}
-% }
-% \caption{\headlinecolor{\underline{Tabla de comparación de resultados}}}
-% \label{tab:comparacion}
-% \end{table}
+\begin{table}[H]
+\centering
+\resizebox{0.75\textwidth}{!}{
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+\cellcolor[HTML]{E65013} \textbf{Modelo} & \cellcolor[HTML]{E65013} \textbf{Exactitud}&
+\cellcolor[HTML]{E65013} \textbf{Sensibilidad}& \cellcolor[HTML]{E65013} \textbf{Especifidad}&
+\cellcolor[HTML]{E65013} \textbf{Precisión} & \cellcolor[HTML]{E65013} \textbf{Diferencia Exactitud}\\
+\hline
+\textbf{KNN con ACP} & 0.74832& 0.51642& 0.86968 & 0.67465& 0.25168 \\
+\hline
+\textbf{KNN con balanceo y ACP} & 0.71286& 0.7221& 0.70803& 0.56412& 0.28714 \\
+\hline
+\textbf{KNN con variables-ml} & 0.71286& 0.5603& 0.88079& 0.71095&  0.28714\\
+\hline
+\textbf{KNN con variables-ml balanceadas} &0.72726 & 0.79254& 0.69642&0.57471 &  0.27274\\
+\hline
+\textbf{Árboles simples} & 0.79942& 0.67828& 0.86281&0.72124 & 0.04379\\
+\hline
+\textbf{Árboles simples balanceados} & 0.77351&0.80714&0.75592 & 0.63377&0.19061  \\
+\hline
+\textbf{Random Forest con RandomSearch} & 0.82509&0.81927&0.82814 & 0.71384& 0.07624 \\
+\hline
+\textbf{Random Forest con GridSearch} &0.82789 & 0.80487& 0.83994&0.72462 & 0.09965 \\
+\hline
+\textbf{Boosting con RandomSearch} & 0.77685& 0.6747& 0.8303&0.67539 & 0.22315 \\
+\hline
+\textbf{Boosting con GridSearch} & 0.77685& 0.6747& 0.8303& 0.67539& 0.22315 \\
+\hline
+\textbf{Gradient Boosting con GridSearch} &0.83706 & 0.74248& 0.88655& 0.774& 0.16294 \\
+\hline
+\textbf{XGBoost con RandomSearch} & 0.82528& 0.82486& 0.8255&0.71212 & 0.10117 \\
+\hline
+\textbf{XGBoost con GridSearch} & 0.8276& 0.81611& 0.8336 & 0.71962 &0.12213 \\
+\hline
+\textbf{Redes Neuronales con GridSearch} & 0.80481& 0.65044& 0.88559&0.74843 &0.00533 \\
+\hline
+\textbf{Redes Neuronales balanceadas con GridSearch} & 0.75826&0.84764 &0.71149 & 0.6059&0.00433 \\
+\hline
+\end{tabular}
+}
+\caption{\headlinecolor{\underline{Tabla de comparación de resultados}}}
+\label{tab:comparacion}
+\end{table}
 
+En primer lugar al analizar las diferentes variaciones del modelo KNN, observamos que el modelo que tiene un accuracy más alto es el que únicamente aplica un ACP a los datos. Sin embargo, aunque este modelo presenta un accuracy elevado, el mismo tiene mayor dificultad para detectar los casos atípicos, puesto que el mismo presenta la tasa de sensibilidad más baja de este conjunto de modelos. Vemos que en este caso de estudio, eso representa un problema ya que el interés primordial es detectar correctamente los atípicos como ya fue explicado en secciones anteriores. Ante esta situación, procedemos a enfocar nuestra atención en el modelo con el segundo mejor accuracy, que es aquel que usa las variables-ml balanceadas. Este modelo destaca por poseer la sensibilidad más alta de todas, es decir, está siendo más eficiente en la correcta clasificiación dealos casos atípicos. Por tanto, podemos concluir que este modelo resulta ser el mejor de los 4 modelos entrenados de KNN, debido a que aunque su accuracy no es el más alto, su diferencia con el mejor accuracy obtenido es mínima, por lo que es aceptable. Además, el mismo tiene la mayor sensibilidad de todos los modelos, por lo que al ser la sensibilidad clave en el análisis este modelo logra un equilibrio adecuado entre la precisión global del modelo y la detección de atípicos. No obstante, es importante señalar que tanto en especifidad como en precisión este modelo tiene valores bajos en comparación a los demás. Sin embargo, dado nuestro objetigo este déficit no represeta un problema significativo. Finalmente, al observar todos estos modelos encontramos que la diferencia la diferencia de los accuracys de train y test supera los 25 puntos porcentuales en cada uno de ellos, lo que sugiere la existencia de sobreajuste en los modelos ya que se observa un rendimiento significativamente mayor en los datos de prueba sobre los datos de entrenamiento lo que nos puede indicar que los modelos se están ajustando demasiado a ciertas características de los datos de entrenamiento po lo que posteriormente no pueden ser generalizados a otros datos de manera óptima.
+
+En cuanto a los algoritmos basados en árboles y conjuntos de modelos, podemos observar que el modelo con el mayor accuracy es el algoritmo Gradient Boosting con GridSearch, tomando en cuenta que los accuracys de Random Forest tanto con Random Search como con GridSearch son también altos y bastantes cercanos al mejor accuracy. En términos de sensibilidad, el modelo que destaca es el Random Forest con RandonSearch, de donde, a pesar de que no tiene el mejor accuracy global notamos que su capacidad para detectar casos atípicos es superior. Por otro lado, observamos que Gradient Boosting tiene los mejores valores tanto de especifidad como de precisión, lo que implica que el mismo es bastante bueno para clasificar de forma correcta los casos negativos y disminuir la cantidad de falsos positivos. A pesar de los resultados, debido a los fines de este modelo, vemos que el modelo más adecuado es el Random Forest con Random Search, debido a que a pesar de que su accuracy no es el más alto, es bastante cercano al mejor valor obtenido, y además tiene una sensibilidad significativamente mayor lo cual es crucial para nuestro objetivo que es maximizar la detección de atípicos. Finalmente, se destaca que los algoritmos de árboles simples y los dos tipos de Random Forest presentan una diferencia entre los accuracys de train y test menor a 10\% lo que indica que no hay señales de sobreajuste en los modelos y por tanto se generalizan de forma adecuada los nuevos datos.
+
+Finalmente, en cuanto a las otras técnicas, observamos que los modelos XGBoost presentan los accuracys más altos. Específicamente, el que usa GridSearch tiene el mejor accuracy. Sin embargo, vemos que el algoritmo XGBoost con RandomSeacr tiene una sensibilidad más alta. De donde, dado que la diferencia de accuracy entre ambos modelos es mínima, tiene sentido seleccionar como mejor modelo de los dos al que emplea RandomSearch, por su capacidad de detección de casos atípicos. Comparando estos modelos con los modelos de redes neuronales, encontramos que el modelo de redes neuronales balanceadas con GridSearch tiene un sensibilidad aún mayor que ambos modelos de XGBoost . Sin embargo, su accuracy es significativamente menor al de ellos. Es por esto que al buscar un algoritmo que tenga una buena tasa de clasificación y una buena detección de datos atípicos, escogemos a XGBoost con Random Search como la mejor opción.
+
+Es importante destacar que, de todos los algoritmos estudiados, la diferencia entre los accuracys de train y test es menor a 1\% únicamente en redes neuronales, por lo que en estos casos no existen indicios de sobreajuste. Por otro lado, si bien en los modelos XGboost esta diferencia es mayor, también es bastante baja en comparación a los otros modelos, manteniéndose por debajo del 13\%, lo que sugiere que en estos modelos tampoco existe un sobreajuste significativo.
+
+Otros modelos, como las otras variantes de los modelos estudiados o algoritmos como Support Vector Machine (SVM) también fueron considerados. Sin embargo, debido a su alto costo computacional y tiempo de ejecución, no fueron llevados acabo.
+
+En conclusión, el modelo más óptimo y eficiente, en función de los datos y el problema a resolver, es el modelo de XGBoost con Random Search, debido a sus capacidad de clasificación y detección de atípicos, sin evidencia significativa de la presencia de sobreajuste. Donde además, este modelo ofrece un tiempo de ejecución y costo computacional menor al de los otros modelos, por lo que la relación costo-beneficio es bastante buena.
 
 
 
