@@ -69,7 +69,7 @@ En lo que sigue, el proceso KDD se divide en dos partes. La primera parte se cen
 %Tratamiento de valores perdidos--------------------------------------------------------------------
 \section{Tratamiento de valores perdidos} \label{chp:resultados:sec_valores_perdidos}
 
-Los atributos de \textit{data\_afi} no contienen valores perdidos. Por el contrario, \textit{data\_vej}, \textit{data\_inv} y \textit{data\_dis} si tienen variables con valores perdidos. Estas variables son la \textit{FECHA\_MUERTE}, \textit{NUMERO\_IMPOSICIONES} y el \textit{COEFICIENTE\_CAL}. La corrección de sus valores, a excepción de \textit{FECHA\_MUERTE}\footnote{No se hace un tratamiento de datos faltante para esta variable debido a que no se la considera en el análisis}, se explica en la sección \ref{subsec:trans_datos_super}.
+Los atributos de \textit{data\_afi} no contienen valores perdidos. Por el contrario, \textit{data\_vej}, \textit{data\_inv} y \textit{data\_dis} si tienen variables con valores perdidos. Estas variables son la FECHA\_MUERTE, NUMERO\_IMPOSICIONES y el COEFICIENTE\_CAL. La corrección de sus valores, a excepción de FECHA\_MUERTE\footnote{No se hace un tratamiento de datos faltante para esta variable debido a que no se la considera en el análisis}, se explica en la sección \ref{subsec:trans_datos_super}.
 
 El principal problema con los datos faltantes  se debe a que la información de historia laboral está registrada en dos sistemas de información, HL y Host\footnote{Sistema de información de los aportes anteriores a la aparación del sistema HL}. Esta estructura afecta directamente al esquema Prestacional y por ende a los pensionistas.
 
@@ -88,7 +88,7 @@ Por otro parte, para corregir la información de \textit{data\_vej}, \textit{dat
 Dar solución a cada problema detectado requiere de un amplio tiempo de análisis y ejecución, además de que se debe realizar una limpieza de datos desde el origen del registro administrativo (información generada desde el 13 de marzo de 1928. Para mayor detalle \href{https://www.iess.gob.ec/en/web/afiliado/noticias?p_p_id=101_INSTANCE_3dH2&p_p_lifecycle=0&p_p_col_id=column-2&p_p_col_count=4&_101_INSTANCE_3dH2_struts_action=\%2Fasset_publisher\%2Fview_content&_101_INSTANCE_3dH2_assetEntryId=2246192&_101_INSTANCE_3dH2_type=content&_101_INSTANCE_3dH2_groupId=10174&_101_INSTANCE_3dH2_urlTitle=iess-celebra-hoy-86-anos-de-servicio-al-pais&redirect=\%2Fen\%2Fweb\%2Fafiliado\%2Fnoticias?mostrarNoticia=1#:~:text=Posteriormente\%2C\%20el\%2025\%20de\%20julio,Ecuatoriano\%20de\%20Seguridad\%20Social\%2DIESS.}{click aquí}). Por ello, con el fin de reducir los tiempos de análisis se hizo merge por DNI (foreing key) entre las tablas del IESS y el Registro Civil para tener información personal estándar y consistente.
 
 
-Así, el dataset de los afiliados contiene 68.062.270 filas y 12 columnas, \textit{data\_vej} tiene 681.799 filas con 17 columnas, \textit{data\_inv} tiene 48.146 filas y 17 columnas y \textit{data\_dis} tiene 14.662 filas con 17 columnas.
+Así, el dataset con la información laboral contiene 68.062.270 filas y 12 columnas, \textit{data\_vej} tiene 681.799 filas con 17 columnas, \textit{data\_inv} tiene 48.146 filas y 17 columnas y \textit{data\_dis} tiene 14.662 filas con 17 columnas.
 
 %Transformación de datos antes del aprendizaje no supervisado---------------------------------------
 \section{Transformación de datos antes del aprendizaje no supervisado}\label{subsec:trans_datos_no_super}
@@ -98,24 +98,25 @@ Con la finalidad de aliviar el costo computacional, se transforman algunas varia
 De manera general, en lo que sigue se muestran las variables que fueron creadas:
 
 \begin{itemize}
-\item SUELDO: Corresponde a la suma de la materia gravada histórica del afiliado hasta el momento de su jubilación, \\[-0.75cm]
-\item APORTE: Corresponde a la suma del aporte\footnote{Es la multiplicación entre la materia gravada del afiliado, mes a mes, con el valor de la tasa de aportación. Estos valores se presentan en la tabla \ref{tab:info_tasa_aport_actuarial} de la sección \ref{sec:limpieza_datos} de la parte de anexos.} del afiliado hasta el momento de su jubilación,\\[-0.75cm]
+\item SUELDO: Es la suma de la materia gravada histórica del afiliado hasta el momento de su jubilación, \\[-0.75cm]
+\item APORTE: Es la suma del aporte\footnote{Es la multiplicación entre la materia gravada del afiliado, mes a mes, con el valor de la tasa de aportación. Estos valores se presentan en la tabla \ref{tab:info_tasa_aport_actuarial} de la sección \ref{sec:limpieza_datos} de la parte de anexos.} del afiliado hasta el momento de su jubilación,\\[-0.75cm]
 \item INTERES\_APORTE: Corresponde a la suma por concepto del interés\footnote{Corresponde a la multiplicación entre la variable APORTE, mes a mes, con la tasa de interés actuarial. Estos valores se presentan en la tabla \ref{tab:info_tasa_aport_actuarial} de la sección \ref{sec:limpieza_datos} de la parte de anexos.} que generó el aporte del afiliado durante su vida laboral.\\[-0.75cm]
 \item FIN\_HL: Corresponde a la fecha de la última planilla generada por concepto de aportes durante a vida laboral del afiliado\\[-0.75cm]
 \item INI\_HL: Corresponde a la fecha de la primera planilla generada por concepto de aportes durante a vida laboral del afiliado\\[-0.75cm]
 \item MES\_AS: Corresponde al número de meses aportados\footnote{Es el conteo del número de veces no únicos, es decir, si una persona aporta dos o más veces en el mismo mes, se le cuenta dos o más veces} durante la vida laboral del afiliado\\[-0.75cm]
 \item MES\_TU: Corresponde al número de meses distintos\footnote{Es el conteo del número de meses únicos, es decir, si una persona aportó dos o más veces en el mismo mes, solo se le contabiliza como una vez} aportados durante la vida laboral del afiliado,\\[-0.75cm]
-\item  N\_PRI, N\_PUB, N\_IND, N\_VOL\_EX y N\_VOL\_EC: Guardan la información sobre las veces que el afiliado aporta en los sectores Privado, Público, Independiente, Voluntario del Exterior y Voluntario residente del Ecuador, respectivamente.
+\item  N\_PRI, N\_PUB, N\_IND, N\_VOL\_EX y N\_VOL\_EC: Guardan la información sobre las veces que el afiliado aportó en los sectores Privado, Público, Independiente, Voluntario del Exterior y Voluntario residente del Ecuador, respectivamente.
 
 \end{itemize}
 
-En base a los artículos 2 y 13 de la \legalcite{ ResIESS_CD100}, se procede a estimar la base de cálculo. Para esto se crean las variables GRUPO\_SEL\footnote{Es una variable indicatriz, que toma los valores de 1, si para un mes x del año Y, el registro se cuenta para la base de cálculo; 0 caso contrario}, BASE\_CAL\footnote{Es el valor de la Base de Cálculo en concordancia con el artículo 2 de la \legalcite{ResIESS_CD100}}. Adicionalmente, se crean las variables SBU\footnote{Contiene la información del Salario Básico Unificado para los trabajadores del Ecuador}, cuyos valores son los presentes en \cite{bce_salarios}, INI\_CAL y FIN\_CAL que corresponden a la fecha máxima y mínima de la base de cálculo, respectivamente. Y, M\_PRI, M\_PUB, M\_IND, M\_VOL\_EX y M\_VOL\_EC que guardarán la información sobre las veces que el afiliado aporte dentro de sus mejores años de aportación en los sectores Privado, Público, Independiente, Voluntario del Exterior y Voluntario residente del Ecuador, respectivamente.
+En base a los artículos 2 y 13 de la \legalcite{ ResIESS_CD100}, se procede a estimar la base de cálculo. Para esto, se crean las variables GRUPO\_SEL\footnote{Es una variable indicatriz, que toma los valores de 1, si para un mes x del año Y, el registro se cuenta para la base de cálculo; 0 caso contrario} y BASE\_CAL\footnote{Es el valor estimado de la Base de Cálculo en concordancia con el artículo 2 de la \legalcite{ResIESS_CD100}.}. Adicionalmente, se crean las variables SBU\footnote{Contiene la información del Salario Básico Unificado (SBU) de los trabajadores del Ecuador.}, cuyos valores son los registrados por el \citet{bce_salarios}, INI\_CAL y FIN\_CAL que corresponden a la fecha máxima y mínima de la base de cálculo respectivamente; y, M\_PRI, M\_PUB, M\_IND, M\_VOL\_EX y M\_VOL\_EC que guardarán la información sobre las veces que el afiliado aportó dentro de sus mejores años de aportación en los sectores Privado, Público, Independiente, Voluntario del Exterior y Voluntario residente del Ecuador respectivamente.
 
-El dataset resultante de este proceso de datos se llamará \textit{data\_l}, mismo que será utilizado para la discriminación de la etiqueta de fraude o no fraude en las aportaciones. Este tabulado contendrá 62.130.167 registros y 16 atributos, que corresponden a  442.570 personas. Adicionalmente, se crean las variables \textit{LS1}, \textit{SAL\_PROM1}, \textit{LS2} y \textit{SAL\_PROM2}, que corresponden al límite superior\footnote{Se define como la suma entre el tercer cuartil + 1,5 veces el rango inter cuartilico } del bigote del diagrama de caja y sueldo promedio para los salarios históricos y a partir del año 2000\footnote{Debido a la crisis ecónomica por la cual atravesaba el Ecuador, a partir del año 2000 el país cambia los Sucres (como moneda nacional)  a dólares estadounidenses como moneda oficial \cite{Ecua_sucre_dolar}} en adelante, respectivamemte. Esta consideración se la realiza debido a que el país cambió su moneda, por lo que, las contribuciones realizadas en sucres y posterior transformación a dólares con la tasa de cambios a esa fecha eran significativamente menores al SBU del año 2000 y así en adelante. En este sentido, se considerarán los valores de las variables \textit{LS2} y \textit{SAL\_PROM2}.
+El dataset resultante de este proceso de datos se llamará \textit{data\_l}, mismo que será utilizado para la generación de la etiqueta de fraude o no fraude en las aportaciones. El tabulado contiene 62.130.167 filas y 16 atributos, que corresponden a los registros salariales de  442.570 personas. También es necesario crear las variables LS1, SAL\_PROM1, LS2 y SAL\_PROM2, que corresponden al límite superior\footnote{Se define como la suma entre el tercer cuartil + 1,5 veces el rango inter cuartilico.} del bigote del diagrama de caja y sueldo promedio para los salarios históricos y a partir del año 2000\footnote{Debido a la crisis ecónomica por la cual atravesaba el Ecuador, a partir del año 2000 el país cambia los súcres (como moneda nacional)  a dólares estadounidenses como moneda oficial \citet{Ecua_sucre_dolar}} en adelante respectivamemte, debido a que Ecuador cambió su moneda, por lo que, las contribuciones realizadas en sucres y su posterior transformación a dólares con la tasa de cambios a esa fecha, eran significativamente menores al valor del SBU del año 2000 y así en adelante. En este sentido, se dará mayor importancia a los valores de las variables LS2 y SAL\_PROM2.
 
+%Aprendizaje no supervisado-------------------------------------------------------------------------
 \section{Aprendizaje no supervisado}
 
-Para la ejecución de los algoritmos de aprendizaje no supervisado se utiliza la base de datos \textit{data\_l}. Los algoritmos utilizados son Clúster Jerárquico\footnote{Se utiliza la métrica single pues es la que ayuda a detectar outlier \cite{Hogde2004}}, K-mean y DBscan, puesto que los mismos permiten realizar la búsqueda de los salarios que son atípicos dentro del comportamiento salarial del afiliado.
+Para la implementación del aprendizaje no supervisado se utiliza la base de datos \textit{data\_l}. Los algoritmos a utilizar son Clúster jerárquico\footnote{Se utiliza la métrica single pues es la que ayuda a detectar outlier \cite{Hogde2004}}, K-Means y DBSCAN, puesto que como se menciona en la sección \ref{sec:trabajos_previos} del capítulo \ref{cap:estado_arte}, los mismos permitarán realizar la búsqueda de los salarios que son atípicos dentro del comportamiento salarial del afiliado.
 
 \subsection{Clúster jerárquico} \label{sec:apr_no_sup_cj}
 
@@ -379,7 +380,7 @@ Para que el lector pueda tener una visión más detallada del proceso, puede rev
 \end{landscape}
 
 
-\subsection{Dbscan} \label{sec:apr_no_sup_db}
+\subsection{DBSCAN} \label{sec:apr_no_sup_db}
 
 Debido a las desventajas de utilizar K-means al momento de agrupar datos que tienen diferentes tamaños, densidades y forma (forma no globular) se opta por implementar el algoritmo DBSCAN, pues el mismo presenta la capacidad de identificación de clústeres con formas arbitrarias y densidades variables, lo que ayuda a la detección de valores atípicos en datos no homogéneos \citep{boucher2020outlier}. De igual forma, este método, al basarse en la densidad de los datos, es más preciso en la identificación de atípicos locales significativos, debido a su flexibilidad al identificarlos en áreas de menor densidad y su capacidad de manejar el ruido \citep{smiti2020outlier}.
 
@@ -1252,30 +1253,30 @@ A partir de estos resultados obtenemos que este modelo tiene sensibilidad de \Se
 
 Para defininir cuáles modelos de aprendizaje supervisado son más efectivos y apropiados para el problema de estudio de este Trabajo de Fin de Máster es necesario realizar una comparación de las métricas de cada uno de ellos. Con ello, los mismos pueden ser evaluados y podemos obtener tanto sus ventajas como desventajas. A continuación encontramos una tabla comparativa de los resultados obtenidos:
 
-\begin{table}[H]
-\centering
-\resizebox{0.75\textwidth}{!}{
-\begin{tabular}{|c|c|c|c|c|c|}
-\hline
-\cellcolor[HTML]{E65013} \textbf{Modelo} & \cellcolor[HTML]{E65013} \textbf{Exactitud}& 
-\cellcolor[HTML]{E65013} \textbf{Sensibilidad}& \cellcolor[HTML]{E65013} \textbf{Especifidad}&
-\cellcolor[HTML]{E65013} \textbf{Precisión} & \cellcolor[HTML]{E65013} \textbf{Diferencia Exactitud}\\ 
-\hline
-\textbf{KNN con ACP} & 0.74832& 0.51642& 0.86968 & 0.67465& 0.25168 \\ 
-\hline
-\textbf{KNN con balanceo y ACP} & 0.71286& 0.7221& 0.70803& 0.56412& 0.28714 \\ 
-\hline
-\textbf{KNN con variables_ml} & & & & &  \\ 
-\hline
-\textbf{Matriz de confusión} & & & & &  \\ 
-\hline
-\textbf{Matriz de confusión} & & & & &  \\ 
-\hline
-\end{tabular}
-}
-\caption{\headlinecolor{\underline{Tabla de comparación de resultados}}}
-\label{tab:comparacion}
-\end{table}
+% \begin{table}[H]
+% \centering
+% \resizebox{0.75\textwidth}{!}{
+% \begin{tabular}{|c|c|c|c|c|c|}
+% \hline
+% \cellcolor[HTML]{E65013} \textbf{Modelo} & \cellcolor[HTML]{E65013} \textbf{Exactitud}& 
+% \cellcolor[HTML]{E65013} \textbf{Sensibilidad}& \cellcolor[HTML]{E65013} \textbf{Especifidad}&
+% \cellcolor[HTML]{E65013} \textbf{Precisión} & \cellcolor[HTML]{E65013} \textbf{Diferencia Exactitud}\\ 
+% \hline
+% \textbf{KNN con ACP} & 0.74832& 0.51642& 0.86968 & 0.67465& 0.25168 \\ 
+% \hline
+% \textbf{KNN con balanceo y ACP} & 0.71286& 0.7221& 0.70803& 0.56412& 0.28714 \\ 
+% \hline
+% \textbf{KNN con variables_ml} & & & & &  \\ 
+% \hline
+% \textbf{Matriz de confusión} & & & & &  \\ 
+% \hline
+% \textbf{Matriz de confusión} & & & & &  \\ 
+% \hline
+% \end{tabular}
+% }
+% \caption{\headlinecolor{\underline{Tabla de comparación de resultados}}}
+% \label{tab:comparacion}
+% \end{table}
 
 
 
