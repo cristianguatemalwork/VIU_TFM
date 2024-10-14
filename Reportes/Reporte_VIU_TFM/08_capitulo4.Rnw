@@ -13,11 +13,11 @@ Por otra parte, es preciso indicar que todo el proceso de limpieza, preprocesami
 
 \section{Fuente de datos}
 
-Dentro de todas las fuentes de información que dispone el IESS, se consideran las bases de datos transaccionales que guardan la información de Historia Laboral\footnote{Historia Laboral (HL) contiene la información de la vida laboral del afiliado.} y Prestacional\footnote{La base Prestacional contiene la información del pensionista.}. Adicionalmente, la información se complementa con los datos proporcionados por el Registro Civil\footnote{Entidad pública que guarda los datos personales de la población ecuatoriana}.
+Dentro de todas las fuentes de información que dispone el IESS, se consideran las bases de datos transaccionales que guardan la información de Historia Laboral\footnote{Historia Laboral contiene la información de la vida laboral del afiliado.} (HL) y Prestacional\footnote{La base Prestacional contiene la información del pensionista.} (Pres). Adicionalmente, la información se complementa con los datos proporcionados por el Registro Civil\footnote{Entidad pública que guarda los datos personales de la población ecuatoriana}.
 
 \section{Selección de datos} \label{sec:seleccion_datos}
 
-Para tener información consolidada se hicieron joins entre las tablas de la sección \ref{sec_anex:fuentes_datos} de la parte de anexos. La tabla resultante (\textit{data\_afi}) tenía un sinnúmero de variables que no estaban involucradas con el problema a abordar, por lo que, solo se seleccionaron aquellos atributos relacionados con el objetivo planteado.
+Para tener información consolidada se hicieron joins entre las tablas de la sección \ref{sec_anex:fuentes_datos} de la parte de anexos. Las tablas resultantes con la información de HL (\textit{data\_afi})  y Pres (\textit{pensi}) tenían un sinnúmero de variables que no estaban involucradas con el problema a abordar, por lo que, solo se seleccionaron aquellos atributos relacionados con el objetivo planteado.
 
 Los atributos que componen a \textit{data\_afi} son los siguientes:
 
@@ -34,60 +34,68 @@ Los atributos que componen a \textit{data\_afi} son los siguientes:
     \end{itemize}
 \end{multicols}
 
-Para los pensionistas tenemos un mismo esquema de información, mismo que se describe a continuación:
+La información de \textit{pensi} tiene las siguientes variables:
 
 \begin{multicols}{2}  
     \begin{itemize}
         \item CEDULA\_COD: Secuencial que identifica al pensionista,\\[-0.75cm]
-        \item SEXO: Corresponde al sexo del pensionista,\\[-0.75cm]
-        \item FECHA\_NACIMIENTO: Corresponde a la fecha de nacimiento del pensionista,\\[-0.75cm]
-        \item FECHA\_MUERTE: Corresponde a la fecha de muerte del pensionista,\\[-0.75cm]
-        \item FECHA\_DERECHO: Corresponde a la fecha de derecho\footnote{Es la fecha en la cual una persona tiene derecho a solicitar su jubilación} del pensionista,\\[-0.75cm]
+        \item SEXO: Es el sexo del pensionista,\\[-0.75cm]
+        \item FECHA\_NACIMIENTO: Es la fecha de nacimiento del pensionista,\\[-0.75cm]
+        \item FECHA\_MUERTE: Es la fecha de muerte del pensionista,\\[-0.75cm]
+        \item FECHA\_DERECHO: Es la fecha de derecho\footnote{Es la fecha en la cual una persona tiene derecho a solicitar su jubilación} del pensionista,\\[-0.75cm]
+        \item N\_MESES: Es el número de meses trabajados,\\[-0.75cm]
+        \item NUMERO\_IMPOSICIONES: Es el número de imposiciones\footnote{Una imposición corresponde a treinta (30) días laborados},\\[-0.75cm]
+         \item COEFICIENTE\_REAL: Valor del coeficiente\footnote{Es el valor del coeficiente anual de años cumplidos de imposiciones acorde a la \legalcite{ResIESS_CD100}} en el sistema Prestacional,\\[-0.75cm]
+          \item COEFICIENTE\_CALCULADO: Valor del coeficiente calculado en base a HL,\\[-0.75cm]
+          \item ID\_PRESTACION: Corresponde al identificador único de la prestación,\\[-0.75cm]
     \end{itemize}
     \begin{itemize}  
-        \item NUMERO\_IMPOSICIONES: Corresponde al número de imposiciones\footnote{Una imposición correspnde a treinta (30) días laborados} al momento de la jubilación,\\[-0.75cm]
-        \item COEFICIENTE\_REAL: Corresponde al valor del coeficiente\footnote{Es el valor del coeficiente anual de años cumplidos de imposiciones acorde a la \legalcite{ResIESS_CD100}} dentro del sistema Prestacional,\\[-0.75cm]
-        \item COEFICIENTE\_CALCULADO: Corresponde al valor del coeficiente calculado en base a la historia laboral,\\[-0.75cm]
-        \item PROMEDIO\_SUELDO\_REAL: Corresponde a la base de cálculo\footnote{Para el cómputo de la base de cálculo de la pensión, se procederá a la suma de doce (12) meses de imposiciones consecutivas y ese resultado se dividirá para doce (12). Obteniendo así el promedio mensual de los sueldos o salarios de cada año de imposiciones del afiliado, se seleccionarán los cinco (5) promedio mensuales de mayor cuantía y el resultado de la suma se dividirá para cinco (5)} del promedio de los años de mejores sueldos o salarios sobre los cuales se aportó dentro del sistema Prestacional,\\[-0.75cm]
-        \item PROMEDIO\_CAL: Corresponde a la base de cálculo estimada en función de los cinco (5) mejores años de sueldo sobre los cuales aportó,\\[-0.75cm]
+       
+        \item PROMEDIO\_SUELDO\_REAL: Es la base de cálculo\footnote{De acuerdo con la \legalcite{ResIESS_CD100}, para el cómputo de la base de cálculo de la pensión, se procederá a la suma de doce (12) meses de imposiciones consecutivas y ese resultado se dividirá para doce (12). Obteniendo así el promedio mensual de los sueldos o salarios de cada año de imposiciones del afiliado, se seleccionarán los cinco (5) promedio mensuales de mayor cuantía y el resultado de la suma se dividirá para cinco (5)} en el sistema Prestacional,\\[-0.75cm]
+          \item PROMEDIO\_CAL: Estimación de la base de cálculo en base a HL,\\[-0.75cm]
         \item VALOR\_PENSION: Corresponde a la pensión calculada en el sistema Prestacional,\\[-0.75cm]
-        \item PENSION\_CAL: Corresponde a la pensión calculada en función del artículo 13\footnote{La pensión mensual por invalidez o vejez y el subsidio transitorio por incapacidad será igual al resultado de la multiplicación de la Base de Cálculo de la \legalcite{ResIESS_CD100}, por el coeficiente anual de años cumplidos de imposiciones. De los 40 años en adelante se incrementará el 0,0125 por cada año de imposiciones adicionales.} de la \legalcite{ResIESS_CD100},\\[-0.75cm]
-        \item ID\_PRESTACION: Corresponde al identificador único de la prestación,\\[-0.75cm]
+        \item PENSION\_CAL: Esla pensión calculada en función del artículo 13\footnote{La pensión mensual por invalidez o vejez y el subsidio transitorio por incapacidad será igual al resultado de la multiplicación de la Base de Cálculo de la \legalcite{ResIESS_CD100}, por el coeficiente anual de años cumplidos de imposiciones. De los 40 años en adelante se incrementará el 0,0125 por cada año de imposiciones adicionales.} de la \legalcite{ResIESS_CD100},\\[-0.75cm]
         \item RANGO\_INI\_5MEJ: Corresponde a la fecha máxima de los cinco (5) mejores años de sueldo,\\[-0.75cm]
-        \item RANGO\_FIN\_5MEJ: Corresponde a la fecha mínima de los cinco (5) mejores años de sueldo,\\[-0.75cm]
-        \item N\_MESES: Corresponde al número de meses trabajados
+        \item RANGO\_FIN\_5MEJ: Corresponde a la fecha mínima de los cinco (5) mejores años de sueldo
 
     \end{itemize}
 \end{multicols}
 
-Los atributos descritos anteriormente serán divididos en tres grupos, para las jubilaciones de vejez, invalidez y discapacidad. El nombre de estos conjuntos de datos serán \textit{data\_vej}, \textit{data\_inv} y \textit{data\_dis} para hacer referencia a la información de las jubilaciones de vejez, invalidez y discapacidad, respectivamente.
+La información de \textit{pensi} es dividida en tres grupos, para las jubilaciones de vejez, para las de invalidez y para las de discapacidad. El nombre de estos tres conjuntos de datos serán \textit{data\_vej}, \textit{data\_inv} y \textit{data\_dis} respectivamente.
 
 
-Los siguientes pasos del proceso KDD se dividen en dos partes. La primera parte se centra en el proceso de minería de datos para los datos utilizados antes de la ejecución de algoritmos de aprendizaje no supervizado, para etiquetar los salarios y a las personas que generaron alguna aportación fraudelenta en función del comportamiento histórico de los salarios a lo largo de su vida laboral. La seguna parte corresponde al preprocesamiento de la información resultante de los algoritmos no supervizados para su posterior implementación en los métodos supervisados.
+En lo que sigue, el proceso KDD se divide en dos partes. La primera parte se centra en el proceso de minería de datos para la información utilizada antes de la ejecución de los algoritmos de aprendizaje no supervizado, misma que tendrá con fin etiquetar los salarios y a las personas que generaron alguna aportación fraudelenta. La seguna parte corresponde al preprocesamiento de la información resultante de los algoritmos no supervizados, para su posterior utilización dentro de los modelos de aprendisaje supervisado.
 
+%Tratamiento de valores perdidos--------------------------------------------------------------------
+\section{Tratamiento de valores perdidos} \label{chp:resultados:sec_valores_perdidos}
 
-\section{Tratamiento de valores perdidos}
+Los atributos de \textit{data\_afi} no contienen valores perdidos. Por el contrario, \textit{data\_vej}, \textit{data\_inv} y \textit{data\_dis} si tienen variables con valores perdidos. Estas variables son la \textit{FECHA\_MUERTE}, \textit{NUMERO\_IMPOSICIONES} y el \textit{COEFICIENTE\_CAL}. La corrección de sus valores, a excepción de \textit{FECHA\_MUERTE}\footnote{No se hace un tratamiento de datos faltante para esta variable debido a que no se la considera en el análisis}, se explica en la sección \ref{subsec:trans_datos_super}.
 
-Como ya se expuso anteriormente, \textit{data\_afi} no contiene valores perdidos. Pero por el contrario \textit{data\_vej}, \textit{data\_inv} y \textit{data\_dis} sí van a tener variables con valores perdidos, principalmente en las variables \textit{FECHA\_MUERTE}, \textit{NUMERO\_IMPOSICIONES} pero estos valores son corregidos con los valores del dataset previo a la aplicación de aprendizaje supervisado.
+El principal problema con los datos faltantes  se debe a que la información de historia laboral está registrada en dos sistemas de información, HL y Host\footnote{Sistema de información de los aportes anteriores a la aparación del sistema HL}. Esta estructura afecta directamente al esquema Prestacional y por ende a los pensionistas.
 
+%Tratamiento de outliers----------------------------------------------------------------------------
 \section{Tratamiento de outliers}
 
-La principal variable de interés en \textit{data\_afi} es el \textit{SALARIO},la misma permitirá discriminar si las personas realizaron algún tipo de fraude para obtener un mejor beneficio pensional a largo plazo. En este sentido, no se realiza ninguna corrección de sus valores pues es justamente lo que queremos detectar con los algoritmos de aprendizaje no supervisado.
+La principal variable de interés en \textit{data\_afi} es el \textit{SALARIO}, misma que permitirá clasificar  si las personas realizaron algún tipo de fraude, con el fin de obtener un mejor beneficio pensional a largo plazo. En este sentido, no se realiza ninguna corrección de sus valores pues es justamente lo que queremos detectar con los algoritmos de aprendizaje no supervisado.
 
-
+%Limpieza de datos antes del aprendizaje no supervisado---------------------------------------------
 \section{Limpieza de datos antes del aprendizaje no supervisado}\label{cha_resul:limpieza_no_super}
 
+Como ya se mencionó en la sección \ref{chp:resultados:sec_valores_perdidos}, \textit{data\_afi} no va a presentar problemas con missing values ni tampoco con datos inconsistentes en ningún atributo, debido a que estas novedades ya se resolvieron durante su fase de construcción, cuando se utilizó pl/SQL.
 
-Además de considerar las explicaciones dadas en el penúltimo párrafo de la sección \ref{sec:fuentes_datos} de la parte de anexos, es importante mencionar que el conjunto de datos \textit{data\_afi} no va a presentar problemas con missing values ni datos inconsistentes en ningún atributo, debido a que estas novedades ya se resolvieron con anterioridad (desde el comienzo de construcción del dataset original). Por otro parte, las bases de datos de los pensionistas, en ciertos atributos, sí van a presentar problemas con datos perdidos, como por ejemplo la \textit{FECHA\_MUERTE}\footnote{Debido a que a la fecha de corte no todos los pensionistas están muertos}, \textit{NUMERO\_IMPOSICIONES}\footnote{Debido a que como el sistema del IESS tiene dos fuentes de información (HL Y HOST) algunos registros no están correctamente migrados}, etc.
+Por otro parte, para corregir la información de \textit{data\_vej}, \textit{data\_inv} y \textit{data\_dis} se considera la información del Registro Civil. Esto debido a que se evidenció que los registros administrativos del IESS están contaminados y son inconsistentes desde su origen\footnote{Inicialmente la generación de planillas (documento que contiene la información del aporte del afiliado) era de forma manual y en documentos físicos, por lo que, una vez que pasaron a digitalizarse arrastraron un centenar de novedades, pues era un proceso manual. Actualmente con HL ya se corrigen gran parte de las novedades.}. Los novedades encontradas eran mal ingreso del sexo (por ejemplo existían categorías con valores de H, M, 1, 2, null, hombre, mujer), fechas de nacimiento y muerte erróneas (existían personas que murieron antes de nacer o nacían por el año 2030) con distintos formatos (por ejemplo dd/mm/yyy, yyyy/dd/mm, mm/dd/yyyy ); y, en muchos casos una alta presencia de missing values.\\
 
-El dataset de los afiliados contiene 68.062.270 filas y 12 columnas, el conjunto de datos de los pensionistas de vejez tiene 681.799 filas con 17 columnas, el de invalidez tiene 48.146 filas y 17 columnas y los datos de discapacidad tiene 14.662 filas y 17 columnas.
+Dar solución a cada problema detectado requiere de un amplio tiempo de análisis y ejecución, además de que se debe realizar una limpieza de datos desde el origen del registro administrativo (información generada desde el 13 de marzo de 1928. Para mayor detalle \href{https://www.iess.gob.ec/en/web/afiliado/noticias?p_p_id=101_INSTANCE_3dH2&p_p_lifecycle=0&p_p_col_id=column-2&p_p_col_count=4&_101_INSTANCE_3dH2_struts_action=\%2Fasset_publisher\%2Fview_content&_101_INSTANCE_3dH2_assetEntryId=2246192&_101_INSTANCE_3dH2_type=content&_101_INSTANCE_3dH2_groupId=10174&_101_INSTANCE_3dH2_urlTitle=iess-celebra-hoy-86-anos-de-servicio-al-pais&redirect=\%2Fen\%2Fweb\%2Fafiliado\%2Fnoticias?mostrarNoticia=1#:~:text=Posteriormente\%2C\%20el\%2025\%20de\%20julio,Ecuatoriano\%20de\%20Seguridad\%20Social\%2DIESS.}{click aquí}). Por ello, con el fin de reducir los tiempos de análisis se hizo merge por DNI (foreing key) entre las tablas del IESS y el Registro Civil para tener información personal estándar y consistente.
 
 
+Así, el dataset de los afiliados contiene 68.062.270 filas y 12 columnas, \textit{data\_vej} tiene 681.799 filas con 17 columnas, \textit{data\_inv} tiene 48.146 filas y 17 columnas y \textit{data\_dis} tiene 14.662 filas con 17 columnas.
+
+%Transformación de datos antes del aprendizaje no supervisado---------------------------------------
 \section{Transformación de datos antes del aprendizaje no supervisado}\label{subsec:trans_datos_no_super}
 
-Con la finalidad de aliviar el costo computacional, se transforman variables en atributos más sencillos y se crean variables que permitirán alcanzar el objetivo planteado. A manera general, todo el proceso de transformación de datos se describe en la sección \ref{sec:limpieza_datos} de la parte de anexos. Si el lector desea tener una experiencia más didáctica con todo el proceso, puede hacerlo visualizando el archivo  \textit{VIU\_clean\_data.ipynb} de \legalcite{CristianVIUTFM}.
+Con la finalidad de aliviar el costo computacional, se transforman algunas variables de \textit{data\_afi} en atributos más sencillos y se crean variables que permitirán alcanzar el objetivo planteado. Todo el proceso de transformación de los datos se describe en la sección \ref{sec:limpieza_datos} de la parte de anexos. Si el lector desea tener una experiencia más didáctica con todo el proceso, puede hacerlo visualizando el archivo  \textit{VIU\_clean\_data.ipynb} del \legalcite{CristianVIUTFM}.
 
-A manera general, en lo que sigue se describen las variables que fueron creadas (para mayor detalle véase sección \ref{sec:limpieza_datos} de la parte de anexos.):
+De manera general, en lo que sigue se muestran las variables que fueron creadas:
 
 \begin{itemize}
 \item SUELDO: Corresponde a la suma de la materia gravada histórica del afiliado hasta el momento de su jubilación, \\[-0.75cm]
@@ -101,7 +109,7 @@ A manera general, en lo que sigue se describen las variables que fueron creadas 
 
 \end{itemize}
 
-En base a los artículos 2 y 13 de la \legalcite{ ResIESS_CD100}, se procede a calcular la base de cálculo. Para esto se crean las variables GRUPO\_SEL\footnote{Es una variable indicatriz, que toma los valores de 1, si para un mes x del año Y, el registro se cuenta para la base de cálculo; 0 caso contrario}, BASE\_CAL\footnote{Es el valor de la Base de Cálculo en concordancia con el artículo 2 de la \legalcite{ResIESS_CD100}}. Adicionalmente, se crean las variables SBU\footnote{Contiene la información del Salario Básico Unificado para los trabajadores del Ecuador}, cuyos valores son los presentes en \cite{bce_salarios}, INI\_CAL y FIN\_CAL que corresponden a la fecha máxima y mínima de la base de cálculo, respectivamente. Y, M\_PRI, M\_PUB, M\_IND, M\_VOL\_EX y M\_VOL\_EC que guardarán la información sobre las veces que el afiliado aporte dentro de sus mejores años de aportación en los sectores Privado, Público, Independiente, Voluntario del Exterior y Voluntario residente del Ecuador, respectivamente.
+En base a los artículos 2 y 13 de la \legalcite{ ResIESS_CD100}, se procede a estimar la base de cálculo. Para esto se crean las variables GRUPO\_SEL\footnote{Es una variable indicatriz, que toma los valores de 1, si para un mes x del año Y, el registro se cuenta para la base de cálculo; 0 caso contrario}, BASE\_CAL\footnote{Es el valor de la Base de Cálculo en concordancia con el artículo 2 de la \legalcite{ResIESS_CD100}}. Adicionalmente, se crean las variables SBU\footnote{Contiene la información del Salario Básico Unificado para los trabajadores del Ecuador}, cuyos valores son los presentes en \cite{bce_salarios}, INI\_CAL y FIN\_CAL que corresponden a la fecha máxima y mínima de la base de cálculo, respectivamente. Y, M\_PRI, M\_PUB, M\_IND, M\_VOL\_EX y M\_VOL\_EC que guardarán la información sobre las veces que el afiliado aporte dentro de sus mejores años de aportación en los sectores Privado, Público, Independiente, Voluntario del Exterior y Voluntario residente del Ecuador, respectivamente.
 
 El dataset resultante de este proceso de datos se llamará \textit{data\_l}, mismo que será utilizado para la discriminación de la etiqueta de fraude o no fraude en las aportaciones. Este tabulado contendrá 62.130.167 registros y 16 atributos, que corresponden a  442.570 personas. Adicionalmente, se crean las variables \textit{LS1}, \textit{SAL\_PROM1}, \textit{LS2} y \textit{SAL\_PROM2}, que corresponden al límite superior\footnote{Se define como la suma entre el tercer cuartil + 1,5 veces el rango inter cuartilico } del bigote del diagrama de caja y sueldo promedio para los salarios históricos y a partir del año 2000\footnote{Debido a la crisis ecónomica por la cual atravesaba el Ecuador, a partir del año 2000 el país cambia los Sucres (como moneda nacional)  a dólares estadounidenses como moneda oficial \cite{Ecua_sucre_dolar}} en adelante, respectivamemte. Esta consideración se la realiza debido a que el país cambió su moneda, por lo que, las contribuciones realizadas en sucres y posterior transformación a dólares con la tasa de cambios a esa fecha eran significativamente menores al SBU del año 2000 y así en adelante. En este sentido, se considerarán los valores de las variables \textit{LS2} y \textit{SAL\_PROM2}.
 
