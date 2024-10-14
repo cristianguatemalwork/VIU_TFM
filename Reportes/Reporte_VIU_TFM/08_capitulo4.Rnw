@@ -872,12 +872,12 @@ A partir de estos resultados obtenemos que este modelo tiene sensibilidad de \Se
 
 Al considerar las variables de descritas en el último párrafo de \ref{sub_apre_cara_no_super}, realizando lo descrito en el párrafo tres de la subsección \ref{sub_apre_cara_acp} para estas variables, parametrizando la elección KNeighbors en el rango de 1 a 30 y los pesos  por \textit{uniform} y \textit{distance}, se ejecuta validación cruzada que tiene como medida de éxito el Accuracy, tenemos que:
 
-\begin{figure}[H]
-\centering
-\includegraphics[scale=0.35]{graficos/algortimo_knn_ml.png}
-\caption{\headlinecolor{\underline{Estimación del número de vecinos y peso para el KNN y \textit{variables\_ml}}}}
-\label{fig:matriz_conf_knn_ml}
-\end{figure}
+% \begin{figure}[H]
+% \centering
+% \includegraphics[scale=0.35]{graficos/algortimo_knn_ml.png}
+% \caption{\headlinecolor{\underline{Estimación del número de vecinos y peso para el KNN y \textit{variables\_ml}}}}
+% \label{fig:matriz_conf_knn_ml}
+% \end{figure}
 
 Una vez entrenado el modelo con estos parámetros, se ha obtenido que el acurracy del mismo al ser aplicado en los datos del test es de 0.7128644668789665, mientras que al aplicarse en los datos de train es 1. Para contrastar este resultado y evaluar el modelo se obtiene la matriz de confusión que se encuentra en la tabla \ref{tab:mc_knn_3} y en la figura \ref{fig:matriz_conf_knn_ml} en anexos.
 
@@ -1153,7 +1153,7 @@ XGBClassifier(base_score=None, booster=None, callbacks=None,
               n_jobs=None, num_parallel_tree=None, random_state=8, ...)
 \end{lstlisting}
 
-Con esto se entrena el modelo y tenemos que el accuracy del train y test es 0.9264488334801364 y 0.8252817489893173, respectivamente. Para contrastar este resultado y evaluar el modelo se obtiene la matriz de confusión que se encuentra en la tabla \ref{tab:XGBClassifier_random_search} y en la figura \ref{fig:confusion_matrix_algoritmo_XGBClassifier_random_search} en anexos.
+Con esto se entrena el modelo con los parámetros obtenidos con el algoritmo Random Search y tenemos que el accuracy del train y test es 0.9264488334801364 y 0.8252817489893173, respectivamente. Para contrastar este resultado y evaluar el modelo se obtiene la matriz de confusión que se encuentra en la tabla \ref{tab:confusion_matrix_algoritmo_XGBClassifier_random_search} y en la figura \ref{fig:confusion_matrix_algoritmo_XGBClassifier_random_search} en anexos.
 
 \begin{table}[H]
 \centering
@@ -1162,15 +1162,35 @@ Con esto se entrena el modelo y tenemos que el accuracy del train y test es 0.92
 \hline
 \cellcolor[HTML]{E65013} \textbf{Matriz de confusión} & \multicolumn{3}{c|}{\cellcolor[HTML]{FFA074} \textbf{Predicción}} \\ \hline
 \multirow{2}{*}{\cellcolor[HTML]{FFA074}} &  & \textbf{No atípico} & \textbf{Atípico} \\ \cline{2-4} 
-\cellcolor[HTML]{FFA074} \textbf{Real}   & \textbf{No atípico}  & 48268 & 9865 \\ \cline{2-4} 
-\cellcolor[HTML]{FFA074}                  & \textbf{Atípico}     & 9896 & 20525 \\ \hline
+\cellcolor[HTML]{FFA074} \textbf{Real}   & \textbf{No atípico}  & 47989 & 10144 \\ \cline{2-4} 
+\cellcolor[HTML]{FFA074}                  & \textbf{Atípico}     & 5328 & 25093 \\ \hline
 \end{tabular}
 }
 \caption{\headlinecolor{\underline{Matriz de confusión para el algoritmo con RandomSearch}}}
-\label{tab:XGBClassifier_random_search}
+\label{tab:confusion_matrix_algoritmo_XGBClassifier_random_search}
 \end{table}
 
-A partir de estos resultados obtenemos que este modelo tiene sensibilidad de \Sexpr{20525/(20525 + 9896)}, especifidad de \Sexpr{48268/(48268+9865)} y finalmente, precisión  de \Sexpr{20525/(20525+9865)}.
+A partir de estos resultados obtenemos que este modelo tiene sensibilidad de \Sexpr{25093/(25093 + 5328)}, especifidad de \Sexpr{47989/(47989+10144)} y finalmente, precisión  de \Sexpr{25093/(25093+10144)}.
+
+
+Por otro lado, al entrenar el modelo con los parámetros obtenidos con el algoritmo Grid Search, se tiene que el accuracy del train y test es 0.94972841430087854 y 0.8275967206450302, respectivamente. Para contrastar este resultado y evaluar el modelo se obtiene la matriz de confusión que se encuentra en la tabla \ref{tab:confusion_matrix_algoritmo_XGBClassifier_grid_search} y en la figura \ref{fig:confusion_matrix_algoritmo_XGBClassifier_grid_search} en anexos.
+
+\begin{table}[H]
+\centering
+\resizebox{0.5\textwidth}{!}{
+\begin{tabular}{|c|c|c|c|}
+\hline
+\cellcolor[HTML]{E65013} \textbf{Matriz de confusión} & \multicolumn{3}{c|}{\cellcolor[HTML]{FFA074} \textbf{Predicción}} \\ \hline
+\multirow{2}{*}{\cellcolor[HTML]{FFA074}} &  & \textbf{No atípico} & \textbf{Atípico} \\ \cline{2-4} 
+\cellcolor[HTML]{FFA074} \textbf{Real}   & \textbf{No atípico}  & 48460 & 9673 \\ \cline{2-4} 
+\cellcolor[HTML]{FFA074}                  & \textbf{Atípico}     & 5594 & 24827 \\ \hline
+\end{tabular}
+}
+\caption{\headlinecolor{\underline{Matriz de confusión para el algoritmo con GridSearch}}}
+\label{tab:confusion_matrix_algoritmo_XGBClassifier_grid_search}
+\end{table}
+
+A partir de estos resultados obtenemos que este modelo tiene sensibilidad de \Sexpr{24827/(24827 + 5594)}, especifidad de \Sexpr{48460/(48460+9673)} y finalmente, precisión  de \Sexpr{24827/(24827+9673)}.
 
 La cuatro variablaes más importantes son \textit{BASE\_CAL} (11,37\%), \textit{M\_PRI\_P} (10,42\%), \textit{N\_PRI\_P} (9,99\%) y \textit{M\_PUB\_P} (8,04\%).
 
@@ -1183,11 +1203,99 @@ La búsqueda en cuadrícula mediante Grid Search  se presenta en la subseción \
 MLPClassifier(hidden_layer_sizes=(200,), max_iter=100, random_state=8)
 \end{lstlisting}
 
-El accuracy del train y test es 0.8101412697337218 y 0.8048083655170856 respectivamente.
+Con esto se entrena el modelo y tenemos que el accuracy del train y test es 0.8101412697337218 y 0.8048083655170856, respectivamente. Para contrastar este resultado y evaluar el modelo se obtiene la matriz de confusión que se encuentra en la tabla \ref{tab:confusion_matrix_algoritmo_redes_grid_search} y en la figura \ref{fig:confusion_matrix_algoritmo_redes_grid_search} en anexos.
+
+\begin{table}[H]
+\centering
+\resizebox{0.5\textwidth}{!}{
+\begin{tabular}{|c|c|c|c|}
+\hline
+\cellcolor[HTML]{E65013} \textbf{Matriz de confusión} & \multicolumn{3}{c|}{\cellcolor[HTML]{FFA074} \textbf{Predicción}} \\ \hline
+\multirow{2}{*}{\cellcolor[HTML]{FFA074}} &  & \textbf{No atípico} & \textbf{Atípico} \\ \cline{2-4} 
+\cellcolor[HTML]{FFA074} \textbf{Real}   & \textbf{No atípico}  & 51482 & 6651 \\ \cline{2-4} 
+\cellcolor[HTML]{FFA074}                  & \textbf{Atípico}     & 10634 & 19787 \\ \hline
+\end{tabular}
+}
+\caption{\headlinecolor{\underline{Matriz de confusión para el algoritmo con GridSearch}}}
+\label{tab:confusion_matrix_algoritmo_redes_grid_search}
+\end{table}
+
+A partir de estos resultados obtenemos que este modelo tiene sensibilidad de \Sexpr{19787/(19787 + 10634)}, especifidad de \Sexpr{51482/(51482+6651)} y finalmente, precisión  de \Sexpr{19787/(19787+6651)}.
 
 Con un balanceo de clases y usando lo anterior tenemos que
 
 \begin{lstlisting}[style=pythonstyle]
 MLPClassifier(hidden_layer_sizes=(250,), max_iter=100, random_state=8)
 \end{lstlisting}
-El accuracy del train y test es 0.7625855410258148 y 0.7582604964202634 respectivamente.
+
+Una vez balanceada la base de datos, se entrena el modelo y tenemos que el accuracy del train y test es 0.7625855410258148 y 0.7582604964202634, respectivamente. Para contrastar este resultado y evaluar el modelo se obtiene la matriz de confusión que se encuentra en la tabla \ref{tab:confusion_matrix_algoritmo_redes_bal_grid_search.png} y en la figura \ref{fig:confusion_matrix_algoritmo_redes_bal_grid_search.png} en anexos.
+
+\begin{table}[H]
+\centering
+\resizebox{0.5\textwidth}{!}{
+\begin{tabular}{|c|c|c|c|}
+\hline
+\cellcolor[HTML]{E65013} \textbf{Matriz de confusión} & \multicolumn{3}{c|}{\cellcolor[HTML]{FFA074} \textbf{Predicción}} \\ \hline
+\multirow{2}{*}{\cellcolor[HTML]{FFA074}} &  & \textbf{No atípico} & \textbf{Atípico} \\ \cline{2-4} 
+\cellcolor[HTML]{FFA074} \textbf{Real}   & \textbf{No atípico}  & 41361 & 16772 \\ \cline{2-4} 
+\cellcolor[HTML]{FFA074}                  & \textbf{Atípico}     & 4635 & 25786 \\ \hline
+\end{tabular}
+}
+\caption{\headlinecolor{\underline{Matriz de confusión para el algoritmo balanceado con GridSearch}}}
+\label{tab:confusion_matrix_algoritmo_redes_bal_grid_search.png}
+\end{table}
+
+A partir de estos resultados obtenemos que este modelo tiene sensibilidad de \Sexpr{25786/(25786 + 4635)}, especifidad de \Sexpr{41361/(41361+16772)} y finalmente, precisión  de \Sexpr{25786/(25786+16772)}.
+
+
+\section{Comparación de Resultados}\label{seccion:comparacion_resultados}
+
+Para defininir cuáles modelos de aprendizaje supervisado son más efectivos y apropiados para el problema de estudio de este Trabajo de Fin de Máster es necesario realizar una comparación de las métricas de cada uno de ellos. Con ello, los mismos pueden ser evaluados y podemos obtener tanto sus ventajas como desventajas. A continuación encontramos una tabla comparativa de los resultados obtenidos:
+
+\begin{table}[H]
+\centering
+\resizebox{0.75\textwidth}{!}{
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+\cellcolor[HTML]{E65013} \textbf{Modelo} & \cellcolor[HTML]{E65013} \textbf{Exactitud}& 
+\cellcolor[HTML]{E65013} \textbf{Sensibilidad}& \cellcolor[HTML]{E65013} \textbf{Especifidad}&
+\cellcolor[HTML]{E65013} \textbf{Precisión} & \cellcolor[HTML]{E65013} \textbf{Diferencia Exactitud}\\ 
+\hline
+\textbf{KNN con ACP} & 0.74832& 0.51642& 0.86968 & 0.67465& 0.25168 \\ 
+\hline
+\textbf{KNN con balanceo y ACP} & 0.71286& 0.7221& 0.70803& 0.56412& 0.28714 \\ 
+\hline
+\textbf{KNN con variables_ml} & & & & &  \\ 
+\hline
+\textbf{Matriz de confusión} & & & & &  \\ 
+\hline
+\textbf{Matriz de confusión} & & & & &  \\ 
+\hline
+\end{tabular}
+}
+\caption{\headlinecolor{\underline{Tabla de comparación de resultados}}}
+\label{tab:comparacion}
+\end{table}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -27,6 +27,15 @@ Según el artículo 186 del \estcite{coip_2014}, se define a la estafa como:
 La persona que, para obtener un beneficio patrimonial para sí misma o para una tercera persona, mediante la simulación de hechos falsos o la deformación u ocultamiento de hechos verdaderos, induzca a error a otra, con el fin de que realice un acto que perjudique su patrimonio o el de una tercera, será sancionada con pena privativa de libertad de cinco a siete años (p. 31).
 \end{displayquote}
 
+\subsection{Sostenibilidad del sistema de Seguridad Social en Ecuador}
+
+Según la \textcite{oit_sostenibilidad_2021}, ‘se define la sostenibilidad como la continuación de los beneficios de una intervención de desarrollo después de que esta se haya completado’ (p. 2). Así, se tiene que la sostenibilidad puede ser analizada desde diferentes contextos. Sin embargo, la sostenibilidad debe ser siempre examinada en función del proyecto en estudio, y su evaluación debe estar centrada en la capacidad de la misma para asegurar que los cambios logrados se mantengan, a pesar de que ya no sea posible mantenerlos o expandirlos \citep{oit_sostenibilidad_2021}. 
+
+Debido a las diferentes crisis que han afectado tanto a Ecuador como a varios otros países a lo largo de los años, tales como la pandemia, crisis económicas, energéticas, migratorias, así como el envejecimiento de la población, se han generado varios retos para lograr que los fondos que son administrados por las instituciones de seguridad social sean sostenibles. Lo que ha llevado a los distintos gobiernos a enfrentar desafíos para asegurar que estos sistemas sean viables a largo plazo \citep{oit_pisos_2024}.
+
+Es por esto que distintas organizaciones como la OIT y la Organización de Naciones Unidas (ONU) se han pronunciado con el fin de dar asistencia y fortalecer los sistemas de seguridad social. Sin embargo, la implementación de las diversas propuestas se ve obstaculizada por las dificultades presentes para la modificación de la legislación actual. Es así como, a pesar de las recomendaciones dadas por estos organismos para evitar el déficit, basándose tanto en teoría tanto como en ejemplos prácticos, se adopción resulta inviable ya que pueden desembocar tanto en problemas políticos como sociales, por lo que ninguna autoridad acepta tomar el peso de estas decisiones. De esta forma, no se toma ninguna acción frente a los problemas que existen actualmente, lo que lleva a que cada vez la situación de los fondos empeore y que el déficit sea más cercano \citep{Guatemal2023VIU}.
+
+
 \subsection{Impacto y medidas necesarias frente a las estafas en la Seguridad Social}
 
 La presencia de estafas en la Seguridad Social, ya sea al momento de obtener indebidamente prestaciones o al ejecutar acciones fraudulentas, supone un fenómeno social con graves consecuencias para toda la sociedad, afectando especialmente a ciertos grupos. Estas prácticas no solo conllevan a un deterioro social, sino que también provocan un importante desequilibrio en los recursos y gastos del sistema de Seguridad Social, cuyas consecuencias pueden afectar a una amplia parte de la población. Por ello, el estudio, la detección y el control mediante la implementación de medidas correctivas contra este tipo de fraudes son fundamentales para garantizar la sostenibilidad y el desarrollo de dicho sistema.
@@ -44,6 +53,13 @@ A pesar de que la detección del fraude es compleja, debido a las diferentes est
 La detección de fraudes implementada se da mediante informes de análisis de casos donde el trabajador ha aumentado su base de cotización sin justificación. Se presta especial atención a trabajadores con posiciones de poder, se toma en cuenta aumentos salariales desproporcionados, y se analizan patrones y presunciones. 
 
 \section{Proceso KDD}\label{sec:proceso_kdd}
+
+Según \textcite{fayyad1996kdd}, el proceso Knowledge Discovery in Databases, abreviado como KDD, es un proceso iterativo enfocado en la obtención de la información más importante presente en grandes volúmenes de datos, en el cual se necesita la intervención humana para realizar ajustes durante las iteraciones. Por tanto, su tarea es extraer conocimiento más comprensible y útil de datos complejos y grandes. La presentación de la información obtenida depende de los objetivos de cada proceso, la misma puede darse en forma de modelos predictivos, descripciones, entre otros. 
+
+Las etapas de este procedimiento son, en primer lugar, la selección, preparación y transformación de los datos, donde se elige un conjunto relevante de lo información proporcionada, se limpia y prepara el mismo mediante procesos como la eliminación de ruido o tratamiento de datos faltantes y posteriormente, los datos son convertidos al formato de trabajo adecuado. Luego, se lleva a cabo la aplicación de algoritmos de detección de patrones sobre los mismos, es decir, se aplican técnicas de minería de datos. Finalmente, se evalúan e interpretan los resultados.
+
+La importancia de este algoritmo radica en que el mismo permite la automatización del análisis, es capaz de trabajar con grandes cantidades de datos, mejora la toma de decisiones mediante la información extraída, y es aplicable en todos los campos requeridos
+
 
 \section{Machine Learning}\label{sec:machine_learning}
 
@@ -162,6 +178,9 @@ En este procedimiento se ajustan iterativamente nuevos modelos que van haciendo 
 Este algoritmo es una de las implementaciones más eficientes de árboles de decisión, el cual se ha potenciado por el gradiente. Se ha diseñado para optimizar el uso de memoria y dar uso máximo a la potencia del hardware. Con esta técnica se disminuye el tiempo de ejecución, incluso su rendimiento es mejor que los modelos de aprendizaje profundo. La idea principal del mismo es construir secuencialmente subárboles que parten de un árbol original, tal que los mismos vayan reduciendo los errores de la función de costo del árbol anterior \citep{8906396}.
 
 \subsubsection{Redes neuronales}\label{sec:redes_neuronales}
+
+
+Según \textcite{lecun2015},las redes neuronales son modelos computacionales, cuyo funcionamiento está basado en conjuntos de capas que a su vez, están compuestas por nodos o neuronas que se encargan de procesar la información. Las mismas están diseñadas para detectar patrones, aprender y adaptarse a datos complejos. Su funcionamiento inicia cuando los nodos reciben entradas y las pasan por funciones matématicas, estos resultados se transmiten a las neuronas de la siguiente capa para continuar con un proceso similar hasta llegar a la capa final. En este proceso se van ajustando los pesos en las conexiones de los nodos con algoritmos de optimización, como el descenso del gradiente, para disminuir el error en las predicciones. Dependiendo de los datos a procesar, hay diferentes tipos de redes y las mismas son usadas en múltiples campos por sus ventajas como su adaptabilidad, puesto que pueden generalizar combinaciones nuevas de datos; su capacidad para captar patrones de alto nivel y su eficiencia en el manejo de datos complejos ya que pueden procesos datos de varias dimensiones.
 
 \subsection{Técnicas utilizadas}\label{sec:tec_us}
 
