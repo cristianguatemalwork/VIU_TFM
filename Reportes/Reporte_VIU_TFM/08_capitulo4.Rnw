@@ -229,33 +229,35 @@ Para que el lector pueda tener una visión más detallada y explícita del proce
 
 \subsection{K-Means} \label{sec:apr_no_sup_km}
 
-Otro algoritmo que tiene gran potencial para la estimación de valores atípicos es  K-means, destacando por su facilidad de implementación y forma de operar. Este método permite identificar observaciones atípicas de forma más óptima al detectar aquellos puntos que se desvían significativamente de los centroides de los clústeres que se han formado. Así, se localizan las anomalías que se alejan de los patrones de los distintos grupos, siendo una herramienta bastante útil para la detección de outliers \citep{wei2019msd}. 
+Otro algoritmo que tiene gran potencial para la estimación de valores atípicos es  K-Means, destacando por su facilidad de implementación y forma de operar. Este método permite identificar observaciones atípicas de forma más óptima al detectar aquellos puntos que se desvían significativamente de los centroides de los clústeres que se han formado. Así, se localizan las anomalías que se alejan de los patrones de los distintos grupos, siendo una herramienta bastante útil para la detección de outliers \citep{wei2019msd}. 
 
-En este sentido, se sigue un proceso similar a lo expuesto en Clúster Jerárquico con respecto a las consideraciones para \textit{GRUPO\_SEL}, \textit{data\_l}, \textit{ul}, \textit{ml} y \textit{LS\_MS}. La ejecución de este algoritmo requiere de un tiempo muy extenso de procesamiento, debido a la gran cantidad de datos.
+En este sentido, se sigue un proceso similar a lo expuesto en la subsección \ref{sec:apr_no_sup_cj} con respecto a las consideraciones para GRUPO\_SEL, data\_l, ul, ml y LS\_MS. La ejecución de este algoritmo requiere de un tiempo muy extenso de procesamiento, debido a la gran cantidad de datos.
 
-Por otra parte, siguiendo lo expresado en la literatura, este algoritmo se divide en cuatro casos, dos casos para los datos sin y con normalización y otros dos casos para los datos con y sin datos duplicados, esto tiene la finalidad de mejorar la velocidad del procesamiento del algoritmo de K-means conforme lo exponen \cite{K-Means Clustering in Python: Efficiency of Preprocessing} y \cite{AdventuresinMachineLearning}. Con la finalidad de realizar un ejercicio didácico para estimar el número de clústeres que agruparán los salarios de cada persona, se hace una estimación (Véase la función \textit{num\_cluster} del código de la sección \ref{sec:alg_kmean}). Los casos serán abreviados por \textit{ATI\_KM\_M1} para datos con duplicados y sin normalización,  \textit{ATI\_KM\_M2}  para datos sin duplicados y sin normalización,  \textit{ATI\_KM\_M3} para datos con duplicados y  con normalizados; y, \textit{ATI\_KM\_43} para datos sin duplicados y con normalizados
+Por otra parte, siguiendo lo expresado en la literatura, este algoritmo se ejecutará en cuatro casos, dos casos para los datos con y sin normalización y otros dos casos para los datos con y sin registros duplicados. Esto tiene la finalidad de mejorar la velocidad del procesamiento del algoritmo de K-Means \citep{scikit_learn_kmeans} y \citep{AdventuresinMachineLearning}.
 
-Los métodos que nos servirán para estimar el número de clústeres, para los datos de \textit{ul} y \textit{ml}, son por el método del codo y por el método de la silueta.
+Con la finalidad de realizar un ejercicio didácico que estima el número de clústeres que agruparán los salarios de cada persona, se utiliza la función \textit{num\_cluster} del código de la sección \ref{sec:alg_kmean}. Los casos serán abreviados por \textit{ATI\_KM\_M1} para datos con duplicados y sin normalización,  \textit{ATI\_KM\_M2}  para datos sin duplicados y sin normalización,  \textit{ATI\_KM\_M3} para datos con duplicados y  con normalizados; y, \textit{ATI\_KM\_43} para datos sin duplicados y con normalizados
+
+Los métodos para estimar el número de clústeres, aplicados a los datos de \textit{ul} y \textit{ml}, son del codo y  silueta. Los resultados promedios son:
 
 Para \textit{ul}
 \begin{itemize}
-\item Caso \textit{ATI\_KM\_M1}.- Método del codo es 2.053 y la silueta de 3.665,
-\item Caso \textit{ATI\_KM\_M2}.- Método del codo es 1.677 y la silueta de 2.066,
-\item Caso \textit{ATI\_KM\_M3}.- Método del codo es 2.134 y la silueta de 3.558,
-\item Caso \textit{ATI\_KM\_M4}.- Método del codo es 1.677 y la silueta de 2.065,
+\item Caso \textit{ATI\_KM\_M1}.- Método del codo da 2,053 cluster y la silueta 3,665 cluster,\\[-0.75cm]
+\item Caso \textit{ATI\_KM\_M2}.- Método del codo da 1,677 cluster y la silueta 2,066 cluster,\\[-0.75cm]
+\item Caso \textit{ATI\_KM\_M3}.- Método del codo da 2,134 cluster y la silueta 3,558 cluster,\\[-0.75cm]
+\item Caso \textit{ATI\_KM\_M4}.- Método del codo da 1,677 cluster y la silueta 2,065 cluster,
 \end{itemize}
 
 Para \textit{ml}
 \begin{itemize}
-\item Caso \textit{ATI\_KM\_M1}.- Método del codo es 2.223 y la silueta de 3.626,
-\item Caso \textit{ATI\_KM\_M2}.- Método del codo es 2.067 y la silueta de 2.532,
-\item Caso \textit{ATI\_KM\_M3}.- Método del codo es 2.233 y la silueta de 3.622,
-\item Caso \textit{ATI\_KM\_M4}.- Método del codo es 2.066 y la silueta de 2.529,
+\item Caso \textit{ATI\_KM\_M1}.- Método del codo da 2,223 cluster y la silueta 3,626 cluster,\\[-0.75cm]
+\item Caso \textit{ATI\_KM\_M2}.- Método del codo da 2,067 cluster y la silueta 2,532 cluster,\\[-0.75cm]
+\item Caso \textit{ATI\_KM\_M3}.- Método del codo da 2,233 cluster y la silueta 3,622 cluster,\\[-0.75cm]
+\item Caso \textit{ATI\_KM\_M4}.- Método del codo da 2,066 cluster y la silueta 2,529 cluster,
 \end{itemize}
 
-Como se puede apreciar, el número de clústeres toma valores entre 2 y 3 aproximadamente, lo cual va acorde a considerar  que nuestra clasificación  solo  considerará dos (2) clústeres, puesto que, se hace el supuesto que los salarios se agruparán en los clústeres de sin y con atípicos, respectivamente. La función que se utilizará es \textit{clasificacion\_kmean} del código de la sección \ref{sec:alg_kmean}. Es importante notar que, con la finalidad de mejorar la elección inicial de los centroides, se considera el método \textit{K-means++}.
+Se observa que el número de clústeres promedio oscila entre 2 y 3 aproximadamente, lo que refuerza la decisión de que la clasificación solo se tendrán en cuenta dos (2) clúster, puesto que, se hace el supuesto que los salarios se agrupen en dos clúster, con y sin atípicos. La función que se utilizará es \textit{clasificacion\_kmean} del código de la sección \ref{sec:alg_kmean}. Es importante notar que, con la finalidad de mejorar la elección inicial de los centroides se considera el método \textit{K-Means++}.
 
-Tras aplicar \textit{clasificacion\_kmean}, tenemos que si el número de clústeres\footnote{Independientemente de considerar que se formen dos clústeres, el algoritmo generaba uno o dos clúster, lo cual dependía del comportamiento de los datos} generados es mayor a 1, se calcula el centroide de cada clúster y si estos valores son mayores a \textit{LS\_MS}  entonces todas las observaciones del clúster serán atípicas, por lo que, su etiqueta será 1. Por otra parte, si el número de clústeres es igual a 1, entonces la etiqueta será igual a -2, puesto que solo se formó un único clúster. Ahora bien, al momento  de considerar o no los valores repetidos, la mayoría de los casos se comportaban como lo que ya se expuso anteriormente. Sin embargo, existían casos en donde al eliminar los duplicados, el promedio de los cinco mejores años era un único valor, por lo cual, cuando se daban estos casos, la etiqueta era -1. Los resultados se presentan en la tabla \ref{tab:resul_kmean_pre}, cuyos valores hacen mención a las personas que al menos tienen un sueldo que corresponde a una categoría  de los cuatro casos anteriores.
+Tras aplicar \textit{clasificacion\_kmean}, tenemos que si el número de clústeres\footnote{Independientemente de elegir que formen dos clústeres, el algoritmo generaba uno o dos clúster, lo cual dependía del comportamiento de los datos} generados es mayor a 1, se calcula el centroide de cada clúster y si estos valores son mayores a LS\_MS entonces todas las observaciones del clúster respetivo serán atípicas (su etiqueta será 1). Por otra parte, si el número de clústeres es igual a 1, entonces la etiqueta será igual a -2, puesto que solo se formó un único clúster. Ahora bien, al momento  de considerar o no los valores repetidos, la mayoría de los casos se comportaban como lo que ya se expuso anteriormente. Sin embargo, existían casos en donde al eliminar los duplicados, el promedio de los cinco mejores años era un único valor, por lo cual, cuando se daban estos casos la etiqueta era -1. Los resultados se presentan en la tabla \ref{tab:resul_kmean_pre}, cuyos valores hacen mención a las personas que al menos tienen un sueldo que corresponde a una categoría  de los cuatro casos anteriores.
 
 \begingroup\scriptsize
 \setlength\extrarowheight{1pt}
@@ -263,8 +265,8 @@ Tras aplicar \textit{clasificacion\_kmean}, tenemos que si el número de clúste
 \setlength\belowrulesep{0pt}
 \fontsize{7}{8}\selectfont
 \begin{longtable}[H]{r|r|r|r|r|r|r|r|r|r|r|r|r } 
-\caption{\headlinecolor{\underline{Resultados previos de aplicar k-mean}}}
-\label{tab:resul_kmean_pre}\\[-0.1cm]
+\caption{\headlinecolor{\underline{Resultados previos de aplicar K-Means}}}
+\label{tab:resul_kmean_pre}\\[-0.2cm]
 
 \toprule
 \rowcolor{naranja}
@@ -327,12 +329,12 @@ data
 \end{longtable}
 \endgroup
 
-Como se puede apreciar en la tabla anterior, prácticamente los cuatro casos nos dan la misma clasificación en cantidad de personas, la diferencia solo radica en el tiempo de procesamiento de los resultados, puesto que, cuando se trabajaba con los datos sin normalizar y con duplicados, el tiempo de ejecución era muy elevado en comparación al caso de los datos normalizados y sin duplicados. En los resultados de la aplicación de K-means se deben hacer las mismas correcciones que para el clúster jerárquico.
+De la tabla anterior, prácticamente en los cuatro casos se tiene la misma clasificación en cantidad de personas, la diferencia solo radica en el tiempo de procesamiento de los resultados, puesto que, cuando se trabajaba con los datos sin normalizar y con duplicados, el tiempo de ejecución era muy elevado. Asi mismo, como bien se mencionó en la subsección anterior, tras la aplicación de K-Means es necesario hacer las mismas correcciones. 
 
-Una vez realizadas las correcciones respectivas, se procede a crear una variable que considere los cuatro casos y determine la etiqueta de si el sueldo es o no atípico. La regla a utilizar es considerar de las cuatros caso, el máximo de su valor, es decir, si tres variables para un sueldo determinado tienen el valor 0  y en la otra tiene el valor de 1, entonces la etiqueta será 1. Todo esto se realiza a nivel de persona y a nivel de sueldo , considerando los valores de las variables \textit{ATI\_KM\_M1}, \textit{ATI\_KM\_M2}, \textit{ATI\_KM\_M3} y \textit{ATI\_KM\_M4}. El atributo que contiene esta información será llamado \textit{ATI\_KM}.
+Una vez realizadas las correcciones respectivas, se procede a crear una variable que considere a los cuatro casos y determine la etiqueta. La regla  considerara el valor  máximo de los cuatro casos. Así, si tres de los casos para un sueldo determinado tienen el valor 0  y en el otro tiene el valor de 1, entonces la etiqueta será 1 (atípico). El atributo que contiene esta información es ATI\_KM.
 
 \begin{landscape}
-Los resultados se muestran en la figura \ref{fig:algoritmo_km_depu}.
+Algunos ejemplos con los resultados de la implementación de K-Means se muestran en la figura \ref{fig:algoritmo_km_depu}.
 \begin{figure}[H]  
     \centering
     \begin{minipage}{0.35\textwidth}
@@ -377,14 +379,12 @@ Los resultados se muestran en la figura \ref{fig:algoritmo_km_depu}.
         \includegraphics[scale=0.19]{graficos/algoritmo_km_154409_1.png}  
     \end{minipage}
 
-\caption{\headlinecolor{\underline{Resultados de la aplicación de k-means }}}
+\caption{\headlinecolor{\underline{Resultados de la aplicación de K-Means }}}
 \label{fig:algoritmo_km_depu}  
     
 \end{figure}
 
-
-
-Para que el lector pueda tener una visión más detallada del proceso, puede revisar el script \textit{VIU\_k\_means.ipynb} de \legalcite{CristianVIUTFM}.
+Si el lector desea tener una una visión más detallada del proceso que se siguió, puede revisar el script \textit{VIU\_k\_means.ipynb} de \legalcite{CristianVIUTFM}.
 
 \end{landscape}
 
