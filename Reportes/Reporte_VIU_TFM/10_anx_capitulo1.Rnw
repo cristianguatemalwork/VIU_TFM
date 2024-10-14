@@ -1416,7 +1416,7 @@ param_dist_g_booc = { "n_estimators":[1,2,3,4,5,6,7],
 
 \begin{figure}[H]
 \centering
-\includegraphics[scale=0.35]{graficos/confusion_matrix_algoritmo_AdaBoostClassifier_grid_search.png}
+\includegraphics[scale=0.35]{graficos/confusion_matrix_algoritmo_GradientBoostingClassifier_random_search.png}
 \caption{\headlinecolor{\underline{Matriz de confusión para el algortimo con GridSearchCV}}}
 \label{fig:confusion_matrix_algoritmo_AdaBoostClassifier_grid_search}
 \end{figure}
@@ -1435,6 +1435,12 @@ param_dist_r_graboo = { "n_estimators":[4,8,16,32,64,128],
                      }
 \end{lstlisting}
 
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.35]{graficos/confusion_matrix_algoritmo_GradientBoostingClassifier_random_search.png}
+\caption{\headlinecolor{\underline{Matriz de confusión para Gradient Boosting con Random Search}}}
+\label{fig:confusion_matrix_algoritmo_GradientBoostingClassifier_random_search}
+\end{figure}
 
 \subsection{XGBClassifier}  \label{sec_anexos:conjunto_modelos_XGBClassifier}
 
@@ -1452,7 +1458,7 @@ param_dis_r_xgb = { 'n_estimators': np.arange(50, 500, 50),
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.35]{graficos/confusion_matrix_algoritmo_XGBClassifier_random_search.png}
-\caption{\headlinecolor{\underline{Matriz de confusión para el algortimo con RandomSearchCV}}}
+\caption{\headlinecolor{\underline{Matriz de confusión para el algoritmo con RandomSearchCV}}}
 \label{fig:confusion_matrix_algoritmo_XGBClassifier_random_search}
 \end{figure}
 
@@ -1470,7 +1476,7 @@ param_dis_g_xgb = { 'n_estimators': np.arange(400, 450, 500),
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.35]{graficos/confusion_matrix_algoritmo_XGBClassifier_grid_search.png}
-\caption{\headlinecolor{\underline{Matriz de confusión para el algortimo con GridSearchCV}}}
+\caption{\headlinecolor{\underline{Matriz de confusión para el algoritmo con GridSearchCV}}}
 \label{fig:confusion_matrix_algoritmo_XGBClassifier_grid_search}
 \end{figure}
 
@@ -1487,7 +1493,7 @@ param_dist_red = {  'hidden_layer_sizes': [(100,), (150,),(200,),(250,)],
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.35]{graficos/confusion_matrix_algoritmo_redes_grid_search.png}
-\caption{\headlinecolor{\underline{Matriz de confusión para el algortimo con GridSearchCV}}}
+\caption{\headlinecolor{\underline{Matriz de confusión para el algoritmo con GridSearchCV}}}
 \label{fig:confusion_matrix_algoritmo_redes_grid_search}
 \end{figure}
 
@@ -1503,6 +1509,6 @@ param_dist_red = {  'hidden_layer_sizes': [(100,), (150,),(200,),(250,)],
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.35]{graficos/confusion_matrix_algoritmo_redes_bal_grid_search.png}
-\caption{\headlinecolor{\underline{Matriz de confusión para el algortimo balanceado con GridSearchCV}}}
+\caption{\headlinecolor{\underline{Matriz de confusión para el algoritmo balanceado con GridSearchCV}}}
 \label{fig:confusion_matrix_algoritmo_redes_bal_grid_search.png}
 \end{figure}
