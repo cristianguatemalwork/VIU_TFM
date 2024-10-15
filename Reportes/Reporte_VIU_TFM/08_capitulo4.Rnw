@@ -1386,24 +1386,73 @@ Otros modelos como Support Vector Machine (SVM) también fueron considerados, pe
 
 En conclusión, el modelo más óptimo y eficiente, en función de los datos y el problema a resolver, es el modelo de XGBoost con Random Search, debido a sus capacidad de clasificación, detección de atípicos y evidencia significativa de la no presencia de sobreajuste. Además, este modelo ofrece un tiempo de ejecución y costo computacional menor al de los otros modelos, por lo que, la relación costo-beneficio es bastante buena.
 
+%Predicciones---------------------------------------------------------------------------------------
+\section{Predicciones}\label{seccion:predicciones}
+
+Finalmente, una vez que ha sido analizado y escogido el modelo que cumple de forma óptima con los requisitos necesarios para el problema de estudio, procedemos a realizar predicciones con una nueva base de datos. Esta base de datos corresponde a la información laboral de los afiliados que realizaron su aportación en diciembre de 2023, por lo que, con esta información, se busca estimar que afiliados han hecho fraude con la finalidad de tener un mayor beneficio de pensión al momento de su jubilación.
+
+La nueva base de datos cuenta con 3.089.379 observaciones, mismas que serán ejecutadas en el modelo seleccionado en \ref{seccion:comparacion_resultados} para  predicir las probabilidades de que cada individuo haya cometido o no haya cometido fraude. Los resultados dice que 1.755.055 individuos fueron clasificados como atípicos, es decir, en los nuevos datos se detecta que el 56.81\% de ellos han cometido fraude. De esto se puede intuir que la cantidad de individuos que cometen este tipo de actos está incrementando, ya que en los datos iniciales de estudio únicamente del total de pensionistas, se detectó que alrededor del 30\% de los mismos cometian fraude. Esto es  una señal de alerta y eleva la importancia de este estudio para contrarrestar este crecimiento y garantizar la sostenibilidad a futuro.
+
+%Resultados enfocados a la Seguridad Social---------------------------------------------------------
+\section{Resultados enfocados a la Seguridad Social}\label{seccion:resultados_seguridad_social}
+
+\subsection{Perfiles de los individuos que han cometido fraude}\label{subseccion:perfiles}
+
+Como parte final del presente capítulo, se realiza un análisis del perfil que tienen aquellas personas que fueron detectadas como atípicoas, es decir, aquellas personas que han sido detectadas por realizar fraude. Para ello, graficamos la distribución de la diferencia de la pensión calculada y la pensión corregida\footnote{La pensión corregida se obtuvo como el mínimo de las pensiones de las variables PEN\_CJ, PEN\_KM y PEN\_DB}. Esto  permite observar en quE individuos, con ciertas características, existe una mayor diferencia entre las pensiones mencionadas, identificando así las características de los individuos en los cuales se observa que el fraude ha tenido consecuencias mayores, pues,  se observa que la pensión obtenida a partir de él difiere en una mayor cantidad de la pensión que debió haber recibido. Por lo que, se pueden tomar aquellos atributos como principales rasgos del perfil de una persona propensa a cometer fraude.
+
+Primero, en base a la distribución de acuerdo al número de imposiciones y al sexo de los individuos (como se observa en la figura \ref{fig:fraude_numero_imposiciones_sexo}, se nota que la mayor diferencia entre estas pensiones es visible en los individuos de sexo masculino en todos los números de aportaciones. Por otro lado, en cuanto al número de imposiciones, se observa que la diferencia aumenta cuando nos encontramos con 350 a 550 aportaciones, es decir, en aquellos individuos que han aportado entre 29 y 45 años, lo que hace sentido, ya que al tener un vida laboral más amplia existen más oportunidades para realizar fraude. De esto podemos concluir que los hombres con el número de aportaciones que se encuentran entre 350 a 550 (aquellos que están a puertas de la jubilación por vejez) son aquellos inidividuos donde más es visible la diferencia entre la pensión calculada y la corregida, es decir, es donde se está viendo una mayor incidencia de los efectos causados por los fraudes, y por tanto, este grupo merece ser tomado en cuenta.
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.35]{graficos/fraude_numero_imposiciones_sexo.png}
+\caption{\headlinecolor{\underline{Distribución en función del número de imposiciones y del sexo}}}
+\label{fig:fraude_numero_imposiciones_sexo}
+\end{figure}
+
+Por otro lado, en la figura \ref{fig:fraude_fecha_nacimiento_sexo} se presenta la distribución de la diferencia de pensiones tomando en cuenta nuevamente el sexo, pero ahora en función de la fecha de nacimiento. Así, podemos ver que se mantiene la prevalencia de la diferencia presente en hombres que en mujeres a lo largo de las diferentes fechas de nacimiento. Sin embargo, también es importante destacar que tanto en hombres como en mujeres se ve un incremento significativo en esta diferencia, cuando los mismos nacen entre los años de 1945 y 1965. Esto nos llevaría a un estudio futuro de por qué se dieron estos casos abruptos en esa generación. Y, de igual forma, tomar en cuenta estas generaciones como parte del perfil buscado.
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.35]{graficos/fraude_fecha_nacimiento_sexo.png}
+\caption{\headlinecolor{\underline{Distribución en función de la fecha de nacimiento y del sexo}}}
+\label{fig:fraude_fecha_nacimiento_sexo}
+\end{figure}
 
 
+Finalmente, también podemos observar esta relación tomando en cuenta la fecha de derecho de la pensión. Es decir, observando cuándo el afiliado empezó a recibir la misma. Así, en la figura \ref{fig:fraude_fecha_derecho_sexo}, es visible que, si bien hasta alrededor de 1960 aún no existían registros de concesiones de pensiones en la base de datos, cuando los mismos empiezan a surgir la diferencia entre pensiones es baja. Sin embargo, a partir del año 2010 se ve un incremento significativo en esta diferencia. Lo que nos lleva a concluir que, de las personas que han hecho fraude, en la actualidad se ha visto que los beneficios económicos obtenidos a partir del mismo se han ido incrementando. Lo que nos lleva a una razón más de la necesidad de tomar medidas para combatir este tipo de fraudes, puesto que los mismos están llevando a pérdidas, que como se observa, tienen una tendencia creciente con el tiempo que llevará a un déficit mayor en menos tiempo del esperado.
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.35]{graficos/fraude_fecha_derecho_sexo.png}
+\caption{\headlinecolor{\underline{Distribución en función de la fecha de derecho y del sexo}}}
+\label{fig:fraude_fecha_derecho_sexo}
+\end{figure}
 
 
+A su vez, resulta necesario estudiar el sector donde más se realizaron aportes por parte de las personas que han cometido fraude. Esto es esencial en el estudio del perfil de este tipo de individuos ya que nos indica el tipo de sector que debe ser tomado más en cuenta en la detección de estos casos. Para ello, entre todos los individuos etiquetados como atípicos, se obtuvo el promedio de los porcentajes de aportación a los diferentes sectores durante toda su vida laboral y los 5 mejores años. Con esto se obtuvo el porcentaje de incidencia de fraude en cada sector. En la figura \ref{fig:fraude_sectores} se observa  en primer lugar, estos porcentajes tomando en cuenta toda la vida laboral y posteriormente, únicamente tomando en cuenta los 5 mejores años. En ambos casos es claro que, existe una incidencia de más del 55\% en el secto privado, seguido por el público donde la presencia de estos casos es de alrededor de 33\%. Y el último sector significativo que es el independiente con 8.4\% en promedio. Así, observamos que de forma significativa los frades son cometidos por individuos que operan en su mayoría en el sector privado, por lo que puede ser de ayuda el estudio de diversas acciones a tomar para prevenir y detectar estos casos sobre todo en ese sector.
+
+\begin{landscape}
+\begin{figure}[H]  
+    \centering
+    \begin{minipage}{0.35\textwidth}
+        \centering
+        \includegraphics[scale=0.35]{graficos/pastel_sector_n.png} 
+    \end{minipage}
+    \hspace{1cm}  
+    \begin{minipage}{0.35\textwidth}
+        \centering
+        \includegraphics[scale=0.35]{graficos/pastel_sector_m.png} 
+    \end{minipage}
+\caption{\headlinecolor{\underline{Incidencia de fraude por sectores }}}
+\label{fig:fraude_sectores} 
+\end{figure}
+\end{landscape}
 
 
+\subsection{Resultados de la aplicación del estudio a la sostenibilidad de la Seguridad Social}\label{subseccion:aplicacion_resultados}
 
+Una vez que se ha llevado acabo todo el estudio, es necesario también analizar cómo el mismo influenciará y qué beneficios generará en cuanto al problema que ha sido planteado. Con este fin, una vez detectados aquellos individuos que han cometido fraude, se busca estudiar cuál es la repercución del problema y cómo su detección puede ayudar al fondo de pensiones del IESS. 
 
+Para ello, se calculo el total del gasto pensional de los pensionistas. De donde se obtuvo que, considerando que estas personas comienzan a recibir su pensión desde enero del 2024, ya que la base de datos tiene como corte el 31 de diciembre de 2023, durante todo el año 2024 el costo de cubrir sus pensiones, que están conformadas por 13 pensiones iguales al valor de la pensión calculada y una pensión de cuantía igual al salario básico unificado del 2024 (460\$), fue de USD 4,415,151,338,75. Por otro lado, se tomó a la pensión corregida calculada como se menciona en la sección \label{subseccion:perfiles}, y se calculó de igual forma el costo de pagar las pensiones durante el 2024. Este valor  fue de USD 4.182.399.284,45. 
 
-
-
-
-
-
-
-
-
-
-
-
-
+De esto vemos que, la diferencia de ambos valores es de USD 224.185.822,50, es decir, un 5.27\% del valor a pagar. Es por ello que, la detección de los datos atípicos en un solo año generaría un ahorro significativo, de donde, su implementación tendría grandes beneficios a largo plazo que serían fundamentales para garantizar la sostenibilidad de la Seguridad Social. Así,, es de importancia  la detección de atípicos y es más visible el efecto que los fraudes están actualmente teniendo y que repercuten de forma directa en la sostenibilidad de la Seguridad Social.

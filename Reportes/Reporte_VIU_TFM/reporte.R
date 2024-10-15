@@ -184,7 +184,14 @@ REP_file_latex_org <- c( paste( parametros$work_dir, 'Reportes/Bibliografia_TFT.
                          
                          #Redes
                          paste( parametros$work_dir, 'Reportes/confusion_matrix_algoritmo_redes_grid_search.png', sep = '' ),
-                         paste( parametros$work_dir, 'Reportes/confusion_matrix_algoritmo_redes_bal_grid_search.png', sep = '' )
+                         paste( parametros$work_dir, 'Reportes/confusion_matrix_algoritmo_redes_bal_grid_search.png', sep = '' ),
+                         
+                         #Analisis
+                         paste( parametros$work_dir, 'Reportes/fraude_fecha_derecho_sexo.png', sep = '' ),
+                         paste( parametros$work_dir, 'Reportes/fraude_fecha_nacimiento_sexo.png', sep = '' ),
+                         paste( parametros$work_dir, 'Reportes/fraude_numero_imposiciones_sexo.png', sep = '' ),
+                         paste( parametros$work_dir, 'Reportes/pastel_sector_m.png', sep = '' ),
+                         paste( parametros$work_dir, 'Reportes/pastel_sector_n.png', sep = '' )
                         )
 
 
@@ -334,7 +341,14 @@ REP_file_latex_des <- c( paste( REP_rep_dir, 'Bibliografia_TFT.bib', sep = '' ),
                          
                          #Redes neuronales
                          paste( REP_rep_dir, 'graficos/', 'confusion_matrix_algoritmo_redes_grid_search.png', sep = '' ),
-                         paste( REP_rep_dir, 'graficos/', 'confusion_matrix_algoritmo_redes_bal_grid_search.png', sep = '' )
+                         paste( REP_rep_dir, 'graficos/', 'confusion_matrix_algoritmo_redes_bal_grid_search.png', sep = '' ),
+                         
+                         #Análisis
+                         paste( REP_rep_dir, 'graficos/', 'fraude_fecha_derecho_sexo.png', sep = '' ),
+                         paste( REP_rep_dir, 'graficos/', 'fraude_fecha_nacimiento_sexo.png', sep = '' ),
+                         paste( REP_rep_dir, 'graficos/', 'fraude_numero_imposiciones_sexo.png', sep = '' ),
+                         paste( REP_rep_dir, 'graficos/', 'pastel_sector_m.png', sep = '' ),
+                         paste( REP_rep_dir, 'graficos/', 'pastel_sector_n.png', sep = '' )
                          
                         )
 
