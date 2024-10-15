@@ -728,7 +728,7 @@ De \textit{data\_ati} se escogen las variables CEDULA\_COD, INI\_CAL, FIN\_CAL, 
 
 Se realiza el mismo proceso para los pensionistas de discapacidad e invalidez y se construye una única tabla (de nombre \textit{pen}), haciendo una concatenación por filas con la información  de todos los pensionistas. Esta tabla resultante contiene 686.479 filas con 33 columnas. Sin embargo, dados los problemas mostrados en NUMERO\_IMPOSICIONES y COEFICIENTE\_CAL, en \textit{pen} existen registros de pensionistas cuya información no se encuentra en \textit{data\_ati}, por lo cual, solo se trabajará con los registros que son diferentes de nulo en la variable BASE\_CAL. Esto da como consecuencia que se trabaje con 442.979 filas y 33 columnas. En un paso adicional, a este conjunto de datos se le agregan las variables MES\_AS, MES\_TU, SUELDO, APORTE, INTERES\_APORTE, N\_PRI, N\_PUB, N\_IND, N\_VOL\_EX, N\_VOL\_EC, M\_PRI, M\_PUB, M\_IND, M\_VOL\_EX y M\_VOL\_EC descritas en la sección \ref{subsec:trans_datos_no_super}.
 
-Por otra parte, se crean las variables \textit{PEN\_CJ}, \textit{PEN\_KM} y \textit{PEN\_DB} que corresponden al cálculo de las pensiones corregidas siguiendo lo determinado en el artículo 13 de la \legalcite{ResIESS_CD100}, es decir, se multiplica la base de cálculo corregida por la variable COEFICIENTE\_CAL. 
+Por otra parte, se crean las variables PEN\_CJ, PEN\_KM y PEN\_DB que corresponden al cálculo de las pensiones corregidas siguiendo lo determinado en el artículo 13 de la \legalcite{ResIESS_CD100}, es decir, se multiplica la base de cálculo corregida por la variable COEFICIENTE\_CAL. 
 
 El proceso de forma más detallada se encuentra en el script \textit{VIU\_analisis\_atipicos.ipynb} de \legalcite{CristianVIUTFM}.
 
@@ -744,79 +744,80 @@ Un mayor detalle del proceso de los dos últimos párrafos de esta sección se p
 %Aprendizaje supervisado----------------------------------------------------------------------------
 \section{Aprendizaje supervisado}
 
-Previo aplicación de los algoritmos de aprendizaje supervisado es fundamental la determinación de los atributos que son los más significativos para el análisis y así evitar la maldición de la dimensionalidad. Esto tiene como fin evitar considerar a las variables que no aportan nada a la predicción de los modelos y generen un tiempo de ejecución de los algoritmos demasiado elevado. En este sentido, se plantean dos enfoques, uno considerando nuevas características dadas por el análisis de componentes principales (ACP) y el otro con la utilización de algoritmos de aprendizaje no supervizado.
+Previo aplicación de los algoritmos de aprendizaje supervisado es fundamental la determinación de los atributos que son los más significativos para el análisis y así evitar la maldición de la dimensionalidad. Esto tiene como fin evitar considerar a las variables que no aportan nada en la predicción de los modelos y hacen que el tiempo de ejecución de los algoritmos sea demasiado elevado. En este sentido se plantean dos enfoques, uno considerando las nuevas características dadas por el análisis de componentes principales (ACP) y el otro teniendo en cuenta los atributos dados tras la utilización de algoritmos de aprendizaje no supervizado.
 
 \subsection{Selección de características dadas por el ACP}\label{sub_apre_cara_acp}
 
-Como se menciona en \cite{tesis_guatemal_epn} y \cite{wiskott2009pca}, el objetivo del ACP es, dadas $X_1, X_2, \ldots, X_n$ variables, hallar $n$ nuevas variables que son combinaciones lineales de las variables iniciales, de tal manera que $r$ ($r<n$) recojan la mayor cantidad de información posible sobre los atributos $X_1, X_2, \ldots, X_n$. Antes de la utilización del ACP es necesario, como se menciona en \cite{tesis_guatemal_epn}, ``verificar si la correlación entre las variables analizadas es lo suficientemente grande como para poder justificar la factorización de la matriz de coeficientes de correlación'' (p. 90). Esto se logra mediante el Test de Esfericidad de Bartlett y el Índice Kaiser-Meyer-Olkin (KMO). 
+Como se menciona en \citet{tesis_guatemal_epn} y \citet{wiskott2009pca}, el objetivo del ACP es, dadas $X_1, X_2, \ldots, X_n$ variables, hallar $n$ nuevas variables que son combinaciones lineales de las variables iniciales, de tal manera que $r$ ($r<n$) recojan la mayor cantidad de información posible de los atributos $X_1, X_2, \ldots, X_n$. Sin embargo, antes de la utilización del ACP es necesario, como se menciona en \citet{tesis_guatemal_epn}, ``verificar si la correlación entre las variables analizadas es lo suficientemente grande como para poder justificar la factorización de la matriz de coeficientes de correlación'' (p. 90). Esto se logra mediante el Test de Esfericidad de Bartlett y el Índice Kaiser-Meyer-Olkin (KMO). 
 
-El resultado de aplicar el test de esfericidad nos da un p-valor menor a 0, lo cual nos permite decir que estadísticamente las variables están correlacionadas. No obstante, el valor de KMO es 0,4720, lo cual da señales que no es factible\footnote{En \cite{tesis_guatemal_epn} se manifiesta que si los valores del KMO están entre 0,5 y 1 es apropiado aplicar un ACP} realizar un ACP. En este sentido, tenemos los suficientes argumentos para no realizar el ACP. Sin embargo, con la finalidad de comparar los resultados que nos darán los métodos supervizados y el ACP, se procede a implementarlo. 
+El resultado de aplicar el Test de Esfericidad nos da un p-valor menor a 0, lo cual permite concluir que estadísticamente las variables están correlacionadas. No obstante, el valor de KMO es 0,4720, lo cual da señales que no es factible\footnote{En \citet{tesis_guatemal_epn} se manifiesta que si los valores del KMO están entre 0,5 y 1 es apropiado aplicar un ACP} realizar un ACP. En este sentido, tenemos los suficientes argumentos para no realizar el ACP. No obstante, con la finalidad de comparar los resultados que nos darán los métodos supervizados y el ACP (solo se considerará a las componentes del ACP para el caso del algoritmo de KNN) se procede a implementarlo.
 
-La primera parte es dividir a los datos de \textit{data} en \textit{train} y \textit{test}. En este punto y en lo que sigue se considera que el 20\% de los datos serán para el conjunto de test. Luego se normalizan los atributos de train con excepción de las variables \textit{SEXO}\footnote{Sus valores son 0 para hombres y 1 para mujer}, \textit{PRES}\footnote{Sus valores son 0 para pensionistas de discapacidad, 1 para pensionistas de invalidez y 2 para pensionistas de vejez}, \textit{N\_PRI\_P}, \textit{N\_PUB\_P}, \textit{N\_IND\_P}, \textit{N\_VOL\_EC\_P}, \textit{N\_VOL\_EX\_P}, \textit{M\_PRI\_P}, \textit{M\_PUB\_P}, \textit{M\_IND\_P}, \textit{M\_VOL\_EC\_P}, \textit{M\_VOL\_EX\_P} y \textit{TARGET}. No se consideró a las variables con terminación en \textit{\_P} pues ya estan en escala de 0 a 1. Los parámetros de la normalización en el \textit{train} se utilizan para normalizar los datos de \textit{test}.
+La primera parte es dividir a los datos de \textit{data} en \textit{train} y \textit{test}. En este punto y en lo que sigue se considera que el 20\%\footnote{En concordancia con \textcite{8717766}} de los datos serán para el conjunto de test. Luego se normalizan los atributos de train, con excepción de las variables SEXO\footnote{Sus valores son 0 para hombres y 1 para mujer}, PRES\footnote{Sus valores son 0 para pensionistas de discapacidad, 1 para pensionistas de invalidez y 2 para pensionistas de vejez}, N\_PRI\_P, N\_PUB\_P, N\_IND\_P, N\_VOL\_EC\_P, N\_VOL\_EX\_P, M\_PRI\_P, M\_PUB\_P, M\_IND\_P, M\_VOL\_EC\_P y M\_VOL\_EX\_P, debido a que ya estan en escala de 0 a 1. Los parámetros resultantes de la normalización en el \textit{train} se utilizan para normalizar los datos de \textit{test}.
 
-Tras la aplicación del ACP en el conjunto de datos de train, en la octava componente se recoje el 92,60\% de la información de las variables originales. Es así que, se utiliza este número de componentes y se proyectan los datos normalizados del train y del test en las mismas. Estas variables tomarán los nombres \textit{PC1}, \textit{PC2}, \textit{PC3}, \textit{PC4}, \textit{PC5}, \textit{PC6}, \textit{PC7} y \textit{PC8}.
+Tras la aplicación del ACP para el conjunto de datos de train, en la octava componente se recoje el 92,60\% de la información de las variables originales. Es así que, se utiliza este número de componentes y se proyectan los datos normalizados del train y del test en las mismas. Estas variables tomarán los nombres PC1, PC2, PC3, PC4, PC5, PC6, PC7 y PC8.
 
-Ahora bien, se repite el mismo proceso descrito anteriormente, pero con una balanceo de clases. Lo que se hace es que posterior al proceso de normalización de train y test, generar un balanceo de clases con el método \textit{SMOTEENN}. Se aplica el ACP y se tiene que en la octava componente se recoje el 93,12\% de la información de las variables originales. Después se proyectan los datos del train y test normalizados y balanceados en estás nuevas componentes principales y el nombre de las variables será \textit{PC1\_bal}, \textit{PC2\_bal}, \textit{PC3\_bal}, \textit{PC4\_bal}, \textit{PC5\_bal}, \textit{PC6\_bal}, \textit{PC7\_bal} y \textit{PC8\_bal}.
+Ahora bien, se repite el mismo proceso descrito anteriormente, pero con un balanceo de clases. Lo que se hace es que posterior al proceso de normalización de train y test, generar un balanceo de clases con el método \textit{SMOTEENN}\footnote{En concordancia con \textcite{8123782}}. Se aplica el ACP y se tiene que en la octava componente se recoje el 93,12\% de la información de las variables originales. Después se proyectan los datos del train y test normalizados y balanceados en éstas nuevas componentes principales. El nombre de las variables será PC1\_bal, PC2\_bal, PC3\_bal, PC4\_bal, PC5\_bal, PC6\_bal, PC7\_bal y PC8\_bal.
 
 Como se expuso anteriormente, esta parte es solo didáctica, por lo que estás variables solo serán consideradas en la implementación del algoritmo \textit{KNN}.
 
+%Selección de características dadas por métodos no supervisados-------------------------------------
 \subsection{Selección de características dadas por métodos no supervisados}\label{sub_apre_cara_no_super}
 
-Con la ayuda de técnicas del aprendizaje no supervisado se van a seleccionar las variables más significativas para utilizarlas en la implementación  de los algoritmos de aprendizaje supervisado. Lo primero a realizar es normalizar a \textit{data} sin los atributos \textit{SEXO}, \textit{PRES}, \textit{N\_PRI\_P}, \textit{N\_PUB\_P}, \textit{N\_IND\_P}, \textit{N\_VOL\_EC\_P}, \textit{N\_VOL\_EX\_P}, \textit{M\_PRI\_P}, \textit{M\_PUB\_P}, \textit{M\_IND\_P}, \textit{M\_VOL\_EC\_P}, \textit{M\_VOL\_EX\_P} y \textit{TARGET}, en base a la justificación del párrafo tres de la subsección \ref{sub_apre_cara_acp}. Se aplica el proceso MinMaxScaler() a la transpuesta de la data resultante (el resultado se llamará \textit{features\_norm}).
+Con ayuda de las técnicas del aprendizaje no supervisado se van a seleccionar las características más significativas para posteriormente utilizarlas en los algoritmos de aprendizaje supervisado. Lo primero a realizar es la normalización de \textit{data}, sin los atributos SEXO, PRES, N\_PRI\_P, N\_PUB\_P, N\_IND\_P, N\_VOL\_EC\_P, N\_VOL\_EX\_P, M\_PRI\_P, M\_PUB\_P, M\_IND\_P, M\_VOL\_EC\_P y M\_VOL\_EX\_P , siguiendo la justificación del párrafo tres de la subsección \ref{sub_apre_cara_acp}. Luego se aplica el proceso MinMaxScaler() a la transpuesta de la data resultante (el resultado se llamará \textit{features\_norm}).
 
-El primer enfoque es aplicar a \textit{features\_norm} el cluster jerárquico con la métrica \textit{single}. El resultado se presenta en la figura \ref{fig:dendograma_sel_atri_cj}.
+El primer enfoque es aplicar a \textit{features\_norm} el algorimto de cluster jerárquico con el método \textit{single}. El resultado se presenta en la figura \ref{fig:dendograma_sel_atri_cj}.
 
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.35]{graficos/dendograma_sel_carac_cj.png}
-\caption{\headlinecolor{\underline{Dendograma para la selección de atributos}}}
+\caption{\headlinecolor{\underline{Dendograma para la selección de características}}}
 \label{fig:dendograma_sel_atri_cj}
 \end{figure}
 
-Visualmente, se realiza el corte en 100 y se generan 12 agrupaciones. La asignación de las variables en sus respectivos cluster es la siguiente:
+Visualmente se realiza el corte en 100 y se generan 12 agrupaciones. La asignación de las variables en sus respectivos cluster es la siguiente:
 
 \begin{itemize}
-\item Cluster 1: \textit{SEXO} y \textit{BASE\_CAL},
-\item Cluster 2: \textit{SAL\_PROM2},
-\item Cluster 3: \textit{MES\_AS},
-\item Cluster 4: \textit{N\_IND\_P} y \textit{M\_IND\_P},
-\item Cluster 5: \textit{NUMERO\_IMPOSICIONES}, \textit{N\_MESES}, \textit{PRES}, \textit{LS2} y \textit{TIEM\_MA},
-\item Cluster 6: \textit{N\_PUB\_P} y \textit{M\_PUB\_P},
-\item Cluster 7: \textit{N\_VOL\_EC\_P}, \textit{N\_VOL\_EX\_P}, \textit{M\_PRI\_P}, \textit{M\_VOL\_EC\_P}, \textit{M\_VOL\_EX\_P} y \textit{EDAD\_J},
-\item Cluster 8: \textit{TARGET},
-\item Cluster 9: \textit{SUELDO},
-\item Cluster 10: \textit{LS\_MS},
-\item Cluster 11: \textit{TIEM\_T},
-\item Cluster 12: \textit{N\_PRI\_P},
+\item Cluster 1: SEXO y BASE\_CAL,\\[-0.75cm]
+\item Cluster 2: SAL\_PROM2,\\[-0.75cm]
+\item Cluster 3: MES\_AS,\\[-0.75cm]
+\item Cluster 4: N\_IND\_P y M\_IND\_P,\\[-0.75cm]
+\item Cluster 5: NUMERO\_IMPOSICIONES, N\_MESES, PRES, LS2 y TIEM\_MA,\\[-0.75cm]
+\item Cluster 6: N\_PUB\_P y M\_PUB\_P,\\[-0.75cm]
+\item Cluster 7: N\_VOL\_EC\_P, N\_VOL\_EX\_P, M\_PRI\_P, M\_VOL\_EC\_P, M\_VOL\_EX\_P y EDAD\_J,\\[-0.75cm]
+\item Cluster 8: TARGET,\\[-0.75cm]
+\item Cluster 9: SUELDO,\\[-0.75cm]
+\item Cluster 10: LS\_MS,\\[-0.75cm]
+\item Cluster 11: TIEM\_T,\\[-0.75cm]
+\item Cluster 12: N\_PRI\_P
 \end{itemize}
 
-El segundo enfoque es utilizar DBSCAN para identificar ouliters y con ello detectar a las características que son diferentes a las demás y que nos ayudarán en el problema de la maldición de la dimensionalidad. En este sentido, para \textit{features\_norm} y tomando $minPts = 3$ debido a su simplicidad de implementación y ya que ha demostrado obtener buenos resultados, se va a determinar el valor de epsilon. En la figura \ref{fig:sele_dbscan_atributos} se ven los resultados. El valor de epsilon a utilizar es de 198.1671.
-
+El segundo enfoque es utilizar DBSCAN para identificar ouliters y con ello detectar a las características que son diferentes a las demás y que nos ayudarán en el problema de la maldición de la dimensionalidad. Así, con un valor de $MinPts = 3$\footnote{Debido a su simplicidad de implementación y ya que ha demostrado obtener buenos resultados}, el valor de Eps a utilizar es de 198.1671. Estos se puede apreciar en la  figura \ref{fig:sele_dbscan_atributos}.
 
 \begin{figure}[H]
 \centering
-\includegraphics[scale=0.35]{graficos/valor_epsilon_feacture_norm.png}
+\includegraphics[scale=0.40]{graficos/valor_epsilon_feacture_norm.png}
 \caption{\headlinecolor{\underline{Estimación del valor de epsilon para la selección de atributos}}}
 \label{fig:sele_dbscan_atributos}
 \end{figure}
 
-Se amplía el rango de búsqueda para el valor de epsilon y se escoje el valor de epsilon igual a 64, que genera 2 clústeres con 17 atributos atípicos. El detalle de esta clasificación se presenta a continuación:
+Se amplía el rango de búsqueda para el valor de epsilon y se elige un valor igual a 64, que genera 2 clúster con 17 atributos atípicos. El detalle de esta clasificación se presenta a continuación:
 
 \begin{itemize}
-\item Cluster 1: \textit{NUMERO\_IMPOSICIONES}, \textit{PRES} y \textit{TIEM\_MA},
-\item Cluster 2: \textit{N\_VOL\_EX\_P}, \textit{M\_PRI\_P}, \textit{M\_VOL\_EX\_P} y \textit{EDAD\_J},
-\item Atípicos: \textit{SEXO}, \textit{BASE\_CAL}, \textit{N\_MESES}, \textit{LS2}, \textit{SAL\_PROM2}, \textit{LS\_MS}, \textit{TIEM\_T}, \textit{MES\_AS}, \textit{SUELDO}, \textit{N\_PRI\_P}, \textit{N\_PUB\_P}, \textit{N\_IND\_P}, \textit{N\_VOL\_EC\_P}, \textit{M\_PUB\_P}, \textit{M\_IND\_P}, \textit{M\_VOL\_EC\_P} y \textit{TARGET}
+\item Cluster 1: NUMERO\_IMPOSICIONES, PRES y TIEM\_MA
+\item Cluster 2: N\_VOL\_EX\_P, M\_PRI\_P, M\_VOL\_EX\_P y EDAD\_J,
+\item Atípicos: SEXO, BASE\_CAL, N\_MESES, LS2, SAL\_PROM2, LS\_MS, TIEM\_T, MES\_AS, SUELDO, N\_PRI\_P, N\_PUB\_P, N\_IND\_P, N\_VOL\_EC\_P, M\_PUB\_P, M\_IND\_P, M\_VOL\_EC\_P y TARGET
 \end{itemize}
 
-En base a los resultados de la selección de características dadas por el clúster jerárquico y DBSCAN, las variables a considerar en lo que sigue son \textit{BASE\_CAL}, \textit{LS2}, \textit{SAL\_PROM2}, \textit{LS\_MS}, \textit{SUELDO}, \textit{SEXO}, \textit{PRES}, \textit{N\_PRI\_P}, \textit{N\_PUB\_P}, \textit{N\_IND\_P}, \textit{N\_VOL\_EC\_P}, \textit{N\_VOL\_EX\_P}, \textit{M\_PRI\_P}, \textit{M\_PUB\_P}, \textit{M\_IND\_P}, \textit{M\_VOL\_EC\_P}, \textit{M\_VOL\_EX\_P}, \textit{NUMERO\_IMPOSICIONES}, \textit{TIEM\_T} y \textit{TARGET}. Por facilidad, al grupo de estas variables se llamará \textit{variables\_ml} y las mismas serán utilizadas en la implementación de todos los algortimos de aprendizaje supervisado a utilizar.
+En base a los resultados de la selección de características dadas por clúster jerárquico y DBSCAN, las variables a considerar en lo que sigue son BASE\_CAL, LS2, SAL\_PROM2, LS\_MS, SUELDO, SEXO, PRES, N\_PRI\_P, N\_PUB\_P, N\_IND\_P, N\_VOL\_EC\_P, N\_VOL\_EX\_P, M\_PRI\_P, M\_PUB\_P, M\_IND\_P, M\_VOL\_EC\_P, M\_VOL\_EX\_P, NUMERO\_IMPOSICIONES, TIEM\_T y TARGET. Por facilidad, al grupo de estas variables se llamará \textit{variables\_ml} y las mismas serán utilizadas en la implementación de los siguientes algoritmos de aprendizaje supervisado.
 
+%KNN------------------------------------------------------------------------------------------------
 \subsection{KNN}
 
-El KNN es un método no paramétrico que clasifica los puntos según su distancia a los datos de entrenamiento. De donde, a los nuevos puntos se les asigna la etiqueta más común entre sus vecinos. Entre sus ventajas encontramos su facilidad de implementación, su flexibilidad cuando no se conoce la estructura subyacente del modelo, eficacia especialmente cuando hay una buena distribución de datos, y su robustez al ruido ya que permite modificaciones con el fin de disminuir la influencia de valores atípicos. Es necesario tener en cuenta que su rendimiento depende de la elección tanto del número de vecinos como del peso usado \citep{syriopoulos2023knn}.
+El KNN es un método no paramétrico que clasifica los puntos según su distancia a los datos de entrenamiento, en donde, a los nuevos puntos se les asigna la etiqueta más común entre sus vecinos. Entre sus ventajas encontramos su facilidad de implementación, su flexibilidad cuando no se conoce la estructura subyacente del modelo, eficacia especialmente cuando hay una buena distribución de datos, y su robustez al ruido ya que permite modificaciones con el fin de disminuir la influencia de valores atípicos. Es necesario tener en cuenta que su rendimiento depende de la elección tanto del número de vecinos como del peso usado \citep{syriopoulos2023knn}.
 
-Utilizando los códigos provistos en la materia de Machine Learning y las variables \textit{PC1}, \textit{PC2}, \textit{PC3}, \textit{PC4}, \textit{PC5}, \textit{PC6}, \textit{PC7}, \textit{PC8}, se procede a parametrizar la elección KNeighbors en el rango de 1 a 30 y los pesos (ponderaciones) serán dados por \textit{uniform} y \textit{distance}. Se ejecutará validación cruzada y como medida de éxito vamos a utilizar el Accuracy. El código se presenta en la sección \ref{sec_anexos:knn} de anexos.
+Utilizando los códigos provistos en la materia de Machine Learning y las variables PC1, PC2, PC3, PC4, PC5, PC6, PC7 y PC8, se procede a parametrizar la elección KNeighbors en el rango de 1 a 30 y los pesos (ponderaciones) serán dados por \textit{uniform} y \textit{distance}. Se ejecuta validación cruzada y como medida de éxito se elige el accuracy. El código utilizado se presenta en la sección \ref{sec_anexos:knn} de anexos.
  
-Los resultados se muestran en la figura \ref{fig:algoritmo_knn_acp}, por lo que, la elección de los parámetros es con 29 vecinos y la ponderación es dada por \textit{distance}. 
+Los resultados de esta implementación se muestran en la figura \ref{fig:algoritmo_knn_acp}, por lo que, la elección de los parámetros es  29 vecinos y  ponderación igual a \textit{distance}. 
 
 \begin{figure}[H]
 \centering
@@ -825,12 +826,14 @@ Los resultados se muestran en la figura \ref{fig:algoritmo_knn_acp}, por lo que,
 \label{fig:algoritmo_knn_acp}
 \end{figure}
 
-En este estudio, las medidas clave para la evaluación del modelo serán tanto la sensibilidad como el accuracy. Esto ya que el accuracy proporciona una visión general de qué tan bien el modelo clasifica los datos globalmente. No obstante, es necesario tener en cuenta los casos en los que los valores atípicos se han clasificado incorrectamente como no atípicos, lo que se obtiene restando a 1 la sensibilidad. Dado el contexto del estudio, la detección de valores atípicos es crucial, ya que la falta de identificación de uno de ellos puede generar más problemas que la mala clasificación de un valor no atípico como atípico. En este estudio, no detectar un atípico representa no identificar a una persona que ha cometido fraude, lo cual puede resultar en grandes pérdidas para la Seguridad Social. Por el contrario, si una persona que no ha cometido fraude es identificada como un valor atípico, únicamente se realizará una investigación más profunda, sin que esto resulte en mayores pérdidas económicas.
+En este estudio, las medidas claves para la evaluación del modelo serán tanto la sensibilidad como el accuracy. Esto debido a que el accuracy proporciona una visión general de qué tan bien el modelo clasifica los datos globalmente. No obstante, es necesario tener en cuenta los casos en los que los valores atípicos se han clasificado incorrectamente como no atípicos, lo que se obtiene restando a 1 la sensibilidad. Así, la detección de valores atípicos es crucial, ya que la falta de identificación de uno de ellos puede generar más problemas que la mala clasificación de un valor no atípico como atípico. Por lo que, no detectar un atípico representa no identificar a una persona que ha cometido fraude, lo cual puede resultar en grandes pérdidas para la Seguridad Social. Por el contrario, si una persona que no ha cometido fraude es identificada como un valor atípico, únicamente se realizará una investigación más profunda, sin que esto resulte en mayores pérdidas económicas.
 
-Tomando esto en cuenta, una vez entrenado el modelo con los parámetros previamente adquiridos, se ha obtenido que el acurracy del mismo al ser aplicado en los datos del test es de 0,7483230571176909, mientras que al aplicarse en los datos de train el mismo es de 1. Para contrastar este resultado y evaluar el modelo se obtiene la matriz de confusión de las predicciones realizadas de la base de datos de testeo, que se encuentra en la tabla \ref{tab:mc_knn_1} y en la figura \ref{fig:matriz_conf_knn_acp} en anexos.
+Tomando en cuenta lo descrito anteriormente, una vez entrenado el modelo con la elección de sus parámetros, se ha obtenido que el acurracy en los datos del test es 0,7483230571176909, mientras que al aplicarlo en los datos de train es  1. Para contrastar este resultado y evaluar el modelo, se obtiene la matriz de confusión de las predicciones realizadas de la base de datos de testeo. Los resultados se encuentran en la tabla \ref{tab:mc_knn_1} y en la figura \ref{fig:matriz_conf_knn_acp} de los anexos.
 
 \begin{table}[h!]
 \centering
+\caption{\headlinecolor{\underline{Matriz de confusión para el KNN con ACP}}}\vspace{-0.2cm}
+\label{tab:mc_knn_1}
 \resizebox{0.5\textwidth}{!}{
 \begin{tabular}{|c|c|c|c|}
 \hline
@@ -842,8 +845,6 @@ Tomando esto en cuenta, una vez entrenado el modelo con los parámetros previame
 \cellcolor[HTML]{FFA074} & \textbf{Atípico} & 14711 & 15710 \\ \hline
 \end{tabular}
 }
-\caption{\headlinecolor{\underline{Matriz de confusión para el KNN con ACP}}}
-\label{tab:mc_knn_1}
 \end{table}
 
 A partir de estos resultados, podemos extraer ciertas métricas, a parte del accuracy que nos ayudarán a establecer la capacidad de predicción del modelo, es decir, si su funcionamiento es óptimo o no dependiendo de nuestros objetivos. Para ello, tenemos que en este modelo la sensibilidad es de \Sexpr{15710/(15710+14711)}, la especifidad es de \Sexpr{50557/(50557+7576)} y y finalmente, la precisión es de \Sexpr{15710/(15710+7576)}.
