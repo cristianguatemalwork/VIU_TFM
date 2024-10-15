@@ -1431,22 +1431,40 @@ Finalmente, también podemos observar esta relación tomando en cuenta la fecha 
 
 A su vez, resulta necesario estudiar el sector donde más se realizaron aportes por parte de las personas que han cometido fraude. Esto es esencial en el estudio del perfil de este tipo de individuos ya que nos indica el tipo de sector que debe ser tomado más en cuenta en la detección de estos casos. Para ello, entre todos los individuos etiquetados como atípicos, se obtuvo el promedio de los porcentajes de aportación a los diferentes sectores durante toda su vida laboral y los 5 mejores años. Con esto se obtuvo el porcentaje de incidencia de fraude en cada sector. En la figura \ref{fig:fraude_sectores} se observa  en primer lugar, estos porcentajes tomando en cuenta toda la vida laboral y posteriormente, únicamente tomando en cuenta los 5 mejores años. En ambos casos es claro que, existe una incidencia de más del 55\% en el secto privado, seguido por el público donde la presencia de estos casos es de alrededor de 33\%. Y el último sector significativo que es el independiente con 8.4\% en promedio. Así, observamos que de forma significativa los frades son cometidos por individuos que operan en su mayoría en el sector privado, por lo que puede ser de ayuda el estudio de diversas acciones a tomar para prevenir y detectar estos casos sobre todo en ese sector.
 
-\begin{landscape}
-\begin{figure}[H]  
+
+\begin{figure}[H]
     \centering
-    \begin{minipage}{0.35\textwidth}
+    \begin{subfigure}{0.45\textwidth}
         \centering
-        \includegraphics[scale=0.35]{graficos/pastel_sector_n.png} 
-    \end{minipage}
-    \hspace{1cm}  
-    \begin{minipage}{0.35\textwidth}
+        \includegraphics[scale=0.30]{graficos/pastel_sector_n.png}
+        %\label{fig:algoritmo_cj_271_1}
+    \end{subfigure}
+    \hspace{0.01\textwidth} % Espacio entre las imágenes
+    \begin{subfigure}{0.45\textwidth}
         \centering
-        \includegraphics[scale=0.35]{graficos/pastel_sector_m.png} 
-    \end{minipage}
-\caption{\headlinecolor{\underline{Incidencia de fraude por sectores }}}
-\label{fig:fraude_sectores} 
+        \includegraphics[scale=0.30]{graficos/pastel_sector_m.png}
+        %\label{fig:algoritmo_cj_20889867_1} % Corrijo el label
+    \end{subfigure}
+  \caption{\headlinecolor{\underline{Incidencia de fraude por sectores }}}
 \end{figure}
-\end{landscape}
+
+
+
+% \begin{figure}[H]  
+%     \centering
+%     \begin{minipage}{0.35\textwidth}
+%         \centering
+%         \includegraphics[scale=0.35]{graficos/pastel_sector_n.png} 
+%     \end{minipage}
+%     \hspace{1cm}  
+%     \begin{minipage}{0.35\textwidth}
+%         \centering
+%         \includegraphics[scale=0.35]{graficos/pastel_sector_m.png} 
+%     \end{minipage}
+% \caption{\headlinecolor{\underline{Incidencia de fraude por sectores }}}
+% \label{fig:fraude_sectores} 
+% \end{figure}
+
 
 
 \subsection{Resultados de la aplicación del estudio a la sostenibilidad de la Seguridad Social}\label{subseccion:aplicacion_resultados}

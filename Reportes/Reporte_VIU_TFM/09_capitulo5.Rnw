@@ -7,6 +7,21 @@ Es importante eliminar la idea errónera de que las aportaciones fraudulentas se
 
 \section{Trabajos futuros}
 
+En el campo de estudio de este trabajo de Fin de Máster encontramos una amplia gama de expansión, partiendo de diferentes ramas y contextos. Es por ello por lo que, para trabajos futuros, contar con una mayor cantidad de datos y herramientas computacionales sería de gran ayuda para obtener resultados más precisos y así poder predecir un perfil claro de aquellos afiliados que hacen fraude. De esta forma, la detección de los mismo se podría realizar en una etapa temprana, donde se pueda hacer un seguimiento a través de diferentes unidades del IESS para contrarrestar este problema a tiempo.
+
+Asimismo, tenemos que, a pesar de que este estudio proporciona una estimación general de las pérdidas que la detección de fraudes podría evitar, es posible hacer un análisis más detallado, que tome en cuenta el tiempo y otras variables para evaluar realmente cuáles serían los beneficios. Esto con la ayuda de la matemática actuarial que desempeña un papel fundamental en este proceso, ya que nos permite tomar en cuenta las probabilidades de muerte al analizar rentas vitalicias y temporales actuariales. Con esto, se podría determinar de forma más precisa tanto las pérdidas que se han tenido como las que se pueden prever.
+
 \section{Limitaciones e inconvenientes}
 
-Como el sistema de historia laboral del IESS migró del sistema HOST a HL, no fue posible obtener toda la información de las aportaciones. En algunos casos se debe a que no se digitalizó toda la información y los expedientes aún son físicos, por lo cual, cuando una persona solicita su pensión, van a registros físicos a verificar las aportaciones.
+Entre las limitaciones que presenta el estudio realizado en este Trabajo de Fin de Máster encontramos el tiempo de ejecución y costo computacional requeridos. Esto debido a que tanto la preparación de los datos como el entrenamiento de la mayoría de los modelos toman una cantidad significativa de tiempo y su costo computacional es elevado. Si bien hay modelos como el XGBoost con Random Search cuyo tiempo de ejecución es de alrededor de 28 minutos, la mayoría de los algoritmos toma entre 4 a 8 horas. Esto ocurre cuando los mismos son ejecutados en una computadora cuyas características son las que se muestran en la figura \ref{fig:caracteristicas_computador}. Sin embargo, en muchos casos no se cuenta con este tipo de características computacionales para llevar a cabo este tipo de estudios. Por lo que, el tiempo podría multiplicarse y de esta forma, desarrollar este estudio sería inviable, más aún cuando la cantidad de datos sea mayor que en este trabajo.
+
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.35]{graficos/caracteristicas_computador.jpeg}
+\caption{\headlinecolor{\underline{Características computacionales}}}
+\label{fig:caracteristicas_computador}
+\end{figure}
+
+
+Por otro lado, como el sistema de historia laboral del IESS migró del sistema HOST a HL, no fue posible obtener toda la información de las aportaciones. En algunos casos se debe a que no se digitalizó toda la información y los expedientes aún son físicos, por lo cual, cuando una persona solicita su pensión, van a registros físicos a verificar las aportaciones.
