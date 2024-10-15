@@ -810,6 +810,8 @@ Se amplía el rango de búsqueda para el valor de epsilon y se elige un valor ig
 
 En base a los resultados de la selección de características dadas por clúster jerárquico y DBSCAN, las variables a considerar en lo que sigue son BASE\_CAL, LS2, SAL\_PROM2, LS\_MS, SUELDO, SEXO, PRES, N\_PRI\_P, N\_PUB\_P, N\_IND\_P, N\_VOL\_EC\_P, N\_VOL\_EX\_P, M\_PRI\_P, M\_PUB\_P, M\_IND\_P, M\_VOL\_EC\_P, M\_VOL\_EX\_P, NUMERO\_IMPOSICIONES, TIEM\_T y TARGET. Por facilidad, al grupo de estas variables se llamará \textit{variables\_ml} y las mismas serán utilizadas en la implementación de los siguientes algoritmos de aprendizaje supervisado.
 
+Para mayor detalle de todo el proceso realizado, el lector puede revisar el script \textit{VIU\_ml\_knn.ipynb} de \legalcite{CristianVIUTFM}.
+
 %KNN------------------------------------------------------------------------------------------------
 \subsection{KNN}
 
@@ -1014,12 +1016,13 @@ A partir de estos resultados obtenemos que este modelo tiene sensibilidad de \Se
 
 La cuatro variables más importantes son BASE\_CAL con 33,23\%, LS2 con el 18,98\%, N\_PRI\_P con el 18,21\% y SAL\_PROM2 con el 6,98\%.
 
-Generalmente, los árboles individuales son propensos a generar overfitting, lo que provoca que su eficacia sea muy poca al momento de predecir el comportamiento de los datos que no fueron considerados en la etapa de entrenamiento. Es así que, con el fin de evitar el sobreajuste se plantea un conjunto de modelos y así tener un mejor rendimiento predictivo.  Los métodos de muestreo que se van a considerar son \textit{RandomForestClassifier} (es el algoritmo de Random Forest utilizado para clasificación), \textit{AdaBoostClassifier} (Boosting) y \textit{GradientBoostingClassifier} (Boosting). Para la selección de los parámetros se utilizará la optimización de hiperparámetros con las herramientas de \textit{RandomizedSearch} y \textit{GridSearch}.
+Para ver con mayor detalle  todo el proceso realizado en este algorimo vaya a \textit{VIU\_ml\_arboles.ipynb} de \legalcite{CristianVIUTFM}.
 
+Generalmente, los árboles individuales son propensos a generar overfitting, lo que provoca que su eficacia sea muy poca al momento de predecir el comportamiento de los datos que no fueron considerados en la etapa de entrenamiento. Es así que, con el fin de evitar el sobreajuste se plantea un conjunto de modelos, para así tener un mejor rendimiento predictivo.  Los métodos de muestreo que se van a considerar son \textit{RandomForestClassifier} (es el algoritmo  Random Forest utilizado para clasificación), \textit{AdaBoostClassifier} (Boosting) y \textit{GradientBoostingClassifier} (Boosting). Para la selección de los parámetros se utilizará la optimización de hiperparámetros con las herramientas de \textit{RandomizedSearch} (estrategia para Random Search) y \textit{GridSearch} (estrategia para Grid Search).
 
 \subsubsection{RandomForestClassifier}
 
-La primera parte es una selección  aleatoria de los  valores de hiperparámetros requeridos por \textit{RandomForestClassifier} mediante Random Search. El rango de valores se presenta en la subseción \ref{sec_anexos:conjunto_modelos_RandomForestClassifier} de anexos. Los parámetros son 
+La primera parte es la selección  aleatoria de los parámetros de RandomizedSearchCV. El rango de estos valores se presenta en la subsección \ref{sec_anexos:conjunto_modelos_RandomForestClassifier} de anexos. Los parámetros resultante de este proceso son:
 
 \begin{lstlisting}[style=pythonstyle]
 RandomForestClassifier(class_weight='balanced_subsample', criterion='log_loss',
@@ -1028,28 +1031,29 @@ RandomForestClassifier(class_weight='balanced_subsample', criterion='log_loss',
                        random_state=8)
 \end{lstlisting}
 
-Con esto se entrena el modelo y tenemos que el accuracy del train y test es  0.9013257447433205 y 0.825089775730063, respectivamente. Para contrastar este resultado y evaluar el modelo se obtiene la matriz de confusión que se encuentra en la tabla \ref{tab:random_forest_randoms} y en la figura \ref{fig:confusion_matrix_algoritmo_RandomForestClassifier_random_search} en anexos.
+Con los mismos se entrena el modelo y el accuracy del \textit{train} y \textit{test} son  0.9013257447433205 y 0.825089775730063 respectivamente. Para contrastar este resultado y evaluar el modelo se obtiene la matriz de confusión que describe en la tabla \ref{tab:random_forest_randoms} y en la figura \ref{fig:confusion_matrix_algoritmo_RandomForestClassifier_random_search} de  anexos.
 
 \begin{table}[H]
 \centering
+\caption{\headlinecolor{\underline{Matriz de confusión de RandomForestClassifier con RandomizedSearch}}}\vspace{-0.3cm}
+\label{tab:random_forest_randoms}
 \resizebox{0.5\textwidth}{!}{
 \begin{tabular}{|c|c|c|c|}
 \hline
 \cellcolor[HTML]{E65013} \textbf{Matriz de confusión} & \multicolumn{3}{c|}{\cellcolor[HTML]{FFA074} \textbf{Predicción}} \\ \hline
-\multirow{2}{*}{\cellcolor[HTML]{FFA074}} &  & \textbf{No atípico} & \textbf{Atípico} \\ \cline{2-4} 
-\cellcolor[HTML]{FFA074} \textbf{Real}   & \textbf{No atípico}  & 48142 & 9991 \\ \cline{2-4} 
+\multirow{2}{*}{\cellcolor[HTML]{FFA074}} &  & \textbf{No atípico} & \textbf{Atípico} \\ \cline{2-4}
+\cellcolor[HTML]{FFA074} \textbf{Real}   & \textbf{No atípico}  & 48142 & 9991 \\ \cline{2-4}
 \cellcolor[HTML]{FFA074}                  & \textbf{Atípico}     & 5498 & 24923 \\ \hline
 \end{tabular}
 }
-\caption{\headlinecolor{\underline{Matriz de confusión para el algoritmo con RandomizedSearch}}}
-\label{tab:random_forest_randoms}
+
 \end{table}
 
-A partir de estos resultados obtenemos que este modelo tiene sensibilidad de \Sexpr{24923/(24923 + 5498)}, especifidad de \Sexpr{48142/(48142+9991)} y finalmente, precisión  de \Sexpr{24923/(24923+9991)}.
+A partir de estos resultados, este modelo tiene sensibilidad de \Sexpr{24923/(24923 + 5498)}, especifidad de \Sexpr{48142/(48142+9991)} y precisión  de \Sexpr{24923/(24923+9991)}.
 
-La cuatro variablaes más importantes son \textit{BASE\_CAL} (26,53\%), \textit{LS2} (17,07\%), \textit{LS\_MS} (16,30\%) y \textit{SAL\_PROM2} (8,91\%).
+La cuatro variablaes más importantes son BASE\_CAL con el 26,53\%,  LS2 con 17,07\%, LS\_MS con el 16,30\% y SAL\_PROM2 con el 8,91\%.
 
-Con la ayuda de los parámetros anteriores se realiza la búsqueda en cuadrícula mediante Grid Search. El rango de valores se presenta en la subseción \ref{sec_anexos:conjunto_modelos_RandomForestClassifier} de anexos. Los resultados de esto nos da
+A los parámetros anteriores, se realiza la búsqueda en cuadrícula mediante GridSearchCV. El rango de valores se presenta en la subseción \ref{sec_anexos:conjunto_modelos_RandomForestClassifier} de anexos. Los resultados son:
 
 \begin{lstlisting}[style=pythonstyle]
 RandomForestClassifier(class_weight='balanced_subsample', criterion='log_loss',
@@ -1058,30 +1062,32 @@ RandomForestClassifier(class_weight='balanced_subsample', criterion='log_loss',
                        random_state=8)
 \end{lstlisting}
 
-Con esto se entrena el modelo y tenemos que el accuracy del train y test es 0.9275357409038553 y 0.8278903268062425, respectivamente. Para contrastar este resultado y evaluar el modelo se obtiene la matriz de confusión que se encuentra en la tabla \ref{tab:random_forest_randomg} y en la figura \ref{fig:confusion_matrix_algoritmo_RandomForestClassifier_grid_search} en anexos.
+Se entrena el modelo con estos parámetros y el accuracy del \textit{train} y \textit{test} son 0.9275357409038553 y 0.8278903268062425 respectivamente. Para contrastar este resultado y evaluar el modelo, se obtiene la matriz de confusión que se encuentra en la tabla \ref{tab:random_forest_randomg} y en la figura \ref{fig:confusion_matrix_algoritmo_RandomForestClassifier_grid_search} de anexos.
 
 \begin{table}[H]
 \centering
+\caption{\headlinecolor{\underline{Matriz de confusión de RandomForestClassifier con GridSearchCV}}}\vspace{-0.3cm}
+\label{tab:random_forest_randomg}
 \resizebox{0.5\textwidth}{!}{
 \begin{tabular}{|c|c|c|c|}
 \hline
 \cellcolor[HTML]{E65013} \textbf{Matriz de confusión} & \multicolumn{3}{c|}{\cellcolor[HTML]{FFA074} \textbf{Predicción}} \\ \hline
-\multirow{2}{*}{\cellcolor[HTML]{FFA074}} &  & \textbf{No atípico} & \textbf{Atípico} \\ \cline{2-4} 
-\cellcolor[HTML]{FFA074} \textbf{Real}   & \textbf{No atípico}  & 48828 & 9305 \\ \cline{2-4} 
+\multirow{2}{*}{\cellcolor[HTML]{FFA074}} &  & \textbf{No atípico} & \textbf{Atípico} \\ \cline{2-4}
+\cellcolor[HTML]{FFA074} \textbf{Real}   & \textbf{No atípico}  & 48828 & 9305 \\ \cline{2-4}
 \cellcolor[HTML]{FFA074}                  & \textbf{Atípico}     & 5936 & 24485 \\ \hline
 \end{tabular}
 }
-\caption{\headlinecolor{\underline{Matriz de confusión para el algoritmo con GridSearchCV}}}
-\label{tab:random_forest_randomg}
+
 \end{table}
 
-A partir de estos resultados obtenemos que este modelo tiene sensibilidad de \Sexpr{24485/(24485 + 5936)}, especifidad de \Sexpr{48828/(48828+9305)} y finalmente, precisión  de \Sexpr{24485/(24485+9305)}.
+A partir de estos resultados obtenemos que este modelo tiene sensibilidad de \Sexpr{24485/(24485 + 5936)}, especifidad de \Sexpr{48828/(48828+9305)} y precisión  de \Sexpr{24485/(24485+9305)}.
 
-La cuatro variablaes más importantes son \textit{BASE\_CAL} (25,50\%), \textit{LS2} (16,66\%), \textit{LS\_MS} (16,12\%) y \textit{SAL\_PROM2} (9,22\%).
+La cuatro variablaes más importantes son BASE\_CAL con el 25,50\%, LS2 con el 16,66\%, LS\_MS con el 16,12\%) y SAL\_PROM2 con el 9,22\%.
 
+%AdaBoostClassifier---------------------------------------------------------------------------------
 \subsubsection{AdaBoostClassifier}
 
- El rango de valores se presenta en la subseción \ref{sec_anexos:conjunto_modelos_AdaBoostClassifier} de anexos. Los parámetros son
+Se sigue el mismo proceso descrito en la subsección anterior, por lo que, para el rango de valores que se presenta en la subseción \ref{sec_anexos:conjunto_modelos_AdaBoostClassifier} de anexos y utilizandoRandomizedSearch, tenemos que los parámetros son:
 
 \begin{lstlisting}[style=pythonstyle]
 AdaBoostClassifier(algorithm='SAMME',
@@ -1089,10 +1095,12 @@ AdaBoostClassifier(algorithm='SAMME',
                    learning_rate=0.01, n_estimators=4, random_state=8)
 \end{lstlisting}
 
-Con esto se entrena el modelo y tenemos que el accuracy del train y test es 1 y 0.7768480249339386, respectivamente. Para contrastar este resultado y evaluar el modelo se obtiene la matriz de confusión que se encuentra en la tabla \ref{tab:AdaBoost_random_search} y en la figura \ref{fig:confusion_matrix_algoritmo_AdaBoostClassifier_random_search} en anexos.
+Con estos valores se entrena el modelo y el accuracy en \textit{train} y \textit{test} es 1 y 0.7768480249339386 respectivamente. Para contrastar este resultado y evaluar el modelo, se obtiene la matriz de confusión que se encuentra en la tabla \ref{tab:AdaBoost_random_search} y en la figura \ref{fig:confusion_matrix_algoritmo_AdaBoostClassifier_random_search} de anexos.
 
 \begin{table}[H]
 \centering
+\caption{\headlinecolor{\underline{Matriz de confusión de AdaBoostClassifier con RandomizedSearch}}}\vspace{-0.3cm}
+\label{tab:AdaBoost_random_search}
 \resizebox{0.5\textwidth}{!}{
 \begin{tabular}{|c|c|c|c|}
 \hline
@@ -1102,15 +1110,14 @@ Con esto se entrena el modelo y tenemos que el accuracy del train y test es 1 y 
 \cellcolor[HTML]{FFA074}                  & \textbf{Atípico}     & 9896 & 20525 \\ \hline
 \end{tabular}
 }
-\caption{\headlinecolor{\underline{Matriz de confusión para el algoritmo con RandomizedSearch}}}
-\label{tab:AdaBoost_random_search}
+
 \end{table}
 
-A partir de estos resultados obtenemos que este modelo tiene sensibilidad de \Sexpr{20525/(20525 + 9896)}, especifidad de \Sexpr{48268/(48268+9865)} y finalmente, precisión  de \Sexpr{20525/(20525+9865)}.
+En base a estos resultados, el modelo tiene sensibilidad de \Sexpr{20525/(20525 + 9896)}, especifidad de \Sexpr{48268/(48268+9865)} y precisión  de \Sexpr{20525/(20525+9865)}.
 
-La cuatro variablaes más importantes son \textit{BASE\_CAL} (21,89\%), \textit{LS2} (16,11\%), \textit{LS\_MS} (15,40\%) y \textit{SAL\_PROM2} (10,03\%).
+La cuatro variablaes más importantes son BASE\_CAL con el 21,89\%), LS2 con el 16,11\%, LS\_MS con el 15,40\%) y SAL\_PROM2 con el 10,03\%.
 
-La búsqueda en cuadrícula mediante Grid Search  se presenta en la subseción \ref{sec_anexos:conjunto_modelos_RandomForestClassifier} de anexos. Los resultados de esto nos da
+La búsqueda en cuadrícula mediante GridSearchCV a los parámetros resultantes RandomizedSearch, se presenta en la subseción \ref{sec_anexos:conjunto_modelos_RandomForestClassifier} de anexos y los resultados son:
 
 \begin{lstlisting}[style=pythonstyle]
 AdaBoostClassifier(algorithm='SAMME',
@@ -1118,10 +1125,12 @@ AdaBoostClassifier(algorithm='SAMME',
                    learning_rate=0.005, n_estimators=1, random_state=8)
 \end{lstlisting}
 
-Con esto se entrena el modelo y tenemos que el accuracy del train y test es 1 y 0.7768480249339386, respectivamente. Para contrastar este resultado y evaluar el modelo se obtiene la matriz de confusión que se encuentra en la tabla \ref{tab:AdaBoost_grid_search} y en la figura \ref{fig:confusion_matrix_algoritmo_AdaBoostClassifier_grid_search} en anexos.
+Se entrena el modelo y tenemos que el accuracy del \textit{train} y \textit{test} es 1 y 0.7768480249339386 respectivamente. Para contrastar este resultado y evaluar el modelo se obtiene la matriz de confusión que se encuentra en la tabla \ref{tab:AdaBoost_grid_search} y en la figura \ref{fig:confusion_matrix_algoritmo_AdaBoostClassifier_grid_search} de anexos.
 
 \begin{table}[H]
 \centering
+\caption{\headlinecolor{\underline{Matriz de confusión de AdaBoostClassifier con RandomizedSearch}}}\vspace{-0.3cm}
+\label{tab:AdaBoost_grid_search}
 \resizebox{0.5\textwidth}{!}{
 \begin{tabular}{|c|c|c|c|}
 \hline
@@ -1131,18 +1140,17 @@ Con esto se entrena el modelo y tenemos que el accuracy del train y test es 1 y 
 \cellcolor[HTML]{FFA074}                  & \textbf{Atípico}     & 9896 & 20525 \\ \hline
 \end{tabular}
 }
-\caption{\headlinecolor{\underline{Matriz de confusión para el algoritmo con RandomizedSearch}}}
-\label{tab:AdaBoost_grid_search}
+
 \end{table}
 
-A partir de estos resultados obtenemos que este modelo tiene sensibilidad de \Sexpr{20525/(20525 + 9896)}, especifidad de \Sexpr{48268/(48268+9865)} y finalmente, precisión  de \Sexpr{20525/(20525+9865)}.
+A partir de estos resultados obtenemos que este modelo tiene sensibilidad de \Sexpr{20525/(20525 + 9896)}, especifidad de \Sexpr{48268/(48268+9865)} y precisión  de \Sexpr{20525/(20525+9865)}.
 
-La cuatro variablaes más importantes son \textit{BASE\_CAL} (21,89\%), \textit{LS2} (16,11\%), \textit{LS\_MS} (15,40\%) y \textit{SAL\_PROM2} (10,03\%).
+La cuatro variablaes más importantes son BASE\_CAL con el 21,89\%, LS2 con el 16,11\%, LS\_MS con el 15,40\% y SAL\_PROM2 con el 10,03\%.
 
-
+%GradientBoostingClassifier-------------------------------------------------------------------------
 \subsubsection{GradientBoostingClassifier}
 
- El rango de valores se presenta en la subseción \ref{sec_anexos:conjunto_modelos_GradientBoostingClassifier} de anexos. Los parámetros son
+Debido a que la búsqueda mediante cuadrícula no terminó de ejecutarse en un tiempo considerable de tiempo, solo se lo realiza la elección de los parámetros mediante RandomizedSearch. El rango de valores se presenta en la subseción \ref{sec_anexos:conjunto_modelos_GradientBoostingClassifier} de anexos y los parámetros son:
 
 \begin{lstlisting}[style=pythonstyle]
 AdaBoostClassifier(algorithm='SAMME',
@@ -1150,10 +1158,12 @@ AdaBoostClassifier(algorithm='SAMME',
                    learning_rate=0.01, n_estimators=4, random_state=8)
 \end{lstlisting}
 
-Con esto se entrena el modelo y tenemos que el accuracy del train y test es 0.9999971768638345 y 0.837059873071798, respectivamente. Para contrastar este resultado y evaluar el modelo se obtiene la matriz de confusión que se encuentra en la tabla \ref{tab:gradientboosting} y en la figura \ref{fig:confusion_matrix_algoritmo_GradientBoostingClassifier_random_search} en anexos.
+Con estos valores se entrena el modelo y tenemos que el accuracy del \textit{train} y \textit{test} es 0.9999971768638345 y 0.837059873071798 respectivamente. Para contrastar este resultado y evaluar el modelo se obtiene la matriz de confusión que se encuentra en la tabla \ref{tab:gradientboosting} y en la figura \ref{fig:confusion_matrix_algoritmo_GradientBoostingClassifier_random_search} en anexos.
 
 \begin{table}[H]
 \centering
+\caption{\headlinecolor{\underline{Matriz de confusión para Gradient Boosting con Random Search}}}\vspace{-0.3cm}
+\label{tab:gradientboosting}
 \resizebox{0.5\textwidth}{!}{
 \begin{tabular}{|c|c|c|c|}
 \hline
@@ -1163,13 +1173,16 @@ Con esto se entrena el modelo y tenemos que el accuracy del train y test es 0.99
 \cellcolor[HTML]{FFA074}                  & \textbf{Atípico}     & 7834 & 22587 \\ \hline
 \end{tabular}
 }
-\caption{\headlinecolor{\underline{Matriz de confusión para Gradient Boosting con Random Search}}}
-\label{tab:gradientboosting}
+
 \end{table}
 
-A partir de estos resultados obtenemos que este modelo tiene sensibilidad de \Sexpr{22587/(22587 + 7834)}, especifidad de \Sexpr{51538/(51538+6595)} y finalmente, precisión  de \Sexpr{22587/(22587+6595)}.
+Los valores de la tabla anterior,  permiten calcular la sensibilidad, misma que tiene el valor de \Sexpr{22587/(22587 + 7834)}, la especifidad llega a \Sexpr{51538/(51538+6595)} y finalmente, la precisión toma el valor de \Sexpr{22587/(22587+6595)}.
 
-\subsection{XGBClassifier}\label{sub_seccion:XGBClassifier}
+Para ver con mayor detalle  todo el proceso realizado en este algorimo vaya a \textit{VIU\_ml\_arboles.ipynb} de \legalcite{CristianVIUTFM}.
+
+%XGBClassifier--------------------------------------------------------------------------------------
+\subsection{XGBoost método XGBClassifier}\label{sub_seccion:XGBClassifier}
+Para este algoritmo se procede a estimar los parámetros conforme lo detallado en la subsección \ref{sec_anexos:conjunto_modelos_XGBClassifier} de los anexos. La busqueda mediante RandomizedSearchCV de los parámetros óptimos nos da que los mismos son:
 
 \begin{lstlisting}[style=pythonstyle]
 XGBClassifier(base_score=None, booster=None, callbacks=None,
@@ -1185,10 +1198,12 @@ XGBClassifier(base_score=None, booster=None, callbacks=None,
               n_jobs=None, num_parallel_tree=None, random_state=8, ...)
 \end{lstlisting}
 
-Con esto se entrena el modelo con los parámetros obtenidos con el algoritmo Random Search y tenemos que el accuracy del train y test es 0.9264488334801364 y 0.8252817489893173, respectivamente. Para contrastar este resultado y evaluar el modelo se obtiene la matriz de confusión que se encuentra en la tabla \ref{tab:confusion_matrix_algoritmo_XGBClassifier_random_search} y en la figura \ref{fig:confusion_matrix_algoritmo_XGBClassifier_random_search} en anexos.
+Una vez entrenado el modelo con los parámetros anteriores, el accuracy del \textit{train} y \textit{test} es 0.9264488334801364 y 0.8252817489893173 respectivamente. Para contrastar este resultado y evaluar el modelo se obtiene la matriz de confusión que se encuentra en la tabla \ref{tab:confusion_matrix_algoritmo_XGBClassifier_random_search} y en la figura \ref{fig:confusion_matrix_algoritmo_XGBClassifier_random_search} de anexos.
 
 \begin{table}[H]
 \centering
+\caption{\headlinecolor{\underline{Matriz de confusión de XGBClassifier con RandomSearch}}}\vspace{-0.3cm}
+\label{tab:confusion_matrix_algoritmo_XGBClassifier_random_search}
 \resizebox{0.5\textwidth}{!}{
 \begin{tabular}{|c|c|c|c|}
 \hline
@@ -1198,17 +1213,34 @@ Con esto se entrena el modelo con los parámetros obtenidos con el algoritmo Ran
 \cellcolor[HTML]{FFA074}                  & \textbf{Atípico}     & 5328 & 25093 \\ \hline
 \end{tabular}
 }
-\caption{\headlinecolor{\underline{Matriz de confusión para el algoritmo con RandomSearch}}}
-\label{tab:confusion_matrix_algoritmo_XGBClassifier_random_search}
+
 \end{table}
 
-A partir de estos resultados obtenemos que este modelo tiene sensibilidad de \Sexpr{25093/(25093 + 5328)}, especifidad de \Sexpr{47989/(47989+10144)} y finalmente, precisión  de \Sexpr{25093/(25093+10144)}.
+A partir de estos resultados, el modelo tiene sensibilidad de \Sexpr{25093/(25093 + 5328)}, especifidad de \Sexpr{47989/(47989+10144)} y precisión  de \Sexpr{25093/(25093+10144)}.
 
 
-Por otro lado, al entrenar el modelo con los parámetros obtenidos con el algoritmo Grid Search, se tiene que el accuracy del train y test es 0.94972841430087854 y 0.8275967206450302, respectivamente. Para contrastar este resultado y evaluar el modelo se obtiene la matriz de confusión que se encuentra en la tabla \ref{tab:confusion_matrix_algoritmo_XGBClassifier_grid_search} y en la figura \ref{fig:confusion_matrix_algoritmo_XGBClassifier_grid_search} en anexos.
+Por otro lado, al realizar la busqueda de los parámetros anteriores en la cuadrícula descrita en ls ubsección \ref{sec_anexos:conjunto_modelos_XGBClassifier} mediante  GridSearchCV, los parámetros óptimos son:
+
+\begin{lstlisting}[style=pythonstyle]
+XGBClassifier(base_score=None, booster=None, callbacks=None,
+              colsample_bylevel=None, colsample_bynode=None,
+              colsample_bytree=1.0, device=None, early_stopping_rounds=None,
+              enable_categorical=False, eval_metric='mlogloss',
+              feature_types=None, gamma=0.15, grow_policy=None,
+              importance_type=None, interaction_constraints=None,
+              learning_rate=0.1, max_bin=None, max_cat_threshold=None,
+              max_cat_to_onehot=None, max_delta_step=None, max_depth=12,
+              max_leaves=None, min_child_weight=1, missing=nan,
+              monotone_constraints=None, multi_strategy=None, n_estimators=460,
+              n_jobs=None, num_parallel_tree=None, random_state=8, ...)
+\end{lstlisting}
+
+Al entrenar el modelo con esos parámetros tenemos que, el accuracy del \textit{train} y \textit{test} es 0.94972841430087854 y 0.8275967206450302 respectivamente. Para contrastar este resultado y evaluar el modelo se obtiene la matriz de confusión que se encuentra en la tabla \ref{tab:confusion_matrix_algoritmo_XGBClassifier_grid_search} y en la figura \ref{fig:confusion_matrix_algoritmo_XGBClassifier_grid_search} de anexos.
 
 \begin{table}[H]
 \centering
+\caption{\headlinecolor{\underline{Matriz de confusión de XGBClassifier con GridSearch}}}\vspace{-0.3cm}
+\label{tab:confusion_matrix_algoritmo_XGBClassifier_grid_search}
 \resizebox{0.5\textwidth}{!}{
 \begin{tabular}{|c|c|c|c|}
 \hline
@@ -1218,27 +1250,31 @@ Por otro lado, al entrenar el modelo con los parámetros obtenidos con el algori
 \cellcolor[HTML]{FFA074}                  & \textbf{Atípico}     & 5594 & 24827 \\ \hline
 \end{tabular}
 }
-\caption{\headlinecolor{\underline{Matriz de confusión para el algoritmo con GridSearch}}}
-\label{tab:confusion_matrix_algoritmo_XGBClassifier_grid_search}
+
 \end{table}
 
-A partir de estos resultados obtenemos que este modelo tiene sensibilidad de \Sexpr{24827/(24827 + 5594)}, especifidad de \Sexpr{48460/(48460+9673)} y finalmente, precisión  de \Sexpr{24827/(24827+9673)}.
+A partir de estos resultados obtenemos que este modelo tiene sensibilidad de \Sexpr{24827/(24827 + 5594)}, especifidad de \Sexpr{48460/(48460+9673)} y precisiónde \Sexpr{24827/(24827+9673)}.
 
-La cuatro variablaes más importantes son \textit{BASE\_CAL} (11,37\%), \textit{M\_PRI\_P} (10,42\%), \textit{N\_PRI\_P} (9,99\%) y \textit{M\_PUB\_P} (8,04\%).
+La cuatro variablaes más importantes son BASE\_CAL con el 11,37\%, M\_PRI\_P con el 10,42\%, N\_PRI\_P con el 9,99\% y M\_PUB\_P con el 8,04\%.
+
+Para ver con mayor detalle  todo el proceso realizado en este algorimo vaya a \textit{VIU\_ml\_otras\_tecnicas.ipynb} de \legalcite{CristianVIUTFM}.
 
 
-\subsection{Redes Neuronales}\label{sub_seccion:redes_neuronales}
+%Redes Neuronales-----------------------------------------------------------------------------------
+\subsection{Redes Neuronales método MLPClassifier}\label{sub_seccion:redes_neuronales}
 
-La búsqueda en cuadrícula mediante Grid Search  se presenta en la subseción \ref{sec_anexos:conjunto_modelos_redes} de anexos. Los resultados de esto nos da
+Considerando lo descrito en el párrado 3 de la subsección \ref{sub_apre_cara_acp}, se realiza la  búsqueda en cuadrícula mediante GridSearchCV para los parámetros de la subseción \ref{sec_anexos:conjunto_modelos_redes} de anexos, dando como resultado que los parámetros óptimos son: 
 
 \begin{lstlisting}[style=pythonstyle]
 MLPClassifier(hidden_layer_sizes=(200,), max_iter=100, random_state=8)
 \end{lstlisting}
 
-Con esto se entrena el modelo y tenemos que el accuracy del train y test es 0.8101412697337218 y 0.8048083655170856, respectivamente. Para contrastar este resultado y evaluar el modelo se obtiene la matriz de confusión que se encuentra en la tabla \ref{tab:confusion_matrix_algoritmo_redes_grid_search} y en la figura \ref{fig:confusion_matrix_algoritmo_redes_grid_search} en anexos.
+Se entrena el modelo y tenemos que el accuracy del \textit{train} y \textit{test} son 0.8101412697337218 y 0.8048083655170856 respectivamente. Para contrastar este resultado y evaluar el modelo se obtiene la matriz de confusión que se encuentra en la tabla \ref{tab:confusion_matrix_algoritmo_redes_grid_search} y en la figura \ref{fig:confusion_matrix_algoritmo_redes_grid_search} de anexos.
 
 \begin{table}[H]
 \centering
+\caption{\headlinecolor{\underline{Matriz de confusión de MLPClassifier con GridSearch}}}\vspace{-0.3cm}
+\label{tab:confusion_matrix_algoritmo_redes_grid_search}
 \resizebox{0.5\textwidth}{!}{
 \begin{tabular}{|c|c|c|c|}
 \hline
@@ -1248,22 +1284,23 @@ Con esto se entrena el modelo y tenemos que el accuracy del train y test es 0.81
 \cellcolor[HTML]{FFA074}                  & \textbf{Atípico}     & 10634 & 19787 \\ \hline
 \end{tabular}
 }
-\caption{\headlinecolor{\underline{Matriz de confusión para el algoritmo con GridSearch}}}
-\label{tab:confusion_matrix_algoritmo_redes_grid_search}
+
 \end{table}
 
-A partir de estos resultados obtenemos que este modelo tiene sensibilidad de \Sexpr{19787/(19787 + 10634)}, especifidad de \Sexpr{51482/(51482+6651)} y finalmente, precisión  de \Sexpr{19787/(19787+6651)}.
+A partir de estos resultados obtenemos que este modelo tiene sensibilidad de \Sexpr{19787/(19787 + 10634)}, especifidad de \Sexpr{51482/(51482+6651)} y precisión  de \Sexpr{19787/(19787+6651)}.
 
-Con un balanceo de clases y usando lo anterior tenemos que
+Se repite el proceso anterior con los mismos parámetros pero con un balanceo de clases. Los parámetros óptimos son:
 
 \begin{lstlisting}[style=pythonstyle]
 MLPClassifier(hidden_layer_sizes=(250,), max_iter=100, random_state=8)
 \end{lstlisting}
 
-Una vez balanceada la base de datos, se entrena el modelo y tenemos que el accuracy del train y test es 0.7625855410258148 y 0.7582604964202634, respectivamente. Para contrastar este resultado y evaluar el modelo se obtiene la matriz de confusión que se encuentra en la tabla \ref{tab:confusion_matrix_algoritmo_redes_bal_grid_search.png} y en la figura \ref{fig:confusion_matrix_algoritmo_redes_bal_grid_search.png} en anexos.
+Una vez balanceada la base de datos, se entrena el modelo y tenemos que el accuracy del \textit{train} y \textit{test} es 0.7625855410258148 y 0.7582604964202634 respectivamente. Para contrastar este resultado y evaluar el modelo se obtiene la matriz de confusión que se encuentra en la tabla \ref{tab:confusion_matrix_algoritmo_redes_bal_grid_search.png} y en la figura \ref{fig:confusion_matrix_algoritmo_redes_bal_grid_search.png} de anexos.
 
 \begin{table}[H]
 \centering
+\caption{\headlinecolor{\underline{Matriz de confusión de MLPClassifier con balanceado y GridSearch}}}\vspace{-0.3cm}
+\label{tab:confusion_matrix_algoritmo_redes_bal_grid_search.png}
 \resizebox{0.5\textwidth}{!}{
 \begin{tabular}{|c|c|c|c|}
 \hline
@@ -1273,21 +1310,24 @@ Una vez balanceada la base de datos, se entrena el modelo y tenemos que el accur
 \cellcolor[HTML]{FFA074}                  & \textbf{Atípico}     & 4635 & 25786 \\ \hline
 \end{tabular}
 }
-\caption{\headlinecolor{\underline{Matriz de confusión para el algoritmo balanceado con GridSearch}}}
-\label{tab:confusion_matrix_algoritmo_redes_bal_grid_search.png}
+
 \end{table}
 
 A partir de estos resultados obtenemos que este modelo tiene sensibilidad de \Sexpr{25786/(25786 + 4635)}, especifidad de \Sexpr{41361/(41361+16772)} y finalmente, precisión  de \Sexpr{25786/(25786+16772)}.
 
+Para ver con mayor detalle  todo el proceso realizado en este algorimo vaya a \textit{VIU\_ml\_otras\_tecnicas.ipynb} de \legalcite{CristianVIUTFM}.
 
+%Comparación de Resultados--------------------------------------------------------------------------
 \section{Comparación de Resultados}\label{seccion:comparacion_resultados}
 
-Para determinar qué modelos de aprendizaje supervisado son más efectivos y apropiados para el problema de estudio de este Trabajo de Fin de Máster, es necesario realizar una comparación de las métricas de cada uno de ellos. Con ello, los mismos pueden ser evaluados y podemos obtener tanto sus fortalezas como sus debilidades. A continuación, en la tabla comparativa \ref{tab:comparacion} encontramos los resultados obtenidos.
+Para determinar que modelos de aprendizaje supervisado son los más efectivos y apropiados para el problema de estudio de este trabajo de fin de máster, es necesario realizar una comparación de sus métricas, lo cual permitirá  evaluarlos  y describir sus fortalezas así como sus debilidades. A continuación, en la tabla \ref{tab:comparacion} se muestra a manera de resumen los resultados obtenidos con cada uno de ellos.
 
 \begin{table}[H]
 \centering
-\resizebox{0.75\textwidth}{!}{
-\begin{tabular}{|c|c|c|c|c|c|}
+\caption{\headlinecolor{\underline{Comparación de resultados de las técnicas supervisadas}}}\vspace{-0.3cm}
+\label{tab:comparacion}
+\resizebox{0.80\textwidth}{!}{
+\begin{tabular}{|r|c|c|c|c|c|}
 \hline
 \cellcolor[HTML]{E65013} \textbf{Modelo} & \cellcolor[HTML]{E65013} \textbf{Exactitud}&
 \cellcolor[HTML]{E65013} \textbf{Sensibilidad}& \cellcolor[HTML]{E65013} \textbf{Especifidad}&
@@ -1297,9 +1337,9 @@ Para determinar qué modelos de aprendizaje supervisado son más efectivos y apr
 \hline
 \textbf{KNN con balanceo y ACP} & 0.71286& 0.7221& 0.70803& 0.56412& 0.28714 \\
 \hline
-\textbf{KNN con variables-ml} & 0.71286& 0.5603& 0.88079& 0.71095&  0.28714\\
+\textbf{KNN con \textit{variables\_ml}} & 0.71286& 0.5603& 0.88079& 0.71095&  0.28714\\
 \hline
-\textbf{KNN con variables-ml balanceadas} &0.72726 & 0.79254& 0.69642&0.57471 &  0.27274\\
+\textbf{KNN con \textit{variables\_ml} balanceadas} &0.72726 & 0.79254& 0.69642&0.57471 &  0.27274\\
 \hline
 \textbf{Árboles simples} & 0.79942& 0.67828& 0.86281&0.72124 & 0.04379\\
 \hline
@@ -1325,21 +1365,26 @@ Para determinar qué modelos de aprendizaje supervisado son más efectivos y apr
 \hline
 \end{tabular}
 }
-\caption{\headlinecolor{\underline{Tabla de comparación de resultados}}}
-\label{tab:comparacion}
+
 \end{table}
 
-En primer lugar al analizar las diferentes variaciones del modelo KNN, observamos que el modelo que tiene un accuracy más alto es el que únicamente aplica un ACP a los datos. Sin embargo, aunque este modelo presenta un accuracy elevado, el mismo tiene mayor dificultad para detectar los casos atípicos, puesto que el mismo presenta la tasa de sensibilidad más baja de este conjunto de modelos. Vemos que en este caso de estudio, eso representa un problema ya que el interés primordial es detectar correctamente los atípicos como ya fue explicado en secciones anteriores. Ante esta situación, procedemos a enfocar nuestra atención en el modelo con el segundo mejor accuracy, que es aquel que usa las variables-ml balanceadas. Este modelo destaca por poseer la sensibilidad más alta de todas, es decir, está siendo más eficiente en la correcta clasificiación dealos casos atípicos. Por tanto, podemos concluir que este modelo resulta ser el mejor de los 4 modelos entrenados de KNN, debido a que aunque su accuracy no es el más alto, su diferencia con el mejor accuracy obtenido es mínima, por lo que es aceptable. Además, el mismo tiene la mayor sensibilidad de todos los modelos, por lo que al ser la sensibilidad clave en el análisis este modelo logra un equilibrio adecuado entre la precisión global del modelo y la detección de atípicos. No obstante, es importante señalar que tanto en especifidad como en precisión este modelo tiene valores bajos en comparación a los demás. Sin embargo, dado nuestro objetigo este déficit no represeta un problema significativo. Finalmente, al observar todos estos modelos encontramos que la diferencia la diferencia de los accuracys de train y test supera los 25 puntos porcentuales en cada uno de ellos, lo que sugiere la existencia de sobreajuste en los modelos ya que se observa un rendimiento significativamente mayor en los datos de prueba sobre los datos de entrenamiento lo que nos puede indicar que los modelos se están ajustando demasiado a ciertas características de los datos de entrenamiento po lo que posteriormente no pueden ser generalizados a otros datos de manera óptima.
+En primer lugar, al analizar las diferentes variaciones del modelo KNN, observamos que el modelo que tiene el accuracy más alto es el que únicamente aplica un ACP a los datos. A pesar de esto, el mismo tiene mayor dificultad para detectar los casos atípicos, puesto que, presenta la tasa de sensibilidad más baja de este conjunto de modelos. Esto representa un problema, ya que el interés primordial es detectar correctamente los atípicos como ya fue explicado en las secciones anteriores. Ante esta situación, procedemos a enfocar nuestra atención en el modelo con el segundo mejor accuracy, que es aquel que usa a \textit{variables\_ml} balanceadas. Este modelo destaca por poseer la sensibilidad más alta de todas, es decir, está siendo más eficiente en la correcta clasificación de los casos atípicos. Por tanto, podemos concluir que este modelo resulta ser el mejor de los 4 modelos entrenados de KNN, debido a que aunque su accuracy no es el más alto, su diferencia con el mejor accuracy obtenido es mínima, por lo que es aceptable. Además, el mismo tiene la mayor sensibilidad de todos los modelos, la cual es clave en el análisis, logrando así un equilibrio adecuado entre la precisión global del modelo y la detección de atípicos. No obstante, es importante señalar que tanto en especifidad como en precisión, este modelo tiene valores bajos en comparación a los demás. Sin embargo, dado nuestro objetivo, este déficit no represeta un problema significativo. 
 
-En cuanto a los algoritmos basados en árboles y conjuntos de modelos, podemos observar que el modelo con el mayor accuracy es el algoritmo Gradient Boosting con GridSearch, tomando en cuenta que los accuracys de Random Forest tanto con Random Search como con GridSearch son también altos y bastantes cercanos al mejor accuracy. En términos de sensibilidad, el modelo que destaca es el Random Forest con RandonSearch, de donde, a pesar de que no tiene el mejor accuracy global notamos que su capacidad para detectar casos atípicos es superior. Por otro lado, observamos que Gradient Boosting tiene los mejores valores tanto de especifidad como de precisión, lo que implica que el mismo es bastante bueno para clasificar de forma correcta los casos negativos y disminuir la cantidad de falsos positivos. A pesar de los resultados, debido a los fines de este modelo, vemos que el modelo más adecuado es el Random Forest con Random Search, debido a que a pesar de que su accuracy no es el más alto, es bastante cercano al mejor valor obtenido, y además tiene una sensibilidad significativamente mayor lo cual es crucial para nuestro objetivo que es maximizar la detección de atípicos. Finalmente, se destaca que los algoritmos de árboles simples y los dos tipos de Random Forest presentan una diferencia entre los accuracys de train y test menor a 10\% lo que indica que no hay señales de sobreajuste en los modelos y por tanto se generalizan de forma adecuada los nuevos datos.
+Finalmente, al observar estos modelos se encuentra que la diferencia de los accuracys de \textit{train} y \textit{test} supera los 25 puntos porcentuales en cada uno de ellos, lo que sugiere la existencia de sobreajuste en los modelos debido a que se observa un rendimiento significativamente mayor en los datos de prueba sobre los datos de entrenamiento. Esto  puede indicar que los modelos se están ajustando demasiado a ciertas características de los datos de entrenamiento, por lo que, posteriormente no pueden ser generalizados a otros datos de manera óptima.
 
-Finalmente, en cuanto a las otras técnicas, observamos que los modelos XGBoost presentan los accuracys más altos. Específicamente, el que usa GridSearch tiene el mejor accuracy. Sin embargo, vemos que el algoritmo XGBoost con RandomSeacr tiene una sensibilidad más alta. De donde, dado que la diferencia de accuracy entre ambos modelos es mínima, tiene sentido seleccionar como mejor modelo de los dos al que emplea RandomSearch, por su capacidad de detección de casos atípicos. Comparando estos modelos con los modelos de redes neuronales, encontramos que el modelo de redes neuronales balanceadas con GridSearch tiene un sensibilidad aún mayor que ambos modelos de XGBoost . Sin embargo, su accuracy es significativamente menor al de ellos. Es por esto que al buscar un algoritmo que tenga una buena tasa de clasificación y una buena detección de datos atípicos, escogemos a XGBoost con Random Search como la mejor opción.
+En cuanto a los algoritmos basados en árboles y conjuntos de modelos, podemos observar que el modelo con el mayor accuracy es el algoritmo Gradient Boosting con GridSearch, tomando en cuenta que los accuracys de Random Forest tanto con Random Search como con GridSearch son también altos y bastantes cercanos al mejor accuracy. En términos de sensibilidad, el modelo que destaca es el Random Forest con RandonSearch, de donde, a pesar de que no tiene el mejor accuracy global notamos que su capacidad para detectar casos atípicos es superior. Por otro lado, observamos que Gradient Boosting tiene los mejores valores tanto de especifidad como de precisión, lo que implica que el mismo es bastante bueno para clasificar de forma correcta los casos negativos y disminuir la cantidad de falsos positivos.
 
-Es importante destacar que, de todos los algoritmos estudiados, la diferencia entre los accuracys de train y test es menor a 1\% únicamente en redes neuronales, por lo que en estos casos no existen indicios de sobreajuste. Por otro lado, si bien en los modelos XGboost esta diferencia es mayor, también es bastante baja en comparación a los otros modelos, manteniéndose por debajo del 13\%, lo que sugiere que en estos modelos tampoco existe un sobreajuste significativo.
+A pesar de los resultados, vemos que el modelo más adecuado es el Random Forest con Random Search. Pese a que su accuracy no es el más alto, es bastante cercano al mejor valor obtenido, y además tiene una sensibilidad significativamente mayor, lo cual es crucial para nuestro objetivo de maximizar la detección de atípicos. Finalmente, se destaca que los algoritmos de árboles simples y los dos tipos de Random Forest presentan una diferencia entre los accuracys de train y test menor a 10\% lo que indica que no hay señales de sobreajuste en los modelos, y por tanto, se generalizan de forma adecuada los nuevos datos.
 
-Otros modelos, como las otras variantes de los modelos estudiados o algoritmos como Support Vector Machine (SVM) también fueron considerados. Sin embargo, debido a su alto costo computacional y tiempo de ejecución, no fueron llevados acabo.
+En cuanto a las otras técnicas, observamos que los modelos XGBoost presentan los accuracys más altos, específicamente el que usa GridSearch. Sin embargo, sde observa que el algoritmo XGBoost con RandomSeacr tiene una sensibilidad más alta. De donde, dado que la diferencia de accuracy entre ambos modelos es mínima, tiene sentido seleccionar como mejor modelo de los dos al que emplea RandomSearch, debido a su capacidad de detección de casos atípicos. 
 
-En conclusión, el modelo más óptimo y eficiente, en función de los datos y el problema a resolver, es el modelo de XGBoost con Random Search, debido a sus capacidad de clasificación y detección de atípicos, sin evidencia significativa de la presencia de sobreajuste. Donde además, este modelo ofrece un tiempo de ejecución y costo computacional menor al de los otros modelos, por lo que la relación costo-beneficio es bastante buena.
+Comparando estos modelos con los modelos de redes neuronales, encontramos que el modelo de redes neuronales balanceadas con GridSearch tiene un sensibilidad aún mayor que ambos modelos de XGBoost. Sin embargo, su accuracy es significativamente menor al de ellos. Es por esto que, al buscar un algoritmo que tenga una buena tasa de clasificación y una buena detección de datos atípicos, escogemos a XGBoost con Random Search como la mejor opción.
+
+Es importante destacar que, de todos los algoritmos estudiados, la diferencia entre los accuracys de train y test es menor a 1\% únicamente en redes neuronales, por lo que, en estos casos no existen indicios de sobreajuste. Por otro lado, si bien en los modelos XGboost esta diferencia es mayor, también es bastante baja en comparación a los otros modelos, manteniéndose por debajo del 13\%, lo que sugiere que en estos modelos tampoco existe un sobreajuste significativo.
+
+Otros modelos como Support Vector Machine (SVM) también fueron considerados, pero, debido a su alto costo computacional y tiempo de ejecución, no fueron llevados implementados.
+
+En conclusión, el modelo más óptimo y eficiente, en función de los datos y el problema a resolver, es el modelo de XGBoost con Random Search, debido a sus capacidad de clasificación, detección de atípicos y evidencia significativa de la no presencia de sobreajuste. Además, este modelo ofrece un tiempo de ejecución y costo computacional menor al de los otros modelos, por lo que, la relación costo-beneficio es bastante buena.
 
 
 
