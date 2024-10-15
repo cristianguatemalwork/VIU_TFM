@@ -9,7 +9,7 @@
 \fontsize{25}{10.4}\fontseries{b}\selectfont
 \vspace{13cm}
 \begin{center}
-\textbf{Detección de aportaciones fraudentas en el seguro social ecuatoriano}
+\textbf{Detección de aportaciones fraudulentas en el seguro social ecuatoriano}
 \end{center}
 \bigskip
 
