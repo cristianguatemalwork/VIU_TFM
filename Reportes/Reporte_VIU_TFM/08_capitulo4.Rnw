@@ -822,17 +822,17 @@ Los resultados de esta implementación se muestran en la figura \ref{fig:algorit
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.35]{graficos/algortimo_knn_acp.png}
-\caption{\headlinecolor{\underline{Estimación del número de vecinos y peso para el KNN con ACP}}}
+\caption{\headlinecolor{\underline{Parámetros para KNN con ACP}}}
 \label{fig:algoritmo_knn_acp}
 \end{figure}
 
-En este estudio, las medidas claves para la evaluación del modelo serán tanto la sensibilidad como el accuracy. Esto debido a que el accuracy proporciona una visión general de qué tan bien el modelo clasifica los datos globalmente. No obstante, es necesario tener en cuenta los casos en los que los valores atípicos se han clasificado incorrectamente como no atípicos, lo que se obtiene restando a 1 la sensibilidad. Así, la detección de valores atípicos es crucial, ya que la falta de identificación de uno de ellos puede generar más problemas que la mala clasificación de un valor no atípico como atípico. Por lo que, no detectar un atípico representa no identificar a una persona que ha cometido fraude, lo cual puede resultar en grandes pérdidas para la Seguridad Social. Por el contrario, si una persona que no ha cometido fraude es identificada como un valor atípico, únicamente se realizará una investigación más profunda, sin que esto resulte en mayores pérdidas económicas.
+En este estudio, las medidas claves para la evaluación del modelo serán tanto la sensibilidad como el accuracy. Esto debido a que el accuracy proporciona una visión general de qué tan bien el modelo clasifica los datos globalmente. No obstante, es necesario tener en cuenta los casos en los que los valores atípicos se han clasificado incorrectamente como no atípicos, lo que se obtiene restando a 1 la sensibilidad. Así, la detección de valores atípicos es crucial, ya que la falta de identificación de uno de ellos puede generar más problemas que la mala clasificación de un valor no atípico como atípico. Por lo que, no detectar un atípico representa no identificar a una persona que ha cometido fraude, lo cual puede resultar en grandes pérdidas para el Seguro IVM. Por el contrario, si una persona que no ha cometido fraude es identificada como un valor atípico, únicamente se realizará una investigación más profunda, sin que esto resulte en pérdidas económicas.
 
-Tomando en cuenta lo descrito anteriormente, una vez entrenado el modelo con la elección de sus parámetros, se ha obtenido que el acurracy en los datos del test es 0,7483230571176909, mientras que al aplicarlo en los datos de train es  1. Para contrastar este resultado y evaluar el modelo, se obtiene la matriz de confusión de las predicciones realizadas de la base de datos de testeo. Los resultados se encuentran en la tabla \ref{tab:mc_knn_1} y en la figura \ref{fig:matriz_conf_knn_acp} de los anexos.
+Tomando en cuenta lo descrito anteriormente, una vez entrenado el modelo con sus parámetros óptimos, el acurracy en los datos del \textit{test} es 0,7483230571176909 y en los datos de \textit{train} es 1. Para contrastar este resultado y evaluar el modelo, se obtiene la matriz de confusión de las predicciones realizadas en los datos de testeo. Los resultados se encuentran en la tabla \ref{tab:mc_knn_1} y en la figura \ref{fig:matriz_conf_knn_acp} de los anexos.
 
 \begin{table}[h!]
 \centering
-\caption{\headlinecolor{\underline{Matriz de confusión para el KNN con ACP}}}\vspace{-0.2cm}
+\caption{\headlinecolor{\underline{Matriz de confusión para KNN con ACP}}}\vspace{-0.3cm}
 \label{tab:mc_knn_1}
 \resizebox{0.5\textwidth}{!}{
 \begin{tabular}{|c|c|c|c|}
@@ -847,22 +847,27 @@ Tomando en cuenta lo descrito anteriormente, una vez entrenado el modelo con la 
 }
 \end{table}
 
-A partir de estos resultados, podemos extraer ciertas métricas, a parte del accuracy que nos ayudarán a establecer la capacidad de predicción del modelo, es decir, si su funcionamiento es óptimo o no dependiendo de nuestros objetivos. Para ello, tenemos que en este modelo la sensibilidad es de \Sexpr{15710/(15710+14711)}, la especifidad es de \Sexpr{50557/(50557+7576)} y y finalmente, la precisión es de \Sexpr{15710/(15710+7576)}.
+De la tabla \ref{tab:mc_knn_1} se pueden extraer ciertas métricas, a parte del accuracy, que  ayudan a establecer la capacidad de predicción del modelo, es decir, ver si su funcionamiento es eficiente o no. Es así que, para este modelo, la sensibilidad es  \Sexpr{15710/(15710+14711)}, la especifidad toma el valor de \Sexpr{50557/(50557+7576)} y finalmente, la precisión es de \Sexpr{15710/(15710+7576)}.
 
+Al repetir todo el proceso anterior para las variables PC1\_bal, PC2\_bal, PC3\_bal, PC4\_bal, PC5\_bal, PC6\_bal, PC7\_bal y PC8\_bal, tenemos que los parámetros óptimos son 2 vecinos y la ponderación es dada por \textit{distance}. Estos resultados se muestran en la figura \ref{fig:algoritmo_knn_bal_acp}.
 
-Repitiendo el proceso anterior  para las variables \textit{PC1\_bal}, \textit{PC2\_bal}, \textit{PC3\_bal}, \textit{PC4\_bal}, \textit{PC5\_bal}, \textit{PC6\_bal}, \textit{PC7\_bal} y \textit{PC8\_bal}, los resultados se muestran en la figura \ref{fig:algoritmo_knn_bal_acp}, por lo que, la elección de los parámetros es con 2 vecinos y la ponderación es dada por \textit{distance}. 
+Una vez entrenado el modelo con estos parámetros, se ha obtenido que el acurracy del mismo al ser aplicado en los datos del \textit{test} es de 0.7128644668789665, mientras que al aplicarse en los datos de \textit{train} es 1.
+
+Para contrastar este resultado y evaluar el modelo, se obtiene la matriz de confusión que se presenta en la tabla \ref{tab:mc_knn_2} y en la figura \ref{fig:matriz_conf_knn_bal_acp} en anexos.
 
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.35]{graficos/algortimo_knn_bal_acp.png}
-\caption{\headlinecolor{\underline{Estimación del número de vecinos y peso para el KNN con balanceo y ACP}}}
+\caption{\headlinecolor{\underline{Parámetros para KNN con balanceo y ACP}}}
 \label{fig:algoritmo_knn_bal_acp}
 \end{figure}
 
-Una vez entrenado el modelo con estos parámetros, se ha obtenido que el acurracy del mismo al ser aplicado en los datos del test es de 0.7128644668789665, mientras que al aplicarse en los datos de train es 1. Para contrastar este resultado y evaluar el modelo se obtiene la matriz de confusión que se encuentra en la tabla \ref{tab:mc_knn_2} y e n la figura \ref{fig:matriz_conf_knn_bal_acp} en anexos.
 
-\begin{table}[h!]
+
+\begin{table}[H]
 \centering
+\caption{\headlinecolor{\underline{Matriz de confusión para KNN con balanceo y ACP}}}\vspace{-0.3cm}
+\label{tab:mc_knn_2}
 \resizebox{0.5\textwidth}{!}{
 \begin{tabular}{|c|c|c|c|}
 \hline
@@ -874,27 +879,26 @@ Una vez entrenado el modelo con estos parámetros, se ha obtenido que el acurrac
 \cellcolor[HTML]{FFA074} & \textbf{Atípico} & 8454 & 21967 \\ \hline
 \end{tabular}
 }
-\caption{\headlinecolor{\underline{Matriz de confusión para el KNN con balanceo y ACP}}}
-\label{tab:mc_knn_2}
+
 \end{table}
 
+De estos resultados de la tabla anterior se tiene que este modelo tiene sensibilidad de \Sexpr{21967/(21967+8454)}, especifidad  de \Sexpr{41160/(41160+16973)} y precisión  de \Sexpr{21967/(21967+16973)}.
 
-A partir de estos resultados obtenemos que este modelo tiene sensibilidad de \Sexpr{21967/(21967+8454)}, especifidad es de \Sexpr{41160/(41160+16973)} y finalmente, precisión  de \Sexpr{21967/(21967+16973)}.
+Al considerar las variables descritas en el último párrafo de subseción \ref{sub_apre_cara_no_super} y realizar lo descrito en el párrafo tres de la subsección \ref{sub_apre_cara_acp}, los parámetros óptimos para este caso son 17 vecinos con ponderación \textit{distance} (Véase la figura \ref{fig:algoritmo_knn_ml}).
 
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.40]{graficos/algortimo_knn_ml.png}
+\caption{\headlinecolor{\underline{Parámetros para el KNN y \textit{variables\_ml}}}}
+\label{fig:algoritmo_knn_ml}
+\end{figure}
 
-Al considerar las variables de descritas en el último párrafo de \ref{sub_apre_cara_no_super}, realizando lo descrito en el párrafo tres de la subsección \ref{sub_apre_cara_acp} para estas variables, parametrizando la elección KNeighbors en el rango de 1 a 30 y los pesos  por \textit{uniform} y \textit{distance}, se ejecuta validación cruzada que tiene como medida de éxito el Accuracy, tenemos que:
-
-% \begin{figure}[H]
-% \centering
-% \includegraphics[scale=0.35]{graficos/algortimo_knn_ml.png}
-% \caption{\headlinecolor{\underline{Estimación del número de vecinos y peso para el KNN y \textit{variables\_ml}}}}
-% \label{fig:matriz_conf_knn_ml}
-% \end{figure}
-
-Una vez entrenado el modelo con estos parámetros, se ha obtenido que el acurracy del mismo al ser aplicado en los datos del test es de 0.7128644668789665, mientras que al aplicarse en los datos de train es 1. Para contrastar este resultado y evaluar el modelo se obtiene la matriz de confusión que se encuentra en la tabla \ref{tab:mc_knn_3} y en la figura \ref{fig:matriz_conf_knn_ml} en anexos.
+Una vez entrenado el modelo con estos parámetros, se ha obtenido que el acurracy del mismo al ser aplicado en los datos del \textit{test} es de 0.7128644668789665, mientras que al aplicarse en los datos de \textit{train} es 1. La matriz de confusión se presenta en la tabla \ref{tab:mc_knn_3} y en la figura \ref{fig:matriz_conf_knn_ml} de anexos.
 
 \begin{table}[h!]
 \centering
+\caption{\headlinecolor{\underline{Matriz de confusión para  KNN y \textit{variables\_ml} }}}\vspace{-0.3cm}
+\label{tab:mc_knn_3}
 \resizebox{0.5\textwidth}{!}{
 \begin{tabular}{|c|c|c|c|}
 \hline
@@ -906,27 +910,26 @@ Una vez entrenado el modelo con estos parámetros, se ha obtenido que el acurrac
 \cellcolor[HTML]{FFA074} & \textbf{Atípico} & 13376 & 17045 \\ \hline
 \end{tabular}
 }
-\caption{\headlinecolor{\underline{Matriz de confusión para el KNN y \textit{variables\_ml} }}}
-\label{tab:mc_knn_3}
+
 \end{table}
 
+A partir de los valores de la tabla anterior, el modelo tiene sensibilidad de \Sexpr{17045/(17045+13376)}, especifidad de \Sexpr{51203/(51203+6930)} y precisión de \Sexpr{17045/(17045+6930)}.
 
-A partir de estos resultados obtenemos que este modelo tiene sensibilidad de \Sexpr{17045/(17045+13376)}, especifidad es de \Sexpr{51203/(51203+6930)} y finalmente, precisión  de \Sexpr{17045/(17045+6930)}.
-
-
-Se realiza un proceso de balanceo de clases para \textit{variables\_ml}, siguiendo el enfoque mostrado en el último párrafo de la subsección \ref{sub_apre_cara_acp}. A este conjunto de datos resultante, se aplica la validación cruzada con parametrización de KNeighbors en el rango de 1 a 30 y pesos en \textit{uniform} y \textit{distance}. Los resultados se muestran en la figura \ref{fig:algoritmo_knn_bal_ml}.
+Si a las variables descritas en el último párrafo de subseción \ref{sub_apre_cara_no_super} se les realiza además de lo descrito en el párrafo tres de la subsección \ref{sub_apre_cara_acp}, un balanceo de clases, los resultados de aplicar la validación cruzada con parametrización de KNeighbors en el rango de 1 a 30 y pesos en \textit{uniform} y \textit{distance}, dan como parámetros óptimos a 18 vecinos con poderación \textit{distance}. Esto se muestran en la figura \ref{fig:algoritmo_knn_bal_ml}.
 
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.35]{graficos/algortimo_knn_bal_ml.jpeg}
-\caption{\headlinecolor{\underline{Estimación del número de vecinos y peso para el KNN con balanceo y \textit{variables\_ml}}}}
+\caption{\headlinecolor{\underline{Parámetros para KNN con balanceo y \textit{variables\_ml}}}}
 \label{fig:algoritmo_knn_bal_ml}
 \end{figure}
 
-Una vez entrenado el modelo con estos parámetros, se ha obtenido que el acurracy del mismo al ser aplicado en los datos del test es de 0.7272624613230345, mientras que al aplicarse en los datos de train es 1. Para contrastar este resultado y evaluar el modelo se obtiene la matriz de confusión que se encuentra en la tabla \ref{tab:mc_knn_4} y e n la figura \ref{fig:matriz_conf_knn_bal_acp} en anexos.
+Una vez entrenado el modelo con estos parámetros, se ha obtenido que el acurracy del mismo al ser aplicado en los datos del \textit{test} es de 0.7272624613230345, mientras que en los datos de \textit{train} es 1. Para contrastar este resultado y evaluar el modelo se obtiene la matriz de confusión que se encuentra en la tabla \ref{tab:mc_knn_4} y en la figura \ref{fig:matriz_conf_knn_bal_acp} de anexos.
 
 \begin{table}[h!]
 \centering
+\caption{\headlinecolor{\underline{Matriz de confusión para KNN y \textit{variables\_ml} }}}\vspace{-0.3cm}
+\label{tab:mc_knn_4}
 \resizebox{0.5\textwidth}{!}{
 \begin{tabular}{|c|c|c|c|}
 \hline
@@ -938,33 +941,32 @@ Una vez entrenado el modelo con estos parámetros, se ha obtenido que el acurrac
 \cellcolor[HTML]{FFA074} & \textbf{Atípico} & 6311 & 24110 \\ \hline
 \end{tabular}
 }
-\caption{\headlinecolor{\underline{Matriz de confusión para el KNN y \textit{variables\_ml} }}}
-\label{tab:mc_knn_4}
+
 \end{table}
 
+A partir de estos resultados de la tabla \ref{tab:mc_knn_4} se tiene que este modelo tiene sensibilidad de \Sexpr{24110/(24110+6311)}, especifidad  de \Sexpr{40929/(40929+17841)} y finalmente, precisión  de \Sexpr{24110/(24110+17841)}.
 
-A partir de estos resultados obtenemos que este modelo tiene sensibilidad de \Sexpr{24110/(24110+6311)}, especifidad es de \Sexpr{40929/(40929+17841)} y finalmente, precisión  de \Sexpr{24110/(24110+17841)}.
 
+Para ver con mayor detalle  todo el proceso realizado en este algorimo vaya a \textit{VIU\_ml\_knn.ipynb} de \legalcite{CristianVIUTFM}.
 
-Para ver con mayor detalle  todo el proceso realizado para este algorimo vaya a \textit{VIU\_ml\_knn.ipynb} de \legalcite{CristianVIUTFM}.
-
+%Árboles y conjuntos de modelos---------------------------------------------------------------------
 \subsection{Árboles y conjuntos de modelos}\label{sub_seccion:arboles}
 
-Considerando a \textit{variables\_ml}, se implementa un único árbol de decisión realizando la validación cruzada. Los parámetros generales que se consideran son que el número de fold es 10, \textit{gini} como  criterio de evaluación de las divisiones, la profundidad del árbol estará en el rango de 2 a 100 y la medida de éxito será el accuracy.
-
-Los resultados se presentan en la figura \ref{fig:algortimo_arbol_simple}, por lo que la profundidad del árbol será de 14.
+Como se expuso anteriormente, la ejecución de KNN usando las componentes principales obtenidas del ACP, solo se realizó con fines didáctico, por lo que, de aquí en adelante solo se va a trabajar con \textit{variables\_ml}. Es así que, al implementar un único árbol de decisión realizando validación cruzada con número de fold igual a 10 , \textit{gini} como  criterio de evaluación de las divisiones, profundidad del árbol en el rango de 2 a 100 y al accuracy como medida de éxito, da como resultado que la profundidad del árbol sea 14, tal como se puede observar en la la figura \ref{fig:algortimo_arbol_simple}.
 
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.35]{graficos/algortimo_arbol_simple.png}
-\caption{\headlinecolor{\underline{Estimación de la profundidad  del árbol}}}
+\caption{\headlinecolor{\underline{Estimación de la profundidad  de un árbol simple}}}
 \label{fig:algortimo_arbol_simple}
 \end{figure}
 
-Una vez que el modelo ha sido entrenado con estos parámetros, se ha obtenido que el acurracy del mismo al ser aplicado en los datos del train y test son de 0.8432114867764302 y 0.7994218217133049, respectivamente. Para contrastar este resultado y evaluar el modelo se obtiene la matriz de confusión que se encuentra en la tabla \ref{tab:arbol_simple} y en la figura \ref{fig:confusion_matrix_algoritmo_arbol_simple} en anexos.
+Entrenando el modelo con estos parámetros, se tiene que el acurracy en los datos del \textit{train} y \textit{test} son de 0.8432114867764302 y 0.7994218217133049, respectivamente. Para contrastar este resultado y evaluar el modelo se genera la matriz de confusión, misma que se encuentra en la tabla \ref{tab:arbol_simple} y en la figura \ref{fig:confusion_matrix_algoritmo_arbol_simple} de anexos.
 
 \begin{table}[H]
 \centering
+\caption{\headlinecolor{\underline{Matriz de confusión para árboles simples}}}\vspace{-0.3cm}
+\label{tab:arbol_simple}
 \resizebox{0.5\textwidth}{!}{
 \begin{tabular}{|c|c|c|c|}
 \hline
@@ -974,28 +976,28 @@ Una vez que el modelo ha sido entrenado con estos parámetros, se ha obtenido qu
 \cellcolor[HTML]{FFA074}                  & \textbf{Atípico}     & 9787 & 20634 \\ \hline
 \end{tabular}
 }
-\caption{\headlinecolor{\underline{Matriz de confusión para árboles simples}}}
-\label{tab:arbol_simple}
+
 \end{table}
 
-A partir de estos resultados obtenemos que este modelo tiene sensibilidad de \Sexpr{20634/(20634+9787)}, especifidad de \Sexpr{50158/(50158+7975)} y finalmente, precisión  de \Sexpr{20634/(20634+7975)}.
+A partir de estos resultados obtenemos que este modelo tiene sensibilidad de \Sexpr{20634/(20634+9787)}, especifidad de \Sexpr{50158/(50158+7975)} y precisión  de \Sexpr{20634/(20634+7975)}.
 
+La cuatro variables más significativas son BASE\_CAL con el 28,07\%, LS2 con el 19,46\%, LS\_MS con el 16,21\% y M\_PRI\_P con el 14,52\%.
 
-La cuatro variables más importantes son \textit{BASE\_CAL} (28,07\%), \textit{LS2} (19,46\%), \textit{LS\_MS} (16,21\%) y \textit{M\_PRI\_P} (14,52\%)
-
-Se repite el mismo proceso, pero realizando un balanceo de clases, con lo cual tenemos que en la figura \ref{fig:algortimo_arbol_simple_bal}, que la profundidad del árbol es de 15.
+Se repite todo el proceso anterior, pero con un previo balanceo de clases, con lo cual, de la figura \ref{fig:algortimo_arbol_simple_bal} se tiene que la profundidad del árbol es 15.
 
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.35]{graficos/algortimo_arbol_simple_bal.png}
-\caption{\headlinecolor{\underline{Estimación de la profundidad del árbol con datos balanceados}}}
+\caption{\headlinecolor{\underline{Estimación de la profundidad de un árbol con datos balanceados}}}
 \label{fig:algortimo_arbol_simple_bal}
 \end{figure}
 
-Una vez que el modelo ha sido entrenado con estos parámetros, se ha obtenido que el acurracy del mismo al ser aplicado en los datos del train y test son de 0.964122359796067 y 0.7735167242586445, respectivamente. Para contrastar este resultado y evaluar el modelo se obtiene la matriz de confusión que se encuentra en la tabla \ref{tab:arbol_simple_bal} y en la figura \ref{fig:confusion_matrix_algoritmo_arbol_simple_bal} en anexos.
+Una vez que el modelo ha sido entrenado con estos parámetros, se tiene que el acurracy  en los datos del \textit{train} y \textit{test} son de 0.964122359796067 y 0.7735167242586445 respectivamente. Para contrastar este resultado y evaluar el modelo se elabora la matriz de confusión que se encuentra en la tabla \ref{tab:arbol_simple_bal} y en la figura \ref{fig:confusion_matrix_algoritmo_arbol_simple_bal} de anexos.
 
 \begin{table}[H]
 \centering
+\caption{\headlinecolor{\underline{Matriz de confusión para árboles simples balanceados}}}\vspace{-0.3cm}
+\label{tab:arbol_simple_bal}
 \resizebox{0.5\textwidth}{!}{
 \begin{tabular}{|c|c|c|c|}
 \hline
@@ -1005,13 +1007,12 @@ Una vez que el modelo ha sido entrenado con estos parámetros, se ha obtenido qu
 \cellcolor[HTML]{FFA074}                  & \textbf{Atípico}     & 5867 & 24554 \\ \hline
 \end{tabular}
 }
-\caption{\headlinecolor{\underline{Matriz de confusión para árboles simples balanceados}}}
-\label{tab:arbol_simple_bal}
+
 \end{table}
 
-A partir de estos resultados obtenemos que este modelo tiene sensibilidad de \Sexpr{24554/(24554 + 5867)}, especifidad de \Sexpr{43944/(43944+14189)} y finalmente, precisión  de \Sexpr{24554/(24554+14189)}.
+A partir de estos resultados obtenemos que este modelo tiene sensibilidad de \Sexpr{24554/(24554 + 5867)}, especifidad de \Sexpr{43944/(43944+14189)} y precisión  de \Sexpr{24554/(24554+14189)}.
 
-La cuatro variables más importantes son \textit{BASE\_CAL} (33,23\%), \textit{LS2} (18,98\%), \textit{N\_PRI\_P	} (18,21\%) y \textit{SAL\_PROM2	} (6,98\%).
+La cuatro variables más importantes son BASE\_CAL con 33,23\%, LS2 con el 18,98\%, N\_PRI\_P con el 18,21\% y SAL\_PROM2 con el 6,98\%.
 
 Generalmente, los árboles individuales son propensos a generar overfitting, lo que provoca que su eficacia sea muy poca al momento de predecir el comportamiento de los datos que no fueron considerados en la etapa de entrenamiento. Es así que, con el fin de evitar el sobreajuste se plantea un conjunto de modelos y así tener un mejor rendimiento predictivo.  Los métodos de muestreo que se van a considerar son \textit{RandomForestClassifier} (es el algoritmo de Random Forest utilizado para clasificación), \textit{AdaBoostClassifier} (Boosting) y \textit{GradientBoostingClassifier} (Boosting). Para la selección de los parámetros se utilizará la optimización de hiperparámetros con las herramientas de \textit{RandomizedSearch} y \textit{GridSearch}.
 
