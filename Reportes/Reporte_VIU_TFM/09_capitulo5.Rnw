@@ -2,7 +2,7 @@
 
 \section{Conclusiones}
 
-Es importante eliminar la idea errónera de que las aportaciones fraudulentas se da en los últimos cinco años de la vida laboral del afiliado, con la finalidad que la Base de cálculo coincida con esos sueldos. Los datos muestran que son un sinnúmero de aspectos que abarcan los sueldos fraudulentos. En algunos caso, una única aportación alterna todo el comportamiento, en otros, un grupo de 12 de los mejores año, aportes fraudulentos entre años y así. Por lo cual, no es fácil detectar un patrón de actividad fraudulenta.
+Es importante eliminar la idea errónea de que las aportaciones fraudulentas se da en los últimos cinco años de la vida laboral del afiliado, con la finalidad que la Base de cálculo coincida con esos sueldos. Los datos muestran que son un sinnúmero de aspectos que abarcan los sueldos fraudulentos. En algunos casos, una única aportación alterna todo el comportamiento, en otros, un grupo de 12 de los mejores año, aportes fraudulentos entre años y así. Por lo cual, no es fácil detectar un patrón de actividad fraudulenta.
 
 
 \section{Trabajos futuros}
