@@ -195,7 +195,11 @@ REP_file_latex_org <- c( paste( parametros$work_dir, 'Reportes/Bibliografia_TFT.
                          paste( parametros$work_dir, 'Reportes/fraude_por_tipo_pension.png', sep = '' ),
                          
                          #Computador
-                         paste( parametros$work_dir, 'Reportes/caracteristicas_computador.jpeg', sep = '' )
+                         paste( parametros$work_dir, 'Reportes/caracteristicas_computador.jpeg', sep = '' ),
+                         
+                         #Github
+                         paste( parametros$work_dir, 'Reportes/viu_plantilla_github.png', sep = '' )
+                         
                         )
 
 
@@ -356,7 +360,10 @@ REP_file_latex_des <- c( paste( REP_rep_dir, 'Bibliografia_TFT.bib', sep = '' ),
                          paste( REP_rep_dir, 'graficos/', 'fraude_por_tipo_pension.png', sep = '' ),
                          
                          #Computador
-                         paste( REP_rep_dir, 'graficos/', 'caracteristicas_computador.jpeg', sep = '' )
+                         paste( REP_rep_dir, 'graficos/', 'caracteristicas_computador.jpeg', sep = '' ),
+                         
+                         #Github
+                         paste( REP_rep_dir, 'graficos/', 'viu_plantilla_github.png', sep = '' )
                         )
 
 REP_file_latex_clean <- c( paste( REP_rep_dir, 'Bibliografia_TFT.bib', sep = '' ), 
