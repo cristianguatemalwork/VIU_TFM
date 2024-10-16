@@ -7,7 +7,7 @@
 
 {\fontfamily{phv}\selectfont
 \fontsize{25}{10.4}\fontseries{b}\selectfont
-\vspace{13cm}
+\vspace{12cm}
 \begin{center}
 \textbf{Detección de aportaciones fraudulentas en el seguro social ecuatoriano}
 \end{center}

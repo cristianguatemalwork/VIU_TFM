@@ -1,4 +1,5 @@
 %Resumen -------------------------------------------------------------------------------------------
+\renewcommand{\abstractname}{Resumen}
 \begin{abstract}
 La seguridad social desde su origen hasta la actualidad nace como medida de generación de equidad entre los individuos de una sociedad, para proveerles condiciones de vida digna. La problemática que actualmente enfrentan todos los sistemas de seguridad social a nivel mundial está relacionados con el envejecimiento poblacional. Es por ello que se deben realizar acciones que permitan garantizar la sostenibilidad en el corto, mediano y largo plazo de los fondos administrados por los institutos de seguridad social, de manera especial los relacionados con pensiones de jubilación. 
 
@@ -12,4 +13,20 @@ En este sentido, el presente trabajo de fin de máster, mediante la implementaci
 
 \keywords{seguridad social, sostenibilidad, fraude, aprendizaje no supervisado, aprendizaje supervisado, clúster jerárquico, k-mean, k-mean++, proceso KDD, KNN, árboles de decisión, conjunto de modelos, XGBClassifier, redes neuronales, validación cruzada, hiperparámetros}
 \end{abstract}
+\newpage
+
+
+\renewcommand{\abstractname}{Abstract}
+\begin{abstract}
+Social security, from its origin to the present, was created as a measure to generate equity among individuals in a society, providing them with dignified living conditions. The issue currently facing all social security systems worldwide is related to population aging. Therefore, actions must be taken to ensure the sustainability of the funds managed by social security institutions in the short, medium, and long term, especially those related to retirement pensions.
+
+Ecuador is no exception to the global crisis. Combined with a decline in the local economy, it forces the pension fund to liquidate its reserves to guarantee payment of obligations to current pensioners, leading the fund to face liquidity and sustainability problems in the short term.
+
+In this context, this master's thesis, through the implementation of clustering algorithms, K-Means and DBSCAN, will classify the contributions made by current pensioners and determine which of them are fraudulent. Additionally, through an appropriate KDD process, feature selection, and the implementation of the KNN algorithm and decision tree techniques, ensemble models, XGBClassifier, and neural networks, supervised learning models will be generated to predict how the salaries of current affiliates will behave and their influence on the calculation of their future pensions. The training process considers cross-validation techniques and hyperparameter optimization.
+
+\vspace{0.5cm}
+
+\keywords{social security, sustainability, fraud, unsupervised learning, supervised learning, hierarchical clustering, k-means, k-means++, KDD process, KNN, decision trees, ensemble models, XGBClassifier, neural networks, cross-validation, hyperparameters.}
+\end{abstract}
+
 \newpage

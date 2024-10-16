@@ -1393,7 +1393,7 @@ Finalmente, una vez que ha sido analizado y escogido el modelo que cumple de for
 
 La nueva base de datos cuenta con 3.089.379 observaciones, mismas que serán ejecutadas en el modelo seleccionado en \ref{seccion:comparacion_resultados} para  predecir las probabilidades de que cada individuo haya o no haya cometido fraude. Esto se lleva a cabo con la función \textit{predict-proba} de la librería de Python, \textit{scikit-learn}, la cual al ser aplicada sobre un modelo y evaluada en una base de datos, retorna la probabilidad de que cada unos de los individuos pertenezca a las diferentes categorías. Esto nos da indicios de cómo se distribuyen estas probabilidades entorno a los datos para ser capaces de analizar su comportamiento.
 
-De igual forma, con ayuda de la función \textit{predict} de la misma librería, se clasifica a cada nuevo individuo en si ha hecho o no fraude. Los resultados dicen que 1.755.055 individuos fueron atípicos, es decir, en los nuevos datos se detecta que el 56.81\% de ellos han cometido fraude. De esto se puede intuir que la cantidad de individuos que cometen este tipo de actos está incrementando. Esto es palpable ya que en los datos iniciales de estudio, únicamente del total de pensionistas, se detectó que alrededor del 30\% de los mismos habían hecho fraude. Esto es una señal de alerta y eleva la importancia de este estudio para contrarrestar este crecimiento y garantizar la sostenibilidad a futuro.
+De igual forma, con ayuda de la función \textit{predict} de la misma librería, se clasifica a cada nuevo individuo en si ha hecho o no fraude. Los resultados dicen que 1.755.055 individuos fueron atípicos, es decir, en los nuevos datos se detecta que el 56.81\% de ellos han cometido fraude. De esto se puede intuir que la cantidad de individuos que cometen este tipo de actos está incrementando. Esto es palpable ya que en los datos iniciales de estudio, únicamente del total de pensionistas, se detectó que alrededor del 34\% de los mismos habían hecho fraude. Esto es una señal de alerta y eleva la importancia de este estudio para contrarrestar este crecimiento y garantizar la sostenibilidad a futuro.
 
 %Resultados enfocados a la Seguridad Social---------------------------------------------------------
 \section{Resultados enfocados a la Seguridad Social}\label{seccion:resultados_seguridad_social}
@@ -1441,7 +1441,7 @@ A su vez, resulta necesario estudiar el sector donde más se realizaron aportes 
         \includegraphics[scale=0.30]{graficos/pastel_sector_n.png}
         %\label{fig:algoritmo_cj_271_1}
     \end{subfigure}
-    \hspace{0.01\textwidth} % Espacio entre las imágenes
+    \hspace{-0.09\textwidth} % Espacio entre las imágenes
     \begin{subfigure}{0.45\textwidth}
         \centering
         \includegraphics[scale=0.30]{graficos/pastel_sector_m.png}
