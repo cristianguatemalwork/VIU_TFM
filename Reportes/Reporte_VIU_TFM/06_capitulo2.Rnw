@@ -11,9 +11,9 @@
 
 \begin{enumerate}
 \item Realizar un proceso KDD para crear un único conjunto de datos.
-\item Implementar algoritmos de aprendizaje no supervizado para la detección de aportaciones atípicas.
+\item Implementar algoritmos de aprendizaje no supervisado para la detección de aportaciones atípicas.
 \item Evaluar la significancia de las variables demográficas y salarias de los pensionistas a ser utilizadas en el aprendizaje supervisado.
-\item Desplegar algoritmos de aprendizaje supervizado para clasificar el comportamiento de los pensionistas en fraude o no fraude.
-\item  Clasificar el comportamiento salarial de los actuales afiliados del IESS, en función de los modelos de aprendisaje suprvisado resultantantes.
+\item Desplegar algoritmos de aprendizaje supervisado para clasificar el comportamiento de los pensionistas en fraude o no fraude.
+\item  Clasificar el comportamiento salarial de los actuales afiliados del IESS, en función de los modelos de aprendizaje supervisado resultantes.
 \end{enumerate}
 
