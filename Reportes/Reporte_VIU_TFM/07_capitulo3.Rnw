@@ -216,7 +216,7 @@ Se tienen diversas técnicas de aplicación de la Validación Cruzada entre las 
 
 \subsubsection{Método del Codo}\label{sec:codo}
 
-Según \textcite{yuan2019kvalue}, el método del codo es una técnica bastante usada para determinar el número de clústers en los algoritmos de agrupamiento, sobre todo en K-means. Su propósito es encontrar el número de clústers, donde si se aumentan más, ya no hay una mejora significativa en la calidad de las agrupaciones. Este método, en primer lugar, grafica la suma se lo errores cuadrados dentro de los clústers dependiendo el número de clústers elegidos, k. Con el aumento de k, este error disminuye, pero después de cierto punto, la mejora se ve reducida y forma una curva semejante a un codo. Donde, el codo marca el número óptimo de clústers ya que a partir de ellos el resultado no se ve significativamente mejorado.
+Según \textcite{yuan2019kvalue}, el método del codo es una técnica bastante usada para determinar el número de clúster en los algoritmos de agrupamiento, sobre todo en K-means. Su propósito es encontrar el número de clúster, donde si se aumentan más, ya no hay una mejora significativa en la calidad de las agrupaciones. Este método, en primer lugar, grafica la suma se lo errores cuadrados dentro de los clúster dependiendo el número de clúster elegidos, k. Con el aumento de k, este error disminuye, pero después de cierto punto, la mejora se ve reducida y forma una curva semejante a un codo. Donde, el codo marca el número óptimo de clúster ya que a partir de ellos el resultado no se ve significativamente mejorado.
 
 \subsection{Método de la Silueta}\label{sec:silueta}
 
@@ -231,7 +231,7 @@ El PCA, en primer lugar, determina las direcciones de mayor varianza de los dato
 
 \subsubsection{Optimización de Hiperparámetros}\label{sec:hiperparametros}
 
-Según \textcite{opthip}, la optimización de hiperparámetros es un proceso fundamental debido a su importancia para mejorar el rendimiento de los algoritmos de aprendizaje automáticos ya que con él se controlan los aspectos importantes de un modelo como la tasa de aprendizaje, parámetros de regularización, entre otros. Las diferentes elecciones de hiperparámetro llevan a rendimientos variables, por lo que encontrar una buena configuración de los mismo es necesario para mejorar la precisión del modelo. Con este propósito, tenemos dos estrategias de búsqueda:
+Según \textcite{opthip}, la optimización de hiperparámetros es un proceso fundamental debido a su importancia para mejorar el rendimiento de los algoritmos de aprendizaje automáticos ya que con él se controlan los aspectos importantes de un modelo como la tasa de aprendizaje, parámetros de regularización, entre otros. Las diferentes elecciones de hiperparámetros llevan a rendimientos variables, por lo que encontrar una buena configuración de los mismos es necesario para mejorar la precisión del modelo. Con este propósito, tenemos dos estrategias de búsqueda:
 
 \begin{itemize}
 
@@ -253,7 +253,7 @@ Según \textcite{FAWCETT2006861}, una de las herramientas más comunes para eval
 \item Falsos Negativos (FN): Casos donde se predice una clase negativa de forma incorrecta.
 \end{itemize}
 
-A partir de esta estructura, se pueden calcular diversas métricas que describen la capacidad predictiva del modelo y dependiendo de nuestros objetivos se deberá optar por la métrica más adecuada. Entre la mismas tenemos:
+A partir de esta estructura, se pueden calcular diversas métricas que describen la capacidad predictiva del modelo y dependiendo de nuestros objetivos se deberá optar por la métrica más adecuada. Entre las mismas tenemos:
 
 \begin{itemize}
 \item Sensibilidad: Mide cuan bien un modelo identifica las instancias positivas, es decir, mide cuántas observaciones positivas se identificaron correctamente.
