@@ -335,5 +335,12 @@ Entre las ventajas de esta integración encontramos la reproducibilidad de anál
 
 \subsection{Git}
 
-El sistema de control del versiones Git es un software distribuido y de código abierto diseñado para gestionar proyectos de desarrollo de software o cualquier tipo de archivo que requiera un seguimiento de los cambios efectuados en el mismo \citep{git_ver}. El servicio en la nube del sistema de control de versionamiento a utilizar será  Github. En esta plataforma se puede tanto almacenar  el código desarrollado, así como trabajar, colaborar y compartir un proyecto con múltiples colaboradores \citep{github2024}. El repositorio\footnote{Es el espacio de almacenamiento en la nube donde se guarda y gestiona el código del proyecto junto con su historial de versiones.} creado en github tiene por nombre \textit{VIU\_TFM} y en el mismo se encuentra todo el detalle realizado en este trabajo de fin de máster. 
+El sistema de control del versiones Git es un software distribuido y de código abierto diseñado para gestionar proyectos de desarrollo de software o cualquier tipo de archivo que requiera un seguimiento de los cambios efectuados en el mismo \citep{git_ver}. El servicio en la nube del sistema de control de versionamiento a utilizar será  Github. En esta plataforma se puede almacenar  tanto el código desarrollado, así como trabajar, colaborar y compartir un proyecto con múltiples colaboradores \citep{github2024}. El repositorio\footnote{Es el espacio de almacenamiento en la nube donde se guarda y gestiona el código del proyecto junto con su historial de versiones.} creado en github tiene por nombre \textit{VIU\_TFM} y en el mismo se encuentra todo el detalle realizado en este trabajo de fin de máster. En la figura \ref{fig:plantilla_github} se presenta la estructura del mismo.
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.20]{graficos/viu_plantilla_github.png}
+\caption{\headlinecolor{\underline{Plantilla del repositorio \textit{VIU\_TFM} en Github}}}
+\label{fig:plantilla_github}
+\end{figure}
 

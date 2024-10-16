@@ -2,6 +2,22 @@
 
 \section{Conclusiones}
 
+Como se manifiesta en las Valuaciones Actuariales para el Seguro de Invalidez, Vejez y Muerte, con fecha de corte al 31 de diciembre de los años 2018 y 2020, realizadas por el Instituto Ecuatoriano de Seguridad Social, es fundamental que se realicen medidas correctivas para que el fondo de pensiones sea sostenible en el corto, mediano y largo plazo. Las principales medidas se relacionan con el incremento del aporte que realizan los actuales afiliados del instituto, que el Estado ecuatoriano cumple de manera oportuna con sus obligaciones legales y cambiar la base de cálculo y las condiciones de elegibilidad (es decir, cambiar la edad y los años aportados) para que un afiliado pueda solicitar su derecho a jubilación.
+
+La implementación de estas medidas, que técnicamente han demuestrado ser las herramientas más eficasez para garantizar la sostenibilidad del Seguro IVM, tienen un costo político elevado de implemnetación. Es por esta razón que, ningún gobierno hasta la presente fecha ha generado los mecanismos necesarios para elaborar una reforma integral a la Ley de Seguridad Socia (creada en el año 2001), debido a que, cuando estas medidas lleguen a oidos de la sociedad, la consecuencia del impacto social llevaría a generar conmoción interna, que en el peor de los casos derrocaría al gobierno de turno.
+
+La puesta en marcha de estas medidas es necesaria y urgente, caso contrario se agravaría la situación proyectada por las valuaciones actuariales, dando como resultado que el año de reserva cero sea más cercano al pensado. Es por ello que, es el momento oportuno para generar acciones correctivas que sean de impacto mínimo para los afiliados y la sociedad en generar las pueda aceptar. 
+
+En este sentido, una medida para ayudar a la sostenibilidad del Seguro IVM con impacto mínimo es cambiar la formulación de la base de cálculo descrita en el artículo 13 de la Resolución No. C.D. 100. Un enfoque simple sería que, en vez de utilizar el promedio aritmético se utilice la el promedio geométrico. Si embargo, pese a que se se generaron los insumos necesario que demostraron que esta medida ayudaba al fondo de pensiones, la misma fue declarada como inconstitucional por la Corte Constitucional del Ecuador,  en un sentido que infringe el numeral 2 del artículo 11, el numeral 4 del artículo 66 de la Constitución de la República del Ecuador.
+
+Por esta razón, dado que la modificación de los artículos de la Ley de Seguridad Social Ecuatoriana es legalmente compleja, este trabajo de fin de máster tiene como meta promover la sostenibilidad del Seguro IVM mediante la identificación de aportaciones fraudulentas realizadas por los afiliados durante su vida laboral. 
+
+Esta medida correctiva tiene impacto mínimo, puesto que en el mediano y largo plazo, lo que se busca es  desincentivar que los afiliados realicen estos actos fraudulentos. El primer hito a realizar es impulsar la elaboración de una resolución por parte del Consejo Directivo del IESS, en la que se establezca que las aportaciones 
+
+
+
+La detección de las aportaciones fraudulentas en el sistema de seguridad social es una medida clave para ayudar a la sostenibilidad del Seguro IVM.  
+
 Es importante eliminar la idea errónera de que las aportaciones fraudulentas se da en los últimos cinco años de la vida laboral del afiliado, con la finalidad que la Base de cálculo coincida con esos sueldos. Los datos muestran que son un sinnúmero de aspectos que abarcan los sueldos fraudulentos. En algunos caso, una única aportación alterna todo el comportamiento, en otros, un grupo de 12 de los mejores año, aportes fraudulentos entre años y así. Por lo cual, no es fácil detectar un patrón de actividad fraudulenta.
 
 
