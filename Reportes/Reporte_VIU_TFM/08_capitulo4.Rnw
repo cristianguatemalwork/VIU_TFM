@@ -54,7 +54,7 @@ La información de \textit{pensi} tiene las siguientes variables:
         \item PROMEDIO\_SUELDO\_REAL: Es la base de cálculo\footnote{De acuerdo con la \legalcite{ResIESS_CD100}, para el cómputo de la base de cálculo de la pensión, se procederá a la suma de doce (12) meses de imposiciones consecutivas y ese resultado se dividirá para doce (12). Obteniendo así el promedio mensual de los sueldos o salarios de cada año de imposiciones del afiliado, se seleccionarán los cinco (5) promedio mensuales de mayor cuantía y el resultado de la suma se dividirá para cinco (5)} en el sistema Prestacional,\\[-0.75cm]
           \item PROMEDIO\_CAL: Estimación de la base de cálculo en base a HL,\\[-0.75cm]
         \item VALOR\_PENSION: Corresponde a la pensión calculada en el sistema Prestacional,\\[-0.75cm]
-        \item PENSION\_CAL: Esla pensión calculada en función del artículo 13\footnote{La pensión mensual por invalidez o vejez y el subsidio transitorio por incapacidad será igual al resultado de la multiplicación de la Base de Cálculo de la \legalcite{ResIESS_CD100}, por el coeficiente anual de años cumplidos de imposiciones. De los 40 años en adelante se incrementará el 0,0125 por cada año de imposiciones adicionales.} de la \legalcite{ResIESS_CD100},\\[-0.75cm]
+        \item PENSION\_CAL: Es la pensión calculada en función del artículo 13\footnote{La pensión mensual por invalidez o vejez y el subsidio transitorio por incapacidad será igual al resultado de la multiplicación de la Base de Cálculo de la \legalcite{ResIESS_CD100}, por el coeficiente anual de años cumplidos de imposiciones. De los 40 años en adelante se incrementará el 0,0125 por cada año de imposiciones adicionales.} de la \legalcite{ResIESS_CD100},\\[-0.75cm]
         \item RANGO\_INI\_5MEJ: Corresponde a la fecha máxima de los cinco (5) mejores años de sueldo,\\[-0.75cm]
         \item RANGO\_FIN\_5MEJ: Corresponde a la fecha mínima de los cinco (5) mejores años de sueldo
 
@@ -76,7 +76,7 @@ El principal problema con los datos faltantes  se debe a que la información de 
 %Tratamiento de outliers----------------------------------------------------------------------------
 \section{Tratamiento de outliers}
 
-La principal variable de interés en \textit{data\_afi} es el \textit{SALARIO}, misma que permitirá clasificar  si las personas realizaron algún tipo de fraude, con el fin de obtener un mejor beneficio pensional a largo plazo. En este sentido, no se realiza ninguna corrección de sus valores pues es justamente lo que queremos detectar con los algoritmos de aprendizaje no supervisado.
+La principal variable de interés en \textit{data\_afi} es el \textit{SALARIO}, misma que permitirá clasificar  si las personas realizaron algún tipo de fraude, con el fin de obtener un mejor beneficio pensional a largo plazo. En este sentido, no se realiza ninguna corrección de sus valores pues es justamente lo que se quiere detectar con los algoritmos de aprendizaje no supervisado.
 
 %Limpieza de datos antes del aprendizaje no supervisado---------------------------------------------
 \section{Limpieza de datos antes del aprendizaje no supervisado}\label{cha_resul:limpieza_no_super}
@@ -235,7 +235,7 @@ En este sentido, se sigue un proceso similar a lo expuesto en la subsección \re
 
 Por otra parte, siguiendo lo expresado en la literatura, este algoritmo se ejecutará en cuatro casos, dos casos para los datos con y sin normalización y otros dos casos para los datos con y sin registros duplicados. Esto tiene la finalidad de mejorar la velocidad del procesamiento del algoritmo de K-Means \citep{scikit_learn_kmeans} y \citep{AdventuresinMachineLearning}.
 
-Con la finalidad de realizar un ejercicio didáctico que estima el número de clústeres que agruparán los salarios de cada persona, se utiliza la función \textit{num\_cluster} del código de la sección \ref{sec:alg_kmean}. Los casos serán abreviados por \textit{ATI\_KM\_M1} para datos con duplicados y sin normalización,  \textit{ATI\_KM\_M2}  para datos sin duplicados y sin normalización,  \textit{ATI\_KM\_M3} para datos con duplicados y  con normalizados; y, \textit{ATI\_KM\_43} para datos sin duplicados y con normalizados
+Con la finalidad de realizar un ejercicio didáctico que estima el número de clústeres que agruparán los salarios de cada persona, se utiliza la función \textit{num\_cluster} del código de la sección \ref{sec:alg_kmean}. Los casos serán abreviados por \textit{ATI\_KM\_M1} para datos con duplicados y sin normalización,  \textit{ATI\_KM\_M2}  para datos sin duplicados y sin normalización,  \textit{ATI\_KM\_M3} para datos con duplicados y  con normalizados; y, \textit{ATI\_KM\_M4} para datos sin duplicados y con normalizados
 
 Los métodos para estimar el número de clústeres, aplicados a los datos de \textit{ul} y \textit{ml}, son del codo y  silueta. Los resultados promedios son:
 
@@ -255,9 +255,9 @@ Para \textit{ml}
 \item Caso \textit{ATI\_KM\_M4}.- Método del codo da 2,066 clúster y la silueta 2,529 clúster,
 \end{itemize}
 
-Se observa que el número de clústeres promedio oscila entre 2 y 3 aproximadamente, lo que refuerza la decisión de que la clasificación solo se tendrán en cuenta dos (2) clúster, puesto que, se hace el supuesto que los salarios se agrupen en dos clúster, con y sin atípicos. La función que se utilizará es \textit{clasificacion\_kmean} del código de la sección \ref{sec:alg_kmean}. Es importante notar que, con la finalidad de mejorar la elección inicial de los centroides se considera el método \textit{K-Means++}.
+Se observa que el número de clústeres promedio oscila entre 2 y 3 aproximadamente, lo que refuerza la decisión de que la clasificación solo se tendrán en cuenta dos (2) clústeres, puesto que, se hace el supuesto que los salarios se agrupen en dos clústeres, con y sin atípicos. La función que se utilizará es \textit{clasificacion\_kmean} del código de la sección \ref{sec:alg_kmean}. Es importante notar que, con la finalidad de mejorar la elección inicial de los centroides se considera el método \textit{K-Means++}.
 
-Tras aplicar \textit{clasificacion\_kmean}, tenemos que si el número de clústeres\footnote{Independientemente de elegir que formen dos clústeres, el algoritmo generaba uno o dos clúster, lo cual dependía del comportamiento de los datos} generados es mayor a 1, se calcula el centroide de cada clúster y si estos valores son mayores a LS\_MS entonces todas las observaciones del clúster respetivo serán atípicas (su etiqueta será 1). Por otra parte, si el número de clústeres es igual a 1, entonces la etiqueta será igual a -2, puesto que solo se formó un único clúster. Ahora bien, al momento  de considerar o no los valores repetidos, la mayoría de los casos se comportaban como lo que ya se expuso anteriormente. Sin embargo, existían casos en donde al eliminar los duplicados, el promedio de los cinco mejores años era un único valor, por lo cual, cuando se daban estos casos la etiqueta era -1. Los resultados se presentan en la tabla \ref{tab:resul_kmean_pre}, cuyos valores hacen mención a las personas que al menos tienen un sueldo que corresponde a una categoría  de los cuatro casos anteriores.
+Tras aplicar \textit{clasificacion\_kmean}, se tiene que si el número de clústeres\footnote{Independientemente de elegir que formen dos clústeres, el algoritmo generaba uno o dos clúster, lo cual dependía del comportamiento de los datos} generados es mayor a 1, se calcula el centroide de cada clúster y si estos valores son mayores a LS\_MS entonces todas las observaciones del clúster respectivo serán atípicas (su etiqueta será 1). Por otra parte, si el número de clústeres es igual a 1, entonces la etiqueta será igual a -2, puesto que solo se formó un único clúster. Ahora bien, al momento  de considerar o no los valores repetidos, la mayoría de los casos se comportaban como lo que ya se expuso anteriormente. Sin embargo, existían casos en donde al eliminar los duplicados, el promedio de los cinco mejores años era un único valor, por lo cual, cuando se daban estos casos la etiqueta era -1. Los resultados se presentan en la tabla \ref{tab:resul_kmean_pre}, cuyos valores hacen mención a las personas que al menos tienen un sueldo que corresponde a una categoría  de los cuatro casos anteriores.
 
 \begingroup\scriptsize
 \setlength\extrarowheight{1pt}
@@ -331,7 +331,7 @@ data
 
 De la tabla anterior, prácticamente en los cuatro casos se tiene la misma clasificación en cantidad de personas, la diferencia solo radica en el tiempo de procesamiento de los resultados, puesto que, cuando se trabajaba con los datos sin normalizar y con duplicados, el tiempo de ejecución era muy elevado. Así mismo, como bien se mencionó en la subsección anterior, tras la aplicación de K-Means es necesario hacer las mismas correcciones. 
 
-Una vez realizadas las correcciones respectivas, se procede a crear una variable que considere a los cuatro casos y determine la etiqueta. La regla  considerara el valor  máximo de los cuatro casos. Así, si tres de los casos para un sueldo determinado tienen el valor 0  y en el otro tiene el valor de 1, entonces la etiqueta será 1 (atípico). El atributo que contiene esta información es ATI\_KM.
+Una vez realizadas las correcciones respectivas, se procede a crear una variable que considere a los cuatro casos y determine la etiqueta. La regla  considerará el valor  máximo de los cuatro casos. Así, si tres de los casos para un sueldo determinado tienen el valor 0  y en el otro tiene el valor de 1, entonces la etiqueta será 1 (atípico). El atributo que contiene esta información es ATI\_KM.
 
 \begin{landscape}
 Algunos ejemplos con los resultados de la implementación de K-Means se muestran en la figura \ref{fig:algoritmo_km_depu}.
@@ -395,7 +395,7 @@ Debido a las desventajas que tiene K-Means al momento de agrupar datos que tiene
 
 Se adopta nuevamente el proceso descrito en Clúster Jerárquico con respecto a las consideraciones para GRUPO\_SEL, data\_l, ul, ml y LS\_MS; y, se procede a determinar los parámetros (MinPts y Eps) que el algoritmo necesita. La función \textit{valor\_epsilon} de la sección \ref{sec:alg_dbscan} de la parte de anexos toma los K-ésimos vecinos más cercanos en un rango de 1 a 12\footnote{Se considera este valor debido a que se espera que los 12 meses de aporte de un grupo de los mejores años tengan el mismo comportamiento} (MinPts) y determina el valor de \textit{épsilon} (Eps) a través del método del codo. Si todas las distancias dadas por los k-ésimos vecinos tienen el mismo valor, entonces el valor de \textit{épsilon} es cero, puesto que, el valor del sueldo es el mismo para los mejores años de sueldo. Con la función \textit{esti\_eps\_out} para un rango de valores de Eps y el mismo valor de MinPts, se aplica DBSCAN y se obtiene el número de clústeres y de atípicos para esos parámetros.
 
-El proceso anterior genera varias combinaciones de resultados, por lo que, con la función \textit{cal\_eps\_out} de la sección \ref{sec:alg_dbscan}, se determina los valores de Eps y MinPts  con los cuales se va a trabajar, haciendo la consideración de que la selección abarque la mayor cantidad de valores atípicos con la menor cantidad de clúster. Bajo este criterio tenemos que en \textit{ul} existen 316.552 personas con algún registro de sueldo atípico y en \textit{ml} existen 68.596 personas que tienen al menos una aportación atípica.
+El proceso anterior genera varias combinaciones de resultados, por lo que, con la función \textit{cal\_eps\_out} de la sección \ref{sec:alg_dbscan}, se determina los valores de Eps y MinPts  con los cuales se va a trabajar, haciendo la consideración de que la selección abarque la mayor cantidad de valores atípicos con la menor cantidad de clúster. Bajo este criterio se tiene que en \textit{ul} existen 316.552 personas con algún registro de sueldo atípico y en \textit{ml} existen 68.596 personas que tienen al menos una aportación atípica.
 
 Nuevamente es necesario hacer las correcciones indicadas en los dos métodos anteriores, por lo que, una vez realizadas las mismas, en la figura \ref{fig:algoritmo_db_depu} se muestran los resultados obtenidos.
 
@@ -750,15 +750,15 @@ Previo aplicación de los algoritmos de aprendizaje supervisado es fundamental l
 
 Como se menciona en \citet{tesis_guatemal_epn} y \citet{wiskott2009pca}, el objetivo del ACP es, dadas $X_1, X_2, \ldots, X_n$ variables, hallar $n$ nuevas variables que son combinaciones lineales de las variables iniciales, de tal manera que $r$ ($r<n$) recojan la mayor cantidad de información posible de los atributos $X_1, X_2, \ldots, X_n$. Sin embargo, antes de la utilización del ACP es necesario, como se menciona en \citet{tesis_guatemal_epn}, ``verificar si la correlación entre las variables analizadas es lo suficientemente grande como para poder justificar la factorización de la matriz de coeficientes de correlación'' (p. 90). Esto se logra mediante el Test de Esfericidad de Bartlett y el Índice Kaiser-Meyer-Olkin (KMO). 
 
-El resultado de aplicar el Test de Esfericidad nos da un p-valor menor a 0, lo cual permite concluir que estadísticamente las variables están correlacionadas. No obstante, el valor de KMO es 0,4720, lo cual da señales que no es factible\footnote{En \citet{tesis_guatemal_epn} se manifiesta que si los valores del KMO están entre 0,5 y 1 es apropiado aplicar un ACP} realizar un ACP. En este sentido, tenemos los suficientes argumentos para no realizar el ACP. No obstante, con la finalidad de comparar los resultados que nos darán los métodos supervisados y el ACP (solo se considerará a las componentes del ACP para el caso del algoritmo de KNN) se procede a implementarlo.
+El resultado de aplicar el Test de Esfericidad da un p-valor menor a 0, lo cual permite concluir que estadísticamente las variables están correlacionadas. No obstante, el valor de KMO es 0,4720, lo cual da señales que no es factible\footnote{En \citet{tesis_guatemal_epn} se manifiesta que si los valores del KMO están entre 0,5 y 1 es apropiado aplicar un ACP} realizar un ACP. En este sentido, se tienen los suficientes argumentos para no realizar el ACP. No obstante, con la finalidad de comparar los resultados que nos darán los métodos supervisados y el ACP (solo se considerará a las componentes del ACP para el caso del algoritmo de KNN) se procede a implementarlo.
 
-La primera parte es dividir a los datos de \textit{data} en \textit{train} y \textit{test}. En este punto y en lo que sigue se considera que el 20\%\footnote{En concordancia con \textcite{8717766}} de los datos serán para el conjunto de test. Luego se normalizan los atributos de train, con excepción de las variables SEXO\footnote{Sus valores son 0 para hombres y 1 para mujer}, PRES\footnote{Sus valores son 0 para pensionistas de discapacidad, 1 para pensionistas de invalidez y 2 para pensionistas de vejez}, N\_PRI\_P, N\_PUB\_P, N\_IND\_P, N\_VOL\_EC\_P, N\_VOL\_EX\_P, M\_PRI\_P, M\_PUB\_P, M\_IND\_P, M\_VOL\_EC\_P y M\_VOL\_EX\_P, debido a que ya estan en escala de 0 a 1. Los parámetros resultantes de la normalización en el \textit{train} se utilizan para normalizar los datos de \textit{test}.
+La primera parte es dividir a los datos de \textit{data} en \textit{train} y \textit{test}. En este punto y en lo que sigue se considera que el 20\%\footnote{En concordancia con \textcite{8717766}} de los datos serán para el conjunto de test. Luego, se normalizan los atributos de train, con excepción de las variables SEXO\footnote{Sus valores son 0 para hombres y 1 para mujer}, PRES\footnote{Sus valores son 0 para pensionistas de discapacidad, 1 para pensionistas de invalidez y 2 para pensionistas de vejez}, N\_PRI\_P, N\_PUB\_P, N\_IND\_P, N\_VOL\_EC\_P, N\_VOL\_EX\_P, M\_PRI\_P, M\_PUB\_P, M\_IND\_P, M\_VOL\_EC\_P y M\_VOL\_EX\_P, debido a que ya estan en escala de 0 a 1. Los parámetros resultantes de la normalización en el \textit{train} se utilizan para normalizar los datos de \textit{test}.
 
 Tras la aplicación del ACP para el conjunto de datos de train, en la octava componente se recoge el 92,60\% de la información de las variables originales. Es así que, se utiliza este número de componentes y se proyectan los datos normalizados del train y del test en las mismas. Estas variables tomarán los nombres PC1, PC2, PC3, PC4, PC5, PC6, PC7 y PC8.
 
-Ahora bien, se repite el mismo proceso descrito anteriormente, pero con un balanceo de clases. Lo que se hace es que posterior al proceso de normalización de train y test, generar un balanceo de clases con el método \textit{SMOTEENN}\footnote{En concordancia con \textcite{8123782}}. Se aplica el ACP y se tiene que en la octava componente se recoge el 93,12\% de la información de las variables originales. Después se proyectan los datos del train y test normalizados y balanceados en éstas nuevas componentes principales. El nombre de las variables será PC1\_bal, PC2\_bal, PC3\_bal, PC4\_bal, PC5\_bal, PC6\_bal, PC7\_bal y PC8\_bal.
+Ahora bien, se repite el mismo proceso descrito anteriormente, pero con un balanceo de clases. Lo que se hace es que, posterior al proceso de normalización de train y test, se genera un balanceo de clases con el método \textit{SMOTEENN}\footnote{En concordancia con \textcite{8123782}}. Se aplica el ACP y se tiene que en la octava componente se recoge el 93,12\% de la información de las variables originales. Después, se proyectan los datos del train y test normalizados y balanceados en estas nuevas componentes principales. El nombre de las variables será PC1\_bal, PC2\_bal, PC3\_bal, PC4\_bal, PC5\_bal, PC6\_bal, PC7\_bal y PC8\_bal.
 
-Como se expuso anteriormente, esta parte es solo didáctica, por lo que estás variables solo serán consideradas en la implementación del algoritmo \textit{KNN}.
+Como se expuso anteriormente, esta parte es solo didáctica, por lo que estas variables solo serán consideradas en la implementación del algoritmo \textit{KNN}.
 
 %Selección de características dadas por métodos no supervisados-------------------------------------
 \subsection{Selección de características dadas por métodos no supervisados}\label{sub_apre_cara_no_super}
@@ -815,7 +815,7 @@ Para mayor detalle de todo el proceso realizado, el lector puede revisar el scri
 %KNN------------------------------------------------------------------------------------------------
 \subsection{KNN}
 
-El KNN es un método no paramétrico que clasifica los puntos según su distancia a los datos de entrenamiento, en donde, a los nuevos puntos se les asigna la etiqueta más común entre sus vecinos. Entre sus ventajas encontramos su facilidad de implementación, su flexibilidad cuando no se conoce la estructura subyacente del modelo, eficacia especialmente cuando hay una buena distribución de datos, y su robustez al ruido ya que permite modificaciones con el fin de disminuir la influencia de valores atípicos. Es necesario tener en cuenta que su rendimiento depende de la elección tanto del número de vecinos como del peso usado \citep{syriopoulos2023knn}.
+El KNN es un método no paramétrico que clasifica los puntos según su distancia a los datos de entrenamiento, en donde, a los nuevos puntos se les asigna la etiqueta más común entre sus vecinos. Entre sus ventajas se encuentran su facilidad de implementación, su flexibilidad cuando no se conoce la estructura subyacente del modelo, eficacia especialmente cuando hay una buena distribución de datos, y su robustez al ruido ya que permite modificaciones con el fin de disminuir la influencia de valores atípicos. Es necesario tener en cuenta que su rendimiento depende de la elección tanto del número de vecinos como del peso usado \citep{syriopoulos2023knn}.
 
 Utilizando los códigos provistos en la materia de Machine Learning y las variables PC1, PC2, PC3, PC4, PC5, PC6, PC7 y PC8, se procede a parametrizar la elección KNeighbors en el rango de 1 a 30 y los pesos (ponderaciones) serán dados por \textit{uniform} y \textit{distance}. Se ejecuta validación cruzada y como medida de éxito se elige el accuracy. El código utilizado se presenta en la sección \ref{sec_anexos:knn} de anexos.
 
@@ -851,7 +851,7 @@ Tomando en cuenta lo descrito anteriormente, una vez entrenado el modelo con sus
 
 De la tabla \ref{tab:mc_knn_1} se pueden extraer ciertas métricas, a parte del accuracy, que  ayudan a establecer la capacidad de predicción del modelo, es decir, ver si su funcionamiento es eficiente o no. Es así que, para este modelo, la sensibilidad es  \Sexpr{15710/(15710+14711)}, la especificidad toma el valor de \Sexpr{50557/(50557+7576)} y finalmente, la precisión es de \Sexpr{15710/(15710+7576)}.
 
-Al repetir todo el proceso anterior para las variables PC1\_bal, PC2\_bal, PC3\_bal, PC4\_bal, PC5\_bal, PC6\_bal, PC7\_bal y PC8\_bal, tenemos que los parámetros óptimos son 2 vecinos y la ponderación es dada por \textit{distance}. Estos resultados se muestran en la figura \ref{fig:algoritmo_knn_bal_acp}.
+Al repetir todo el proceso anterior para las variables PC1\_bal, PC2\_bal, PC3\_bal, PC4\_bal, PC5\_bal, PC6\_bal, PC7\_bal y PC8\_bal, se tiene que los parámetros óptimos son 2 vecinos y la ponderación es dada por \textit{distance}. Estos resultados se muestran en la figura \ref{fig:algoritmo_knn_bal_acp}.
 
 Una vez entrenado el modelo con estos parámetros, se ha obtenido que el acurracy del mismo al ser aplicado en los datos del \textit{test} es de 0.7128644668789665, mientras que al aplicarse en los datos de \textit{train} es 1.
 
@@ -954,7 +954,7 @@ Para ver con mayor detalle  todo el proceso realizado en este algoritmo vaya a \
 %Árboles y conjuntos de modelos---------------------------------------------------------------------
 \subsection{Árboles y conjuntos de modelos}\label{sub_seccion:arboles}
 
-Como se expuso anteriormente, la ejecución de KNN usando las componentes principales obtenidas del ACP, solo se realizó con fines didáctico, por lo que, de aquí en adelante solo se va a trabajar con \textit{variables\_ml}. Es así que, al implementar un único árbol de decisión realizando validación cruzada con número de fold igual a 10 , \textit{gini} como  criterio de evaluación de las divisiones, profundidad del árbol en el rango de 2 a 100 y al accuracy como medida de éxito, da como resultado que la profundidad del árbol sea 14, tal como se puede observar en la figura \ref{fig:algortimo_arbol_simple}.
+Como se expuso anteriormente, la ejecución de KNN usando las componentes principales obtenidas del ACP, solo se realizó con fines didácticos, por lo que, de aquí en adelante solo se va a trabajar con \textit{variables\_ml}. Es así que, al implementar un único árbol de decisión realizando validación cruzada con número de fold igual a 10 , \textit{gini} como  criterio de evaluación de las divisiones, profundidad del árbol en el rango de 2 a 100 y al accuracy como medida de éxito, da como resultado que la profundidad del árbol sea 14, tal como se puede observar en la figura \ref{fig:algortimo_arbol_simple}.
 
 \begin{figure}[H]
 \centering
@@ -981,7 +981,7 @@ Entrenando el modelo con estos parámetros, se tiene que el acurracy en los dato
 
 \end{table}
 
-A partir de estos resultados obtenemos que este modelo tiene sensibilidad de \Sexpr{20634/(20634+9787)}, especificidad de \Sexpr{50158/(50158+7975)} y precisión  de \Sexpr{20634/(20634+7975)}.
+A partir de estos resultados se obtiene que este modelo tiene sensibilidad de \Sexpr{20634/(20634+9787)}, especificidad de \Sexpr{50158/(50158+7975)} y precisión  de \Sexpr{20634/(20634+7975)}.
 
 La cuatro variables más significativas son BASE\_CAL con el 28,07\%, LS2 con el 19,46\%, LS\_MS con el 16,21\% y M\_PRI\_P con el 14,52\%.
 
@@ -1012,7 +1012,7 @@ Una vez que el modelo ha sido entrenado con estos parámetros, se tiene que el a
 
 \end{table}
 
-A partir de estos resultados obtenemos que este modelo tiene sensibilidad de \Sexpr{24554/(24554 + 5867)}, especificidad de \Sexpr{43944/(43944+14189)} y precisión  de \Sexpr{24554/(24554+14189)}.
+A partir de estos resultados se obtiene que este modelo tiene sensibilidad de \Sexpr{24554/(24554 + 5867)}, especificidad de \Sexpr{43944/(43944+14189)} y precisión  de \Sexpr{24554/(24554+14189)}.
 
 La cuatro variables más importantes son BASE\_CAL con 33,23\%, LS2 con el 18,98\%, N\_PRI\_P con el 18,21\% y SAL\_PROM2 con el 6,98\%.
 
@@ -1080,14 +1080,14 @@ Se entrena el modelo con estos parámetros y el accuracy del \textit{train} y \t
 
 \end{table}
 
-A partir de estos resultados obtenemos que este modelo tiene sensibilidad de \Sexpr{24485/(24485 + 5936)}, especificidad de \Sexpr{48828/(48828+9305)} y precisión  de \Sexpr{24485/(24485+9305)}.
+A partir de estos resultados se obtiene que este modelo tiene sensibilidad de \Sexpr{24485/(24485 + 5936)}, especificidad de \Sexpr{48828/(48828+9305)} y precisión  de \Sexpr{24485/(24485+9305)}.
 
 La cuatro variables más importantes son BASE\_CAL con el 25,50\%, LS2 con el 16,66\%, LS\_MS con el 16,12\%) y SAL\_PROM2 con el 9,22\%.
 
 %AdaBoostClassifier---------------------------------------------------------------------------------
 \subsubsection{AdaBoostClassifier}
 
-Se sigue el mismo proceso descrito en la subsección anterior, por lo que, para el rango de valores que se presenta en la subsección \ref{sec_anexos:conjunto_modelos_AdaBoostClassifier} de anexos y utilizando RandomizedSearchCV, tenemos que los parámetros son:
+Se sigue el mismo proceso descrito en la subsección anterior, por lo que, para el rango de valores que se presenta en la subsección \ref{sec_anexos:conjunto_modelos_AdaBoostClassifier} de anexos y utilizando RandomizedSearchCV, se tiene que los parámetros son:
 
 \begin{lstlisting}[style=pythonstyle]
 AdaBoostClassifier(algorithm='SAMME',
@@ -1125,7 +1125,7 @@ AdaBoostClassifier(algorithm='SAMME',
                    learning_rate=0.005, n_estimators=1, random_state=8)
 \end{lstlisting}
 
-Se entrena el modelo y tenemos que el accuracy del \textit{train} y \textit{test} es 1 y 0.7768480249339386, respectivamente. Para contrastar este resultado y evaluar el modelo se obtiene la matriz de confusión que se encuentra en la tabla \ref{tab:AdaBoost_grid_search} y en la figura \ref{fig:confusion_matrix_algoritmo_AdaBoostClassifier_grid_search} de anexos.
+Se entrena el modelo y se tiene que el accuracy del \textit{train} y \textit{test} es 1 y 0.7768480249339386, respectivamente. Para contrastar este resultado y evaluar el modelo se obtiene la matriz de confusión que se encuentra en la tabla \ref{tab:AdaBoost_grid_search} y en la figura \ref{fig:confusion_matrix_algoritmo_AdaBoostClassifier_grid_search} de anexos.
 
 \begin{table}[H]
 \centering
@@ -1143,7 +1143,7 @@ Se entrena el modelo y tenemos que el accuracy del \textit{train} y \textit{test
 
 \end{table}
 
-A partir de estos resultados obtenemos que este modelo tiene sensibilidad de \Sexpr{20525/(20525 + 9896)}, especificidad de \Sexpr{48268/(48268+9865)} y precisión  de \Sexpr{20525/(20525+9865)}.
+A partir de estos resultados se obtiene que este modelo tiene sensibilidad de \Sexpr{20525/(20525 + 9896)}, especificidad de \Sexpr{48268/(48268+9865)} y precisión  de \Sexpr{20525/(20525+9865)}.
 
 La cuatro variables más importantes son BASE\_CAL con el 21,89\%, LS2 con el 16,11\%, LS\_MS con el 15,40\% y SAL\_PROM2 con el 10,03\%.
 
@@ -1158,7 +1158,7 @@ AdaBoostClassifier(algorithm='SAMME',
                    learning_rate=0.01, n_estimators=4, random_state=8)
 \end{lstlisting}
 
-Con estos valores se entrena el modelo y tenemos que el accuracy del \textit{train} y \textit{test} es 0.9999971768638345 y 0.837059873071798, respectivamente. Para contrastar este resultado y evaluar el modelo se obtiene la matriz de confusión que se encuentra en la tabla \ref{tab:gradientboosting} y en la figura \ref{fig:confusion_matrix_algoritmo_GradientBoostingClassifier_random_search} en anexos.
+Con estos valores se entrena el modelo y se tiene que el accuracy del \textit{train} y \textit{test} es 0.9999971768638345 y 0.837059873071798, respectivamente. Para contrastar este resultado y evaluar el modelo se obtiene la matriz de confusión que se encuentra en la tabla \ref{tab:gradientboosting} y en la figura \ref{fig:confusion_matrix_algoritmo_GradientBoostingClassifier_random_search} en anexos.
 
 \begin{table}[H]
 \centering
@@ -1235,7 +1235,7 @@ XGBClassifier(base_score=None, booster=None, callbacks=None,
               n_jobs=None, num_parallel_tree=None, random_state=8, ...)
 \end{lstlisting}
 
-Al entrenar el modelo con esos parámetros tenemos que, el accuracy del \textit{train} y \textit{test} es 0.94972841430087854 y 0.8275967206450302, respectivamente. Para contrastar este resultado y evaluar el modelo se obtiene la matriz de confusión que se encuentra en la tabla \ref{tab:confusion_matrix_algoritmo_XGBClassifier_grid_search} y en la figura \ref{fig:confusion_matrix_algoritmo_XGBClassifier_grid_search} de anexos.
+Al entrenar el modelo con esos parámetros se tiene que, el accuracy del \textit{train} y \textit{test} es 0.94972841430087854 y 0.8275967206450302, respectivamente. Para contrastar este resultado y evaluar el modelo se obtiene la matriz de confusión que se encuentra en la tabla \ref{tab:confusion_matrix_algoritmo_XGBClassifier_grid_search} y en la figura \ref{fig:confusion_matrix_algoritmo_XGBClassifier_grid_search} de anexos.
 
 \begin{table}[H]
 \centering
@@ -1253,7 +1253,7 @@ Al entrenar el modelo con esos parámetros tenemos que, el accuracy del \textit{
 
 \end{table}
 
-A partir de estos resultados obtenemos que este modelo tiene sensibilidad de \Sexpr{24827/(24827 + 5594)}, especificidad de \Sexpr{48460/(48460+9673)} y precisión de \Sexpr{24827/(24827+9673)}.
+A partir de estos resultados, se obtiene que este modelo tiene sensibilidad de \Sexpr{24827/(24827 + 5594)}, especificidad de \Sexpr{48460/(48460+9673)} y precisión de \Sexpr{24827/(24827+9673)}.
 
 La cuatro variables más importantes son BASE\_CAL con el 11,37\%, M\_PRI\_P con el 10,42\%, N\_PRI\_P con el 9,99\% y M\_PUB\_P con el 8,04\%.
 
@@ -1269,7 +1269,7 @@ Considerando lo descrito en el párrafo 3 de la subsección \ref{sub_apre_cara_a
 MLPClassifier(hidden_layer_sizes=(200,), max_iter=100, random_state=8)
 \end{lstlisting}
 
-Se entrena el modelo y tenemos que el accuracy del \textit{train} y \textit{test} son 0.8101412697337218 y 0.8048083655170856, respectivamente. Para contrastar este resultado y evaluar el modelo se obtiene la matriz de confusión que se encuentra en la tabla \ref{tab:confusion_matrix_algoritmo_redes_grid_search} y en la figura \ref{fig:confusion_matrix_algoritmo_redes_grid_search} de anexos.
+Se entrena el modelo y se tiene que el accuracy del \textit{train} y \textit{test} son 0.8101412697337218 y 0.8048083655170856, respectivamente. Para contrastar este resultado y evaluar el modelo se obtiene la matriz de confusión que se encuentra en la tabla \ref{tab:confusion_matrix_algoritmo_redes_grid_search} y en la figura \ref{fig:confusion_matrix_algoritmo_redes_grid_search} de anexos.
 
 \begin{table}[H]
 \centering
@@ -1287,7 +1287,7 @@ Se entrena el modelo y tenemos que el accuracy del \textit{train} y \textit{test
 
 \end{table}
 
-A partir de estos resultados obtenemos que este modelo tiene sensibilidad de \Sexpr{19787/(19787 + 10634)}, especificidad de \Sexpr{51482/(51482+6651)} y precisión  de \Sexpr{19787/(19787+6651)}.
+A partir de estos resultados, se concluye que este modelo tiene sensibilidad de \Sexpr{19787/(19787 + 10634)}, especificidad de \Sexpr{51482/(51482+6651)} y precisión  de \Sexpr{19787/(19787+6651)}.
 
 Se repite el proceso anterior con los mismos parámetros pero con un balanceo de clases. Los parámetros óptimos son:
 
@@ -1295,7 +1295,7 @@ Se repite el proceso anterior con los mismos parámetros pero con un balanceo de
 MLPClassifier(hidden_layer_sizes=(250,), max_iter=100, random_state=8)
 \end{lstlisting}
 
-Una vez balanceada la base de datos, se entrena el modelo y tenemos que el accuracy del \textit{train} y \textit{test} es 0.7625855410258148 y 0.7582604964202634, respectivamente. Para contrastar este resultado y evaluar el modelo se obtiene la matriz de confusión que se encuentra en la tabla \ref{tab:confusion_matrix_algoritmo_redes_bal_grid_search.png} y en la figura \ref{fig:confusion_matrix_algoritmo_redes_bal_grid_search.png} de anexos.
+Una vez balanceada la base de datos, se entrena el modelo y se tiene que el accuracy del \textit{train} y \textit{test} es 0.7625855410258148 y 0.7582604964202634, respectivamente. Para contrastar este resultado y evaluar el modelo se obtiene la matriz de confusión que se encuentra en la tabla \ref{tab:confusion_matrix_algoritmo_redes_bal_grid_search.png} y en la figura \ref{fig:confusion_matrix_algoritmo_redes_bal_grid_search.png} de anexos.
 
 \begin{table}[H]
 \centering
@@ -1313,7 +1313,7 @@ Una vez balanceada la base de datos, se entrena el modelo y tenemos que el accur
 
 \end{table}
 
-A partir de estos resultados obtenemos que este modelo tiene sensibilidad de \Sexpr{25786/(25786 + 4635)}, especificidad de \Sexpr{41361/(41361+16772)} y finalmente, precisión  de \Sexpr{25786/(25786+16772)}.
+A partir de estos resultados, se obtiene que este modelo tiene sensibilidad de \Sexpr{25786/(25786 + 4635)}, especificidad de \Sexpr{41361/(41361+16772)} y finalmente, precisión  de \Sexpr{25786/(25786+16772)}.
 
 Para ver con mayor detalle  todo el proceso realizado en este algoritmo vaya a \textit{VIU\_ml\_otras\_tecnicas.ipynb} de \legalcite{CristianVIUTFM}.
 
@@ -1368,17 +1368,17 @@ Para determinar qué modelos de aprendizaje supervisado son los más efectivos y
 
 \end{table}
 
-En primer lugar, al analizar las diferentes variaciones del modelo KNN, observamos que el modelo que tiene el accuracy más alto es el que únicamente aplica un ACP a los datos. A pesar de esto, el mismo tiene mayor dificultad para detectar los casos atípicos, puesto que, presenta la tasa de sensibilidad más baja de este conjunto de modelos. Esto representa un problema, ya que el interés primordial es detectar correctamente los atípicos como ya fue explicado en las secciones anteriores. Ante esta situación, procedemos a enfocar nuestra atención en el modelo con el segundo mejor accuracy, que es aquel que usa a \textit{variables\_ml} balanceadas. Este modelo destaca por poseer la sensibilidad más alta de todas, de donde, podemos concluir que el mismo resulta ser el mejor de los 4 modelos entrenados de KNN, debido a que logra un equilibrio adecuado entre la precisión global del modelo y la detección de datos atípicos. No obstante, es importante señalar que tanto en especificidad como en precisión, este modelo tiene valores bajos en comparación a los demás. Sin embargo, dado nuestro objetivo, este déficit no representa un problema significativo.
+En primer lugar, al analizar las diferentes variaciones del modelo KNN, se observa que el modelo que tiene el accuracy más alto es el que únicamente aplica un ACP a los datos. A pesar de esto, el mismo tiene mayor dificultad para detectar los casos atípicos, puesto que, presenta la tasa de sensibilidad más baja de este conjunto de modelos. Esto representa un problema, ya que el interés primordial es detectar correctamente los atípicos como ya fue explicado en las secciones anteriores. Ante esta situación, se procede a enfocar la atención en el modelo con el segundo mejor accuracy, que es aquel que usa a \textit{variables\_ml} balanceadas. Este modelo destaca por poseer la sensibilidad más alta de todas, de donde, se puede concluir que el mismo resulta ser el mejor de los 4 modelos entrenados de KNN, debido a que logra un equilibrio adecuado entre la precisión global del modelo y la detección de datos atípicos. No obstante, es importante señalar que tanto en especificidad como en precisión, este modelo tiene valores bajos en comparación a los demás. Sin embargo, dado el objetivo de este estudio, este déficit no representa un problema significativo.
 
 Finalmente, al observar estos modelos se encuentra que la diferencia de los accuracys de \textit{train} y \textit{test} supera los 25 puntos porcentuales en cada uno de ellos, lo que sugiere la existencia de sobreajuste en los modelos debido a que se observa un rendimiento significativamente mayor en los datos de prueba sobre los datos de entrenamiento. Esto  puede indicar que los modelos se están ajustando demasiado a ciertas características de los datos de entrenamiento, por lo que, posteriormente no pueden ser generalizados a otros datos de manera óptima.
 
-En cuanto a los algoritmos basados en árboles y conjuntos de modelos, podemos observar que el modelo con el mayor accuracy es el algoritmo GradientBoostingClassifier con GridSearchCV, tomando en cuenta que los accuracys de RandomForestClassifier tanto con RandomizedSearchCV como con GridSearchCV son también altos y bastantes cercanos al mejor accuracy. En términos de sensibilidad, el modelo que destaca es el RandomForestClassifier con RandomizedSearchCV, de donde, notamos que su capacidad para detectar casos atípicos es superior. Por otro lado, observamos que GradientBoostingClassifier tiene los mejores valores tanto de especificidad como de precisión, lo que implica que el mismo es bastante bueno para clasificar de forma correcta los casos negativos y disminuir la cantidad de falsos positivos.
+En cuanto a los algoritmos basados en árboles y conjuntos de modelos, se puede observar que el modelo con el mayor accuracy es el algoritmo GradientBoostingClassifier con GridSearchCV, tomando en cuenta que los accuracys de RandomForestClassifier tanto con RandomizedSearchCV como con GridSearchCV son también altos y bastantes cercanos al mejor accuracy. En términos de sensibilidad, el modelo que destaca es el RandomForestClassifier con RandomizedSearchCV, de donde, es visible que su capacidad para detectar casos atípicos es superior. Por otro lado, se tiene que GradientBoostingClassifier tiene los mejores valores tanto de especificidad como de precisión, lo que implica que el mismo es bastante bueno para clasificar de forma correcta los casos negativos y disminuir la cantidad de falsos positivos.
 
-A pesar de los resultados, vemos que el modelo más adecuado es el RandomForestClassifier con RandomizedSearchCV. Pese a que su accuracy no es el más alto, es bastante cercano al mejor valor obtenido, y además tiene una sensibilidad significativamente mayor. Finalmente, se destaca que los algoritmos de árboles simples y los dos tipos de RandomForestClassifier presentan una diferencia entre los accuracys de train y test menor a 10\% lo que indica que no hay señales de sobreajuste en los modelos.
+A pesar de los resultados, se puede ver que el modelo más adecuado es el RandomForestClassifier con RandomizedSearchCV. Pese a que su accuracy no es el más alto, es bastante cercano al mejor valor obtenido, y además tiene una sensibilidad significativamente mayor. Finalmente, se destaca que los algoritmos de árboles simples y los dos tipos de RandomForestClassifier presentan una diferencia entre los accuracys de train y test menor a 10\% lo que indica que no hay señales de sobreajuste en los modelos.
 
-En cuanto a las otras técnicas, observamos que los modelos XGBClassifier presentan los accuracys más altos, específicamente, el que usa GridSearchCV. Sin embargo, se observa que el algoritmo XGBClassifier con RandomizedSearchCV tiene una sensibilidad más alta. De donde, dado que la diferencia de accuracy entre ambos modelos es mínima, tiene sentido seleccionar como mejor modelo de los dos al que emplea RandomizedSearchCV, por su capacidad de detección de casos atípicos.
+En cuanto a las otras técnicas, es visible que los modelos XGBClassifier presentan los accuracys más altos, específicamente, el que usa GridSearchCV. Sin embargo, se observa que el algoritmo XGBClassifier con RandomizedSearchCV tiene una sensibilidad más alta. De donde, dado que la diferencia de accuracy entre ambos modelos es mínima, tiene sentido seleccionar como mejor modelo de los dos al que emplea RandomizedSearchCV, por su capacidad de detección de casos atípicos.
 
-Comparando estos modelos con los modelos de redes neuronales, encontramos que el modelo MLPClassifier con balanceo y GridSearchCV tiene una sensibilidad aún mayor que ambos modelos de XGBClassifier. Sin embargo, su accuracy es significativamente menor al de ellos. Por esta razón, escogemos a XGBClassifier con RandomizedSearchCV como la mejor opción, dado que presenta la características buscadas. Es por esto que, debido a la presencia de las características buscadas, escogemos a XGBClassifier con RandomizedSearchCV como la mejor opción.
+Comparando estos modelos con los modelos de redes neuronales, se encuentra que el modelo MLPClassifier con balanceo y GridSearchCV tiene una sensibilidad aún mayor que ambos modelos de XGBClassifier. Sin embargo, su accuracy es significativamente menor al de ellos. Por esta razón, se escoge a XGBClassifier con RandomizedSearchCV como la mejor opción, dado que presenta la características buscadas. Es por esto que, debido a la presencia de las características buscadas, se selecciona a XGBClassifier con RandomizedSearchCV como la mejor opción.
 
 Es importante destacar que, de todos los algoritmos estudiados, la diferencia entre los accuracys de train y test es menor a 1\% únicamente en los algoritmos MLPClassifier, por lo que, en estos casos no existen indicios de sobreajuste. Por otro lado, si bien en los modelos XGBClassifier esta diferencia es mayor, también es bastante baja en comparación a los otros modelos, manteniéndose por debajo del 13\%, lo que sugiere que en estos modelos tampoco existe un sobreajuste significativo.
 
@@ -1389,7 +1389,7 @@ En conclusión, el modelo más óptimo y eficiente, en función de los datos y e
 %Predicciones---------------------------------------------------------------------------------------
 \section{Predicciones}\label{seccion:predicciones}
 
-Finalmente, una vez que ha sido analizado y escogido el modelo que cumple de forma óptima con los requisitos necesarios para el problema de estudio, procedemos a realizar predicciones con una nueva base de datos. Esta base corresponde a la información laboral de los afiliados que realizaron su aportación en diciembre de 2023, por lo que, con esto, se busca estimar qué afiliados han hecho fraude con la finalidad de tener un mayor beneficio de pensión al momento de su jubilación.
+Finalmente, una vez que ha sido analizado y escogido el modelo que cumple de forma óptima con los requisitos necesarios para el problema de estudio, se procede a realizar predicciones con una nueva base de datos. Esta base corresponde a la información laboral de los afiliados que realizaron su aportación en diciembre de 2023, por lo que, con esto, se busca estimar qué afiliados han hecho fraude con la finalidad de tener un mayor beneficio de pensión al momento de su jubilación.
 
 La nueva base de datos cuenta con 3.089.379 observaciones, mismas que serán ejecutadas en el modelo seleccionado en \ref{seccion:comparacion_resultados} para  predecir las probabilidades de que cada individuo haya o no haya cometido fraude. Esto se lleva a cabo con la función \textit{predict-proba} de la librería de Python, \textit{scikit-learn}, la cual al ser aplicada sobre un modelo y evaluada en una base de datos, retorna la probabilidad de que cada uno de los individuos pertenezca a las diferentes categorías. Esto nos da indicios de cómo se distribuyen estas probabilidades entorno a los datos para ser capaces de analizar su comportamiento.
 
@@ -1400,9 +1400,9 @@ De igual forma, con ayuda de la función \textit{predict} de la misma librería,
 
 \subsection{Perfiles de los individuos que han cometido fraude}\label{subseccion:perfiles}
 
-Como parte final del presente capítulo, se realiza un análisis del perfil que tienen aquellas personas que fueron clasificadas como atípicas, es decir, quienes han sido detectadas por realizar fraude. Para ello, graficamos la distribución de la diferencia de la pensión calculada y la pensión corregida\footnote{La pensión corregida se obtuvo como el mínimo de las pensiones de las variables PEN\_CJ, PEN\_KM y PEN\_DB}. Esto  permite observar en qué individuos existe una mayor diferencia de pensiones, identificando así las características de aquellas personas en las cuales se observa que el fraude ha tenido consecuencias mayores, pues obtienen una pensión significativamente mayor a la que deberían. Esto nos permite crear el perfil de una persona propensa a cometer fraude.
+Como parte final del presente capítulo, se realiza un análisis del perfil que tienen aquellas personas que fueron clasificadas como atípicas, es decir, quienes han sido detectadas por realizar fraude. Para ello, se grafica la distribución de la diferencia de la pensión calculada y la pensión corregida\footnote{La pensión corregida se obtuvo como el mínimo de las pensiones de las variables PEN\_CJ, PEN\_KM y PEN\_DB}. Esto  permite observar en qué individuos existe una mayor diferencia de pensiones, identificando así las características de aquellas personas en las cuales se observa que el fraude ha tenido consecuencias mayores, pues obtienen una pensión significativamente mayor a la que deberían. Esto nos permite crear el perfil de una persona propensa a cometer fraude.
 
-Primero, en base a la distribución de acuerdo al número de imposiciones y al sexo de los individuos (como se observa en la figura \ref{fig:fraude_numero_imposiciones_sexo}), se nota que la mayor diferencia entre estas pensiones es visible en los individuos de sexo masculino. Por otro lado, se observa que la diferencia aumenta cuando nos encontramos con el número de imposiciones entre 350 y 550, es decir, en aquellos individuos que han aportado entre 29 y 45 años. Esto puede ser entendible, ya que al tener una vida laboral más amplia, existen más oportunidades para realizar fraude. De esto, podemos concluir que los hombres con la cantidad de aportaciones de 350 a 550 (aquellos que están a puertas de la jubilación por vejez) son aquellos individuos donde más es visible la diferencia entre la pensión calculada y la corregida, es decir, es donde se está viendo una mayor incidencia de los efectos causados por los fraudes, y por tanto, este grupo merece ser tomado en cuenta.
+Primero, en base a la distribución de acuerdo al número de imposiciones y al sexo de los individuos (como se observa en la figura \ref{fig:fraude_numero_imposiciones_sexo}), se nota que la mayor diferencia entre estas pensiones es visible en los individuos de sexo masculino. Por otro lado, se observa que la diferencia aumenta cuando el número de imposiciones se encuentra entre 350 y 550, es decir, en aquellos individuos que han aportado entre 29 y 45 años. Esto puede ser entendible, ya que al tener una vida laboral más amplia, existen más oportunidades para realizar fraude. De esto, se puede concluir que los hombres con la cantidad de aportaciones de 350 a 550 (aquellos que están a puertas de la jubilación por vejez) son aquellos individuos donde más es visible la diferencia entre la pensión calculada y la corregida, es decir, es donde se está viendo una mayor incidencia de los efectos causados por los fraudes, y por tanto, este grupo merece ser tomado en cuenta.
 
 \begin{figure}[H]
 \centering
@@ -1411,7 +1411,7 @@ Primero, en base a la distribución de acuerdo al número de imposiciones y al s
 \label{fig:fraude_numero_imposiciones_sexo}
 \end{figure}
 
-Por otro lado, en la figura \ref{fig:fraude_fecha_nacimiento_sexo} se presenta la distribución de la diferencia de pensiones tomando en cuenta nuevamente el sexo, pero ahora en función de la fecha de nacimiento. Así, podemos ver que se mantiene la prevalencia de la diferencia presente en hombres que en mujeres a lo largo de las diferentes fechas de nacimiento. Sin embargo, también es importante destacar que tanto en hombres como en mujeres se ve un incremento significativo en esta diferencia, cuando los mismos nacen entre los años de 1945 y 1965. Esto nos llevaría a un estudio futuro de por qué se dieron estos casos abruptos en esa generación. Y, de igual forma, tomar en cuenta estas generaciones como parte del perfil buscado.
+Por otro lado, en la figura \ref{fig:fraude_fecha_nacimiento_sexo} se presenta la distribución de la diferencia de pensiones tomando en cuenta nuevamente el sexo, pero ahora en función de la fecha de nacimiento. Así, se puede observar que se mantiene la prevalencia de la diferencia presente en hombres que en mujeres a lo largo de las diferentes fechas de nacimiento. Sin embargo, también es importante destacar que tanto en hombres como en mujeres se ve un incremento significativo en esta diferencia, cuando los mismos nacen entre los años de 1945 y 1965. Esto nos llevaría a un estudio futuro de por qué se dieron estos casos abruptos en esa generación. Y, de igual forma, tomar en cuenta estas generaciones como parte del perfil buscado.
 
 \begin{figure}[H]
 \centering
@@ -1421,7 +1421,7 @@ Por otro lado, en la figura \ref{fig:fraude_fecha_nacimiento_sexo} se presenta l
 \end{figure}
 
 
-Finalmente, también podemos observar esta relación tomando en cuenta la fecha de derecho de la pensión. Es decir, cuando el afiliado empezó a recibir la misma. Así, en la figura \ref{fig:fraude_fecha_derecho_sexo}, es visible que, si bien hasta alrededor de 1960 aún no existían registros de concesiones de pensiones fraudulentas en la base de datos, cuando los mismos empiezan a surgir la diferencia entre pensiones es baja. Sin embargo, a partir del año 2010 se ve un incremento significativo en esta diferencia. Lo que nos lleva a concluir que, de las personas que han hecho fraude, en la actualidad se ha visto que los beneficios económicos obtenidos a partir del mismo se han ido incrementando. Esto representa una razón más de la necesidad de tomar medidas para combatir este tipo de fraudes, puesto que los mismos están llevando a pérdidas, que como se observa, tienen una tendencia creciente con el tiempo que llevará a un déficit mayor en menos tiempo del esperado.
+Finalmente, también se puede observar esta relación tomando en cuenta la fecha de derecho de la pensión. Es decir, cuando el afiliado empezó a recibir la misma. Así, en la figura \ref{fig:fraude_fecha_derecho_sexo}, es visible que, si bien hasta alrededor de 1960 aún no existían registros de concesiones de pensiones fraudulentas en la base de datos, cuando los mismos empiezan a surgir la diferencia entre pensiones es baja. Sin embargo, a partir del año 2010 se ve un incremento significativo en esta diferencia. Lo que nos lleva a concluir que, de las personas que han hecho fraude, en la actualidad se ha visto que los beneficios económicos obtenidos a partir del mismo se han ido incrementando. Esto representa una razón más de la necesidad de tomar medidas para combatir este tipo de fraudes, puesto que los mismos están llevando a pérdidas, que como se observa, tienen una tendencia creciente con el tiempo que llevará a un déficit mayor en menos tiempo del esperado.
 
 \begin{figure}[H]
 \centering
@@ -1431,7 +1431,7 @@ Finalmente, también podemos observar esta relación tomando en cuenta la fecha 
 \end{figure}
 
 
-A su vez, resulta necesario estudiar el sector donde más se realizaron aportes por parte de las personas que han cometido fraude. Esto es esencial en el estudio de estos perfiles ya que nos indica el tipo de sector que debe ser más tomado en cuenta en la detección de estos casos. Para ello, entre todos los individuos etiquetados como atípicos, se obtuvo el promedio de los porcentajes de aportación a los diferentes sectores durante toda su vida laboral y los 5 mejores años. Con esto se obtuvo el porcentaje de incidencia de fraude en cada sector. En la figura \ref{fig:fraude_sectores} se observa  en primer lugar, estos porcentajes tomando en cuenta toda la vida laboral y posteriormente, únicamente tomando en cuenta los 5 mejores años. En ambos casos es claro que, existe una incidencia de más del 55\% en el sector privado, seguido por el público donde la presencia de estos casos es de alrededor de 33\%. Y el último sector significativo es el independiente con 8.4\%, en promedio. Así, observamos que de forma significativa los fraudes son cometidos por individuos que operan en su mayoría en el sector privado, por lo que puede ser de ayuda el estudio de diversas acciones a tomar para prevenir y detectar estos casos sobre todo en ese sector.
+A su vez, resulta necesario estudiar el sector donde más se realizaron aportes por parte de las personas que han cometido fraude. Esto es esencial en el estudio de estos perfiles ya que nos indica el tipo de sector que debe ser más tomado en cuenta en la detección de estos casos. Para ello, entre todos los individuos etiquetados como atípicos, se obtuvo el promedio de los porcentajes de aportación a los diferentes sectores durante toda su vida laboral y los 5 mejores años. Con esto se obtuvo el porcentaje de incidencia de fraude en cada sector. En la figura \ref{fig:fraude_sectores} se observa  en primer lugar, estos porcentajes tomando en cuenta toda la vida laboral y posteriormente, únicamente tomando en cuenta los 5 mejores años. En ambos casos es claro que, existe una incidencia de más del 55\% en el sector privado, seguido por el público donde la presencia de estos casos es de alrededor de 33\%. Y el último sector significativo es el independiente con 8.4\%, en promedio. Así, se observa que de forma significativa los fraudes son cometidos por individuos que operan en su mayoría en el sector privado, por lo que puede ser de ayuda el estudio de diversas acciones a tomar para prevenir y detectar estos casos sobre todo en ese sector.
 
 
 \begin{figure}[H]
@@ -1468,9 +1468,9 @@ A su vez, resulta necesario estudiar el sector donde más se realizaron aportes 
 % \label{fig:fraude_sectores} 
 % \end{figure}
 
-Por último, al analizar la cantidad de individuos que han cometido fraude según el tipo de pensión a la que han accedido, encontramos los resultados en la figura \ref{fig:fraude_por_tipo_pension}. De donde, observamos que de forma significativa, la mayoría de fraudes han sido cometidos por pensionistas de vejez. Así, las repercusiones de no detectar estos fraudes se concentran en su mayoría en este tipo de pensión. En contraste, se observa que menos de 10000 pensionistas de discapacidad o invalidez han cometido fraude, por lo que los efectos de los mismos tendrán un alcance menor. 
+Por último, al analizar la cantidad de individuos que han cometido fraude según el tipo de pensión a la que han accedido, se encuentran los resultados en la figura \ref{fig:fraude_por_tipo_pension}. De donde, se observa que de forma significativa, la mayoría de fraudes han sido cometidos por pensionistas de vejez. Así, las repercusiones de no detectar estos fraudes se concentran en su mayoría en este tipo de pensión. En contraste, se observa que menos de 10000 pensionistas de discapacidad o invalidez han cometido fraude, por lo que los efectos de los mismos tendrán un alcance menor. 
 
-Sin embargo, al analizar los datos, también podemos encontrar que el 52.15\% de los pensionistas por discapacidad ha cometido fraude. Por otro lado, de los pensionistas de invalidez el 33.5\% lo ha hecho. Finalmente, en cuanto a los pensionistas de vejez, se tiene que el 33.54\% ha realizado hechos fraudulentos. Con estos resultados podemos concluir que, aunque de forma absoluta el fraude es más común en los pensionistas de vejez, el porcentaje de incidencia más alto del mismo ocurre en los pensionistas de discapacidad. Lo que nos lleva a la necesidad de tener más en cuenta a este grupo, por su alto porcentaje de fraude comparado con los otros tipos de pensionistas.
+Sin embargo, al analizar los datos, también se puede encontrar que el 52.15\% de los pensionistas por discapacidad ha cometido fraude. Por otro lado, de los pensionistas de invalidez el 33.5\% lo ha hecho. Finalmente, en cuanto a los pensionistas de vejez, se tiene que el 33.54\% ha realizado hechos fraudulentos. Con estos resultados se puede inferir que, aunque de forma absoluta el fraude es más común en los pensionistas de vejez, el porcentaje de incidencia más alto del mismo ocurre en los pensionistas de discapacidad. Lo que nos lleva a la necesidad de tener más en cuenta a este grupo, por su alto porcentaje de fraude comparado con los otros tipos de pensionistas.
 
 \begin{figure}[H]
 \centering
@@ -1487,4 +1487,4 @@ Una vez que se ha llevado a cabo todo el estudio, es fundamental analizar cómo 
 
 Para llevar a cabo este análisis, se calculó el gasto total de los pensionistas. De donde se determinó que, considerando que estas personas comienzan a recibir su pensión desde enero del 2024, ya que la base de datos tiene como corte el 31 de diciembre de 2023, durante todo el año el costo de cubrir sus pensiones\footnote{La pensiones están conformadas por 13 pensiones iguales al valor de la pensión calculada y una pensión de cuantía igual al salario básico unificado del 2024 (460\$).} ascenderá a USD 4,415,151,338,75. Por otro lado, al aplicar la pensión corregida, calculada como se menciona en la sección \ref{subsec:trans_datos_super}, se calculó el costo a pagar por las pensiones durante el 2024 en USD 4.182.399.284,45. 
 
-De esto vemos que, la diferencia de ambos valores es de USD 224.185.822,50, es decir, un 5.27\% del valor a pagar. Esto indica que la detección de los datos atípicos en un solo año podría generar un ahorro significativo, de donde, su implementación tendría grandes beneficios a largo plazo que serían fundamentales para garantizar la sostenibilidad de la Seguridad Social. Así, es de suma importancia  la detección de este tipo de casos a tiempo, ya que es visible el efecto que los fraudes están actual e históricamente teniendo en la estabilidad financiera de la Seguridad Social, mismos que repercuten de forma directa en su sostenibilidad.
+De esto se tiene que, la diferencia de ambos valores es de USD 224.185.822,50, es decir, un 5.27\% del valor a pagar. Esto indica que la detección de los datos atípicos en un solo año podría generar un ahorro significativo, de donde, su implementación tendría grandes beneficios a largo plazo que serían fundamentales para garantizar la sostenibilidad de la Seguridad Social. Así, es de suma importancia  la detección de este tipo de casos a tiempo, ya que es visible el efecto que los fraudes están actual e históricamente teniendo en la estabilidad financiera de la Seguridad Social, mismos que repercuten de forma directa en su sostenibilidad.
