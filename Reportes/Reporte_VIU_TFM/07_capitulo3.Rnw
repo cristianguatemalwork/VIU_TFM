@@ -54,11 +54,11 @@ La detección de fraudes implementada se da mediante informes de análisis de ca
 
 \section{Proceso KDD}\label{sec:proceso_kdd}
 
-Según \textcite{fayyad1996kdd}, el proceso Knowledge Discovery in Databases, abreviado como KDD, es un proceso iterativo enfocado en la obtención de la información más importante presente en grandes volúmenes de datos, en el cual se necesita la intervención humana para realizar ajustes durante las iteraciones. Por tanto, su tarea es extraer conocimiento más comprensible y útil de datos complejos y grandes. La presentación de la información obtenida depende de los objetivos de cada proceso, la misma puede darse en forma de modelos predictivos, descripciones, entre otros. 
+El proceso KDD, es un proceso iterativo enfocado en la obtención de la información más importante presente en grandes volúmenes de datos, en el cual se necesita la intervención humana para realizar ajustes durante las iteraciones. Por tanto, su tarea es extraer conocimiento más comprensible y útil de datos complejos y grandes. La presentación de la información obtenida depende de los objetivos de cada proceso, la misma puede darse en forma de modelos predictivos, descripciones, entre otros. 
 
 Las etapas de este procedimiento son, en primer lugar, la selección, preparación y transformación de los datos, donde se elige un conjunto relevante de lo información proporcionada, se limpia y prepara el mismo mediante procesos como la eliminación de ruido o tratamiento de datos faltantes y posteriormente, los datos son convertidos al formato de trabajo adecuado. Luego, se lleva a cabo la aplicación de algoritmos de detección de patrones sobre los mismos, es decir, se aplican técnicas de minería de datos. Finalmente, se evalúan e interpretan los resultados.
 
-La importancia de este algoritmo radica en que el mismo permite la automatización del análisis, es capaz de trabajar con grandes cantidades de datos, mejora la toma de decisiones mediante la información extraída, y es aplicable en todos los campos requeridos
+La importancia de este algoritmo radica en que el mismo permite la automatización del análisis, es capaz de trabajar con grandes cantidades de datos, mejora la toma de decisiones mediante la información extraída, y es aplicable en todos los campos requeridos (\textit{Veáse }\veasecite{fayyad1996kdd}). 
 
 
 \section{Machine Learning}\label{sec:machine_learning}
@@ -90,7 +90,7 @@ El algoritmo de Clustering Jerárquico se basa en la división de los elementos 
 
 \subsubsection{K Means}\label{sec:k_means}
  
-Según \textcite{kanagala2016comparative}, el algoritmo K-Means es un procedimiento de agrupamiento no supervisado, que agrupa o clasifica datos en clústeres tomando en cuenta su similitud. Su objetivo es dividir los datos en k conjuntos definidos, donde k es un parámetro de entrada. La agrupación se dará de forma que la distancia de los puntos a los centroides de cada grupo sea minimizada, garantizando la similaridad de los datos pertenecientes a cada clúster
+El algoritmo K-Means es un procedimiento de agrupamiento no supervisado, que agrupa o clasifica datos en clústeres tomando en cuenta su similitud. Su objetivo es dividir los datos en k conjuntos definidos, donde k es un parámetro de entrada. La agrupación se dará de forma que la distancia de los puntos a los centroides de cada grupo sea minimizada, garantizando la similaridad de los datos pertenecientes a cada clúster \citep{kanagala2016comparative}.
 
 El funcionamiento de este algoritmo sigue los siguientes pasos: en primer lugar, se seleccionan arbitrariamente k elementos de la base de datos como las medias o centroides iniciales de los clústeres. Luego, se calcula la distancia de cada elemento hacia los distintos centroides y se asignan al clúster más cercano. Posteriormente, se vuelve a calcular el centro de cada clúster como la media de los elementos que pertenecen al mismo. Finalmente, se repiten ambos pasos anteriores hasta que no haya cambio en los elementos que forman parte de cada conjunto \citep{kanagala2016comparative}.
 
@@ -107,9 +107,9 @@ La eficacia de este modelo está condicionada a la elección inicial de los cent
 
 \subsubsection{DBSCAN}\label{sec:dbscan}
 
-Según \textcite{kanagala2016comparative}, DBSCAN es un algoritmo de agrupamiento basado en la densidad, ya identifica las regiones de alta concentración de puntos, las cuales están separadas entre sí por áreas de baja concentración. En este algoritmo, los puntos se clasifican en tres tipos: punto core (central), aquellos que tienen más del mínimo de puntos (MinPts) especificado por el usuario dentro de un radio (Eps) de igual forma especificado por el usuario; punto border (frontera), los puntos que dentro de un radio Eps tienen menos puntos que el número MinPts, pero un punto core se encuentra en su vecindad; y puntos de ruido, que son aquellos que no son core ni border.
+DBSCAN es un algoritmo de agrupamiento basado en la densidad, ya identifica las regiones de alta concentración de puntos, las cuales están separadas entre sí por áreas de baja concentración. En este algoritmo, los puntos se clasifican en tres tipos: punto core (central), aquellos que tienen más del mínimo de puntos (MinPts) especificado por el usuario dentro de un radio (Eps) de igual forma especificado por el usuario; punto border (frontera), los puntos que dentro de un radio Eps tienen menos puntos que el número MinPts, pero un punto core se encuentra en su vecindad; y puntos de ruido, que son aquellos que no son core ni border.
 
-El algoritmo, en primer lugar, identifica de qué tipo es cada punto y se eliminan los puntos de ruido, o, dicho de otra forma, se identifican los puntos atípicos y se eliminan. Luego, se establece un borde entre los puntos cercanos unos a otros y se convierte cada grupo de puntos centrales que están conectados en grupos separados. Finalmente, los puntos frontera son asignados a los grupos de los puntos centrales que tengan asociados \citep{kanagala2016comparative}
+El algoritmo, en primer lugar, identifica de qué tipo es cada punto y se eliminan los puntos de ruido, o, dicho de otra forma, se identifican los puntos atípicos y se eliminan. Luego, se establece un borde entre los puntos cercanos unos a otros y se convierte cada grupo de puntos centrales que están conectados en grupos separados. Finalmente, los puntos frontera son asignados a los grupos de los puntos centrales que tengan asociados (\textit{Véase} \veasecite{kanagala2016comparative}).
 
 \begin{figure}[H]
 \centering
@@ -154,16 +154,16 @@ El algoritmo K-Nearest Neighbors (KNN) se basa en la clasificación de un punto 
 
 Este algoritmo clasifica los elementos de estudio al plantear una serie de preguntas sobre las características que están asociadas a los elementos. En cada nodo se encuentra una pregunta, y a cada nodo hijo se le asigna una respuesta de la misma, formando una jerarquía al seguir este proceso. Así, los árboles se construyen aumentando nodos pregunta de manera incremental, utilizando los elementos de entramiento para determinar la elección de preguntas, donde una buena pregunta dividirá a un conjunto de elementos de clases heterogéneas en subconjuntos que tengan etiquetas más homogéneas, formando grupos con poca variación en ellos. Existen varias medidas que evalúan el grado de impureza en los conjuntos de elementos, entre las principales se encuentran la entropía y el índice de Gini. Este algoritmo tiene algunas ventajas, entre las cuales destacan su fácil interpretabilidad y su flexibilidad para el manejo de características numéricas y categóricas \citep{kingsford2008decisiontrees}. 
 
-\subsubsection{Bagging}\label{sec:bagging}
+  \subsubsection{Agregación de muestreo (Bagging)}\label{sec:bagging}
 
 El Bagging es una técnica usada para mejorar la predicción de varios modelos. La misma extrae muestras bootstrap de los datos y, sobre cada una de ellas, se aplica un método de predicción. Finalmente, se combinan los resultados obtenidos de las diferentes muestras. En el caso de clasificación, para obtener el resultado final, se vota de manera simple y así se encuentra la predicción general \citep{SUTTON2005303}.
 
 
 \subsubsection{Random Forest}\label{sec:random_forest}
 
-Este algoritmo usa el método de Bagging, de donde, se obtienen múltiples conjuntos de entrenamiento que son diferentes entre sí. Cada uno de estos conjuntos genera un árbol de decisión en el cual se usan características seleccionadas aleatoriamente para su construcción. Debido a la gran cantidad de árboles que este algoritmo genera, se concluye que el mismo es bueno para resistir el ruido y tiene una buena capacidad de clasificación. Dependiendo de la información dada, cada árbol generará un resultado y, finalmente, con la integración de los resultados de todos los árboles se obtendrá el resultado final \citep{moreno2023manual}.
+El algoritmo Random Forest usa el método de Bagging, de donde, se obtienen múltiples conjuntos de entrenamiento que son diferentes entre sí. Cada uno de estos conjuntos genera un árbol de decisión en el cual se usan características seleccionadas aleatoriamente para su construcción. Debido a la gran cantidad de árboles que este algoritmo genera, se concluye que el mismo es bueno para resistir el ruido y tiene una buena capacidad de clasificación. Dependiendo de la información dada, cada árbol generará un resultado y, finalmente, con la integración de los resultados de todos los árboles se obtendrá el resultado final.
 
-Este algoritmo, en primer lugar, se encarga de seleccionar aleatoriamente un conjunto de datos con reemplazo del conjunto de entrenamiento, formando así conjuntos de entrenamiento diversos. Luego, se escoge un grupo de variables de forma aleatoria y las escogidas se toman en cuenta para la división de nodos al construir los árboles. Finalmente, se construyen los árboles y el resultado final se obtendrá por métodos como votación por mayoría \citep{moreno2023manual}.
+Este algoritmo, en primer lugar, se encarga de seleccionar aleatoriamente un conjunto de datos con reemplazo del conjunto de entrenamiento, formando así conjuntos de entrenamiento diversos. Luego, se escoge un grupo de variables de forma aleatoria y las escogidas se toman en cuenta para la división de nodos al construir los árboles. Finalmente, se construyen los árboles y el resultado final se obtendrá por métodos como votación por mayoría (\textit{Véase} \veasecite{moreno2023manual}).
 
 \subsubsection{Boosting}\label{sec:boosting}
 
@@ -180,7 +180,7 @@ Este algoritmo es una de las implementaciones más eficientes de árboles de dec
 \subsubsection{Redes neuronales}\label{sec:redes_neuronales}
 
 
-Según \textcite{lecun2015}, las redes neuronales son modelos computacionales, cuyo funcionamiento está basado en conjuntos de capas que a su vez, están compuestas por nodos o neuronas que se encargan de procesar la información. Las mismas están diseñadas para detectar patrones, aprender y adaptarse a datos complejos. Su funcionamiento inicia cuando los nodos reciben entradas y las pasan por funciones matemáticas, estos resultados se transmiten a las neuronas de la siguiente capa para continuar con un proceso similar hasta llegar a la capa final. En este proceso se van ajustando los pesos en las conexiones de los nodos con algoritmos de optimización, como el descenso del gradiente, para disminuir el error en las predicciones. Dependiendo de los datos a procesar, hay diferentes tipos de redes y las mismas son usadas en múltiples campos por sus ventajas como su adaptabilidad, puesto que pueden generalizar combinaciones nuevas de datos; su capacidad para captar patrones de alto nivel y su eficiencia en el manejo de datos complejos ya que pueden procesos datos de varias dimensiones.
+Las redes neuronales son modelos computacionales, cuyo funcionamiento está basado en conjuntos de capas que a su vez, están compuestas por nodos o neuronas que se encargan de procesar la información. Las mismas están diseñadas para detectar patrones, aprender y adaptarse a datos complejos. Su funcionamiento inicia cuando los nodos reciben entradas y las pasan por funciones matemáticas, estos resultados se transmiten a las neuronas de la siguiente capa para continuar con un proceso similar hasta llegar a la capa final. En este proceso se van ajustando los pesos en las conexiones de los nodos con algoritmos de optimización, como el descenso del gradiente, para disminuir el error en las predicciones. Dependiendo de los datos a procesar, hay diferentes tipos de redes y las mismas son usadas en múltiples campos por sus ventajas como su adaptabilidad, puesto que pueden generalizar combinaciones nuevas de datos; su capacidad para captar patrones de alto nivel y su eficiencia en el manejo de datos complejos ya que pueden procesos datos de varias dimensiones (\textit{Véase} \veasecite{lecun2015}).
 
 \subsection{Técnicas utilizadas}\label{sec:tec_us}
 
@@ -188,11 +188,11 @@ Para optimizar la eficiencia de los modelos en la obtención de resultados, fue 
 
 \subsubsection{Balanceo de clases}\label{sec:balanceo}
 
-Según \textcite{batista2004balancing}, las técnicas de balanceo de clases son utilizadas para mejorar el rendimiento de los sistemas de aprendizaje automático en conjuntos de datos desequilibrados. Esto ya que en datos reales es frecuente la presencia de clases desbalanceadas, lo que puede favorecer a la clase mayoritaria al no incluir los patrones de la clase minoritaria, disminuyendo su precisión.
+Las técnicas de balanceo de clases son utilizadas para mejorar el rendimiento de los sistemas de aprendizaje automático en conjuntos de datos desequilibrados. Esto ya que en datos reales es frecuente la presencia de clases desbalanceadas, lo que puede favorecer a la clase mayoritaria al no incluir los patrones de la clase minoritaria, disminuyendo su precisión.
 
 Para el balanceo de clases se usan los métodos oversampling y undersampling. El oversampling se encarga de generar copias de ejemplos de la clase minoritaria, pero puede incrementar el riesgo de sobreajuste. Mientras que, el undersampling elimina ejemplos de la clase mayoritaria para equilibrar el conjunto, pero puede descartar datos útiles, afectando negativamente la capacidad del modelo para generalizar.
 
-Las principales técnicas usadas para llevar a cabo los distintos tipos de balanceo son SMOTE (Synthetic Minority Over-sampling Technique) y SMOTE + ENN (Edited Nearest Neighbors).
+Las principales técnicas usadas para llevar a cabo los distintos tipos de balanceo son SMOTE (Synthetic Minority Over-sampling Technique) y SMOTE + ENN (Edited Nearest Neighbors) (\textit{Véase} \veasecite{batista2004balancing}).
 
 \begin{itemize}
 \item SMOTE es un método de oversampling que genera nuevos ejemplos sintéticos de la clase minoritaria interpolando con las instancias existentes, lo que reduce el sobreajuste en modelos de clasificación. Este logra que las fronteras de decisión de la clase minoritaria vayan más adentro del espacio de la clase mayoritaria, lo que mejora el rendimiento del modelo.
@@ -201,7 +201,7 @@ Las principales técnicas usadas para llevar a cabo los distintos tipos de balan
 
 \subsubsection{Normalización}\label{sec:normalizacion}
 
-Según \textcite{Ali2014}, la normalización comprende el proceso de ajustar los datos para que los mismos estén dentro de un rango específico, ya sea, entre 0 y 1 o entre -1 y 1. Este procedimiento es necesario cuando hay grandes diferencias en los rangos de las distintas características presentes en un conjunto de datos. Hay que tener en cuenta que este proceso tiene un mejor funcionamiento cuando no hay valores atípicos en los datos.
+La normalización comprende el proceso de ajustar los datos para que los mismos estén dentro de un rango específico, ya sea, entre 0 y 1 o entre -1 y 1. Este procedimiento es necesario cuando hay grandes diferencias en los rangos de las distintas características presentes en un conjunto de datos. Hay que tener en cuenta que este proceso tiene un mejor funcionamiento cuando no hay valores atípicos en los datos \citep{Ali2014}.
 
 \subsubsection{Validación Cruzada}\label{sec:val_cruzada}
 
@@ -216,9 +216,9 @@ Se tienen diversas técnicas de aplicación de la Validación Cruzada entre las 
 
 \subsubsection{Método del Codo}\label{sec:codo}
 
-Según \textcite{yuan2019kvalue}, el método del codo es una técnica bastante usada para determinar el número de clúster en los algoritmos de agrupamiento, sobre todo en K-means. Su propósito es encontrar el número de clúster, donde si se aumentan más, ya no hay una mejora significativa en la calidad de las agrupaciones. Este método, en primer lugar, grafica la suma se lo errores cuadrados dentro de los clúster dependiendo el número de clúster elegidos, k. Con el aumento de k, este error disminuye, pero después de cierto punto, la mejora se ve reducida y forma una curva semejante a un codo. Donde, el codo marca el número óptimo de clúster ya que a partir de ellos el resultado no se ve significativamente mejorado.
+El método del codo es una técnica bastante usada para determinar el número de clúster en los algoritmos de agrupamiento, sobre todo en K-means. Su propósito es encontrar el número de clúster, donde si se aumentan más, ya no hay una mejora significativa en la calidad de las agrupaciones. Este método, en primer lugar, grafica la suma se lo errores cuadrados dentro de los clúster dependiendo el número de clúster elegidos, k. Con el aumento de k, este error disminuye, pero después de cierto punto, la mejora se ve reducida y forma una curva semejante a un codo. Donde, el codo marca el número óptimo de clúster ya que a partir de ellos el resultado no se ve significativamente mejorado \citep{yuan2019kvalue}.
 
-\subsection{Método de la Silueta}\label{sec:silueta}
+\subsubsection{Método de la Silueta}\label{sec:silueta}
 
 El método de la silueta es usado para evaluar la calidad de los clústeres que se forman mediante un algoritmo de agrupamiento, y representa una herramienta visual para su análisis. De esta forma, este método es ampliamente usado para determinar el número óptimo de clústeres que debe tener el agrupamiento de ciertos datos, ya que se evalúa la calidad de las agrupaciones cuando la cantidad de clústeres va cambiando. Su funcionamiento en este contexto es, primero, aplicar un algoritmo de clusterización con las diferentes cantidades de grupos a formar. Posteriormente, para cada número de clústeres se calcula la silueta para cada objeto y se promedian sus valores, encontrando la calidad de los agrupamientos obtenidos por cada modelo. Finalmente, se grafican los resultados y cuando la silueta aumenta representa un agrupamiento de mejor calidad, con esto, se observa con qué cantidad de grupos el promedio de la silueta tiene un valor más alto, tomando en cuenta también que la silueta suele estabilizarse y a pesar de que se añadan más clústeres no mejora la calidad de la agrupación. Entre sus ventajas se encuentran su flexibilidad ya que puede ser aplicada a varios algoritmos de agrupamiento, su utilidad debido a que constituye un criterio para decidir el número de clústeres a elegir, y su fácil entendimiento e interpretación debido a que al permitir una representación gráfica facilita la comprensión de los resultados mostrados \citep{ROUSSEEUW198753}.
 
@@ -244,7 +244,7 @@ Según \textcite{opthip}, la optimización de hiperparámetros es un proceso fun
 
 \subsection{Validación de resultados en modelos de clasificación}\label{sec:validacion}
 
-Según \textcite{FAWCETT2006861}, una de las herramientas más comunes para evaluar el rendimiento de un modelo de clasificación, es la matriz de confusión. La misma tiene como objetivo medir el funcionamiento de un algoritmo, comparando los valores reales con los resultados obtenidos, donde los resultados pueden formar parte de cuatro categorías:
+Una de las herramientas más comunes para evaluar el rendimiento de un modelo de clasificación, es la matriz de confusión. La misma tiene como objetivo medir el funcionamiento de un algoritmo, comparando los valores reales con los resultados obtenidos, donde los resultados pueden formar parte de cuatro categorías:
 
 \begin{itemize}
 \item Verdaderos positivos (VP): Casos donde el modelo predice una clase positiva correctamente.
@@ -258,25 +258,31 @@ A partir de esta estructura, se pueden calcular diversas métricas que describen
 \begin{itemize}
 \item Sensibilidad: Mide cuan bien un modelo identifica las instancias positivas, es decir, mide cuántas observaciones positivas se identificaron correctamente.
 
-\[ \text{Sensibilidad} = \frac{VP}{VP+FN}\]
+\begin{equation}
+\text{Sensibilidad} = \frac{VP}{VP+FN}
+\end{equation}
 
 \item Especificidad: Mide cuán bien un modelo puede identificar las clases negativas, es decir, se identifican de forma adecuada los casos que son realmente negativos.
 
-\[ \text{Especificidad} = \frac{VN}{VN + FP}\]
+\begin{equation} 
+\text{Especificidad} = \frac{VN}{VN + FP}
+\end{equation}
 
 \item Precisión: Identifica los casos correctamente clasificados como positivos tomando en cuenta todos los casos que fueron clasificados como positivos.
 
-\[ \text{Precisión} = \frac{VP}{VP+FP}\]
+\begin{equation}
+\text{Precisión} = \frac{VP}{VP+FP}
+\end{equation}
 
 \item Exactitud: Corresponde a todos los casos que se clasificaron de forma correcta, es decir, aquellos casos tanto positivos como negativos que fueron clasificados correctamente.
 
-\[ \text{Exactitud} = \frac{VP+VN}{Total}\]
+\begin{equation} 
+\text{Exactitud} = \frac{VP+VN}{Total}
+\end{equation}
 
 \end{itemize}
 
-Finalmente, una parte fundamental en la clasificación de instancias es la selección de los umbrales de decisión. Generalmente, en los modelos de clasificación binaria se asigna una probabilidad a cada observación de pertenecer a determinada clase, por lo que, el umbral de decisión representa el valor por encima del cual el modelo asignará una instancia a la clase positiva. El umbral predeterminado suele ser de 0.5, pero puede verse modificado según las necesidades del modelo. Si se reduce, la sensibilidad aumentará, pero disminuirá la especificidad. Mientas que, si se incrementa, la especificidad aumentará, pero disminuirá la sensibilidad.
-
-
+Finalmente, una parte fundamental en la clasificación de instancias es la selección de los umbrales de decisión. Generalmente, en los modelos de clasificación binaria se asigna una probabilidad a cada observación de pertenecer a determinada clase, por lo que, el umbral de decisión representa el valor por encima del cual el modelo asignará una instancia a la clase positiva. El umbral predeterminado suele ser de 0.5, pero puede verse modificado según las necesidades del modelo. Si se reduce, la sensibilidad aumentará, pero disminuirá la especificidad. Mientas que, si se incrementa, la especificidad aumentará, pero disminuirá la sensibilidad (\textit{Véase} \veasecite{FAWCETT2006861}).
 
 \section{Trabajos previos}\label{sec:trabajos_previos}
  
@@ -313,7 +319,7 @@ Toda esta estructura se respaldó utilizando el sistema de control de versiones 
 
 \subsection{Python}
 
-Python es un lenguaje de programación de alto nivel, es utilizado en diversas áreas del desarrollo de software. Fue creado por Guido van Rossum a finales de la década de 1980 y lanzado en 1991. Python se destaca por su simplicidad y legibilidad. Su versatilidad, junto con una extensa biblioteca de módulos, lo convierte en una herramienta poderosa para una variedad de aplicaciones. Además, su compatibilidad con múltiples plataformas, su amplia comunidad de soporte y su facilidad de integración son características que han contribuido a que sea uno de los lenguajes más destacados.
+Python es un lenguaje de programación de alto nivel, es utilizado en diversas áreas del desarrollo de software. Fue creado por Guido van Rossum a finales de la década de 1980 y lanzado en 1991. Python se destaca por su simplicidad y legibilidad. Su versatilidad, junto con una extensa biblioteca de módulos, lo convierte en una herramienta poderosa para una variedad de aplicaciones. Además, su compatibilidad con múltiples plataformas, su amplia comunidad de soporte y su facilidad de integración son características que han contribuido a que sea uno de los lenguajes más destacados (\textit{Véase} \veasecite{Python2024}).
 
 Las librerías utilizadas para cumplir con los propósitos del trabajo fueron las siguientes:
 
@@ -329,19 +335,11 @@ Las librerías utilizadas para cumplir con los propósitos del trabajo fueron la
 
 \subsection{R}
 
-R es un lenguaje de programación y un entorno de software diseñado para el análisis estadístico y la visualización de datos, desarrollado en la década de 1990.  Este lenguaje permite una amplia gama de funciones, entre las cuales se destaca su capacidad de integración con otros lenguajes, como \LaTeX. Esto representa una gran ventaja, especialmente para la creación de documentos técnicos y académicos. 
+R es un lenguaje de programación y un entorno de software diseñado para el análisis estadístico y la visualización de datos, desarrollado en la década de 1990.  Este lenguaje permite una amplia gama de funciones, entre las cuales se destaca su capacidad de integración con otros lenguajes, como \LaTeX. Esto representa una gran ventaja, especialmente para la creación de documentos técnicos y académicos \citep{R2024}. 
 
-Entre las ventajas de esta integración se encuentran la reproducibilidad de análisis y resultados, facilidad para crear gráficos de calidad y de tener una tipografía adecuada, así como la integración de diversos contenidos. Además, R incorpora potentes herramientas para la gestión de referencias, permite la automatización de informes, simplifica manejo de datos complejos, y fundamentalmente, ofrece la posibilidad del versionamiento y el control de cambios.
+Entre las ventajas de esta integración se encuentran la reproducibilidad de análisis y resultados, facilidad para crear gráficos de calidad y de tener una tipografía adecuada, así como la integración de diversos contenidos. Además, R incorpora potentes herramientas para la gestión de referencias, permite la automatización de informes, simplifica manejo de datos complejos, y fundamentalmente, ofrece la posibilidad del versionamiento y el control de cambios \citep{R2024}.
 
 \subsection{Git}
 
-El sistema de control del versiones Git es un software distribuido y de código abierto diseñado para gestionar proyectos de desarrollo de software o cualquier tipo de archivo que requiera un seguimiento de los cambios efectuados en el mismo \citep{git_ver}. El servicio en la nube del sistema de control de versionamiento a utilizar será  Github. En esta plataforma se puede almacenar  tanto el código desarrollado, así como trabajar, colaborar y compartir un proyecto con múltiples colaboradores \citep{github2024}. El repositorio\footnote{Es el espacio de almacenamiento en la nube donde se guarda y gestiona el código del proyecto junto con su historial de versiones.} creado en github tiene por nombre \textit{VIU\_TFM} y en el mismo se encuentra todo el detalle realizado en este trabajo de fin de máster. En la figura \ref{fig:plantilla_github} se presenta la estructura del mismo.
-
-\begin{figure}[H]
-\centering
-\includegraphics[scale=0.20]{graficos/viu_plantilla_github.png}
-\caption{\headlinecolor{\underline{Plantilla del repositorio \textit{VIU\_TFM} en Github}}}
-\label{fig:plantilla_github}
-\end{figure}
-
+El sistema de control del versiones Git es un software distribuido y de código abierto diseñado para gestionar proyectos de desarrollo de software o cualquier tipo de archivo que requiera un seguimiento de los cambios efectuados en el mismo \citep{git_ver}. El servicio en la nube del sistema de control de versionamiento a utilizar será  Github. En esta plataforma se puede almacenar  tanto el código desarrollado, así como trabajar, colaborar y compartir un proyecto con múltiples colaboradores \citep{github2024}. El repositorio\footnote{Es el espacio de almacenamiento en la nube donde se guarda y gestiona el código del proyecto junto con su historial de versiones.} creado en github tiene por nombre \textit{VIU\_TFM} y en el mismo se encuentra todo el detalle realizado en este trabajo de fin de máster. 
 

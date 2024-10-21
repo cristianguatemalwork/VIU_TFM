@@ -102,7 +102,6 @@
   \unskip
 }
 
-
 \DeclareCiteCommand{\legalcite}
   {\usebibmacro{prenote}}
   {\usebibmacro{citeindex}
@@ -120,6 +119,20 @@
   {\usebibmacro{prenote}}
   {\usebibmacro{citeindex}
    \usebibmacro{estcite}}
+  {\multicitedelim}
+  {\usebibmacro{postnote}
+}
+
+\newbibmacro{veasecite}{
+  \unskip% Elimina espacios antes de la citación
+  \textit{\printnames{author}} \textit{\printtext[bibhyperref]{\printfield{year}}}
+  \unskip
+}
+
+\DeclareCiteCommand{\veasecite}
+  {\usebibmacro{prenote}}
+  {\usebibmacro{citeindex}
+   \usebibmacro{veasecite}}
   {\multicitedelim}
   {\usebibmacro{postnote}
 }
