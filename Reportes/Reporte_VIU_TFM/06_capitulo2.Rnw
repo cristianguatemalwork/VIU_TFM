@@ -3,7 +3,7 @@
 \section{Objetivo general}
 
 \begin{enumerate}
-\item Detectar las aportaciones fraudulentas realizadas por los pensionistas del IESS durante su vida laboral y generar modelos de aprendizaje supervisado para clasificar el comportamiento de los salarios de los actuales afiliados.
+\item Desarrollar mediante modelos de aprendizaje supervizado la clasificación del comportamiento de salarios actuales de los afiliados al IESS en Ecuador.
 \end{enumerate}
 
 
@@ -11,9 +11,10 @@
 
 \begin{enumerate}
 \item Realizar un proceso KDD para crear un único conjunto de datos.
-\item Implementar algoritmos de aprendizaje no supervisado para la detección de aportaciones atípicas.
-\item Evaluar la significancia de las variables demográficas y salariales de los pensionistas a ser utilizadas en el aprendizaje supervisado.
-\item Desplegar algoritmos de aprendizaje supervisado para clasificar el comportamiento de los pensionistas en fraude o no fraude.
-\item  Clasificar el comportamiento salarial de los actuales afiliados del IESS, en función de los modelos de aprendizaje supervisado resultantes.
+\item Implementar los algoritmos de aprendizaje no supervisado de clúster jerárquico, K-Means y DBSCAN, para la detección de aportaciones atípicas.
+\item Seleccionar las variables demográficas y salariales más significativas de los pensionistas mediante el análisis de componentes principales, así como a través de las técnicas no supervisadas de clúster jerárquico y DBSCAN.
+\item Desplegar los algoritmos de aprendizaje supervisado de KNN, árboles
+de decisión, conjuntos de modelos, XGBoost y redes neuronales, para clasificar el comportamiento de los pensionistas en fraude o no fraude.
+\item Clasificar el comportamiento salarial de los actuales afiliados del IESS utilizando el modelo de aprendizaje supervisado que haya mostrado los mejores resultados.
 \end{enumerate}
 
