@@ -52,7 +52,7 @@ Entre las principales limitaciones que presentó la realización del presente es
 \centering
 \caption{\headlinecolor{\underline{Características computacionales}}}\vspace{-0.3cm}
 \label{tab:caracteristicas_computacionles}
-\resizebox{0.6\textwidth}{!}{
+\fontsize{10}{12}\selectfont{
 \begin{tabular}{|c|c|}
 \hline
 \cellcolor[HTML]{E65013} \textbf{Característica} & \cellcolor[HTML]{E65013} \textbf{Especificación} \\ \hline
