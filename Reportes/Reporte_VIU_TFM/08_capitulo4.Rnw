@@ -1405,13 +1405,16 @@ A partir de estos resultados, se obtiene que este modelo tiene sensibilidad de \
 %Comparación de Resultados--------------------------------------------------------------------------
 \section{Comparación de Resultados}\label{seccion:comparacion_resultados}
 
-Para determinar qué modelos de aprendizaje supervisado son los más efectivos y apropiados para el problema de estudio de este trabajo de fin de máster, es necesario realizar una comparación de sus métricas, lo cual permitirá  evaluarlos  y describir sus fortalezas así como sus debilidades. A continuación, en la tabla \ref{tab:comparacion} se muestra a manera de resumen los resultados obtenidos con cada uno de ellos.
+Para determinar qué modelos de aprendizaje supervisado son los más efectivos y apropiados para el problema de estudio de este trabajo de fin de máster, es necesario realizar una comparación de sus métricas, lo cual permitirá  evaluarlos  y describir sus fortalezas así como sus debilidades.
 
+A continuación, en la tabla \ref{tab:comparacion} se muestra a manera de resumen los resultados obtenidos con cada uno de ellos.
+
+\begin{landscape}
 \begin{table}[H]
 \centering
 \caption{\headlinecolor{\underline{Comparación de resultados de las técnicas supervisadas}}}\vspace{-0.3cm}
 \label{tab:comparacion}
-\resizebox{0.80\textwidth}{!}{
+\fontsize{9.5}{11}\selectfont{
 \begin{tabular}{|r|c|c|c|c|c|}
 \hline
 \cellcolor[HTML]{E65013} \textbf{Modelo} & \cellcolor[HTML]{E65013} \textbf{Exactitud}&
@@ -1420,9 +1423,9 @@ Para determinar qué modelos de aprendizaje supervisado son los más efectivos y
 \hline
 \textbf{KNN con PCA} & 0.74832& 0.51642& 0.86968 & 0.67465& 0.25168 \\
 \hline
-\textbf{KNN con balanceo y PCA} & 0.71286& 0.7221& 0.70803& 0.56412& 0.28714 \\
+\textbf{KNN con balanceo y PCA} & 0.71286& 0.72210& 0.70803& 0.56412& 0.28714 \\
 \hline
-\textbf{KNN con \textit{variables\_ml}} & 0.71286& 0.5603& 0.88079& 0.71095&  0.28714\\
+\textbf{KNN con \textit{variables\_ml}} & 0.71286& 0.56030& 0.88079& 0.71095&  0.28714\\
 \hline
 \textbf{KNN con \textit{variables\_ml} balanceadas} &0.72726 & 0.79254& 0.69642&0.57471 &  0.27274\\
 \hline
@@ -1434,19 +1437,19 @@ Para determinar qué modelos de aprendizaje supervisado son los más efectivos y
 \hline
 \textbf{RandomForestClassifier con GridSearchCV} &0.82789 & 0.80487& 0.83994&0.72462 & 0.09965 \\
 \hline
-\textbf{AdaBoostClassifier con RandomizedSearchCV} & 0.77685& 0.6747& 0.8303&0.67539 & 0.22315 \\
+\textbf{AdaBoostClassifier con RandomizedSearchCV} & 0.77685& 0.67470& 0.83030&0.67539 & 0.22315 \\
 \hline
-\textbf{AdaBoostClassifier con GridSearchCV} & 0.77685& 0.6747& 0.8303& 0.67539& 0.22315 \\
+\textbf{AdaBoostClassifier con GridSearchCV} & 0.77685& 0.67470& 0.83030& 0.67539& 0.22315 \\
 \hline
-\textbf{GradientBoostingClassifier con GridSearchCV} &0.83706 & 0.74248& 0.88655& 0.774& 0.16294 \\
+\textbf{GradientBoostingClassifier con GridSearchCV} &0.83706 & 0.74248& 0.88655& 0.77400& 0.16294 \\
 \hline
-\textbf{XGBClassifier con RandomizedSearchCV} & 0.82528& 0.82486& 0.8255&0.71212 & 0.10117 \\
+\textbf{XGBClassifier con RandomizedSearchCV} & 0.82528& 0.82486& 0.82550&0.71212 & 0.10117 \\
 \hline
-\textbf{XGBClassifier con GridSearchCV} & 0.8276& 0.81611& 0.8336 & 0.71962 &0.12213 \\
+\textbf{XGBClassifier con GridSearchCV} & 0.82760& 0.81611& 0.83360 & 0.71962 &0.12213 \\
 \hline
 \textbf{MLPClassifier con GridSearchCV} & 0.80481& 0.65044& 0.88559&0.74843 &0.00533 \\
 \hline
-\textbf{MLPClassifier con balanceo y GridSearchCV} & 0.75826&0.84764 &0.71149 & 0.6059&0.00433 \\
+\textbf{MLPClassifier con balanceo y GridSearchCV} & 0.75826&0.84764 &0.71149 & 0.60590&0.00433 \\
 \hline
 \end{tabular}
 }
@@ -1455,7 +1458,9 @@ Para determinar qué modelos de aprendizaje supervisado son los más efectivos y
 
 En primer lugar, al analizar las diferentes variaciones del modelo KNN, se observa que el modelo que tiene el accuracy más alto es el que únicamente aplica un PCA a los datos. A pesar de esto, el mismo tiene mayor dificultad para detectar los casos atípicos, puesto que, presenta la tasa de sensibilidad más baja de este conjunto de modelos. Esto representa un problema, ya que el interés primordial es detectar correctamente los atípicos como ya fue explicado en las secciones anteriores. Ante esta situación, se procede a enfocar la atención en el modelo con el segundo mejor accuracy, que es aquel que usa a \textit{variables\_ml} balanceadas. Este modelo destaca por poseer la sensibilidad más alta de todas, de donde, se puede concluir que el mismo resulta ser el mejor de los 4 modelos entrenados de KNN, debido a que logra un equilibrio adecuado entre la precisión global del modelo y la detección de datos atípicos. No obstante, es importante señalar que tanto en especificidad como en precisión, este modelo tiene valores bajos en comparación a los demás. Sin embargo, dado el objetivo de este estudio, este déficit no representa un problema significativo.
 
-Finalmente, al observar estos modelos se encuentra que la diferencia de los accuracys de \textit{train} y \textit{test} supera los 25 puntos porcentuales en cada uno de ellos, lo que sugiere la existencia de sobreajuste en los modelos debido a que se observa un rendimiento significativamente mayor en los datos de prueba sobre los datos de entrenamiento. Esto  puede indicar que los modelos se están ajustando demasiado a ciertas características de los datos de entrenamiento, por lo que, posteriormente no pueden ser generalizados a otros datos de manera óptima.
+Finalmente, al observar estos modelos se encuentra que la diferencia de los accuracys de \textit{train} y \textit{test} supera los 25 puntos porcentuales en cada uno de ellos, lo que sugiere la existencia de sobreajuste. Esto  puede indicar que los modelos se están ajustando demasiado a ciertas características de los datos de entrenamiento, por lo que, posteriormente no pueden ser generalizados a otros datos de manera óptima.
+
+\end{landscape}
 
 En cuanto a los algoritmos basados en árboles y conjuntos de modelos, se puede observar que el modelo con el mayor accuracy es el algoritmo GradientBoostingClassifier con GridSearchCV, tomando en cuenta que los accuracys de RandomForestClassifier tanto con RandomizedSearchCV como con GridSearchCV son también altos y bastantes cercanos al mejor accuracy. En términos de sensibilidad, el modelo que destaca es el RandomForestClassifier con RandomizedSearchCV, de donde, es visible que su capacidad para detectar casos atípicos es superior. Por otro lado, se tiene que GradientBoostingClassifier tiene los mejores valores tanto de especificidad como de precisión, lo que implica que el mismo es bastante bueno para clasificar de forma correcta los casos negativos y disminuir la cantidad de falsos positivos.
 
