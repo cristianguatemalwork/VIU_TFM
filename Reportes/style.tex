@@ -110,6 +110,10 @@
   {\usebibmacro{postnote}
 }
 
+\DeclareFieldFormat{url}{Recuperado de \addcolon\space\url{#1}}
+
+\DeclareFieldFormat{doi}{doi:\space\href{https://doi.org/#1}{#1}}
+
 \newbibmacro{estcite}{
   \textit{\printfield{shorttitle}}\,
   (\printtext[bibhyperref]{\printfield{year}})
