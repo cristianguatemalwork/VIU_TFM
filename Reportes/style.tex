@@ -141,6 +141,20 @@
   {\usebibmacro{postnote}
 }
 
+\newbibmacro{citaanio}{
+  \unskip% Elimina espacios antes de la citación
+  \printtext[bibhyperref]{\printfield{year}}
+  \unskip
+}
+
+\DeclareCiteCommand{\citaanio}
+  {\usebibmacro{prenote}}
+  {\usebibmacro{citeindex}
+   \usebibmacro{citaanio}}
+  {\multicitedelim}
+  {\usebibmacro{postnote}
+}
+
 \usepackage{subcaption}
 \usepackage[none]{hyphenat}
 
