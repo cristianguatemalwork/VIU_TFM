@@ -50,8 +50,12 @@
 
 %Bibliografia--------------------------------------------------------------------------------------
 \chapter*{Bibliografía}
-\printbibliography[heading = none]
-
-
+\printbibliography[heading = none, sorting=nyt]
+% \printbibliography[notcategory=legislation, heading=none, sorting=nyt]
+% 
+% \bigskip
+% \noindent
+% \textbf{Legislación}
+% \printbibliography[category=legislation, heading=none, sorting=none]]
 
 \end{document}

@@ -95,6 +95,23 @@
 % Bibliografía
 \usepackage[style=apa, bibstyle=apa, citestyle=authoryear, backend=biber, natbib=true]{biblatex}
 
+\DeclareBibliographyCategory{legislation}
+
+\DeclareBibliographyDriver{legislation}{%
+  \printfield{shorttitle}% Imprimir el título
+  \setunit{\addcomma\space}%
+  \printfield{series}% Imprimir la serie
+  \setunit{\addcomma\space}%
+  \iffieldundef{day}{}{\printfield{day}\addspace de\addspace }%
+  \iffieldundef{month}{}{\mkbibmonth{\thefield{month}}\addspace de\addspace}%
+  \printfield{year}% Imprimir el año
+  \finentry}
+
+% Asignar las entradas de legislation a la categoría legislation
+\AtEveryBibitem{%
+  \ifentrytype{legislation}{\addtocategory{legislation}{\thefield{entrykey}}}{}%
+} 
+
 \newbibmacro{legalcite}{
   \unskip% Elimina espacios antes de la citación
   \printfield{shorttitle}\,
