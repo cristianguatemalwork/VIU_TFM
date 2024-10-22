@@ -228,6 +228,8 @@ El Análisis de Componentes Principales (PCA) es una técnica usada para la redu
 
 El PCA, en primer lugar, determina las direcciones de mayor varianza de los datos a través de una matriz de covarianza. Posteriormente, diagonaliza la matriz, encontrando sus valores propios. De esta forma se proyectan los datos en las nuevas dimensiones, disminuyen la dimensionalidad y preservando la mayor parte de información de los datos originales \citep{wiskott2009pca}.
 
+Sin embargo, antes de la utilización del ACP es necesario, como se menciona en \citet{tesis_guatemal_epn}, ``verificar si la correlación entre las variables analizadas es lo suficientemente grande como para poder justificar la factorización de la matriz de coeficientes de correlación'' (p. 90). Esto se logra mediante el Test de Esfericidad de Bartlett y el Índice Kaiser-Meyer-Olkin (KMO). 
+
 
 \subsubsection{Optimización de Hiperparámetros}\label{sec:hiperparametros}
 
