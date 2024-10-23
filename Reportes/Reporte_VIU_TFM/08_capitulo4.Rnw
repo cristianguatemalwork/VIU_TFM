@@ -61,7 +61,7 @@ La información de \textit{pensi} tiene las siguientes variables:
     \end{itemize}
 \end{multicols}
 
-La información de \textit{pensi} es dividida en tres grupos, para las jubilaciones de vejez, para las de invalidez y para las de discapacidad. El nombre de estos tres conjuntos de datos serán \textit{data\_vej}, \textit{data\_inv} y \textit{data\_dis} respectivamente.
+La información de \textit{pensi} es dividida en tres grupos, para las jubilaciones de vejez, para las de invalidez y para las de discapacidad. El nombre de estos tres conjuntos de datos serán \textit{data\_vej}, \textit{data\_inv} y \textit{data\_dis}, respectivamente.
 
 
 En lo que sigue, el proceso KDD se divide en dos partes. La primera parte se centra en el proceso de minería de datos para la información utilizada antes de la ejecución de los algoritmos de aprendizaje no supervisado, misma que tendrá con fin etiquetar los salarios y a las personas que generaron alguna aportación fraudulenta. La segunda parte corresponde al preprocesamiento de la información resultante de los algoritmos no supervisados, para su posterior utilización dentro de los modelos de aprendizaje supervisado.

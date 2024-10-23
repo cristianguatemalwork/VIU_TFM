@@ -3,7 +3,7 @@
 \section{Objetivo general}
 
 \begin{enumerate}
-\item Desarrollar mediante modelos de aprendizaje supervizado la clasificación del comportamiento de salarios actuales de los afiliados al IESS en Ecuador.
+\item Desarrollar mediante modelos de aprendizaje supervisado la clasificación del comportamiento de salarios actuales de los afiliados al IESS en Ecuador.
 \end{enumerate}
 
 

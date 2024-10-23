@@ -1291,38 +1291,31 @@ print('Tiempo de ejecución es:',tm//3600,'horas con',tm%3600//60,'minutos y', t
 \end{lstlisting}
 
 \begin{figure}[H]
-    \centering
-    \begin{minipage}{0.32\textwidth}
-        \centering
-        \includegraphics[scale=0.35]{graficos/confusion_matrix_algoritmo_knn_acp.png}
-        \captionsetup{width=0.9\textwidth} 
-        \caption{\headlinecolor{{Matriz de confusión para el KNN con ACP}}}
-        \label{fig:matriz_conf_knn_acp}
-    \end{minipage}
-    \hfill
-    \begin{minipage}{0.32\textwidth}
-        \centering
-        \includegraphics[scale=0.35]{graficos/confusion_matrix_algoritmo_knn_bal_acp.png}
-        \captionsetup{width=0.9\textwidth} 
-        \caption{\headlinecolor{{Matriz de confusión para el KNN con balanceo y ACP}}}
-        \label{fig:matriz_conf_knn_bal_acp}
-    \end{minipage}
-    \vfill
-    \begin{minipage}{0.32\textwidth}
-        \centering
-        \includegraphics[scale=0.35]{graficos/confusion_matrix_algoritmo_knn_ml.png}
-        \captionsetup{width=0.9\textwidth} 
-        \caption{\headlinecolor{{Matriz de confusión para el KNN y  \textit{variables\_ml}}}}
-        \label{fig:matriz_conf_knn_ml}
-    \end{minipage}
-     \hfill
-    \begin{minipage}{0.32\textwidth}
-        \centering
-        \includegraphics[scale=0.35]{graficos/confusion_matrix_algoritmo_knn_bal_ml.png}
-        \captionsetup{width=0.9\textwidth} 
-        \caption{\headlinecolor{{Matriz de confusión para el KNN con balanceo y \textit{variables\_ml}}}}
-        \label{fig:matriz_conf_knn_bal_ml}
-    \end{minipage}
+\centering
+\includegraphics[scale=0.35]{graficos/confusion_matrix_algoritmo_knn_acp.png}
+\caption{\headlinecolor{\underline{Matriz de confusión para el KNN con ACP}}}
+\label{fig:matriz_conf_knn_acp}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.35]{graficos/confusion_matrix_algoritmo_knn_bal_acp.png}
+\caption{\headlinecolor{\underline{Matriz de confusión para el KNN con balanceo y ACP}}}
+\label{fig:matriz_conf_knn_acp}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.35]{graficos/confusion_matrix_algoritmo_knn_ml.png}
+\caption{\headlinecolor{\underline{Matriz de confusión para el KNN y  \textit{variables\_ml}}}}
+\label{fig:matriz_conf_knn_ml}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.35]{graficos/confusion_matrix_algoritmo_knn_bal_ml.png}
+\caption{\headlinecolor{\underline{Matriz de confusión para el KNN con balanceo y \textit{variables\_ml}}}}
+\label{fig:matriz_conf_knn_bal_ml}
 \end{figure}
 
 El acceso a los scripts que generaron toda la implementación del algoritmo KNN es haciendo \href{https://github.com/cristianguatemalwork/VIU_TFM/blob/main/Python/TFM/VIU_ml_knn.ipynb}{click aquí}.
