@@ -1,0 +1,90 @@
+\chapter{Introducción}\label{cap:intr}
+
+La seguridad social, según \textcite{SS_OIT}, se define como un derecho humano fundamental y un instrumento esencial para promover la cohesión social y contribuir a la paz y la integración en las sociedades.
+
+En Ecuador, el derecho a la seguridad social se encuentra consagrado en el artículo 34 de la \legalcite{ConsEcu:2008} como ``un derecho irrenunciable de todas las personas, y será deber y responsabilidad primordial del Estado'' (p. 19). Este sistema de seguridad social es público y universal; y, la protección de las contingencias se hace efectiva a través del seguro universal obligatorio y de sus regímenes especiales. Además, de acuerdo con el \legalcite{iessboletin2022}, ``El IESS es la entidad pública responsable de la prestación de las contingencias del seguro universal obligatorio, que tiene por objeto indelegable la prestación del Seguro General Obligatorio en todo el territorio nacional'' (p. 10).
+ 
+Dentro de los retos actuales que enfrentan los países con envejecimiento poblacional, está la importancia de garantizar la sostenibilidad de los fondos administrados por sus instituciones de seguridad social, de manera especial, los relacionados con pensiones. Organismos como la Organización Internacional del Trabajo (OIT) y la Organización de Naciones Unidas (ONU) ya hacen sus pronunciamientos respecto a esta problemática. Sin embargo, cualquier intento de modificación a las leyes actuales se enfrenta a la difícil tarea de implementación. 
+
+La simulación de medidas correctivas, elaboradas en base a modelos matemáticos-actuariales que siguen las directrices internacionales de buenas prácticas actuariales, han demostrado ser útiles en pro de la sostenibilidad de los fondos de pensiones, pero  son impensables de poner en marcha a nivel político, puesto que, el modificar ya sea la edad para adquirir el beneficio o incrementar el valor del aporte  que realizan los afiliados, puede fácilmente ser direccionado a generar conmoción social a nivel nacional, provocar paralizaciones e inclusive podría terminar con el derrocamiento del gobierno de turno. Tal grado de dificultad de implementación de políticas sociales tienen estas modificaciones, que los
+gobiernos se hacen los ciegos y no toman las decisiones que deberían de manera oportuna, lo que provoca que la situación actual de los fondos de pensiones sea más crítica, el déficit actuarial se dispare y el año previo al déficit sea más cercano.
+
+De acuerdo con la \legalcite{iessivm2020}, realizada por el Instituto Ecuatoriano de Seguridad Social (IESS), el objetivo principal No. 1 del Plan Estratégico del IESS 2018-2028 es ``Incrementar la sostenibilidad de los fondos de los seguros especializados'' (p. 25). 
+
+En este contexto, limitándonos al fondo de pensiones (Seguro IVM) del IESS y considerando la importancia de la seguridad social para todos los individuos de una sociedad, es fundamental el control de las actividades que podrían comprometer la sostenibilidad financiera de dicho fondo o las acciones que generen consecuencias perjudiciales al sistema. 
+
+Son varios los aspectos que podrían considerarse para analizar la sostenibilidad del Seguro IVM, como por ejemplo, cambiar las condiciones de elegibilidad, subir la tasa de aportación, bajar el valor de la pensión calculada, modificar los límites mínimos y máximos de las pensiones, entre otros. Sin embargo, el presente trabajo de fin de máster se enfoca en el análisis de la situación previa a la obtención de una pensión por jubilación, mediante la observación de las aportaciones que los actuales pensionistas realizaron a lo largo  de su vida laboral, pues modificar el efecto del cálculo de la pensión a posteriori es políticamente irreversible, por lo que, tener un control previo antes de la solicitud de una pensión por jubilación es fácilmente medible y reversible.
+
+Debido a la naturaleza legal de la seguridad social ecuatoriana, no existe una forma directa de impedir la aleatoriedad de las aportaciones que realizan mes a mes los afiliados del instituto, por lo que, el sistema es fácilmente vulnerable a que las personas obtengan un mayor beneficio en el cálculo de su futura pensión mediante la realización de aportaciones fraudulentas. Estas actividades son conocidas como estafas y desestabilizan el funcionamiento del sistema, afectando no solo a las prestaciones futuras sino también a las actuales, lo que desencadena fuertes repercusiones tanto sociales como económicas. Es por ello que, resulta necesario implementar sistemas de detección de estafas para prevenir que el sistema tenga futuras complicaciones financieras.
+
+Actualmente, dentro de la \legalcite{LeySS} no existe una normativa generalizada que impida que los afiliados del IESS aporten sobre cualquier materia gravada\footnote{Definida por el artículo 11 de la Ley de Seguridad Social como todo ingreso susceptible de apreciación pecuniaria, percibido por la persona afiliada}, solo existe la \legalcite{ResIESS_CD656}, que controla la base de aportación de los afiliados del Régimen Especial del Seguro Voluntario que se encuentran a cinco años de cumplir las condiciones de jubilación. Este grupo poblacional, a diciembre de 2023, representa solo el \Sexpr{format( 215585/3424371 * 100, digits = 2, big.mark = '.', decimal.mark = ',', format = 'f')}\% del total de afiliados (3.424.371), por lo que, es necesario establecer una nueva política de recaudación de las aportaciones para todos los afiliados del Seguro General Obligatorio (SGO) y no solo para el régimen voluntario. Esto con la finalidad de evitar que las personas realicen una aportación que no va acorde a su comportamiento histórico.
+
+% Por otra parte, en vista que el instituto no cuenta con información oficial sobre los posibles casos de fraude (debido a que hasta la presente fecha no existe una metodología oficial) y con la finalidad de dar ese primer paso hacia la detección del fraude en las aportaciones de los afiliados
+De esta forma, el principal problema que este trabajo de titulación busca abordar es la detección de aportaciones fraudulentas que realizaron los actuales pensionistas del Seguro IVM durante su vida laboral (con el objetivo de recibir una pensión de mayor cuantía) y generar un modelo de aprendizaje supervisado para poder clasificar el comportamiento salarial de los afiliados en curso. 
+
+Para lograr este fin, las técnicas de aprendizaje no supervisado de clusterización jerárquica, K-Means y DBSCAN, permitirán identificar  si dentro de las cotizaciones históricas realizadas por los pensionistas, existen aportes fraudulentos (atípicos). Posteriormente, mediante una adecuada selección de características (dadas por el análisis de componentes principales y DBSCAN), validación cruzada y optimización de hiperparámetros, se implementará el algoritmo KNN y las técnicas de árboles de decisión, conjuntos de modelos, XGBoost y redes neuronales, todo orientado hacia la tarea
+de clasificación, para generar modelos de aprendizaje supervisado que permitan predecir como se comportarán los sueldos de los actuales afiliados. Todos estos modelos serán comparados con las métricas de accuracy y sensibilidad.
+
+En el segundo capítulo se detallan el objetivo general y los específicos a ser alcanzados con el presente trabajo de fin de máster.
+
+En el tercer capítulo se describe el estado del arte y marco teórico que permitirán contextualizar la detección de aportaciones fraudulentas que realizaron los pensionistas, a lo largo de su vida laboral, en el IESS. Así como, los distintos enfoques que se han utilizado para explicar fenómenos similares, en conjunto con toda la tecnología y algoritmos utilizados en el presente proyecto.
+
+En el cuarto capítulo se detalla todo el proceso de minería de datos (dado por el proceso KDD), selección de características (mediante el análisis de componentes principales, clúster jerárquico y DBSCAN) y los diferentes resultados alcanzados tras la implementación de los diferentes algoritmos y técnicas de aprendizaje supervisado y no supervisado. Así como un análisis comparativo de los mismos.
+
+En el apartado final se describen las conclusiones del trabajo de titulación, así como las limitaciones y futuros pasos a realizar en relación al problema abordado.
+
+
+
+% 
+% 
+% 
+% 
+% 
+% \section{Apartado}\label{sec:apartado}
+% 
+% 
+% Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+% 
+% \begin{center}
+% {\textbf{\headlinecolor{Destacado duis aute irure dolor\\ 
+% in reprehenderit in voluptate velit esse\\ 
+% cillum dolore eu fugiat}}}
+% \end{center}
+% 
+% labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+% 
+% \begin{figure}[ht]
+% \begin{center}
+% \includegraphics[scale=0.5]{graficos/image5.png}
+% \caption{\headlinecolor{\underline{Nombre de la gráfica 1}}}
+% 
+% \label{fig:fig1}
+% 
+% \end{center}
+% \end{figure}
+% 
+% \begin{figure}[ht]
+% \begin{center}
+% \includegraphics[scale=0.5]{graficos/image6.png}
+% \caption{\headlinecolor{\underline{Nombre de la gráfica 2}}}
+% 
+% \label{fig:fig2}
+% 
+% \end{center}
+% \end{figure}
+% 
+% \begin{table}[ht]
+% \centering
+% \caption{\headlinecolor{\underline{Nombre del Cuadro}}}
+% \label{tab:my_label}
+% \begin{tabular}{|c|c|c|} \hline
+% \rowcolor{naranja}
+% \multicolumn{3}{|c|}{\textbf{casa}} \\ \hline
+% Lorem ipsum & Lorem ipsum & Lorem ipsum \\ \hline
+% Lorem ipsum & Lorem ipsum & Lorem ipsum \\ \hline
+% Lorem ipsum & Lorem ipsum & Lorem ipsum \\ \hline
+% Lorem ipsum & Lorem ipsum & Lorem ipsum \\ \hline
+% Lorem ipsum & Lorem ipsum & Lorem ipsum \\ \hline
+% Lorem ipsum & Lorem ipsum & Lorem ipsum \\ \hline
+% \end{tabular}
+% \end{table}

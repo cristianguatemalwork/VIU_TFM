@@ -1,0 +1,1590 @@
+\chapter{Resultados}\label{cap:resul}
+
+\section{Contexto y problema planteado}
+
+Conforme lo expuesto en el capítulo introductorio y en consonancia con los objetivos planteados, el propósito de este trabajo de fin de máster es que, a través  de las aportaciones históricas realizadas por los pensionistas del Seguro IVM, detectar mediante técnicas de aprendizaje no supervisado aquellas que son fraudulentas y luego generar modelos de aprendizaje supervisado que permitan clasificar si dentro de las aportaciones que realizan los actuales (hasta diciembre del 2023) afiliados existen casos que podrían realizar fraude, en función del comportamiento de su materia gravada\footnote{Es todo ingreso susceptible de apreciación pecuniaria, percibido por la persona afiliada, o en caso del trabajo no remunerado del hogar, por su unidad económica familiar.}, con el fin de generar un mayor beneficio al momento de solicitar la jubilación.
+
+El primer paso es la generación de un adecuado proceso KKD (de acuerdo a lo descrito en la sección \ref{sec:proceso_kdd}), para que a partir de los datos primarios que dispone el IESS, generar el conocimiento adecuado que permita dar solución al problema planteado. 
+
+Un aspecto importante a considerar es que la información inicial (llamada \textit{data\_afi}) con la cual se generó la primera parte del proceso KDD es resultado de un preprocesamiento\footnote{La fecha de extracción de la información fue a mayo 2024 y el análisis se centran en todos los registros anteriores al 31 de diciembre de 2023.} a las bases transaccionales del IESS. La manipulación a estas bases fue realizada mediante lenguaje pl/SQL en la base de datos oracle. El esquema de las tablas transaccionales y el código utilizado para la generación de la información inicial se detalla en el anexo \ref{cap:anexo1}.  
+
+Por otra parte, es preciso indicar que todo el proceso de limpieza, preprocesamiento, transformación de datos e implementación de los diferentes algoritmos y técnicas de aprendizaje supervisado y no supervisado, se lo realizó usando el lenguaje de programación python. El código del proyecto se gestiona mediante control de versiones utilizando la herrramienta Git, a través del repositorio \textit{VIU\_TFM} en Github (Véase \legalcite{CristianVIUTFM}). En \textit{VIU\_TFM} se encuentran todos los scripts empleados para alcanzar el objetivo planteado, así como los archivos de edición del presente proyecto en formato \texttt{\LaTeX}. El detalle se presenta en el anexo \ref{cap:anexo1}.
+
+
+\section{Fuente de datos}
+
+Dentro de todas las fuentes de información que dispone el IESS, se consideran las bases de datos transaccionales que guardan la información de Historia Laboral\footnote{Historia Laboral contiene la información de la vida laboral del afiliado.} (HL) y Prestacional\footnote{La base Prestacional contiene la información del pensionista.} (Pres). Adicionalmente, la información se complementa con los datos proporcionados por el Registro Civil\footnote{Entidad pública que guarda los datos personales de la población ecuatoriana}.
+
+\section{Selección de datos} \label{sec:seleccion_datos}
+
+Para tener información consolidada se hicieron joins entre las tablas de la sección \ref{sec_anex:fuentes_datos} de la parte de anexos. Las tablas resultantes con la información de HL (\textit{data\_afi})  y Pres (\textit{pensi}) tenían un sinnúmero de variables que no estaban involucradas con el problema a abordar, por lo que, solo se seleccionaron aquellos atributos relacionados con el objetivo planteado.
+
+Los atributos que componen a \textit{data\_afi} son los siguientes:
+
+\begin{multicols}{2}  
+    \begin{itemize}
+        \item CEDULA\_COD: Secuencial que identifica al afiliado,\\[-0.75cm]
+        \item ANIO: Corresponde al año del pago de la planilla del afiliado,\\[-0.75cm]
+        \item MES: Corresponde al mes del pago de la planilla del afiliado,
+    \end{itemize}
+    \begin{itemize}  
+        \item CODSEC: Corresponde a la abreviación del sector en el cual trabajó el afiliado,\\[-0.75cm]
+        \item SECTOR: Corresponde al sector en el cual trabajó el afiliado,\\[-0.75cm]
+        \item SALARIO: Corresponde al salario sobre el cual aportó el afiliado,
+    \end{itemize}
+\end{multicols}
+
+La información de \textit{pensi} tiene las siguientes variables:
+
+\begin{multicols}{2}  
+    \begin{itemize}
+        \item CEDULA\_COD: Secuencial que identifica al pensionista,\\[-0.75cm]
+        \item SEXO: Es el sexo del pensionista,\\[-0.75cm]
+        \item FECHA\_NACIMIENTO: Es la fecha de nacimiento del pensionista,\\[-0.75cm]
+        \item FECHA\_MUERTE: Es la fecha de muerte del pensionista,\\[-0.75cm]
+        \item FECHA\_DERECHO: Es la fecha de derecho\footnote{Es la fecha en la cual una persona tiene derecho a solicitar su jubilación} del pensionista,\\[-0.75cm]
+        \item N\_MESES: Es el número de meses trabajados,\\[-0.75cm]
+        \item NUMERO\_IMPOSICIONES: Es el número de imposiciones\footnote{Una imposición corresponde a treinta (30) días laborados},\\[-0.75cm]
+         \item COEFICIENTE\_REAL: Valor del coeficiente\footnote{Es el valor del coeficiente anual de años cumplidos de imposiciones acorde a la \legalcite{ResIESS_CD100}} en el sistema Prestacional,\\[-0.75cm]
+          \item COEFICIENTE\_CALCULADO: Valor del coeficiente calculado en base a HL,\\[-0.75cm]
+          \item ID\_PRESTACION: Corresponde al identificador único de la prestación,\\[-0.75cm]
+    \end{itemize}
+    \begin{itemize}  
+       
+        \item PROMEDIO\_SUELDO\_REAL: Es la base de cálculo\footnote{De acuerdo con la \legalcite{ResIESS_CD100}, para el cómputo de la base de cálculo de la pensión, se procederá a la suma de doce (12) meses de imposiciones consecutivas y ese resultado se dividirá para doce (12). Obteniendo así el promedio mensual de los sueldos o salarios de cada año de imposiciones del afiliado, se seleccionarán los cinco (5) promedio mensuales de mayor cuantía y el resultado de la suma se dividirá para cinco (5)} en el sistema Prestacional,\\[-0.75cm]
+          \item PROMEDIO\_CAL: Estimación de la base de cálculo en base a HL,\\[-0.75cm]
+        \item VALOR\_PENSION: Corresponde a la pensión calculada en el sistema Prestacional,\\[-0.75cm]
+        \item PENSION\_CAL: Es la pensión calculada en función del artículo 13\footnote{La pensión mensual por invalidez o vejez y el subsidio transitorio por incapacidad será igual al resultado de la multiplicación de la Base de Cálculo de la \legalcite{ResIESS_CD100}, por el coeficiente anual de años cumplidos de imposiciones. De los 40 años en adelante se incrementará el 0,0125 por cada año de imposiciones adicionales.} de la \legalcite{ResIESS_CD100},\\[-0.75cm]
+        \item RANGO\_INI\_5MEJ: Corresponde a la fecha máxima de los cinco (5) mejores años de sueldo,\\[-0.75cm]
+        \item RANGO\_FIN\_5MEJ: Corresponde a la fecha mínima de los cinco (5) mejores años de sueldo
+
+    \end{itemize}
+\end{multicols}
+
+La información de \textit{pensi} es dividida en tres grupos, para las jubilaciones de vejez, para las de invalidez y para las de discapacidad. El nombre de estos tres conjuntos de datos serán \textit{data\_vej}, \textit{data\_inv} y \textit{data\_dis}, respectivamente.
+
+
+En lo que sigue, el proceso KDD se divide en dos partes. La primera parte se centra en el proceso de minería de datos para la información utilizada antes de la ejecución de los algoritmos de aprendizaje no supervisado, misma que tendrá con fin etiquetar los salarios y a las personas que generaron alguna aportación fraudulenta. La segunda parte corresponde al preprocesamiento de la información resultante de los algoritmos no supervisados, para su posterior utilización dentro de los modelos de aprendizaje supervisado.
+
+%Tratamiento de valores perdidos--------------------------------------------------------------------
+\section{Tratamiento de valores perdidos} \label{chp:resultados:sec_valores_perdidos}
+
+Los atributos de \textit{data\_afi} no contienen valores perdidos. Por el contrario, \textit{data\_vej}, \textit{data\_inv} y \textit{data\_dis} si tienen variables con valores perdidos. Estas variables son la FECHA\_MUERTE, NUMERO\_IMPOSICIONES y el COEFICIENTE\_CAL. La corrección de sus valores, a excepción de FECHA\_MUERTE\footnote{No se hace un tratamiento de datos faltantes para esta variable debido a que no se la considera en el análisis}, se explica en la sección \ref{subsec:trans_datos_super}.
+
+El principal problema con los datos faltantes  se debe a que la información de historia laboral está registrada en dos sistemas de información, HL y Host\footnote{Sistema de información de los aportes anteriores a la aparición del sistema HL}. Esta estructura afecta directamente al esquema Prestacional y por ende a los pensionistas.
+
+%Tratamiento de outliers----------------------------------------------------------------------------
+\section{Tratamiento de outliers}
+
+La principal variable de interés en \textit{data\_afi} es el SALARIO, misma que permitirá clasificar  si las personas realizaron algún tipo de fraude, con el fin de obtener un mejor beneficio pensional a largo plazo. En este sentido, no se realiza ninguna corrección de sus valores pues es justamente lo que se quiere detectar con los algoritmos de aprendizaje no supervisado.
+
+%Limpieza de datos antes del aprendizaje no supervisado---------------------------------------------
+\section{Limpieza de datos antes del aprendizaje no supervisado}\label{cha_resul:limpieza_no_super}
+
+Como ya se mencionó en la sección \ref{chp:resultados:sec_valores_perdidos}, \textit{data\_afi} no va a presentar problemas con missing values ni tampoco con datos inconsistentes en ningún atributo, debido a que estas novedades ya se resolvieron durante su fase de construcción, cuando se utilizó pl/SQL.
+
+Por otro parte, para corregir la información de \textit{data\_vej}, \textit{data\_inv} y \textit{data\_dis} se considera la información del Registro Civil. Esto debido a que se evidenció que los registros administrativos del IESS están contaminados y son inconsistentes desde su origen\footnote{Inicialmente la generación de planillas (documento que contiene la información del aporte del afiliado) era de forma manual y en documentos físicos, por lo que, una vez que pasaron a digitalizarse arrastraron un centenar de novedades, pues era un proceso manual. Actualmente con HL ya se corrigen gran parte de las novedades.}. Los novedades encontradas eran mal ingreso del sexo (por ejemplo existían categorías con valores de H, M, 1, 2, null, hombre, mujer), fechas de nacimiento y muerte erróneas (existían personas que murieron antes de nacer o nacían por el año 2030) con distintos formatos (por ejemplo dd/mm/yyy, yyyy/dd/mm, mm/dd/yyyy ); y, en muchos casos una alta presencia de missing values.\\
+
+Dar solución a cada problema detectado requiere de un amplio tiempo de análisis y ejecución, además de que se debe realizar una limpieza de datos desde el origen del registro administrativo (información generada desde el 13 de marzo de 1928. Para mayor detalle \href{https://www.iess.gob.ec/en/web/afiliado/noticias?p_p_id=101_INSTANCE_3dH2&p_p_lifecycle=0&p_p_col_id=column-2&p_p_col_count=4&_101_INSTANCE_3dH2_struts_action=\%2Fasset_publisher\%2Fview_content&_101_INSTANCE_3dH2_assetEntryId=2246192&_101_INSTANCE_3dH2_type=content&_101_INSTANCE_3dH2_groupId=10174&_101_INSTANCE_3dH2_urlTitle=iess-celebra-hoy-86-anos-de-servicio-al-pais&redirect=\%2Fen\%2Fweb\%2Fafiliado\%2Fnoticias?mostrarNoticia=1#:~:text=Posteriormente\%2C\%20el\%2025\%20de\%20julio,Ecuatoriano\%20de\%20Seguridad\%20Social\%2DIESS.}{clic aquí}). Por ello, con el fin de reducir los tiempos de análisis se hizo merge por DNI (foreing key) entre las tablas del IESS y el Registro Civil para tener información personal estándar y consistente.
+
+
+Así, el dataset con la información laboral contiene 68.062.270 filas y 12 columnas, \textit{data\_vej} tiene 681.799 filas con 17 columnas, \textit{data\_inv} tiene 48.146 filas y 17 columnas y \textit{data\_dis} tiene 14.662 filas con 17 columnas.
+
+%Transformación de datos antes del aprendizaje no supervisado---------------------------------------
+\section{Transformación de datos antes del aprendizaje no supervisado}\label{subsec:trans_datos_no_super}
+
+Con la finalidad de aliviar el costo computacional, se transforman algunas variables de \textit{data\_afi} en atributos más sencillos y se crean variables que permitirán alcanzar el objetivo planteado. Todo el proceso de transformación de los datos se describe en la sección \ref{sec:limpieza_datos} de la parte de anexos. 
+
+% Si el lector desea tener una experiencia más didáctica con todo el proceso, puede hacerlo visualizando el archivo  \textit{VIU\_clean\_data.ipynb} del \legalcite{CristianVIUTFM}.
+
+De manera general, en lo que sigue se muestran las variables que fueron creadas:
+
+\begin{itemize}
+\item SUELDO: Es la suma de la materia gravada histórica del afiliado hasta el momento de su jubilación, \\[-0.75cm]
+\item APORTE: Es la suma del aporte\footnote{Es la multiplicación entre la materia gravada del afiliado, mes a mes, con el valor de la tasa de aportación. Estos valores se presentan en el cuadro \ref{tab:info_tasa_aport_actuarial} de la sección \ref{sec:limpieza_datos} de la parte de anexos.} del afiliado hasta el momento de su jubilación,\\[-0.75cm]
+\item INTERES\_APORTE: Corresponde a la suma por concepto del interés\footnote{Corresponde a la multiplicación entre la variable APORTE, mes a mes, con la tasa de interés actuarial. Estos valores se presentan en el cuadro \ref{tab:info_tasa_aport_actuarial} de la sección \ref{sec:limpieza_datos} de la parte de anexos.} que generó el aporte del afiliado durante su vida laboral.\\[-0.75cm]
+\item FIN\_HL: Corresponde a la fecha de la última planilla generada por concepto de aportes durante a vida laboral del afiliado\\[-0.75cm]
+\item INI\_HL: Corresponde a la fecha de la primera planilla generada por concepto de aportes durante a vida laboral del afiliado\\[-0.75cm]
+\item MES\_AS: Corresponde al número de meses aportados\footnote{Es el conteo del número de veces no únicos, es decir, si una persona aporta dos o más veces en el mismo mes, se le cuenta dos o más veces} durante la vida laboral del afiliado\\[-0.75cm]
+\item MES\_TU: Corresponde al número de meses distintos\footnote{Es el conteo del número de meses únicos, es decir, si una persona aportó dos o más veces en el mismo mes, solo se le contabiliza como una vez} aportados durante la vida laboral del afiliado,\\[-0.75cm]
+\item  N\_PRI, N\_PUB, N\_IND, N\_VOL\_EX y N\_VOL\_EC: Guardan la información sobre las veces que el afiliado aportó en los sectores Privado, Público, Independiente, Voluntario del Exterior y Voluntario residente del Ecuador, respectivamente.
+
+\end{itemize}
+
+En base a los artículos 2 y 13 de la \legalcite{ ResIESS_CD100}, se procede a estimar la base de cálculo. Para esto, se crean las variables GRUPO\_SEL\footnote{Es una variable indicatriz, que toma los valores de 1, si para un mes x del año Y, el registro se cuenta para la base de cálculo; 0 caso contrario} y BASE\_CAL\footnote{Es el valor estimado de la Base de Cálculo en concordancia con el artículo 2 de la \legalcite{ResIESS_CD100}.}. Adicionalmente, se crean las variables SBU\footnote{Contiene la información del Salario Básico Unificado (SBU) de los trabajadores del Ecuador.}, cuyos valores son los registrados por el \citet{bce_salarios}, INI\_CAL y FIN\_CAL que corresponden a la fecha máxima y mínima de la base de cálculo respectivamente; y, M\_PRI, M\_PUB, M\_IND, M\_VOL\_EX y M\_VOL\_EC que guardarán la información sobre las veces que el afiliado aportó dentro de sus mejores años de aportación en los sectores Privado, Público, Independiente, Voluntario del Exterior y Voluntario residente del Ecuador respectivamente.
+
+El dataset resultante de este proceso de datos se llamará \textit{data\_l}, mismo que será utilizado para la generación de la etiqueta de fraude o no fraude en las aportaciones. El tabulado contiene 62.130.167 filas y 16 atributos, que corresponden a los registros salariales de  442.570 personas. También es necesario crear las variables LS1, SAL\_PROM1, LS2 y SAL\_PROM2, que corresponden al límite superior\footnote{Se define como la suma entre el tercer cuartil + 1,5 veces el rango inter cuartílico.} del bigote del diagrama de caja y sueldo promedio para los salarios históricos y a partir del año 2000\footnote{Debido a la crisis económica por la cual atravesaba el Ecuador, a partir del año 2000 el país cambia los sucres (como moneda nacional)  a dólares estadounidenses como moneda oficial \citet{Ecua_sucre_dolar}} en adelante respectivamente, debido a que Ecuador cambió su moneda, por lo que, las contribuciones realizadas en sucres y su posterior transformación a dólares con la tasa de cambios a esa fecha, eran significativamente menores al valor del SBU del año 2000 y así en adelante. En este sentido, se dará mayor importancia a los valores de las variables LS2 y SAL\_PROM2.
+
+%Aprendizaje no supervisado-------------------------------------------------------------------------
+\section{Aprendizaje no supervisado}
+
+Para la implementación del aprendizaje no supervisado se utiliza la base de datos \textit{data\_l}. Los algoritmos a utilizar son clúster jerárquico, K-Means y DBSCAN, puesto que como se menciona en la sección \ref{sec:trabajos_previos} del capítulo \ref{cap:estado_arte}, los mismos permitirán realizar la búsqueda de los salarios que son atípicos dentro del comportamiento salarial del afiliado.
+
+\subsection{Clúster jerárquico} \label{sec:apr_no_sup_cj}
+
+La selección de este algoritmo en la detección de atípicos se basa en sus ventajas para identificar la estructura inherente de los datos, lo que permite detectar aquellos que no pertenecen a ningún clúster. Así, para  el análisis, solo se considerarán los valores  iguales a uno (1) de la variable GRUPO\_SEL, puesto que, estos registros son los meses y años de los cinco (5) mejores años de sueldo. 
+
+Como la ejecución del algoritmo de clúster jerárquico (CJ) requiere de gran capacidad computacional, se procedió a dividir el dataset \textit{data\_l} en dos grupos. El primer grupo (de nombre \textit{ul} tiene la información de 373.069 personas) solo considera a las personas que durante toda su vida laboral y en un mismo mes realizaron una sola aportación.  El segundo grupo es el complemento del primero (se llamará \textit{ml}) y contiene información de 69.501 personas
+
+Tanto para \textit{ul} como \textit{ml}, se calcula el bigote superior (LS\_MS) de los sueldos de los cinco mejores años a nivel de persona.
+
+Por otra parte, en referencia a la literatura, el utilizar el método single\footnote{Se utiliza el método single pues permite detectar outliers \citep{Hodge2004}} en el algoritmo de clúster jerárquico, permite detectar registros atípicos, por lo cual, está métrica será la que se va a utilizar en el análisis. El código utilizado es la función \textit{cluster\_jerarquico} de la sección \ref{sec:alg_clus_jear} de anexos. La idea general del código es considerar como máximo dos clústeres y dentro de cada uno de ellos realizar el siguiente análisis:
+
+\begin{itemize}
+\item Si el número de clústeres que se forman es mayor a 1, se calcula el centroide de cada clúster y si estos valores son mayores a LS\_MS, entonces todas las observaciones del clúster respectivo serán atípicas, por lo que, se etiquetarán con el valor de 1. Caso contrario, su etiqueta será 0. \\[-0.75cm]
+\item Si el  número de clústeres formados es igual a 1, entonces la etiqueta de todos los registros será -1, valor que se corregirá después.
+\end{itemize}
+
+Los resultados de la función \textit{cluster\_jerarquico} indican que hay 123.850 personas con al menos un sueldo atípico y 52.121 personas cuyos sueldos formaron un solo clúster. A continuación, se presenta un ejemplo de cada caso.
+% \begin{figure}[H]
+% \centering
+% \includegraphics[scale=0.30]{graficos/algoritmo_cj_271_1.png}
+% \caption{\headlinecolor{\underline{Cluster jerárquico: Caso 1}}}
+% \label{fig:algoritmo_cj_271_1}
+% \end{figure}
+% 
+% \begin{figure}[H]
+% \centering
+% \includegraphics[scale=0.30]{graficos/algoritmo_cj_20889867_1.png}
+% \caption{\headlinecolor{\underline{Cluster jerárquico: Caso -1}}}
+% \label{fig:algoritmo_cj_271_1}
+% \end{figure}
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}{0.45\textwidth}
+        \centering
+        \includegraphics[scale=0.25]{graficos/algoritmo_cj_271_1.png}
+        \caption{\headlinecolor{\underline{clúster jerárquico: Caso 1}}}
+        \label{fig:algoritmo_cj_271_1}
+    \end{subfigure}
+    \hspace{0.08\textwidth} % Espacio entre las imágenes
+    \begin{subfigure}{0.45\textwidth}
+        \centering
+        \includegraphics[scale=0.25]{graficos/algoritmo_cj_20889867_1.png}
+        \caption{\headlinecolor{\underline{clúster jerárquico: Caso -1}}}
+        \label{fig:algoritmo_cj_20889867_1} % Corrijo el label
+    \end{subfigure}
+\end{figure}
+
+
+La clasificación anterior debe ser corregida, debido a que hay sueldos que, el algoritmo los clasifica como atípicos, pero que por su naturaleza legal no deberían serlo. Estos valores recaen sobre los sueldos que son iguales al SBU\footnote{En Ecuador, según la \legalcite{LeySS}, la remuneración mínima sobre la que un afiliado aporta es el Salario Básico Unificado (SBU). }.
+
+Por otro lado, una segunda corrección se realiza a los sueldos etiquetados con -1, pues el algoritmo no determinó si en efecto eran o no valores atípicos, por lo que, si el sueldo clasificado como -1  es mayor al mínimo entre LS2 y LS\_M entonces será atípico. 
+
+Una última corrección se hace a los sueldos de \textit{ml}, pues aquí la variable sueldo para un mes es la suma de todas las aportaciones que se realizaron en ese mes, por lo que, existen registros que son la suma de dos, tres, cuatro o más aportaciones. Por lo tanto, si una de las partes que componen la suma es mayor  al mínimo entre LS2 y LS\_MS, entonces ese sueldo sí es atípico.
+
+En este contexto, en la primera columna de la figura \ref{fig:algoritmo_cj_depu} se muestran algunos ejemplos
+de la clasificación dada por el algoritmo de clusterización, y en la segunda,
+las correcciones realizadas a la etiqueta del sueldo en base a lo expuesto con
+anterioridad. 
+
+Adicionalmente, en la figura \ref{fig:algoritmo_cj_depu_anex} de la parte de anexos se muestran más ejemplos.
+
+\newpage
+
+
+\begin{figure}[H]  
+    \centering
+    \hspace{-0.06\textwidth} 
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \includegraphics[scale=0.27]{graficos/algoritmo_cj_8804_2.png} 
+    \end{minipage}
+    \hspace{0.06\textwidth}  %
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \includegraphics[scale=0.27]{graficos/algoritmo_cj_8804_3.png} 
+    \end{minipage}
+    \vfill
+    \hspace{-0.06\textwidth} 
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \includegraphics[scale=0.27]{graficos/algoritmo_cj_3071_2.png} 
+    \end{minipage}
+    \hspace{0.06\textwidth}  %
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \includegraphics[scale=0.27]{graficos/algoritmo_cj_3071_3.png} 
+    \end{minipage}
+   
+  \vfill 
+  \hspace{-0.06\textwidth} 
+  \begin{minipage}{0.45\textwidth}
+        \centering
+        \includegraphics[scale=0.27]{graficos/algoritmo_cj_20857054_2.png}
+    \end{minipage}
+  \hspace{0.06\textwidth}  %
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \includegraphics[scale=0.27]{graficos/algoritmo_cj_20857054_3.png}
+
+    \end{minipage}
+    \vfill  %
+    \hspace{-0.06\textwidth} 
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \includegraphics[scale=0.27]{graficos/algoritmo_cj_10133_2.png}
+    \end{minipage}
+    \hspace{0.06\textwidth}  %
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \includegraphics[scale=0.27]{graficos/algoritmo_cj_10133_3.png}
+    \end{minipage}
+
+\caption{\headlinecolor{\underline{Ejemplos de la aplicación del CJ y su correción }}}
+\label{fig:algoritmo_cj_depu}  
+    
+\end{figure}
+
+Como se observa en la figura anterior, la corrección es adecuada puesto que, si no se la realiza se estarían clasificando como atípicos valores que no lo son.
+
+% Para que el lector pueda tener una visión más detallada y explícita del proceso de ejecución de este algoritmo, puede revisar el script \textit{VIU\_cluster\_jerarquico.ipynb} de \legalcite{CristianVIUTFM}.
+
+
+
+\subsection{K-Means} \label{sec:apr_no_sup_km}
+
+% Otro algoritmo que tiene gran potencial para la estimación de valores atípicos es  K-Means, destacando por su facilidad de implementación y forma de operar. Este método permite identificar observaciones atípicas de forma más óptima al detectar aquellos puntos que se desvían significativamente de los centroides de los clústeres que se han formado. Así, se localizan las anomalías que se alejan de los patrones de los distintos grupos, siendo una herramienta bastante útil para la detección de outliers \citep{wei2019msd}. 
+
+Otro algoritmo que tiene gran potencial para la estimación de valores atípicos es  K-Means, destacando por su facilidad de implementación y forma de operar. En este sentido, se sigue un proceso similar a lo expuesto en la subsección \ref{sec:apr_no_sup_cj} con respecto a las consideraciones para GRUPO\_SEL, data\_l, ul, ml y LS\_MS. La ejecución de este algoritmo requiere de un tiempo muy extenso de procesamiento, debido a la gran cantidad de datos.
+
+Por otra parte, siguiendo lo expresado en la literatura, este algoritmo se ejecutará en cuatro casos, dos casos para los datos con y sin normalización y otros dos casos para los datos con y sin registros duplicados. Esto tiene la finalidad de mejorar la velocidad del procesamiento del algoritmo de K-Means \citep{scikit_learn_kmeans} y \citep{AdventuresinMachineLearning}.
+
+Con la finalidad de realizar un ejercicio didáctico que estima el número de clústeres que agruparán los salarios de cada persona, se utiliza la función \textit{num\_cluster} del código de la sección \ref{sec:alg_kmean} de anexos. Los casos serán abreviados por \textit{ATI\_KM\_M1} para datos con duplicados y sin normalización,  \textit{ATI\_KM\_M2}  para datos sin duplicados y sin normalización,  \textit{ATI\_KM\_M3} para datos con duplicados y  con normalizados; y, \textit{ATI\_KM\_M4} para datos sin duplicados y con normalizados
+
+Los métodos para estimar el número de clústeres, aplicados a los datos de \textit{ul} y \textit{ml}, son del codo y  silueta. Los resultados promedios son:
+
+Para \textit{ul}
+\begin{itemize}
+\item Caso \textit{ATI\_KM\_M1}.- Método del codo da 2,053 clúster y la silueta 3,665 clúster,\\[-0.75cm]
+\item Caso \textit{ATI\_KM\_M2}.- Método del codo da 1,677 clúster y la silueta 2,066 clúster,\\[-0.75cm]
+\item Caso \textit{ATI\_KM\_M3}.- Método del codo da 2,134 clúster y la silueta 3,558 clúster,\\[-0.75cm]
+\item Caso \textit{ATI\_KM\_M4}.- Método del codo da 1,677 clúster y la silueta 2,065 clúster
+\end{itemize}
+
+Para \textit{ml}
+\begin{itemize}
+\item Caso \textit{ATI\_KM\_M1}.- Método del codo da 2,223 clúster y la silueta 3,626 clúster,\\[-0.75cm]
+\item Caso \textit{ATI\_KM\_M2}.- Método del codo da 2,067 clúster y la silueta 2,532 clúster,\\[-0.75cm]
+\item Caso \textit{ATI\_KM\_M3}.- Método del codo da 2,233 clúster y la silueta 3,622 clúster,\\[-0.75cm]
+\item Caso \textit{ATI\_KM\_M4}.- Método del codo da 2,066 clúster y la silueta 2,529 clúster
+\end{itemize}
+
+Se observa que el número de clústeres promedio oscila entre 2 y 3 aproximadamente, lo que refuerza la decisión de que la clasificación solo se tendrán en cuenta dos (2) clústeres, puesto que, se hace el supuesto que los salarios se agrupen en dos clústeres, con y sin atípicos. La función que se utilizará es \textit{clasificacion\_kmean} del código de la sección \ref{sec:alg_kmean} de anexos. Es importante notar que, con la finalidad de mejorar la elección inicial de los centroides se considera el método \textit{K-Means++}.
+
+Tras aplicar \textit{clasificacion\_kmean}, se tiene que si el número de clústeres\footnote{Independientemente de elegir que formen dos clústeres, el algoritmo generaba uno o dos clúster, lo cual dependía del comportamiento de los datos} generados es mayor a 1, se calcula el centroide de cada clúster y si estos valores son mayores a LS\_MS entonces todas las observaciones del clúster respectivo serán atípicas (su etiqueta será 1). Por otra parte, si el número de clústeres es igual a 1, entonces la etiqueta será igual a -2, puesto que solo se formó un único clúster. Ahora bien, al momento  de considerar o no los valores repetidos, la mayoría de los casos se comportaban como lo que ya se expuso anteriormente. Sin embargo, existían casos en donde al eliminar los duplicados, el promedio de los cinco mejores años era un único valor, por lo cual, cuando se daban estos casos la etiqueta era -1. Los resultados se presentan en el cuadro \ref{tab:resul_kmean_pre}, cuyos valores hacen mención a las personas que al menos tienen un sueldo que corresponde a una categoría  de los cuatro casos anteriores.
+
+\begingroup\scriptsize
+\setlength\extrarowheight{1pt}
+\setlength\aboverulesep{-0.5pt}
+\setlength\belowrulesep{0pt}
+\fontsize{9}{9}\selectfont
+\begin{longtable}[H]{r|r|r|r|r|r|r|r|r|r|r|r|r } 
+\caption{\headlinecolor{\underline{Resultados previos de aplicar K-Means}}}
+\label{tab:resul_kmean_pre}\\[-0.3cm]
+
+\toprule
+\rowcolor{naranja}
+& \multicolumn{12}{c}{\textbf{Clasificación}} \\ \hline
+
+data
+& \multicolumn{3}{c|}{\textit{ATI\_KM\_M1}}
+& \multicolumn{3}{c|}{\textit{ATI\_KM\_M2}}
+& \multicolumn{3}{c|}{\textit{ATI\_KM\_M3}}
+& \multicolumn{3}{c}{\textit{ATI\_KM\_M4}}\\ \cmidrule{2-13}
+
+& -2 & -1 & 1
+& -2 & -1 & 1
+& -2 & -1 & 1
+& -2 & -1 & 1 \\\hline
+
+
+\midrule
+\endfirsthead
+
+\toprule
+\rowcolor{naranja}
+& \multicolumn{12}{c}{\textbf{Clasificación}} \\ \hline
+
+data
+& \multicolumn{3}{c|}{\textit{ATI\_KM\_M1}}
+& \multicolumn{3}{c|}{\textit{ATI\_KM\_M2}}
+& \multicolumn{3}{c|}{\textit{ATI\_KM\_M3}}
+& \multicolumn{3}{c}{\textit{ATI\_KM\_M4}}\\ \cmidrule{2-13}
+
+& -2 & -1 & 1
+& -2 & -1 & 1
+& -2 & -1 & 1
+& -2 & -1 & 1 \\\hline
+
+
+\midrule
+\endhead
+
+  \hline \multicolumn{13}{r}{continúa...} \\
+  \endfoot
+
+  \bottomrule
+  %\caption*{\scriptsize \textbf{Fuente}: Datos administrativos del IESS.\\\textbf{Elaborado}: DAIE.}
+  \endlastfoot
+  
+  ul 
+  & 39.768 & 0 & 64.785 
+  & 0      & 39.768 & 37.479
+  & 39.768 & 0 & 64.795
+  & 39.768 & 0 & 37.388 \\\hline
+  
+  ml 
+  & 244 & 0 & 21.635
+  & 0      & 244 & 12.984
+  & 244 & 0 & 21.639
+  &244 & 0 & 12.962 \\
+
+
+\end{longtable}
+\endgroup
+
+Del cuadro anterior, prácticamente en los cuatro casos se tiene la misma clasificación en cantidad de personas, la diferencia solo radica en el tiempo de procesamiento de los resultados, puesto que, cuando se trabajaba con los datos sin normalizar y con duplicados, el tiempo de ejecución era muy elevado. Así mismo, como bien se mencionó en la subsección anterior, tras la aplicación de K-Means es necesario hacer las mismas correcciones. 
+
+Una vez realizadas las correcciones respectivas, se procede a crear una variable que considere a los cuatro casos y determine la etiqueta. La regla  considerará el valor  máximo de los cuatro casos. Así, si tres de los casos para un sueldo determinado tienen el valor 0  y en el otro tiene el valor de 1, entonces la etiqueta será 1 (atípico). El atributo que contiene esta información es ATI\_KM.
+
+Algunos ejemplos con los resultados de la implementación de K-Means se muestran en la figura \ref{fig:algoritmo_km_depu}.
+
+\begin{figure}[H]  
+    \centering
+    \hspace{-0.06\textwidth} 
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \includegraphics[scale=0.27]{graficos/algoritmo_km_8804_1.png} 
+    \end{minipage}
+    \hspace{0.06\textwidth} 
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \includegraphics[scale=0.27]{graficos/algoritmo_km_3071_1.png} 
+    \end{minipage}
+    \vfill  %
+    \hspace{-0.06\textwidth} 
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \includegraphics[scale=0.27]{graficos/algoritmo_km_20857054_1.png} 
+    \end{minipage}
+    \hspace{0.06\textwidth} 
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \includegraphics[scale=0.27]{graficos/algoritmo_km_10133_1.png} 
+    \end{minipage}
+   
+   \vfill 
+   \hspace{-0.06\textwidth} 
+  \begin{minipage}{0.45\textwidth}
+        \centering
+        \includegraphics[scale=0.27]{graficos/algoritmo_km_20013447_1.png} 
+    \end{minipage}
+    \hspace{0.06\textwidth} 
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \includegraphics[scale=0.27]{graficos/algoritmo_km_3608_1.png}  
+        
+    \end{minipage}
+    \vfill
+    \hspace{-0.06\textwidth} 
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \includegraphics[scale=0.27]{graficos/algoritmo_km_135752_1.png}  
+    \end{minipage}
+     \hspace{0.06\textwidth} 
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \includegraphics[scale=0.27]{graficos/algoritmo_km_154409_1.png}  
+    \end{minipage}
+
+\caption{\headlinecolor{\underline{Resultados de la aplicación de K-Means }}}
+\label{fig:algoritmo_km_depu}  
+    
+\end{figure}
+
+% Si el lector desea tener una visión más detallada del proceso que se siguió, puede revisar el script \textit{VIU\_k\_means.ipynb} de \legalcite{CristianVIUTFM}.
+
+
+
+
+\subsection{DBSCAN} \label{sec:apr_no_sup_db}
+
+% Debido a las desventajas que tiene K-Means al momento de agrupar datos que tienen diferentes tamaños, densidades y forma (forma no globular) se opta por implementar el algoritmo DBSCAN, pues el mismo tiene la capacidad de identificar clúster con formas arbitrarias y densidades variables, lo que ayuda a la detección de valores atípicos en datos no homogéneos \citep{boucher2020outlier}. De igual forma, este método al basarse en la densidad de los datos es más preciso en la identificación de atípicos locales significativos, debido a su flexibilidad al identificarlos en áreas de menor densidad y su capacidad de manejar el ruido \citep{smiti2020outlier}.
+
+Debido a las limitaciones de K-Means para agrupar datos con tamaños, densidades y formas no globulares, se opta por implementar el algoritmo DBSCAN. De este modo, se retoma el proceso descrito en Clúster Jerárquico en cuanto a las consideraciones para GRUPO\_SEL, data\_l, ul, ml y LS\_MS; y, se procede a determinar los parámetros (MinPts y Eps) que el algoritmo necesita. La función \textit{valor\_epsilon} de la sección \ref{sec:alg_dbscan} de la parte de anexos toma los K-ésimos vecinos más cercanos en un rango de 1 a 12\footnote{Se considera este valor debido a que se espera que los 12 meses de aporte de un grupo de los mejores años tengan el mismo comportamiento} (MinPts) y determina el valor de \textit{épsilon} (Eps) a través del método del codo. Si todas las distancias dadas por los k-ésimos vecinos tienen el mismo valor, entonces el valor de \textit{épsilon} es cero, puesto que, el valor del sueldo es el mismo para los mejores años de sueldo. Con la función \textit{esti\_eps\_out} de anexos, para un rango de valores de Eps y el mismo valor de MinPts, se aplica DBSCAN y se obtiene el número de clústeres y de atípicos para esos parámetros.
+
+El proceso anterior genera varias combinaciones de resultados, por lo que, con la función \textit{cal\_eps\_out} de la sección \ref{sec:alg_dbscan} de anexos, se determinan los valores de Eps y MinPts  con los cuales se va a trabajar, haciendo la consideración de que la selección abarque la mayor cantidad de valores atípicos con la menor cantidad de clúster. Bajo este criterio se tiene que en \textit{ul} existen 316.552 personas con algún registro de sueldo atípico y en \textit{ml} existen 68.596 personas que tienen al menos una aportación atípica.
+
+Nuevamente es necesario hacer las correcciones indicadas en los dos métodos anteriores, por lo que, una vez realizadas las mismas, en la figura \ref{fig:algoritmo_db_depu} se muestran los resultados obtenidos. La primera columna de la figura \ref{fig:algoritmo_db_depu} tiene la clasificación dada por DBSCAN y en la segunda, las correcciones realizadas a la etiqueta.
+% Para que el lector pueda tener una visión más detallada del proceso, puede revisar el script \textit{VIU\_dbscan.ipynb} de \legalcite{CristianVIUTFM}.
+
+\begin{figure}[H]  
+    \centering
+    \hspace{-0.06\textwidth} 
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \includegraphics[scale=0.27]{graficos/algoritmo_db_8804_1.png} 
+    \end{minipage}
+    \hspace{0.06\textwidth} 
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \includegraphics[scale=0.27]{graficos/algoritmo_db_ati_8804_1.png} 
+    \end{minipage}
+  
+\end{figure}
+
+\begin{figure}[H]  
+    \centering
+    \hspace{-0.06\textwidth} 
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \includegraphics[scale=0.27]{graficos/algoritmo_db_20013447_1.png} 
+    \end{minipage}
+    \hspace{0.06\textwidth} 
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \includegraphics[scale=0.27]{graficos/algoritmo_db_ati_20013447_1.png} 
+    \end{minipage}
+    \vfill  %
+    \hspace{-0.06\textwidth} 
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \includegraphics[scale=0.27]{graficos/algoritmo_db_3608_1.png} 
+    \end{minipage}
+    \hspace{0.06\textwidth} 
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \includegraphics[scale=0.27]{graficos/algoritmo_db_ati_3608_1.png} 
+    \end{minipage}
+   
+   \vfill 
+    \hspace{-0.06\textwidth} 
+  \begin{minipage}{0.45\textwidth}
+        \centering
+        \includegraphics[scale=0.27]{graficos/algoritmo_db_135752_1.png} 
+    \end{minipage}
+     \hspace{0.06\textwidth} 
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \includegraphics[scale=0.27]{graficos/algoritmo_db_ati_135752_1.png}  
+        
+    \end{minipage}
+    \vfill  %
+    \hspace{-0.06\textwidth} 
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \includegraphics[scale=0.27]{graficos/algoritmo_db_154409_1.png}  
+    \end{minipage}
+    \hspace{0.06\textwidth} 
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \includegraphics[scale=0.27]{graficos/algoritmo_db_ati_154409_1.png}  
+    \end{minipage}
+
+\caption{\headlinecolor{\underline{Ejemplos de la clasificación de DBSCAN y su corrección}}}
+\label{fig:algoritmo_db_depu}  
+    
+\end{figure}
+
+
+% \begin{figure}[H]  
+%     \centering
+%     \hspace{-0.06\textwidth} 
+%     \begin{minipage}{0.45\textwidth}
+%         \centering
+%         \includegraphics[scale=0.27]{graficos/algoritmo_db_8804_1.png} 
+%     \end{minipage}
+%     \hspace{0.06\textwidth} 
+%     \begin{minipage}{0.45\textwidth}
+%         \centering
+%         \includegraphics[scale=0.17]{graficos/algoritmo_db_3071_1.png} 
+%     \end{minipage}
+%     \vfill  %
+%     \begin{minipage}{0.45\textwidth}
+%         \centering
+%         \includegraphics[scale=0.17]{graficos/algoritmo_db_20857054_1.png} 
+%     \end{minipage}
+%     \hfill  %
+%     \begin{minipage}{0.35\textwidth}
+%         \centering
+%         \includegraphics[scale=0.17]{graficos/algoritmo_db_10133_1.png} 
+%     \end{minipage}
+%    
+%    \vfill 
+%   \begin{minipage}{0.35\textwidth}
+%         \centering
+%         \includegraphics[scale=0.17]{graficos/algoritmo_db_20013447_1.png} 
+%     \end{minipage}
+%      \hfill  %
+%     \begin{minipage}{0.35\textwidth}
+%         \centering
+%         \includegraphics[scale=0.19]{graficos/algoritmo_db_3608_1.png}  
+%         
+%     \end{minipage}
+%     \hfill  %
+%     \begin{minipage}{0.35\textwidth}
+%         \centering
+%         \includegraphics[scale=0.17]{graficos/algoritmo_db_135752_1.png}  
+%     \end{minipage}
+%     \hfill  %
+%     \begin{minipage}{0.35\textwidth}
+%         \centering
+%         \includegraphics[scale=0.17]{graficos/algoritmo_db_154409_1.png}  
+%     \end{minipage}
+% 
+% \caption{\headlinecolor{\underline{Ejemplos de la clasificación de DBSCAN }}}
+% \label{fig:algoritmo_db_clasi}  
+%  \vfill
+%     \begin{minipage}{0.35\textwidth}
+%         \centering
+%         \includegraphics[scale=0.17]{graficos/algoritmo_db_ati_8804_1.png} 
+%     \end{minipage}
+%     \hfill  %
+%     \begin{minipage}{0.35\textwidth}
+%         \centering
+%         \includegraphics[scale=0.17]{graficos/algoritmo_db_ati_3071_1.png} 
+%     \end{minipage}
+%     \hfill  %
+%     \begin{minipage}{0.35\textwidth}
+%         \centering
+%         \includegraphics[scale=0.17]{graficos/algoritmo_db_ati_20857054_1.png} 
+%     \end{minipage}
+%     \hfill  %
+%     \begin{minipage}{0.35\textwidth}
+%         \centering
+%         \includegraphics[scale=0.17]{graficos/algoritmo_db_ati_10133_1.png} 
+%     \end{minipage}
+%    
+%    \vfill 
+%   \begin{minipage}{0.35\textwidth}
+%         \centering
+%         \includegraphics[scale=0.17]{graficos/algoritmo_db_ati_20013447_1.png} 
+%     \end{minipage}
+%      \hfill  %
+%     \begin{minipage}{0.35\textwidth}
+%         \centering
+%         \includegraphics[scale=0.17]{graficos/algoritmo_db_ati_3608_1.png}  
+%         
+%     \end{minipage}
+%     \hfill  %
+%     \begin{minipage}{0.35\textwidth}
+%         \centering
+%         \includegraphics[scale=0.17]{graficos/algoritmo_db_ati_135752_1.png}  
+%     \end{minipage}
+%     \hfill  %
+%     \begin{minipage}{0.35\textwidth}
+%         \centering
+%         \includegraphics[scale=0.17]{graficos/algoritmo_db_ati_154409_1.png}  
+%     \end{minipage}
+% 
+% \caption{\headlinecolor{\underline{Ejemplos de correción a la clasificación de DBSCAN}}}
+% \label{fig:algoritmo_db_depu}  
+%     
+% \end{figure}
+
+
+
+
+%Limpieza de datos antes del aprendizaje supervisado------------------------------------------------
+\section{Limpieza de datos antes del aprendizaje supervisado}\label{cha_resul:limpieza_super}
+
+Una vez obtenida la etiqueta de atípico (1) o no atípico (0) de los sueldos dentro de los cinco mejores años, mediante la aplicación de los algoritmos de las secciones \ref{sec:apr_no_sup_cj}, \ref{sec:apr_no_sup_km} y \ref{sec:apr_no_sup_db}, se une en un único conjunto de datos a las variables que serán empleadas en el aprendizaje supervisado. Los atributos son básicamente los mismos que \textit{data\_l}, pero se incluyen las variables ATI\_CJ\footnote{Guarda los resultados de la implementación de  Clúster Jerárquico}, ATI\_KM\footnote{Guarda los resultados de la implementación de K-Means} y ATI\_DB\footnote{Guarda los resultados de la implementación de DBSCAN}, cuyos valores son 1 o 0 para identificar si los sueldos son atípicos o no respectivamente. La clasificación y el número de personas que tienen al menos un sueldo atípico con los tres algoritmos es muy similar (su valor es aproximadamente 171.158 personas).
+
+Es importante tener conocimiento de cuanta es la afectación en el cálculo de la pensión de las personas que hicieron fraude, por lo que se crean las variables BCS\_CJ, BCS\_KM y BCS\_DB que corresponden al cálculo de la variable BASE\_CAL de la subsección \ref{subsec:trans_datos_no_super}, pero sin considerar las aportaciones que fueron clasificadas como atípicas, dadas por los tres métodos no supervisados respectivamente. En los casos cuando el valor de estas variables es nulo, debido a que todos los sueldos de esa persona fueron clasificados como atípicos, se les asigna el valor mínimo entre LS2 y LS\_MS. El dataset que contiene toda esta información se llama \textit{data\_ati}.
+
+% Ejemplos de lo casos en los que todos los sueldos de los mejores años fueron clasificados como atípicos se presentan en la figura \ref{fig:sueldos_unicos_atipicos}; y, claramente se observa que no necesariamente las aportaciones fraudulentas se dan en los últimos cincos años de la vida laboral del afiliado.
+% 
+% Por otra parte, en la figura \ref{fig:base_calculo_sin_atipicos} se muestran ejemplos de cómo es la afectación en la base de cálculo si no se consideran estas aportaciones atípicas. La primera fila de la figura muestra los casos en los que la razón entre la base de cálculo original sobre la corrección de la misma  es menor a diez (10) veces, la segunda fila corresponde a si la razón está entre 10 y 20 veces, la tercera fila si la razón está entre 20 y 30 veces y la última fila si la razón es mayor a 30 veces. Gráficamente se puede observar la forma en que distan estas dos bases de cálculo, valores que en algunos casos son afectados por un único valor atípico o grupos de atípicos que van desde 5 o hasta la totalidad de registros.
+% 
+% \begin{landscape}
+% 
+% \begin{figure}[H]  
+%     \centering
+%     \begin{minipage}{0.35\textwidth}
+%         \centering
+%         \includegraphics[scale=0.17]{graficos/algoritmo_ATI_CJ_29231_1.png} 
+%     \end{minipage}
+%     \hfill  %
+%     \begin{minipage}{0.35\textwidth}
+%         \centering
+%         \includegraphics[scale=0.17]{graficos/algoritmo_ATI_CJ_9886_1.png} 
+%     \end{minipage}
+%     \hfill  %
+%     \begin{minipage}{0.35\textwidth}
+%         \centering
+%         \includegraphics[scale=0.17]{graficos/algoritmo_ATI_CJ_18457_1.png} 
+%     \end{minipage}
+%     \hfill  %
+%     \begin{minipage}{0.35\textwidth}
+%         \centering
+%         \includegraphics[scale=0.17]{graficos/algoritmo_ATI_CJ_18587_1.png} 
+%     \end{minipage}
+%    
+%    \vfill 
+%   \begin{minipage}{0.35\textwidth}
+%         \centering
+%         \includegraphics[scale=0.17]{graficos/algoritmo_ATI_CJ_28952_1.png} 
+%     \end{minipage}
+%      \hfill  %
+%     \begin{minipage}{0.35\textwidth}
+%         \centering
+%         \includegraphics[scale=0.19]{graficos/algoritmo_ATI_KM_32065_1.png}  
+%         
+%     \end{minipage}
+%     \hfill  %
+%     \begin{minipage}{0.35\textwidth}
+%         \centering
+%         \includegraphics[scale=0.17]{graficos/algoritmo_ATI_KM_77614_1.png}  
+%     \end{minipage}
+%     \hfill  %
+%     \begin{minipage}{0.35\textwidth}
+%         \centering
+%         \includegraphics[scale=0.17]{graficos/algoritmo_ATI_KM_82208_1.png}  
+%     \end{minipage}
+% 
+%  \vfill
+%     \begin{minipage}{0.35\textwidth}
+%         \centering
+%         \includegraphics[scale=0.17]{graficos/algoritmo_ATI_KM_91427_1.png} 
+%     \end{minipage}
+%     \hfill  %
+%     \begin{minipage}{0.35\textwidth}
+%         \centering
+%         \includegraphics[scale=0.17]{graficos/algoritmo_ATI_DB_6037_1.png} 
+%     \end{minipage}
+%     \hfill  %
+%     \begin{minipage}{0.35\textwidth}
+%         \centering
+%         \includegraphics[scale=0.17]{graficos/algoritmo_ATI_DB_8851_1.png} 
+%     \end{minipage}
+%     \hfill  %
+%     \begin{minipage}{0.35\textwidth}
+%         \centering
+%         \includegraphics[scale=0.17]{graficos/algoritmo_ATI_DB_9315_1.png} 
+%     \end{minipage}
+%    
+%    \vfill 
+%   \begin{minipage}{0.35\textwidth}
+%         \centering
+%         \includegraphics[scale=0.17]{graficos/algoritmo_ATI_DB_20856876_1.png} 
+%     \end{minipage}
+%      \hfill  %
+%     \begin{minipage}{0.35\textwidth}
+%         \centering
+%         \includegraphics[scale=0.17]{graficos/algoritmo_ATI_DB_20878541_1.png}  
+%         
+%     \end{minipage}
+%     \hfill  %
+%     \begin{minipage}{0.35\textwidth}
+%         \centering
+%         \includegraphics[scale=0.17]{graficos/algoritmo_ATI_DB_20889867_1.png}  
+%     \end{minipage}
+%     \hfill  %
+%     \begin{minipage}{0.35\textwidth}
+%         \centering
+%         \includegraphics[scale=0.17]{graficos/algoritmo_ATI_DB_177653_1.png}  
+%     \end{minipage}
+% \caption{\headlinecolor{\underline{Ejemplos de sueldos cuyos valores son todos atípicos}}}
+% \label{fig:sueldos_unicos_atipicos}  
+% 
+%     
+% \end{figure}
+% 
+% 
+% \end{landscape}
+
+
+% \begin{landscape}
+% 
+% \begin{figure}[H]  
+%     \centering
+%     \begin{minipage}{0.35\textwidth}
+%         \centering
+%         \includegraphics[scale=0.17]{graficos/base_sin_ati_CJ_4382_1.png} 
+%     \end{minipage}
+%     \hfill  %
+%     \begin{minipage}{0.35\textwidth}
+%         \centering
+%         \includegraphics[scale=0.17]{graficos/base_sin_ati_CJ_26246_1.png} 
+%     \end{minipage}
+%     \hfill  %
+%     \begin{minipage}{0.35\textwidth}
+%         \centering
+%         \includegraphics[scale=0.17]{graficos/base_sin_ati_CJ_2141271_1.png} 
+%     \end{minipage}
+%     \hfill  %
+%     \begin{minipage}{0.35\textwidth}
+%         \centering
+%         \includegraphics[scale=0.17]{graficos/base_sin_ati_CJ_10351659_1.png} 
+%     \end{minipage}
+%    
+%    \vfill 
+%   \begin{minipage}{0.35\textwidth}
+%         \centering
+%         \includegraphics[scale=0.17]{graficos/base_sin_ati_CJ_1844848_1.png} 
+%     \end{minipage}
+%      \hfill  %
+%     \begin{minipage}{0.35\textwidth}
+%         \centering
+%         \includegraphics[scale=0.19]{graficos/base_sin_ati_CJ_5287079_1.png}  
+%         
+%     \end{minipage}
+%     \hfill  %
+%     \begin{minipage}{0.35\textwidth}
+%         \centering
+%         \includegraphics[scale=0.17]{graficos/base_sin_ati_CJ_5414462_1.png}  
+%     \end{minipage}
+%     \hfill  %
+%     \begin{minipage}{0.35\textwidth}
+%         \centering
+%         \includegraphics[scale=0.17]{graficos/base_sin_ati_CJ_13290239_1.png}  
+%     \end{minipage}
+% 
+%  \vfill
+%     \begin{minipage}{0.35\textwidth}
+%         \centering
+%         \includegraphics[scale=0.17]{graficos/base_sin_ati_CJ_5579649_1.png} 
+%     \end{minipage}
+%     \hfill  %
+%     \begin{minipage}{0.35\textwidth}
+%         \centering
+%         \includegraphics[scale=0.17]{graficos/base_sin_ati_CJ_16132025_1.png} 
+%     \end{minipage}
+%     \hfill  %
+%     \begin{minipage}{0.35\textwidth}
+%         \centering
+%         \includegraphics[scale=0.17]{graficos/base_sin_ati_CJ_16445975_1.png} 
+%     \end{minipage}
+%     \hfill  %
+%     \begin{minipage}{0.35\textwidth}
+%         \centering
+%         \includegraphics[scale=0.17]{graficos/base_sin_ati_CJ_16508727_1.png} 
+%     \end{minipage}
+%    
+%    \vfill 
+%   \begin{minipage}{0.35\textwidth}
+%         \centering
+%         \includegraphics[scale=0.17]{graficos/base_sin_ati_CJ_110456_1.png} 
+%     \end{minipage}
+%      \hfill  %
+%     \begin{minipage}{0.35\textwidth}
+%         \centering
+%         \includegraphics[scale=0.17]{graficos/base_sin_ati_CJ_172889_1.png}  
+%         
+%     \end{minipage}
+%     \hfill  %
+%     \begin{minipage}{0.35\textwidth}
+%         \centering
+%         \includegraphics[scale=0.17]{graficos/base_sin_ati_CJ_16135176_1.png}  
+%     \end{minipage}
+%     \hfill  %
+%     \begin{minipage}{0.35\textwidth}
+%         \centering
+%         \includegraphics[scale=0.17]{graficos/base_sin_ati_CJ_13161696_1.png}  
+%     \end{minipage}
+% 
+% \caption{\headlinecolor{\underline{Ejemplos de la correción a la base de calculo}}}
+% \label{fig:base_calculo_sin_atipicos}  
+%     
+% \end{figure}
+% 
+% 
+% \end{landscape}
+
+Adicionalmente, en \textit{data\_ati} se crean las variables CJ, KM y DB, cuyos valores corresponden al valor máximo de las etiquetas de las clasificaciones dadas por los algoritmos no supervisados, es decir, si un persona tiene al menos un sueldo con etiqueta atípica, entonces esa persona será etiquetada como fraudulenta o atípica. 
+
+El proceso de limpieza de datos a la información de los pensionistas como etapa inicial se rige a lo indicado en la sección \ref{cha_resul:limpieza_no_super}. Como la estructura de los datos para los pensionistas de vejez, invalidez y discapacidad es la misma, a continuación se indica la limpieza de datos complementaria, pero solo para los pensionistas de vejez (el dataset se llamará \textit{vej}). El proceso a seguir es el mismo para los otros pensionistas.
+
+En primera instancia, en \textit{vej} se crea una variable adicional que es \textit{IMPO\_2023}, misma que contiene la información del número de imposiciones calculadas de los pensionistas a diciembre del 2023. Una vez analizada la información de \textit{vej}, se observan varios registros duplicados, lo cual es erróneo, porque, solo debería existir un único registro prestacional para cada pensionista. Es por ello que, se crea la función \textit{pens\_correc} de la sección \ref{sec:limpieza_datos_super} de anexos para corregir esta situación. La idea es escoger el primer registro duplicado e ir eliminando los posibles casos, en función de la completitud de la información.
+
+%Transformación de datos antes del aprendizaje supervisado------------------------------------------
+\section{Transformación de datos antes del aprendizaje supervisado}\label{subsec:trans_datos_super}
+
+Los resultados de la sección anterior, para el caso de los pensionistas, deben ser corregidos, porque, se evidencia que la información de NUMERO\_IMPOSICIONES y COEFICIENTE\_CAL presentan valores nulos o tienen valor cero, lo cual es imposible, puesto que según la \legalcite{ResIESS_CD100} tanto el número de imposiciones como el valor del coeficiente son fundamentales en el cálculo de la pensión. Las afectaciones que tiene la variable  COEFICIENTE\_CAL están directamente correlacionadas con el valor de NUMERO\_IMPOSICIONES. En este sentido, se realizaron las siguientes correcciones:
+
+\begin{itemize}
+\item Cuando el número de imposiciones es cero, se lo completa con los valores de IMPO\_2023,\\[-0.75cm]
+\item Cuando el número de imposiciones es cero y el valor de IMPO\_2023 también es cero\footnote{Debido a las limitaciones del acceso a al información, solo se consideró la información del HL y no la del Host. En este sentido, si el valor es cero es porque todas las aportaciones de esa persona están en el sistema Host}, se completa la información del número de imposiciones con los valores de N\_MESES\footnote{Esta aproximación tiene sentido, debido a que el número de meses trabajados por una persona es muy similar al cálculo de su número de imposiciones.},\\[-0.75cm]
+%\item Cuando el valor del coeficiente calculado es menor a 60, se le agrega 0,4375,\\[-0.75cm]
+\item Cuando el valor del coeficiente calculado tiene un valor nulo y los valores de COEFICIENTE\_REAL, no son nulos, entonces al coeficiente calculado se le agrega el valor de COEFICIENTE\_REAL
+\end{itemize}
+
+De \textit{data\_ati} se escogen las variables CEDULA\_COD, INI\_CAL, FIN\_CAL, BASE\_CAL, LS1, SAL\_PROM1, LS2, SAL\_PROM2, LS\_MS, BCS\_CJ, BCS\_KM, BCS\_DB, CJ, KM y DB; para luego hacer un left join\footnote{Se da prioridad a la información de \textit{vej} y se busca en la tabla \textit{data\_ati}} con los resultados de los datos de los pensionistas de vejez.
+
+Se realiza el mismo proceso para los pensionistas de discapacidad e invalidez y se construye una única tabla (de nombre \textit{pen}), haciendo una concatenación por filas con la información  de todos los pensionistas. Esta tabla resultante contiene 686.479 filas con 33 columnas. Sin embargo, dados los problemas mostrados en NUMERO\_IMPOSICIONES y COEFICIENTE\_CAL, en \textit{pen} existen registros de pensionistas cuya información no se encuentra en \textit{data\_ati}, por lo cual, solo se trabajará con los registros que son diferentes de nulo en la variable BASE\_CAL. Esto da como consecuencia que se trabaje con 442.979 filas y 33 columnas. En un paso adicional, a este conjunto de datos se le agregan las variables MES\_AS, MES\_TU, SUELDO, APORTE, INTERES\_APORTE, N\_PRI, N\_PUB, N\_IND, N\_VOL\_EX, N\_VOL\_EC, M\_PRI, M\_PUB, M\_IND, M\_VOL\_EX y M\_VOL\_EC descritas en la sección \ref{subsec:trans_datos_no_super}.
+
+Por otra parte, se crean las variables PEN\_CJ, PEN\_KM y PEN\_DB que corresponden al cálculo de las pensiones corregidas siguiendo lo determinado en el artículo 13 de la \legalcite{ResIESS_CD100}, es decir, se multiplica la base de cálculo corregida por la variable COEFICIENTE\_CAL. 
+
+% El proceso de forma más detallada se encuentra en el script \textit{VIU\_analisis\_atipicos.ipynb} de \legalcite{CristianVIUTFM}.
+
+Ahora bien, si LS2 o SAL\_PROM2 son nulos se los completa con los valores de LS1 y SAL\_PROM1, respectivamente. Por otra parte, también es necesaria la creación de las variables EDAD\_J\footnote{Corresponde a la diferencia entre la fecha del derecho para poder solicitar la jubilación con la fecha de nacimiento del afiliado}, TIEM\_T\footnote{Corresponde a la diferencia entre la fecha actual con la fecha de nacimiento de la persona} y TIEM\_MA\footnote{Corresponde a la diferencia entre las variables RANGO\_INI\_5MEJ y RANGO\_FIN\_5MEJ, dividido para 30}. Como parte complementaria, a las variables del número de veces que el afiliado aportó históricamente en los diferentes sectores se la divide para la variable MES\_AS y se re-escala a las variables del número de veces que el afiliado aportó en sus cinco mejores años de sueldo, sobre el número de aportaciones totales en los cinco mejores años de sueldo. Estás variables tendrán el mismo nombre de las variables del número de aportaciones en los diferentes sectores y en sus respectivos casos, concatenado con el término \textit{\_P}.
+
+El aspecto más importante a tener en cuenta es la creación de la variable objetivo (de nombre \textit{TARGET}), misma que contiene la etiqueta de si el pensionista realizó o no una aportación fraudulenta. La construcción de esta variable considera a todos los valores de CJ, KM y DB. Si todos los valores  son 1 a la vez entonces el pensionista será etiquetado como fraude, pero si uno de los valores no es 1 entonces no será etiquetado como fraude. 
+
+Así, los atributos con los cuales se va a implementar la parte del aprendizaje supervisado son SEXO, NUMERO\_IMPOSICIONES, BASE\_CAL, N\_MESES, PRES, LS2, SAL\_PROM2, LS\_MS, TIEM\_T, TIEM\_MA, MES\_AS, SUELDO, N\_PRI\_P, N\_PUB\_P,N\_IND\_P, N\_VOL\_EC\_P, N\_VOL\_EX\_P, M\_PRI\_P, M\_PUB\_P, M\_IND\_P, M\_VOL\_EC\_P, M\_VOL\_EX\_P, EDAD\_J y TARGET.  Toda esta información se guardará en el dataset de nombre \textit{data}.
+
+
+% Un mayor detalle del proceso de los dos últimos párrafos de esta sección se presenta en \textit{VIU\_ml\_preparacion\_data.ipynb} de \legalcite{CristianVIUTFM}.
+\newpage
+
+%Aprendizaje supervisado----------------------------------------------------------------------------
+\section{Aprendizaje supervisado}
+
+Previo aplicación de los algoritmos de aprendizaje supervisado es fundamental la determinación de los atributos que son los más significativos para el análisis y así evitar la maldición de la dimensionalidad. Esto tiene como fin evitar considerar a las variables que no aportan nada en la predicción de los modelos y hacen que el tiempo de ejecución de los algoritmos sea demasiado elevado. En este sentido se plantean dos enfoques, uno considerando las nuevas características dadas por el análisis de componentes principales (PCA) y el otro teniendo en cuenta los atributos dados tras la utilización de algoritmos de aprendizaje no supervisado.
+
+\subsection{Selección de características dadas por el PCA}\label{sub_apre_cara_acp}
+
+% Como se menciona en \citet{tesis_guatemal_epn} y \citet{wiskott2009pca}, el objetivo del ACP es, dadas $X_1, X_2, \ldots, X_n$ variables, hallar $n$ nuevas variables que son combinaciones lineales de las variables iniciales, de tal manera que $r$ ($r<n$) recojan la mayor cantidad de información posible de los atributos $X_1, X_2, \ldots, X_n$. Sin embargo, antes de la utilización del ACP es necesario, como se menciona en \citet{tesis_guatemal_epn}, ``verificar si la correlación entre las variables analizadas es lo suficientemente grande como para poder justificar la factorización de la matriz de coeficientes de correlación'' (p. 90). Esto se logra mediante el Test de Esfericidad de Bartlett y el Índice Kaiser-Meyer-Olkin (KMO). 
+
+
+El resultado de aplicar el Test de Esfericidad de Bartlett da un p-valor menor a 0, lo cual permite concluir que estadísticamente las variables están correlacionadas. No obstante, el valor de KMO es 0,4720, lo cual da señales que no es factible\footnote{En \citet{tesis_guatemal_epn} se manifiesta que si los valores del KMO están entre 0,5 y 1 es apropiado aplicar un PCA} realizar un PCA. En este sentido, se tienen los suficientes argumentos para no realizar el PCA. No obstante, con la finalidad de comparar los resultados que nos darán los métodos supervisados y el PCA (solo se considerará a las componentes del PCA para el caso del algoritmo de KNN) se procede a implementarlo.
+
+La primera parte es dividir a los datos de \textit{data} en \textit{train} y \textit{test}. En este punto y en lo que sigue se considera que el 20\%\footnote{En concordancia con \textcite{8717766}} de los datos serán para el conjunto de test. Luego, se normalizan los atributos de train, con excepción de las variables SEXO\footnote{Sus valores son 0 para hombres y 1 para mujer}, PRES\footnote{Sus valores son 0 para pensionistas de discapacidad, 1 para pensionistas de invalidez y 2 para pensionistas de vejez}, N\_PRI\_P, N\_PUB\_P, N\_IND\_P, N\_VOL\_EC\_P, N\_VOL\_EX\_P, M\_PRI\_P, M\_PUB\_P, M\_IND\_P, M\_VOL\_EC\_P y M\_VOL\_EX\_P, debido a que ya estan en escala de 0 a 1. Los parámetros resultantes de la normalización en el \textit{train} se utilizan para normalizar los datos de \textit{test}.
+
+Tras la aplicación del PCA para el conjunto de datos de train, en la octava componente se recoge el 92,60\% de la información de las variables originales. Es así que, se utiliza este número de componentes y se proyectan los datos normalizados del train y del test en las mismas. Estas variables tomarán los nombres PC1, PC2, PC3, PC4, PC5, PC6, PC7 y PC8.
+
+Ahora bien, se repite el mismo proceso descrito anteriormente, pero con un balanceo de clases. Lo que se hace es que, posterior al proceso de normalización de train y test, se genera un balanceo de clases con el método \textit{SMOTEENN}\footnote{En concordancia con \textcite{8123782}}. Se aplica el PCA y se tiene que en la octava componente se recoge el 93,12\% de la información de las variables originales. Después, se proyectan los datos del train y test normalizados y balanceados en estas nuevas componentes principales. El nombre de las variables será PC1\_bal, PC2\_bal, PC3\_bal, PC4\_bal, PC5\_bal, PC6\_bal, PC7\_bal y PC8\_bal.
+
+Como se expuso anteriormente, esta parte es solo didáctica, por lo que estas variables solo serán consideradas en la implementación del algoritmo \textit{KNN}.
+
+%Selección de características dadas por métodos no supervisados-------------------------------------
+\subsection{Selección de características dadas por métodos no supervisados}\label{sub_apre_cara_no_super}
+
+Con ayuda de las técnicas del aprendizaje no supervisado se van a seleccionar las características más significativas para posteriormente utilizarlas en los algoritmos de aprendizaje supervisado. Lo primero a realizar es la normalización de \textit{data}, sin los atributos SEXO, PRES, N\_PRI\_P, N\_PUB\_P, N\_IND\_P, N\_VOL\_EC\_P, N\_VOL\_EX\_P, M\_PRI\_P, M\_PUB\_P, M\_IND\_P, M\_VOL\_EC\_P y M\_VOL\_EX\_P, siguiendo la justificación del párrafo tres de la subsección \ref{sub_apre_cara_acp}. Luego se aplica el proceso MinMaxScaler() a la transpuesta de la data resultante (el resultado se llamará \textit{features\_norm}).
+
+El primer enfoque es aplicar a \textit{features\_norm} el algoritmo de clúster jerárquico con el método \textit{single}. El resultado se presenta en la figura \ref{fig:dendograma_sel_atri_cj}.
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.35]{graficos/dendograma_sel_carac_cj.png}
+\caption{\headlinecolor{\underline{Dendograma para la selección de características}}}
+\label{fig:dendograma_sel_atri_cj}
+\end{figure}
+
+Visualmente se realiza el corte en 100 y se generan 12 agrupaciones. La asignación de las variables en sus respectivos clúster es la siguiente:
+
+\begin{itemize}
+\item Clúster 1: SEXO y BASE\_CAL,\\[-0.75cm]
+\item Clúster 2: SAL\_PROM2,\\[-0.75cm]
+\item Clúster 3: MES\_AS,\\[-0.75cm]
+\item Clúster 4: N\_IND\_P y M\_IND\_P,\\[-0.75cm]
+\item Clúster 5: NUMERO\_IMPOSICIONES, N\_MESES, PRES, LS2 y TIEM\_MA,\\[-0.75cm]
+\item Clúster 6: N\_PUB\_P y M\_PUB\_P,\\[-0.75cm]
+\item Clúster 7: N\_VOL\_EC\_P, N\_VOL\_EX\_P, M\_PRI\_P, M\_VOL\_EC\_P, M\_VOL\_EX\_P y EDAD\_J,\\[-0.75cm]
+\item Clúster 8: TARGET,\\[-0.75cm]
+\item Clúster 9: SUELDO,\\[-0.75cm]
+\item Clúster 10: LS\_MS,\\[-0.75cm]
+\item Clúster 11: TIEM\_T,\\[-0.75cm]
+\item Clúster 12: N\_PRI\_P
+\end{itemize}
+
+El segundo enfoque es utilizar DBSCAN para identificar ouliters y con ello detectar a las características que son diferentes a las demás y que nos ayudarán en el problema de la maldición de la dimensionalidad. Así, con un valor de $MinPts = 3$\footnote{Debido a su simplicidad de implementación y ya que ha demostrado obtener buenos resultados}, el valor de Eps a utilizar es de 198.1671. Estos se puede apreciar en la  figura \ref{fig:sele_dbscan_atributos}.
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.40]{graficos/valor_epsilon_feacture_norm.png}
+\caption{\headlinecolor{\underline{Estimación del valor de épsilon para la selección de atributos}}}
+\label{fig:sele_dbscan_atributos}
+\end{figure}
+
+Se amplía el rango de búsqueda para el valor de épsilon y se elige un valor igual a 64, que genera 2 clúster con 17 atributos atípicos. El detalle de esta clasificación se presenta a continuación:
+
+\begin{itemize}
+\item Clúster 1: NUMERO\_IMPOSICIONES, PRES y TIEM\_MA
+\item Clúster 2: N\_VOL\_EX\_P, M\_PRI\_P, M\_VOL\_EX\_P y EDAD\_J,
+\item Atípicos: SEXO, BASE\_CAL, N\_MESES, LS2, SAL\_PROM2, LS\_MS, TIEM\_T, MES\_AS, SUELDO, N\_PRI\_P, N\_PUB\_P, N\_IND\_P, N\_VOL\_EC\_P, M\_PUB\_P, M\_IND\_P, M\_VOL\_EC\_P y TARGET
+\end{itemize}
+
+En base a los resultados de la selección de características dadas por clúster jerárquico y DBSCAN, las variables a considerar en lo que sigue son BASE\_CAL, LS2, SAL\_PROM2, LS\_MS, SUELDO, SEXO, PRES, N\_PRI\_P, N\_PUB\_P, N\_IND\_P, N\_VOL\_EC\_P, N\_VOL\_EX\_P, M\_PRI\_P, M\_PUB\_P, M\_IND\_P, M\_VOL\_EC\_P, M\_VOL\_EX\_P, NUMERO\_IMPOSICIONES, TIEM\_T y TARGET. Por facilidad, al grupo de estas variables se llamará \textit{variables\_ml} y las mismas serán utilizadas en la implementación de los siguientes algoritmos de aprendizaje supervisado.
+
+% Para mayor detalle de todo el proceso realizado, el lector puede revisar el script \textit{VIU\_ml\_knn.ipynb} de \legalcite{CristianVIUTFM}.
+
+%KNN------------------------------------------------------------------------------------------------
+\subsection{KNN}
+
+% El KNN es un método no paramétrico que clasifica los puntos según su distancia a los datos de entrenamiento, en donde, a los nuevos puntos se les asigna la etiqueta más común entre sus vecinos. Entre sus ventajas se encuentran su facilidad de implementación, su flexibilidad cuando no se conoce la estructura subyacente del modelo, eficacia especialmente cuando hay una buena distribución de datos, y su robustez al ruido ya que permite modificaciones con el fin de disminuir la influencia de valores atípicos. Es necesario tener en cuenta que su rendimiento depende de la elección tanto del número de vecinos como del peso usado \citep{syriopoulos2023knn}.
+
+Utilizando los códigos provistos en la materia de Machine Learning y las variables PC1, PC2, PC3, PC4, PC5, PC6, PC7 y PC8, se procede a parametrizar la elección KNeighbors en el rango de 1 a 30 y los pesos (ponderaciones) serán dados por \textit{uniform} y \textit{distance}. Se ejecuta validación cruzada y como medida de éxito se elige el accuracy. El código utilizado se presenta en la sección \ref{sec_anexos:knn} de anexos.
+
+Los resultados de esta implementación se muestran en la figura \ref{fig:algoritmo_knn_acp}, por lo que, la elección de los parámetros es  29 vecinos y  ponderación igual a \textit{distance}.
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.35]{graficos/algortimo_knn_acp.png}
+\caption{\headlinecolor{\underline{Parámetros para KNN con PCA}}}
+\label{fig:algoritmo_knn_acp}
+\end{figure}
+
+En este estudio, las medidas claves para la evaluación del modelo serán tanto la sensibilidad como el accuracy. Esto debido a que el accuracy proporciona una visión general de qué tan bien el modelo clasifica los datos globalmente. No obstante, es necesario tener en cuenta los casos en los que los valores atípicos se han clasificado incorrectamente como no atípicos, lo que se obtiene restando a 1 la sensibilidad. Así, la detección de valores atípicos es crucial, ya que la falta de identificación de uno de ellos puede generar más problemas que la mala clasificación de un valor no atípico como atípico. Por lo que, no detectar un atípico representa no identificar a una persona que ha cometido fraude, lo cual puede resultar en grandes pérdidas para el Seguro IVM. Por el contrario, si una persona que no ha cometido fraude es identificada como un valor atípico, únicamente se realizará una investigación más profunda, sin que esto resulte en pérdidas económicas.
+
+Tomando en cuenta lo descrito anteriormente, una vez entrenado el modelo con sus parámetros óptimos, el acurracy en los datos del \textit{test} es 0,7483230571176909 y en los datos de \textit{train} es 1. Para contrastar este resultado y evaluar el modelo, se obtiene la matriz de confusión de las predicciones realizadas en los datos de testeo. Los resultados se encuentran en el cuadro \ref{tab:mc_knn_1} y en la figura \ref{fig:matriz_conf_knn_acp} de los anexos.
+
+\begin{table}[h!]
+\centering
+\caption{\headlinecolor{\underline{Matriz de confusión para KNN con PCA}}}\vspace{-0.3cm}
+\label{tab:mc_knn_1}
+\resizebox{0.5\textwidth}{!}{
+\begin{tabular}{|c|c|c|c|}
+\hline
+\cellcolor[HTML]{E65013} \textbf{Matriz de confusión} & \multicolumn{3}{c|}{\cellcolor[HTML]{FFA074} \textbf{Predicción}} \\ \hline
+\multirow{2}{*}{\cellcolor[HTML]{FFA074}} & & \textbf{No atípico} & \textbf{Atípico} \\
+\cline{2-4}
+\cellcolor[HTML]{FFA074} \textbf{Real}
+ & \textbf{No atípico}  & 50557 & 7576 \\ \cline{2-4}
+\cellcolor[HTML]{FFA074} & \textbf{Atípico} & 14711 & 15710 \\ \hline
+\end{tabular}
+}
+\end{table}
+
+Del cuadro \ref{tab:mc_knn_1} se pueden extraer ciertas métricas, a parte del accuracy, que  ayudan a establecer la capacidad de predicción del modelo, es decir, ver si su funcionamiento es eficiente o no. Es así que, para este modelo, la sensibilidad es  \Sexpr{15710/(15710+14711)}, la especificidad toma el valor de \Sexpr{50557/(50557+7576)} y finalmente, la precisión es de \Sexpr{15710/(15710+7576)}.
+
+Al repetir todo el proceso anterior para las variables PC1\_bal, PC2\_bal, PC3\_bal, PC4\_bal, PC5\_bal, PC6\_bal, PC7\_bal y PC8\_bal, se tiene que los parámetros óptimos son 2 vecinos y la ponderación es dada por \textit{distance}. Estos resultados se muestran en la figura \ref{fig:algoritmo_knn_bal_acp}.
+
+Una vez entrenado el modelo con estos parámetros, se ha obtenido que el acurracy del mismo al ser aplicado en los datos del \textit{test} es de 0.7128644668789665, mientras que al aplicarse en los datos de \textit{train} es 1.
+
+Para contrastar este resultado y evaluar el modelo, se obtiene la matriz de confusión que se presenta en el cuadro \ref{tab:mc_knn_2} y en la figura \ref{fig:matriz_conf_knn_bal_acp} en anexos.
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.35]{graficos/algortimo_knn_bal_acp.png}
+\caption{\headlinecolor{\underline{Parámetros para KNN con balanceo y PCA}}}
+\label{fig:algoritmo_knn_bal_acp}
+\end{figure}
+
+
+
+\begin{table}[H]
+\centering
+\caption{\headlinecolor{\underline{Matriz de confusión para KNN con balanceo y PCA}}}\vspace{-0.3cm}
+\label{tab:mc_knn_2}
+\resizebox{0.5\textwidth}{!}{
+\begin{tabular}{|c|c|c|c|}
+\hline
+\cellcolor[HTML]{E65013} \textbf{Matriz de confusión} & \multicolumn{3}{c|}{\cellcolor[HTML]{FFA074} \textbf{Predicción}} \\ \hline
+\multirow{2}{*}{\cellcolor[HTML]{FFA074}} & & \textbf{No atípico} & \textbf{Atípico} \\
+\cline{2-4}
+\cellcolor[HTML]{FFA074} \textbf{Real}
+ & \textbf{No atípico}  & 41160 & 16973 \\ \cline{2-4}
+\cellcolor[HTML]{FFA074} & \textbf{Atípico} & 8454 & 21967 \\ \hline
+\end{tabular}
+}
+
+\end{table}
+
+De estos resultados del cuadro anterior se tiene que este modelo tiene sensibilidad de \Sexpr{21967/(21967+8454)}, especificidad  de \Sexpr{41160/(41160+16973)} y precisión  de \Sexpr{21967/(21967+16973)}.
+
+Al considerar las variables descritas en el último párrafo de subsección \ref{sub_apre_cara_no_super} y realizar lo descrito en el párrafo tres de la subsección \ref{sub_apre_cara_acp}, los parámetros óptimos para este caso son 17 vecinos con ponderación \textit{distance} (Véase la figura \ref{fig:algoritmo_knn_ml}).
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.40]{graficos/algortimo_knn_ml.png}
+\caption{\headlinecolor{\underline{Parámetros para el KNN y \textit{variables\_ml}}}}
+\label{fig:algoritmo_knn_ml}
+\end{figure}
+
+Una vez entrenado el modelo con estos parámetros, se ha obtenido que el acurracy del mismo al ser aplicado en los datos del \textit{test} es de 0.7128644668789665, mientras que al aplicarse en los datos de \textit{train} es 1. La matriz de confusión se presenta en el cuadro \ref{tab:mc_knn_3} y en la figura \ref{fig:matriz_conf_knn_ml} de anexos.
+
+\begin{table}[h!]
+\centering
+\caption{\headlinecolor{\underline{Matriz de confusión para  KNN y \textit{variables\_ml} }}}\vspace{-0.3cm}
+\label{tab:mc_knn_3}
+\resizebox{0.5\textwidth}{!}{
+\begin{tabular}{|c|c|c|c|}
+\hline
+\cellcolor[HTML]{E65013} \textbf{Matriz de confusión} & \multicolumn{3}{c|}{\cellcolor[HTML]{FFA074} \textbf{Predicción}} \\ \hline
+\multirow{2}{*}{\cellcolor[HTML]{FFA074}} & & \textbf{No atípico} & \textbf{Atípico} \\
+\cline{2-4}
+\cellcolor[HTML]{FFA074} \textbf{Real}
+ & \textbf{No atípico}  & 51203 & 6930 \\ \cline{2-4}
+\cellcolor[HTML]{FFA074} & \textbf{Atípico} & 13376 & 17045 \\ \hline
+\end{tabular}
+}
+
+\end{table}
+
+A partir de los valores del cuadro anterior, el modelo tiene sensibilidad de \Sexpr{17045/(17045+13376)}, especificidad de \Sexpr{51203/(51203+6930)} y precisión de \Sexpr{17045/(17045+6930)}.
+
+Si a las variables descritas en el último párrafo de subsección \ref{sub_apre_cara_no_super} se les realiza además de lo descrito en el párrafo tres de la subsección \ref{sub_apre_cara_acp}, un balanceo de clases, los resultados de aplicar la validación cruzada con parametrización de KNeighbors en el rango de 1 a 30 y pesos en \textit{uniform} y \textit{distance}, dan como parámetros óptimos a 18 vecinos con ponderación \textit{distance}. Esto se muestra en la figura \ref{fig:algoritmo_knn_bal_ml}.
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.35]{graficos/algortimo_knn_bal_ml.jpeg}
+\caption{\headlinecolor{\underline{Parámetros para KNN con balanceo y \textit{variables\_ml}}}}
+\label{fig:algoritmo_knn_bal_ml}
+\end{figure}
+
+Una vez entrenado el modelo con estos parámetros, se ha obtenido que el acurracy del mismo al ser aplicado en los datos del \textit{test} es de 0.7272624613230345, mientras que en los datos de \textit{train} es 1. Para contrastar este resultado y evaluar el modelo se obtiene la matriz de confusión que se encuentra en el cuadro \ref{tab:mc_knn_4} y en la figura \ref{fig:matriz_conf_knn_bal_acp} de anexos.
+
+\begin{table}[h!]
+\centering
+\caption{\headlinecolor{\underline{Matriz de confusión para KNN y \textit{variables\_ml} }}}\vspace{-0.3cm}
+\label{tab:mc_knn_4}
+\resizebox{0.5\textwidth}{!}{
+\begin{tabular}{|c|c|c|c|}
+\hline
+\cellcolor[HTML]{E65013} \textbf{Matriz de confusión} & \multicolumn{3}{c|}{\cellcolor[HTML]{FFA074} \textbf{Predicción}} \\ \hline
+\multirow{2}{*}{\cellcolor[HTML]{FFA074}} & & \textbf{No atípico} & \textbf{Atípico} \\
+\cline{2-4}
+\cellcolor[HTML]{FFA074} \textbf{Real}
+ & \textbf{No atípico}  & 40929 & 17841 \\ \cline{2-4}
+\cellcolor[HTML]{FFA074} & \textbf{Atípico} & 6311 & 24110 \\ \hline
+\end{tabular}
+}
+
+\end{table}
+
+A partir de estos resultados del cuadro \ref{tab:mc_knn_4} se tiene que este modelo tiene sensibilidad de \Sexpr{24110/(24110+6311)}, especificidad  de \Sexpr{40929/(40929+17841)} y finalmente, precisión  de \Sexpr{24110/(24110+17841)}.
+
+% 
+% Para ver con mayor detalle  todo el proceso realizado en este algoritmo vaya a \textit{VIU\_ml\_knn.ipynb} de \legalcite{CristianVIUTFM}.
+
+%Árboles y conjuntos de modelos---------------------------------------------------------------------
+\subsection{Árboles y conjuntos de modelos}\label{sub_seccion:arboles}
+
+Como se expuso anteriormente, la ejecución de KNN usando las componentes principales obtenidas del PCA, solo se realizó con fines didácticos, por lo que, de aquí en adelante solo se va a trabajar con \textit{variables\_ml}. Es así que, al implementar un único árbol de decisión realizando validación cruzada con número de fold igual a 10 , \textit{gini} como  criterio de evaluación de las divisiones, profundidad del árbol en el rango de 2 a 100 y al accuracy como medida de éxito, da como resultado que la profundidad del árbol sea 14, tal como se puede observar en la figura \ref{fig:algortimo_arbol_simple}.
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.35]{graficos/algortimo_arbol_simple.png}
+\caption{\headlinecolor{\underline{Estimación de la profundidad  de un árbol simple}}}
+\label{fig:algortimo_arbol_simple}
+\end{figure}
+
+Entrenando el modelo con estos parámetros, se tiene que el acurracy en los datos del \textit{train} y \textit{test} son de 0.8432114867764302 y 0.7994218217133049, respectivamente. Para contrastar este resultado y evaluar el modelo se genera la matriz de confusión, misma que se encuentra en el cuadro \ref{tab:arbol_simple} y en la figura \ref{fig:confusion_matrix_algoritmo_arbol_simple} de anexos.
+
+\begin{table}[H]
+\centering
+\caption{\headlinecolor{\underline{Matriz de confusión para árboles simples}}}\vspace{-0.3cm}
+\label{tab:arbol_simple}
+\resizebox{0.5\textwidth}{!}{
+\begin{tabular}{|c|c|c|c|}
+\hline
+\cellcolor[HTML]{E65013} \textbf{Matriz de confusión} & \multicolumn{3}{c|}{\cellcolor[HTML]{FFA074} \textbf{Predicción}} \\ \hline
+\multirow{2}{*}{\cellcolor[HTML]{FFA074}} &  & \textbf{No atípico} & \textbf{Atípico} \\ \cline{2-4}
+\cellcolor[HTML]{FFA074} \textbf{Real}   & \textbf{No atípico}  & 50158 & 7975 \\ \cline{2-4}
+\cellcolor[HTML]{FFA074}                  & \textbf{Atípico}     & 9787 & 20634 \\ \hline
+\end{tabular}
+}
+
+\end{table}
+
+A partir de estos resultados se obtiene que este modelo tiene sensibilidad de \Sexpr{20634/(20634+9787)}, especificidad de \Sexpr{50158/(50158+7975)} y precisión  de \Sexpr{20634/(20634+7975)}.
+
+Las cuatro variables más significativas son BASE\_CAL con el 28,07\%, LS2 con el 19,46\%, LS\_MS con el 16,21\% y M\_PRI\_P con el 14,52\%.
+
+Se repite todo el proceso anterior, pero con un previo balanceo de clases, con lo cual, de la figura \ref{fig:algortimo_arbol_simple_bal} se tiene que la profundidad del árbol es 15.
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.35]{graficos/algortimo_arbol_simple_bal.png}
+\caption{\headlinecolor{\underline{Estimación de la profundidad de un árbol con datos balanceados}}}
+\label{fig:algortimo_arbol_simple_bal}
+\end{figure}
+
+Una vez que el modelo ha sido entrenado con estos parámetros, se tiene que el acurracy  en los datos del \textit{train} y \textit{test} son de 0.964122359796067 y 0.7735167242586445, respectivamente. Para contrastar este resultado y evaluar el modelo se elabora la matriz de confusión que se encuentra en el cuadro \ref{tab:arbol_simple_bal} y en la figura \ref{fig:confusion_matrix_algoritmo_arbol_simple_bal} de anexos.
+
+\begin{table}[H]
+\centering
+\caption{\headlinecolor{\underline{Matriz de confusión para árboles simples balanceados}}}\vspace{-0.3cm}
+\label{tab:arbol_simple_bal}
+\resizebox{0.5\textwidth}{!}{
+\begin{tabular}{|c|c|c|c|}
+\hline
+\cellcolor[HTML]{E65013} \textbf{Matriz de confusión} & \multicolumn{3}{c|}{\cellcolor[HTML]{FFA074} \textbf{Predicción}} \\ \hline
+\multirow{2}{*}{\cellcolor[HTML]{FFA074}} &  & \textbf{No atípico} & \textbf{Atípico} \\ \cline{2-4}
+\cellcolor[HTML]{FFA074} \textbf{Real}   & \textbf{No atípico}  & 43944 & 14189 \\ \cline{2-4}
+\cellcolor[HTML]{FFA074}                  & \textbf{Atípico}     & 5867 & 24554 \\ \hline
+\end{tabular}
+}
+
+\end{table}
+
+A partir de estos resultados se obtiene que este modelo tiene sensibilidad de \Sexpr{24554/(24554 + 5867)}, especificidad de \Sexpr{43944/(43944+14189)} y precisión  de \Sexpr{24554/(24554+14189)}.
+
+Las cuatro variables más importantes son BASE\_CAL con 33,23\%, LS2 con el 18,98\%, N\_PRI\_P con el 18,21\% y SAL\_PROM2 con el 6,98\%.
+
+% Para ver con mayor detalle  todo el proceso realizado en este algoritmo vaya a \textit{VIU\_ml\_arboles.ipynb} de \legalcite{CristianVIUTFM}.
+
+Generalmente, los árboles individuales son propensos a generar overfitting, lo que provoca que su eficacia sea muy poca al momento de predecir el comportamiento de los datos que no fueron considerados en la etapa de entrenamiento. Es así que, con el fin de evitar el sobreajuste se plantea un conjunto de modelos, para así tener un mejor rendimiento predictivo.  Los métodos de muestreo que se van a considerar son \textit{RandomForestClassifier} (es el algoritmo  Random Forest utilizado para clasificación), \textit{AdaBoostClassifier} (Boosting) y \textit{GradientBoostingClassifier} (Boosting). Para la selección de los parámetros se utilizará la optimización de hiperparámetros con las herramientas de \textit{RandomizedSearch} (estrategia para Random Search) y \textit{GridSearch} (estrategia para Grid Search).
+
+\subsubsection{Random Forest método RandomForestClassifier}
+
+La primera parte es la selección  aleatoria de los parámetros mediante RandomizedSearchCV. El rango de estos valores y los parámetros resultantes se presenta en la subsección \ref{sec_anexos:conjunto_modelos_RandomForestClassifier} de anexos. Con los valores resultantes se entrena el modelo y el accuracy del \textit{train} y \textit{test} son  0.9013257447433205 y 0.825089775730063, respectivamente. Para contrastar este resultado y evaluar el modelo se obtiene la matriz de confusión que describe en el cuadro \ref{tab:random_forest_randoms} y en la figura \ref{fig:confusion_matrix_algoritmo_RandomForestClassifier_random_search} de  anexos.
+
+% Los parámetros resultantes de este proceso son:
+% 
+% \begin{lstlisting}[style=pythonstyle]
+% RandomForestClassifier(class_weight='balanced_subsample', criterion='log_loss',
+%                        max_features=None, min_samples_leaf=8,
+%                        min_samples_split=24, n_estimators=32, n_jobs=-1,
+%                        random_state=8)
+% \end{lstlisting}
+
+
+
+\begin{table}[H]
+\centering
+\caption{\headlinecolor{\underline{Matriz de confusión de RandomForestClassifier-RandomizedSearchCV}}}\vspace{-0.3cm}
+\label{tab:random_forest_randoms}
+\resizebox{0.5\textwidth}{!}{
+\begin{tabular}{|c|c|c|c|}
+\hline
+\cellcolor[HTML]{E65013} \textbf{Matriz de confusión} & \multicolumn{3}{c|}{\cellcolor[HTML]{FFA074} \textbf{Predicción}} \\ \hline
+\multirow{2}{*}{\cellcolor[HTML]{FFA074}} &  & \textbf{No atípico} & \textbf{Atípico} \\ \cline{2-4}
+\cellcolor[HTML]{FFA074} \textbf{Real}   & \textbf{No atípico}  & 48142 & 9991 \\ \cline{2-4}
+\cellcolor[HTML]{FFA074}                  & \textbf{Atípico}     & 5498 & 24923 \\ \hline
+\end{tabular}
+}
+
+\end{table}
+
+A partir de estos resultados, este modelo tiene sensibilidad de \Sexpr{24923/(24923 + 5498)}, especificidad de \Sexpr{48142/(48142+9991)} y precisión  de \Sexpr{24923/(24923+9991)}.
+
+Las cuatro variables más importantes son BASE\_CAL con el 26,53\%,  LS2 con 17,07\%, LS\_MS con el 16,30\% y SAL\_PROM2 con el 8,91\%.
+
+Ahora bien, a los parámetros resultantes de RandomizedSearchCV, se les realiza la búsqueda en cuadrícula mediante GridSearchCV. El rango de valores y los resultados se presenta en la subsección \ref{sec_anexos:conjunto_modelos_RandomForestClassifier} de anexos. Se entrena el modelo con esos parámetros y el accuracy del \textit{train} y \textit{test} son 0.9275357409038553 y 0.8278903268062425, respectivamente. Para contrastar este resultado y evaluar el modelo, se obtiene la matriz de confusión que se encuentra en el cuadro \ref{tab:random_forest_randomg} y en la figura \ref{fig:confusion_matrix_algoritmo_RandomForestClassifier_grid_search} de anexos.
+
+% Los resultados son:
+% 
+% \begin{lstlisting}[style=pythonstyle]
+% RandomForestClassifier(class_weight='balanced_subsample', criterion='log_loss',
+%                        max_features=None, min_samples_leaf=4,
+%                        min_samples_split=20, n_estimators=30, n_jobs=-1,
+%                        random_state=8)
+% \end{lstlisting}
+
+
+
+\begin{table}[H]
+\centering
+\caption{\headlinecolor{\underline{Matriz de confusión de RandomForestClassifier con GridSearchCV}}}\vspace{-0.3cm}
+\label{tab:random_forest_randomg}
+\resizebox{0.5\textwidth}{!}{
+\begin{tabular}{|c|c|c|c|}
+\hline
+\cellcolor[HTML]{E65013} \textbf{Matriz de confusión} & \multicolumn{3}{c|}{\cellcolor[HTML]{FFA074} \textbf{Predicción}} \\ \hline
+\multirow{2}{*}{\cellcolor[HTML]{FFA074}} &  & \textbf{No atípico} & \textbf{Atípico} \\ \cline{2-4}
+\cellcolor[HTML]{FFA074} \textbf{Real}   & \textbf{No atípico}  & 48828 & 9305 \\ \cline{2-4}
+\cellcolor[HTML]{FFA074}                  & \textbf{Atípico}     & 5936 & 24485 \\ \hline
+\end{tabular}
+}
+
+\end{table}
+
+A partir de estos resultados se obtiene que este modelo tiene sensibilidad de \Sexpr{24485/(24485 + 5936)}, especificidad de \Sexpr{48828/(48828+9305)} y precisión  de \Sexpr{24485/(24485+9305)}.
+
+Las cuatro variables más importantes son BASE\_CAL con el 25,50\%, LS2 con el 16,66\%, LS\_MS con el 16,12\%) y SAL\_PROM2 con el 9,22\%.
+
+%AdaBoostClassifier---------------------------------------------------------------------------------
+\subsubsection{Boosting método AdaBoostClassifier}
+
+La búsqueda aleatoria de los parámetros requeridos por este método se presenta en la subsección \ref{sec_anexos:conjunto_modelos_AdaBoostClassifier} de anexos. Con estos valores se entrena el modelo y el accuracy en \textit{train} y \textit{test} es 1 y 0.7768480249339386, respectivamente. Para contrastar este resultado y evaluar el modelo, se obtiene la matriz de confusión que se encuentra en el cuadro \ref{tab:AdaBoost_random_search} y en la figura \ref{fig:confusion_matrix_algoritmo_AdaBoostClassifier_random_search} de anexos.
+
+% \begin{lstlisting}[style=pythonstyle]
+% AdaBoostClassifier(algorithm='SAMME',
+%                    estimator=DecisionTreeClassifier(random_state=8),
+%                    learning_rate=0.01, n_estimators=4, random_state=8)
+% \end{lstlisting}
+
+\begin{table}[H]
+\centering
+\caption{\headlinecolor{\underline{Matriz de confusión de AdaBoostClassifier con RandomizedSearchCV}}}\vspace{-0.3cm}
+\label{tab:AdaBoost_random_search}
+\resizebox{0.5\textwidth}{!}{
+\begin{tabular}{|c|c|c|c|}
+\hline
+\cellcolor[HTML]{E65013} \textbf{Matriz de confusión} & \multicolumn{3}{c|}{\cellcolor[HTML]{FFA074} \textbf{Predicción}} \\ \hline
+\multirow{2}{*}{\cellcolor[HTML]{FFA074}} &  & \textbf{No atípico} & \textbf{Atípico} \\ \cline{2-4}
+\cellcolor[HTML]{FFA074} \textbf{Real}   & \textbf{No atípico}  & 48268 & 9865 \\ \cline{2-4}
+\cellcolor[HTML]{FFA074}                  & \textbf{Atípico}     & 9896 & 20525 \\ \hline
+\end{tabular}
+}
+
+\end{table}
+
+En base a estos resultados, el modelo tiene sensibilidad de \Sexpr{20525/(20525 + 9896)}, especificidad de \Sexpr{48268/(48268+9865)} y precisión  de \Sexpr{20525/(20525+9865)}.
+
+Las cuatro variables más importantes son BASE\_CAL con el 21,89\%), LS2 con el 16,11\%, LS\_MS con el 15,40\%) y SAL\_PROM2 con el 10,03\%.
+
+La búsqueda en cuadrícula mediante GridSearchCV sobre los parámetros resultantes de RandomizedSearchCV, se presenta en la subsección \ref{sec_anexos:conjunto_modelos_RandomForestClassifier} de anexos. Se entrena el modelo y se tiene que el accuracy del \textit{train} y \textit{test} es 1 y 0.7768480249339386, respectivamente. Para contrastar este resultado y evaluar el modelo se obtiene la matriz de confusión que se encuentra en el cuadro \ref{tab:AdaBoost_grid_search} y en la figura \ref{fig:confusion_matrix_algoritmo_AdaBoostClassifier_grid_search} de anexos.
+
+% 
+% \begin{lstlisting}[style=pythonstyle]
+% AdaBoostClassifier(algorithm='SAMME',
+%                    estimator=DecisionTreeClassifier(random_state=8),
+%                    learning_rate=0.005, n_estimators=1, random_state=8)
+% \end{lstlisting}
+
+
+
+\begin{table}[H]
+\centering
+\caption{\headlinecolor{\underline{Matriz de confusión de AdaBoostClassifier con GridSearchCV}}}\vspace{-0.3cm}
+\label{tab:AdaBoost_grid_search}
+\resizebox{0.5\textwidth}{!}{
+\begin{tabular}{|c|c|c|c|}
+\hline
+\cellcolor[HTML]{E65013} \textbf{Matriz de confusión} & \multicolumn{3}{c|}{\cellcolor[HTML]{FFA074} \textbf{Predicción}} \\ \hline
+\multirow{2}{*}{\cellcolor[HTML]{FFA074}} &  & \textbf{No atípico} & \textbf{Atípico} \\ \cline{2-4}
+\cellcolor[HTML]{FFA074} \textbf{Real}   & \textbf{No atípico}  & 48268 & 9865 \\ \cline{2-4}
+\cellcolor[HTML]{FFA074}                  & \textbf{Atípico}     & 9896 & 20525 \\ \hline
+\end{tabular}
+}
+
+\end{table}
+
+A partir de estos resultados se obtiene que este modelo tiene sensibilidad de \Sexpr{20525/(20525 + 9896)}, especificidad de \Sexpr{48268/(48268+9865)} y precisión  de \Sexpr{20525/(20525+9865)}.
+
+Las cuatro variables más importantes son BASE\_CAL con el 21,89\%, LS2 con el 16,11\%, LS\_MS con el 15,40\% y SAL\_PROM2 con el 10,03\%.
+
+%GradientBoostingClassifier-------------------------------------------------------------------------
+\subsubsection{Boosting método GradientBoostingClassifier}
+
+Debido a que la búsqueda mediante cuadrícula no terminó de ejecutarse en un tiempo considerable de tiempo, solo se lo realiza la elección de los parámetros mediante RandomizedSearchCV. El rango de valores y su resultado se presenta en la subsección \ref{sec_anexos:conjunto_modelos_GradientBoostingClassifier} de anexos. 
+
+Con estos valores se entrena el modelo y se tiene que el accuracy del \textit{train} y \textit{test} es 0.9999971768638345 y 0.837059873071798, respectivamente. Para contrastar este resultado y evaluar el modelo se obtiene la matriz de confusión que se encuentra en el cuadro \ref{tab:gradientboosting} y en la figura \ref{fig:confusion_matrix_algoritmo_GradientBoostingClassifier_random_search} en anexos.
+
+% \begin{lstlisting}[style=pythonstyle]
+% GradientBoostingClassifier(criterion='squared_error', learning_rate=0.05,
+%                            loss='exponential', max_depth=None,
+%                            min_samples_leaf=19, min_samples_split=16,
+%                            n_estimators=128, random_state=8)
+% \end{lstlisting}
+
+\begin{table}[H]
+\centering
+\caption{\headlinecolor{\underline{Matriz de confusión GradientBoostingClassifier-RandomizedSearchCV}}}\vspace{-0.3cm}
+\label{tab:gradientboosting}
+\resizebox{0.5\textwidth}{!}{
+\begin{tabular}{|c|c|c|c|}
+\hline
+\cellcolor[HTML]{E65013} \textbf{Matriz de confusión} & \multicolumn{3}{c|}{\cellcolor[HTML]{FFA074} \textbf{Predicción}} \\ \hline
+\multirow{2}{*}{\cellcolor[HTML]{FFA074}} &  & \textbf{No atípico} & \textbf{Atípico} \\ \cline{2-4}
+\cellcolor[HTML]{FFA074} \textbf{Real}   & \textbf{No atípico}  & 51538 & 6595 \\ \cline{2-4}
+\cellcolor[HTML]{FFA074}                  & \textbf{Atípico}     & 7834 & 22587 \\ \hline
+\end{tabular}
+}
+
+\end{table}
+
+Los valores del cuadro anterior,  permiten calcular la sensibilidad, misma que tiene el valor de \Sexpr{22587/(22587 + 7834)}, la especificidad llega a \Sexpr{51538/(51538+6595)} y finalmente, la precisión toma el valor de \Sexpr{22587/(22587+6595)}.
+
+% Para ver con mayor detalle todo el proceso realizado en este algoritmo vaya a \textit{VIU\_ml\_arboles.ipynb} de \legalcite{CristianVIUTFM}.
+
+%XGBClassifier--------------------------------------------------------------------------------------
+\subsection{XGBoost método XGBClassifier}\label{sub_seccion:XGBClassifier}
+
+Los resultados de la búsqueda mediante RandomizedSearchCV de los parámetros óptimos se presenta en la subsección \ref{sec_anexos:conjunto_modelos_XGBClassifier} de los anexos. Una vez entrenado el modelo con esos parámetros, el accuracy del \textit{train} y \textit{test} es 0.9264488334801364 y 0.8252817489893173, respectivamente. Para contrastar este resultado y evaluar el modelo se obtiene la matriz de confusión que se encuentra en el cuadro \ref{tab:confusion_matrix_algoritmo_XGBClassifier_random_search} y en la figura \ref{fig:confusion_matrix_algoritmo_XGBClassifier_random_search} de anexos.
+% 
+% \begin{lstlisting}[style=pythonstyle]
+% XGBClassifier(base_score=None, booster=None, callbacks=None,
+%               colsample_bylevel=None, colsample_bynode=None,
+%               colsample_bytree=1.0, device=None, early_stopping_rounds=None,
+%               enable_categorical=False, eval_metric='mlogloss',
+%               feature_types=None, gamma=0.1, grow_policy=None,
+%               importance_type=None, interaction_constraints=None,
+%               learning_rate=0.1, max_bin=None, max_cat_threshold=None,
+%               max_cat_to_onehot=None, max_delta_step=None, max_depth=11,
+%               max_leaves=None, min_child_weight=1, missing=nan,
+%               monotone_constraints=None, multi_strategy=None, n_estimators=450,
+%               n_jobs=None, num_parallel_tree=None, random_state=8, ...)
+% \end{lstlisting}
+
+
+
+\begin{table}[H]
+\centering
+\caption{\headlinecolor{\underline{Matriz de confusión de XGBClassifier con RandomizedSearchCV}}}\vspace{-0.3cm}
+\label{tab:confusion_matrix_algoritmo_XGBClassifier_random_search}
+\resizebox{0.5\textwidth}{!}{
+\begin{tabular}{|c|c|c|c|}
+\hline
+\cellcolor[HTML]{E65013} \textbf{Matriz de confusión} & \multicolumn{3}{c|}{\cellcolor[HTML]{FFA074} \textbf{Predicción}} \\ \hline
+\multirow{2}{*}{\cellcolor[HTML]{FFA074}} &  & \textbf{No atípico} & \textbf{Atípico} \\ \cline{2-4}
+\cellcolor[HTML]{FFA074} \textbf{Real}   & \textbf{No atípico}  & 47989 & 10144 \\ \cline{2-4}
+\cellcolor[HTML]{FFA074}                  & \textbf{Atípico}     & 5328 & 25093 \\ \hline
+\end{tabular}
+}
+
+\end{table}
+
+A partir de estos resultados, el modelo tiene sensibilidad de \Sexpr{25093/(25093 + 5328)}, especificidad de \Sexpr{47989/(47989+10144)} y precisión  de \Sexpr{25093/(25093+10144)}.
+
+
+Por otro lado, al entrenar el modelo con los parámetros resultantes de la búsqueda en cuadrícula de los parámetros descritos en la subsección \ref{sec_anexos:conjunto_modelos_XGBClassifier} mediante  GridSearchCV, se tiene que, el accuracy del \textit{train} y \textit{test} es 0.94972841430087854 y 0.8275967206450302, respectivamente. Para contrastar este resultado y evaluar el modelo se obtiene la matriz de confusión que se encuentra en el cuadro \ref{tab:confusion_matrix_algoritmo_XGBClassifier_grid_search} y en la figura \ref{fig:confusion_matrix_algoritmo_XGBClassifier_grid_search} de anexos.
+
+% \begin{lstlisting}[style=pythonstyle]
+% XGBClassifier(base_score=None, booster=None, callbacks=None,
+%               colsample_bylevel=None, colsample_bynode=None,
+%               colsample_bytree=1.0, device=None, early_stopping_rounds=None,
+%               enable_categorical=False, eval_metric='mlogloss',
+%               feature_types=None, gamma=0.15, grow_policy=None,
+%               importance_type=None, interaction_constraints=None,
+%               learning_rate=0.1, max_bin=None, max_cat_threshold=None,
+%               max_cat_to_onehot=None, max_delta_step=None, max_depth=12,
+%               max_leaves=None, min_child_weight=1, missing=nan,
+%               monotone_constraints=None, multi_strategy=None, n_estimators=460,
+%               n_jobs=None, num_parallel_tree=None, random_state=8, ...)
+% \end{lstlisting}
+
+
+\begin{table}[H]
+\centering
+\caption{\headlinecolor{\underline{Matriz de confusión de XGBClassifier con GridSearchCV}}}\vspace{-0.3cm}
+\label{tab:confusion_matrix_algoritmo_XGBClassifier_grid_search}
+\resizebox{0.5\textwidth}{!}{
+\begin{tabular}{|c|c|c|c|}
+\hline
+\cellcolor[HTML]{E65013} \textbf{Matriz de confusión} & \multicolumn{3}{c|}{\cellcolor[HTML]{FFA074} \textbf{Predicción}} \\ \hline
+\multirow{2}{*}{\cellcolor[HTML]{FFA074}} &  & \textbf{No atípico} & \textbf{Atípico} \\ \cline{2-4}
+\cellcolor[HTML]{FFA074} \textbf{Real}   & \textbf{No atípico}  & 48460 & 9673 \\ \cline{2-4}
+\cellcolor[HTML]{FFA074}                  & \textbf{Atípico}     & 5594 & 24827 \\ \hline
+\end{tabular}
+}
+
+\end{table}
+
+A partir de estos resultados, se obtiene que este modelo tiene sensibilidad de \Sexpr{24827/(24827 + 5594)}, especificidad de \Sexpr{48460/(48460+9673)} y precisión de \Sexpr{24827/(24827+9673)}.
+
+Las cuatro variables más importantes son BASE\_CAL con el 11,37\%, M\_PRI\_P con el 10,42\%, N\_PRI\_P con el 9,99\% y M\_PUB\_P con el 8,04\%.
+
+% Para ver con mayor detalle  todo el proceso realizado en este algoritmo vaya a \textit{VIU\_ml\_otras\_tecnicas.ipynb} de \legalcite{CristianVIUTFM}.
+
+
+%Redes Neuronales-----------------------------------------------------------------------------------
+\subsection{Redes Neuronales método MLPClassifier}\label{sub_seccion:redes_neuronales}
+
+Considerando lo descrito en el párrafo 3 de la subsección \ref{sub_apre_cara_acp}, se realiza la  búsqueda en cuadrícula mediante GridSearchCV para los parámetros de la subsección \ref{sec_anexos:conjunto_modelos_redes} de anexos. Se entrena el modelo y se tiene que el accuracy del \textit{train} y \textit{test} son 0.8101412697337218 y 0.8048083655170856, respectivamente. Para contrastar este resultado y evaluar el modelo se obtiene la matriz de confusión que se encuentra en el cuadro \ref{tab:confusion_matrix_algoritmo_redes_grid_search} y en la figura \ref{fig:confusion_matrix_algoritmo_redes_grid_search} de anexos.
+
+% \begin{lstlisting}[style=pythonstyle]
+% MLPClassifier(hidden_layer_sizes=(200,), max_iter=100, random_state=8)
+% \end{lstlisting}
+
+
+
+\begin{table}[H]
+\centering
+\caption{\headlinecolor{\underline{Matriz de confusión de MLPClassifier con GridSearchCV}}}\vspace{-0.3cm}
+\label{tab:confusion_matrix_algoritmo_redes_grid_search}
+\resizebox{0.5\textwidth}{!}{
+\begin{tabular}{|c|c|c|c|}
+\hline
+\cellcolor[HTML]{E65013} \textbf{Matriz de confusión} & \multicolumn{3}{c|}{\cellcolor[HTML]{FFA074} \textbf{Predicción}} \\ \hline
+\multirow{2}{*}{\cellcolor[HTML]{FFA074}} &  & \textbf{No atípico} & \textbf{Atípico} \\ \cline{2-4}
+\cellcolor[HTML]{FFA074} \textbf{Real}   & \textbf{No atípico}  & 51482 & 6651 \\ \cline{2-4}
+\cellcolor[HTML]{FFA074}                  & \textbf{Atípico}     & 10634 & 19787 \\ \hline
+\end{tabular}
+}
+
+\end{table}
+
+A partir de estos resultados, se concluye que este modelo tiene sensibilidad de \Sexpr{19787/(19787 + 10634)}, especificidad de \Sexpr{51482/(51482+6651)} y precisión  de \Sexpr{19787/(19787+6651)}.
+
+Se repite el proceso anterior con un balanceo de clases,  se entrena el modelo y se tiene que el accuracy del \textit{train} y \textit{test} es 0.7625855410258148 y 0.7582604964202634, respectivamente. Para contrastar este resultado y evaluar el modelo se obtiene la matriz de confusión que se encuentra en el cuadro \ref{tab:confusion_matrix_algoritmo_redes_bal_grid_search.png} y en la figura \ref{fig:confusion_matrix_algoritmo_redes_bal_grid_search.png} de anexos.
+
+% \begin{lstlisting}[style=pythonstyle]
+% MLPClassifier(hidden_layer_sizes=(250,), max_iter=100, random_state=8)
+% \end{lstlisting}
+
+
+\begin{table}[H]
+\centering
+\caption{\headlinecolor{\underline{Matriz de confusión de MLPClassifier con balanceado y GridSearchCV}}}\vspace{-0.3cm}
+\label{tab:confusion_matrix_algoritmo_redes_bal_grid_search.png}
+\resizebox{0.5\textwidth}{!}{
+\begin{tabular}{|c|c|c|c|}
+\hline
+\cellcolor[HTML]{E65013} \textbf{Matriz de confusión} & \multicolumn{3}{c|}{\cellcolor[HTML]{FFA074} \textbf{Predicción}} \\ \hline
+\multirow{2}{*}{\cellcolor[HTML]{FFA074}} &  & \textbf{No atípico} & \textbf{Atípico} \\ \cline{2-4}
+\cellcolor[HTML]{FFA074} \textbf{Real}   & \textbf{No atípico}  & 41361 & 16772 \\ \cline{2-4}
+\cellcolor[HTML]{FFA074}                  & \textbf{Atípico}     & 4635 & 25786 \\ \hline
+\end{tabular}
+}
+
+\end{table}
+
+A partir de estos resultados, se obtiene que este modelo tiene sensibilidad de \Sexpr{25786/(25786 + 4635)}, especificidad de \Sexpr{41361/(41361+16772)} y finalmente, precisión  de \Sexpr{25786/(25786+16772)}.
+
+% Para ver con mayor detalle  todo el proceso realizado en este algoritmo vaya a \textit{VIU\_ml\_otras\_tecnicas.ipynb} de \legalcite{CristianVIUTFM}.
+
+%Comparación de Resultados--------------------------------------------------------------------------
+\begin{landscape}
+\section{Comparación de Resultados}\label{seccion:comparacion_resultados}
+
+Para determinar qué modelos de aprendizaje supervisado son los más efectivos y apropiados para el problema de estudio de este trabajo de fin de máster, es necesario realizar una comparación de sus métricas, lo cual permitirá  evaluarlos  y describir sus fortalezas así como sus debilidades.
+
+A continuación, en el cuadro \ref{tab:comparacion} se muestra a manera de resumen los resultados obtenidos con cada uno de ellos.
+
+
+\begin{table}[H]
+\centering
+\caption{\headlinecolor{\underline{Comparación de resultados de las técnicas supervisadas}}}\vspace{-0.3cm}
+\label{tab:comparacion}
+\fontsize{9.5}{11}\selectfont{
+\begin{tabular}{|r|c|c|c|c|c|}
+\hline
+\cellcolor[HTML]{E65013} \textbf{Modelo} & \cellcolor[HTML]{E65013} \textbf{Exactitud}&
+\cellcolor[HTML]{E65013} \textbf{Sensibilidad}& \cellcolor[HTML]{E65013} \textbf{Especificidad}&
+\cellcolor[HTML]{E65013} \textbf{Precisión} & \cellcolor[HTML]{E65013} \textbf{Diferencia Exactitud}\\
+\hline
+\textbf{KNN con PCA} & 0.74832& 0.51642& 0.86968 & 0.67465& 0.25168 \\
+\hline
+\textbf{KNN con balanceo y PCA} & 0.71286& 0.72210& 0.70803& 0.56412& 0.28714 \\
+\hline
+\textbf{KNN con \textit{variables\_ml}} & 0.71286& 0.56030& 0.88079& 0.71095&  0.28714\\
+\hline
+\textbf{KNN con \textit{variables\_ml} balanceadas} &0.72726 & 0.79254& 0.69642&0.57471 &  0.27274\\
+\hline
+\textbf{Árboles simples} & 0.79942& 0.67828& 0.86281&0.72124 & 0.04379\\
+\hline
+\textbf{Árboles simples balanceados} & 0.77351&0.80714&0.75592 & 0.63377&0.19061  \\
+\hline
+\textbf{RandomForestClassifier con RandomizedSearchCV} & 0.82509&0.81927&0.82814 & 0.71384& 0.07624 \\
+\hline
+\textbf{RandomForestClassifier con GridSearchCV} &0.82789 & 0.80487& 0.83994&0.72462 & 0.09965 \\
+\hline
+\textbf{AdaBoostClassifier con RandomizedSearchCV} & 0.77685& 0.67470& 0.83030&0.67539 & 0.22315 \\
+\hline
+\textbf{AdaBoostClassifier con GridSearchCV} & 0.77685& 0.67470& 0.83030& 0.67539& 0.22315 \\
+\hline
+\textbf{GradientBoostingClassifier con GridSearchCV} &0.83706 & 0.74248& 0.88655& 0.77400& 0.16294 \\
+\hline
+\textbf{XGBClassifier con RandomizedSearchCV} & 0.82528& 0.82486& 0.82550&0.71212 & 0.10117 \\
+\hline
+\textbf{XGBClassifier con GridSearchCV} & 0.82760& 0.81611& 0.83360 & 0.71962 &0.12213 \\
+\hline
+\textbf{MLPClassifier con GridSearchCV} & 0.80481& 0.65044& 0.88559&0.74843 &0.00533 \\
+\hline
+\textbf{MLPClassifier con balanceo y GridSearchCV} & 0.75826&0.84764 &0.71149 & 0.60590&0.00433 \\
+\hline
+\end{tabular}
+}
+
+\end{table}
+
+En primer lugar, al analizar las diferentes variaciones del modelo KNN, se observa que el modelo que tiene el accuracy más alto es el que únicamente aplica un PCA a los datos. A pesar de esto, el mismo tiene mayor dificultad para detectar los casos atípicos, puesto que, presenta la tasa de sensibilidad más baja de este conjunto de modelos. Esto representa un problema, ya que el interés primordial es detectar correctamente los atípicos como ya fue explicado en las secciones anteriores. Ante esta situación, se procede a enfocar la atención en el modelo con el segundo mejor accuracy, que es aquel que usa a \textit{variables\_ml} balanceadas.
+\end{landscape}
+
+Este modelo destaca por poseer la sensibilidad más alta de todas, de donde, se puede concluir que el mismo resulta ser el mejor de los 4 modelos entrenados de KNN, debido a que logra un equilibrio adecuado entre la precisión global del modelo y la detección de datos atípicos. No obstante, es importante señalar que tanto en especificidad como en precisión, este modelo tiene valores bajos en comparación a los demás. Sin embargo, dado el objetivo de este estudio, este déficit no representa un problema significativo.
+
+Finalmente, al observar estos modelos se encuentra que la diferencia de los accuracys de \textit{train} y \textit{test} supera los 25 puntos porcentuales en cada uno de ellos, lo que sugiere la existencia de sobreajuste. Esto  puede indicar que los modelos se están ajustando demasiado a ciertas características de los datos de entrenamiento, por lo que, posteriormente no pueden ser generalizados a otros datos de manera óptima.
+
+
+
+En cuanto a los algoritmos basados en árboles y conjuntos de modelos, se puede observar que el modelo con el mayor accuracy es el algoritmo GradientBoostingClassifier con GridSearchCV, tomando en cuenta que los accuracys de RandomForestClassifier tanto con RandomizedSearchCV como con GridSearchCV son también altos y bastantes cercanos al mejor accuracy. En términos de sensibilidad, el modelo que destaca es el RandomForestClassifier con RandomizedSearchCV, de donde, es visible que su capacidad para detectar casos atípicos es superior. Por otro lado, se tiene que GradientBoostingClassifier tiene los mejores valores tanto de especificidad como de precisión, lo que implica que el mismo es bastante bueno para clasificar de forma correcta los casos negativos y disminuir la cantidad de falsos positivos.
+
+A pesar de los resultados, se puede ver que el modelo más adecuado es el RandomForestClassifier con RandomizedSearchCV. Pese a que su accuracy no es el más alto, es bastante cercano al mejor valor obtenido, y además tiene una sensibilidad significativamente mayor. Finalmente, se destaca que los algoritmos de árboles simples y los dos tipos de RandomForestClassifier presentan una diferencia entre los accuracys de train y test menor a 10\% lo que indica que no hay señales de sobreajuste en los modelos.
+
+En cuanto a las otras técnicas, es visible que los modelos XGBClassifier presentan los accuracys más altos, específicamente, el que usa GridSearchCV. Sin embargo, se observa que el algoritmo XGBClassifier con RandomizedSearchCV tiene una sensibilidad más alta. De donde, dado que la diferencia de accuracy entre ambos modelos es mínima, tiene sentido seleccionar como mejor modelo de los dos al que emplea RandomizedSearchCV, por su capacidad de detección de casos atípicos.
+
+Comparando estos modelos con los modelos de redes neuronales, se encuentra que el modelo MLPClassifier con balanceo y GridSearchCV tiene una sensibilidad aún mayor que ambos modelos de XGBClassifier. Sin embargo, su accuracy es significativamente menor al de ellos. Por esta razón, se escoge a XGBClassifier con RandomizedSearchCV como la mejor opción, dado que presenta la características buscadas. Es por esto que, debido a la presencia de las características buscadas, se selecciona a XGBClassifier con RandomizedSearchCV como la mejor opción.
+
+Es importante destacar que, de todos los algoritmos estudiados, la diferencia entre los accuracys de train y test es menor a 1\% únicamente en los algoritmos MLPClassifier, por lo que, en estos casos no existen indicios de sobreajuste. Por otro lado, si bien en los modelos XGBClassifier esta diferencia es mayor, también es bastante baja en comparación a los otros modelos, manteniéndose por debajo del 13\%, lo que sugiere que en estos modelos tampoco existe un sobreajuste significativo.
+
+Otros modelos como Support Vector Machine (SVM) también fueron considerados, pero, debido a su alto costo computacional y tiempo de ejecución, no fueron implementados.
+
+En conclusión, el modelo más óptimo y eficiente, en función de los datos y el problema a resolver, es el modelo de XGBClassifier con RandomizedSearchCV, debido a su capacidad de clasificación, detección de atípicos y evidencia significativa de la no presencia de sobreajuste. Además, este modelo ofrece un tiempo de ejecución y costo computacional menor al de los otros modelos, por lo que, la relación costo-beneficio es bastante buena.
+
+%Predicciones---------------------------------------------------------------------------------------
+\section{Predicciones}\label{seccion:predicciones}
+
+Finalmente, una vez que ha sido analizado y escogido el modelo que cumple de forma óptima con los requisitos necesarios para el problema de estudio, se procede a realizar predicciones con una nueva base de datos. Esta base corresponde a la información laboral de los afiliados que realizaron su aportación en diciembre de 2023, por lo que, con esto, se busca estimar qué afiliados han hecho fraude con la finalidad de tener un mayor beneficio de pensión al momento de su jubilación.
+
+La nueva base de datos cuenta con 3.089.379 observaciones, mismas que serán ejecutadas en el modelo seleccionado en \ref{seccion:comparacion_resultados} para  predecir las probabilidades de que cada individuo haya o no haya cometido fraude. Esto se lleva a cabo con la función \textit{predict-proba} de la librería de Python, \textit{scikit-learn}, la cual al ser aplicada sobre un modelo y evaluada en una base de datos, retorna la probabilidad de que cada uno de los individuos pertenezca a las diferentes categorías. Esto nos da indicios de cómo se distribuyen estas probabilidades entorno a los datos para ser capaces de analizar su comportamiento.
+
+De igual forma, con ayuda de la función \textit{predict} de la misma librería, se clasifica a cada nuevo individuo en si ha hecho o no fraude. Los resultados dicen que 1.755.055 individuos fueron atípicos, es decir, en los nuevos datos se detecta que el 56.81\% de ellos han cometido fraude. De esto se puede intuir que la cantidad de individuos que cometen este tipo de actos está incrementando. Esto es palpable ya que en los datos iniciales de estudio, únicamente del total de pensionistas, se detectó que alrededor del 34\% de los mismos habían hecho fraude. Esto es una señal de alerta y eleva la importancia de este estudio para contrarrestar este crecimiento y garantizar la sostenibilidad a futuro.
+
+%Resultados enfocados a la Seguridad Social---------------------------------------------------------
+\section{Resultados enfocados a la Seguridad Social}\label{seccion:resultados_seguridad_social}
+
+\subsection{Perfiles de los individuos que han cometido fraude}\label{subseccion:perfiles}
+
+Como parte final del presente capítulo, se realiza un análisis del perfil que tienen aquellas personas que fueron clasificadas como atípicas, es decir, quienes han sido detectadas por realizar fraude. Para ello, se grafica la distribución de la diferencia de la pensión calculada y la pensión corregida\footnote{La pensión corregida se obtuvo como el mínimo de las pensiones de las variables PEN\_CJ, PEN\_KM y PEN\_DB}. Esto  permite observar en qué individuos existe una mayor diferencia de pensiones, identificando así las características de aquellas personas en las cuales se observa que el fraude ha tenido consecuencias mayores, pues obtienen una pensión significativamente mayor a la que deberían. Esto nos permite crear el perfil de una persona propensa a cometer fraude.
+
+Primero, en base a la distribución de acuerdo al número de imposiciones y al sexo de los individuos (como se observa en la figura \ref{fig:fraude_numero_imposiciones_sexo}), se nota que la mayor diferencia entre estas pensiones es visible en los individuos de sexo masculino. Por otro lado, se observa que la diferencia aumenta cuando el número de imposiciones se encuentra entre 350 y 550, es decir, en aquellos individuos que han aportado entre 29 y 45 años. Esto puede ser entendible, ya que al tener una vida laboral más amplia, existen más oportunidades para realizar fraude. De esto, se puede concluir que los hombres con la cantidad de aportaciones de 350 a 550 (aquellos que están a puertas de la jubilación por vejez) son aquellos individuos donde más es visible la diferencia entre la pensión calculada y la corregida, es decir, es donde se está viendo una mayor incidencia de los efectos causados por los fraudes, y por tanto, este grupo merece ser tomado en cuenta.
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.35]{graficos/fraude_numero_imposiciones_sexo.png}
+\caption{\headlinecolor{\underline{Distribución en función del número de imposiciones y del sexo}}}
+\label{fig:fraude_numero_imposiciones_sexo}
+\end{figure}
+
+Por otro lado, en la figura \ref{fig:fraude_fecha_nacimiento_sexo} se presenta la distribución de la diferencia de pensiones tomando en cuenta nuevamente el sexo, pero ahora en función de la fecha de nacimiento. Así, se puede observar que se mantiene la prevalencia de la diferencia presente en hombres que en mujeres a lo largo de las diferentes fechas de nacimiento. Sin embargo, también es importante destacar que tanto en hombres como en mujeres se ve un incremento significativo en esta diferencia, cuando los mismos nacen entre los años de 1945 y 1965. Esto nos llevaría a un estudio futuro de por qué se dieron estos casos abruptos en esa generación. Y, de igual forma, tomar en cuenta estas generaciones como parte del perfil buscado.
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.35]{graficos/fraude_fecha_nacimiento_sexo.png}
+\caption{\headlinecolor{\underline{Distribución en función de la fecha de nacimiento y del sexo}}}
+\label{fig:fraude_fecha_nacimiento_sexo}
+\end{figure}
+
+
+Finalmente, también se puede observar esta relación tomando en cuenta la fecha de derecho de la pensión. Es decir, cuando el afiliado empezó a recibir la misma. Así, en la figura \ref{fig:fraude_fecha_derecho_sexo}, es visible que, si bien hasta alrededor de 1960 aún no existían registros de concesiones de pensiones fraudulentas en la base de datos, cuando los mismos empiezan a surgir la diferencia entre pensiones es baja. Sin embargo, a partir del año 2010 se ve un incremento significativo en esta diferencia. Lo que nos lleva a concluir que, de las personas que han hecho fraude, en la actualidad se ha visto que los beneficios económicos obtenidos a partir del mismo se han ido incrementando. Esto representa una razón más de la necesidad de tomar medidas para combatir este tipo de fraudes, puesto que los mismos están llevando a pérdidas, que como se observa, tienen una tendencia creciente con el tiempo que llevará a un déficit mayor en menos tiempo del esperado.
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.35]{graficos/fraude_fecha_derecho_sexo.png}
+\caption{\headlinecolor{\underline{Distribución en función de la fecha de derecho y del sexo}}}
+\label{fig:fraude_fecha_derecho_sexo}
+\end{figure}
+
+
+A su vez, resulta necesario estudiar el sector donde más se realizaron aportes por parte de las personas que han cometido fraude. Esto es esencial en el estudio de estos perfiles ya que nos indica el tipo de sector que debe ser más tomado en cuenta en la detección de estos casos. Para ello, entre todos los individuos etiquetados como atípicos, se obtuvo el promedio de los porcentajes de aportación a los diferentes sectores durante toda su vida laboral y los 5 mejores años. Con esto se obtuvo el porcentaje de incidencia de fraude en cada sector. En la figura \ref{fig:fraude_sectores} se observa  en primer lugar, estos porcentajes tomando en cuenta toda la vida laboral y posteriormente, únicamente tomando en cuenta los 5 mejores años. En ambos casos es claro que, existe una incidencia de más del 55\% en el sector privado, seguido por el público donde la presencia de estos casos es de alrededor de 33\%. Y el último sector significativo es el independiente con 8.4\%, en promedio. Así, se observa que de forma significativa los fraudes son cometidos por individuos que operan en su mayoría en el sector privado, por lo que puede ser de ayuda el estudio de diversas acciones a tomar para prevenir y detectar estos casos sobre todo en ese sector.
+
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}{0.45\textwidth}
+        \centering
+        \includegraphics[scale=0.30]{graficos/pastel_sector_n.png}
+        %\label{fig:algoritmo_cj_271_1}
+    \end{subfigure}
+    \hspace{-0.09\textwidth} % Espacio entre las imágenes
+    \begin{subfigure}{0.45\textwidth}
+        \centering
+        \includegraphics[scale=0.30]{graficos/pastel_sector_m.png}
+        %\label{fig:algoritmo_cj_20889867_1} % Corrijo el label
+    \end{subfigure}
+  \caption{\headlinecolor{\underline{Incidencia de fraude por sectores }}}
+  \label{fig:fraude_sectores}
+\end{figure}
+
+
+
+% \begin{figure}[H]  
+%     \centering
+%     \begin{minipage}{0.35\textwidth}
+%         \centering
+%         \includegraphics[scale=0.35]{graficos/pastel_sector_n.png} 
+%     \end{minipage}
+%     \hspace{1cm}  
+%     \begin{minipage}{0.35\textwidth}
+%         \centering
+%         \includegraphics[scale=0.35]{graficos/pastel_sector_m.png} 
+%     \end{minipage}
+% \caption{\headlinecolor{\underline{Incidencia de fraude por sectores }}}
+% \label{fig:fraude_sectores} 
+% \end{figure}
+
+Por último, al analizar la cantidad de individuos que han cometido fraude según el tipo de pensión a la que han accedido, se encuentran los resultados en la figura \ref{fig:fraude_por_tipo_pension}. De donde, se observa que de forma significativa, la mayoría de fraudes han sido cometidos por pensionistas de vejez. Así, las repercusiones de no detectar estos fraudes se concentran en su mayoría en este tipo de pensión. En contraste, se observa que menos de 10000 pensionistas de discapacidad o invalidez han cometido fraude, por lo que los efectos de los mismos tendrán un alcance menor. 
+
+Sin embargo, al analizar los datos, también se puede encontrar que el 52.15\% de los pensionistas por discapacidad ha cometido fraude. Por otro lado, de los pensionistas de invalidez el 33.5\% lo ha hecho. Finalmente, en cuanto a los pensionistas de vejez, se tiene que el 33.54\% ha realizado hechos fraudulentos. Con estos resultados se puede inferir que, aunque de forma absoluta el fraude es más común en los pensionistas de vejez, el porcentaje de incidencia más alto del mismo ocurre en los pensionistas de discapacidad. Lo que nos lleva a la necesidad de tener más en cuenta a este grupo, por su alto porcentaje de fraude comparado con los otros tipos de pensionistas.
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.35]{graficos/fraude_por_tipo_pension.png}
+\caption{\headlinecolor{\underline{Número de individuos que han cometido fraude por el tipo de pensión}}}
+\label{fig:fraude_por_tipo_pension}
+\end{figure}
+
+
+
+\subsection{Resultados de la aplicación del estudio a la sostenibilidad de la Seguridad Social}\label{subseccion:aplicacion_resultados}
+
+Una vez que se ha llevado a cabo todo el estudio, es fundamental analizar cómo el mismo influenciará y qué beneficios generará en cuanto al problema que ha sido planteado. Con este fin, una vez detectados aquellos individuos que han cometido fraude, se busca examinar la repercusión de este problema y cómo su detección podría beneficiar al fondo de pensiones del IESS. 
+
+Para llevar a cabo este análisis, se calculó el gasto total de los pensionistas. De donde se determinó que, considerando que estas personas comienzan a recibir su pensión desde enero del 2024, ya que la base de datos tiene como corte el 31 de diciembre de 2023, durante todo el año el costo de cubrir sus pensiones\footnote{La pensiones están conformadas por 13 pensiones iguales al valor de la pensión calculada y una pensión de cuantía igual al salario básico unificado del 2024 (460\$).} ascenderá a USD 4,415,151,338,75. Por otro lado, al aplicar la pensión corregida, calculada como se menciona en la sección \ref{subsec:trans_datos_super}, se calculó el costo a pagar por las pensiones durante el 2024 en USD 4.182.399.284,45. 
+
+De esto se tiene que, la diferencia de ambos valores es de USD 224.185.822,50, es decir, un 5.27\% del valor a pagar. Esto indica que la detección de los datos atípicos en un solo año podría generar un ahorro significativo, de donde, su implementación tendría grandes beneficios a largo plazo que serían fundamentales para garantizar la sostenibilidad de la Seguridad Social. Así, es de suma importancia  la detección de este tipo de casos a tiempo, ya que es visible el efecto que los fraudes están actual e históricamente teniendo en la estabilidad financiera de la Seguridad Social, mismos que repercuten de forma directa en su sostenibilidad.
