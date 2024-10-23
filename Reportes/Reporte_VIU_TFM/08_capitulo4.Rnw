@@ -2,7 +2,7 @@
 
 \section{Contexto y problema planteado}
 
-Conforme lo expuesto en el capítulo introductorio y en consonancia con los objetivos planteados, el propósito de este trabajo de fin de máster es que, a través  de las aportaciones históricas realizadas por los pensionistas del Seguro IVM, detectar mediante técnicas de aprendizaje no supervisado aquellas que son fraudulentas y luego generar modelos de aprendizaje supervisado que permitan clasificar si dentro de las aportaciones que realizan los actuales (hasta diciembre del 2023) afiliados existen casos que podrían realizar fraude, en función del comportamiento de su materia gravada\footnote{Es todo ingreso susceptible de apreciación pecuniaria, percibido por la persona afiliada, o en caso del trabajo no remunerado del hogar, por su unidad económica familiar.}, con el fin de generar un mayor beneficio al momento de solicitar la jubilación.\\
+Conforme lo expuesto en el capítulo introductorio y en consonancia con los objetivos planteados, el propósito de este trabajo de fin de máster es que, a través  de las aportaciones históricas realizadas por los pensionistas del Seguro IVM, detectar mediante técnicas de aprendizaje no supervisado aquellas que son fraudulentas y luego generar modelos de aprendizaje supervisado que permitan clasificar si dentro de las aportaciones que realizan los actuales (hasta diciembre del 2023) afiliados existen casos que podrían realizar fraude, en función del comportamiento de su materia gravada\footnote{Es todo ingreso susceptible de apreciación pecuniaria, percibido por la persona afiliada, o en caso del trabajo no remunerado del hogar, por su unidad económica familiar.}, con el fin de generar un mayor beneficio al momento de solicitar la jubilación.
 
 El primer paso es la generación de un adecuado proceso KKD (de acuerdo a lo descrito en la sección \ref{sec:proceso_kdd}), para que a partir de los datos primarios que dispone el IESS, generar el conocimiento adecuado que permita dar solución al problema planteado. 
 
@@ -1355,13 +1355,13 @@ Las cuatro variables más importantes son BASE\_CAL con el 11,37\%, M\_PRI\_P co
 %Redes Neuronales-----------------------------------------------------------------------------------
 \subsection{Redes Neuronales método MLPClassifier}\label{sub_seccion:redes_neuronales}
 
-Considerando lo descrito en el párrafo 3 de la subsección \ref{sub_apre_cara_acp}, se realiza la  búsqueda en cuadrícula mediante GridSearchCV para los parámetros de la subsección \ref{sec_anexos:conjunto_modelos_redes} de anexos.
+Considerando lo descrito en el párrafo 3 de la subsección \ref{sub_apre_cara_acp}, se realiza la  búsqueda en cuadrícula mediante GridSearchCV para los parámetros de la subsección \ref{sec_anexos:conjunto_modelos_redes} de anexos. Se entrena el modelo y se tiene que el accuracy del \textit{train} y \textit{test} son 0.8101412697337218 y 0.8048083655170856, respectivamente. Para contrastar este resultado y evaluar el modelo se obtiene la matriz de confusión que se encuentra en el cuadro \ref{tab:confusion_matrix_algoritmo_redes_grid_search} y en la figura \ref{fig:confusion_matrix_algoritmo_redes_grid_search} de anexos.
 
 % \begin{lstlisting}[style=pythonstyle]
 % MLPClassifier(hidden_layer_sizes=(200,), max_iter=100, random_state=8)
 % \end{lstlisting}
 
-Se entrena el modelo y se tiene que el accuracy del \textit{train} y \textit{test} son 0.8101412697337218 y 0.8048083655170856, respectivamente. Para contrastar este resultado y evaluar el modelo se obtiene la matriz de confusión que se encuentra en el cuadro \ref{tab:confusion_matrix_algoritmo_redes_grid_search} y en la figura \ref{fig:confusion_matrix_algoritmo_redes_grid_search} de anexos.
+
 
 \begin{table}[H]
 \centering
@@ -1409,13 +1409,14 @@ A partir de estos resultados, se obtiene que este modelo tiene sensibilidad de \
 % Para ver con mayor detalle  todo el proceso realizado en este algoritmo vaya a \textit{VIU\_ml\_otras\_tecnicas.ipynb} de \legalcite{CristianVIUTFM}.
 
 %Comparación de Resultados--------------------------------------------------------------------------
+\begin{landscape}
 \section{Comparación de Resultados}\label{seccion:comparacion_resultados}
 
 Para determinar qué modelos de aprendizaje supervisado son los más efectivos y apropiados para el problema de estudio de este trabajo de fin de máster, es necesario realizar una comparación de sus métricas, lo cual permitirá  evaluarlos  y describir sus fortalezas así como sus debilidades.
 
 A continuación, en el cuadro \ref{tab:comparacion} se muestra a manera de resumen los resultados obtenidos con cada uno de ellos.
 
-\begin{landscape}
+
 \begin{table}[H]
 \centering
 \caption{\headlinecolor{\underline{Comparación de resultados de las técnicas supervisadas}}}\vspace{-0.3cm}
@@ -1462,11 +1463,14 @@ A continuación, en el cuadro \ref{tab:comparacion} se muestra a manera de resum
 
 \end{table}
 
-En primer lugar, al analizar las diferentes variaciones del modelo KNN, se observa que el modelo que tiene el accuracy más alto es el que únicamente aplica un PCA a los datos. A pesar de esto, el mismo tiene mayor dificultad para detectar los casos atípicos, puesto que, presenta la tasa de sensibilidad más baja de este conjunto de modelos. Esto representa un problema, ya que el interés primordial es detectar correctamente los atípicos como ya fue explicado en las secciones anteriores. Ante esta situación, se procede a enfocar la atención en el modelo con el segundo mejor accuracy, que es aquel que usa a \textit{variables\_ml} balanceadas. Este modelo destaca por poseer la sensibilidad más alta de todas, de donde, se puede concluir que el mismo resulta ser el mejor de los 4 modelos entrenados de KNN, debido a que logra un equilibrio adecuado entre la precisión global del modelo y la detección de datos atípicos. No obstante, es importante señalar que tanto en especificidad como en precisión, este modelo tiene valores bajos en comparación a los demás. Sin embargo, dado el objetivo de este estudio, este déficit no representa un problema significativo.
+En primer lugar, al analizar las diferentes variaciones del modelo KNN, se observa que el modelo que tiene el accuracy más alto es el que únicamente aplica un PCA a los datos. A pesar de esto, el mismo tiene mayor dificultad para detectar los casos atípicos, puesto que, presenta la tasa de sensibilidad más baja de este conjunto de modelos. Esto representa un problema, ya que el interés primordial es detectar correctamente los atípicos como ya fue explicado en las secciones anteriores. Ante esta situación, se procede a enfocar la atención en el modelo con el segundo mejor accuracy, que es aquel que usa a \textit{variables\_ml} balanceadas.
+\end{landscape}
+
+Este modelo destaca por poseer la sensibilidad más alta de todas, de donde, se puede concluir que el mismo resulta ser el mejor de los 4 modelos entrenados de KNN, debido a que logra un equilibrio adecuado entre la precisión global del modelo y la detección de datos atípicos. No obstante, es importante señalar que tanto en especificidad como en precisión, este modelo tiene valores bajos en comparación a los demás. Sin embargo, dado el objetivo de este estudio, este déficit no representa un problema significativo.
 
 Finalmente, al observar estos modelos se encuentra que la diferencia de los accuracys de \textit{train} y \textit{test} supera los 25 puntos porcentuales en cada uno de ellos, lo que sugiere la existencia de sobreajuste. Esto  puede indicar que los modelos se están ajustando demasiado a ciertas características de los datos de entrenamiento, por lo que, posteriormente no pueden ser generalizados a otros datos de manera óptima.
 
-\end{landscape}
+
 
 En cuanto a los algoritmos basados en árboles y conjuntos de modelos, se puede observar que el modelo con el mayor accuracy es el algoritmo GradientBoostingClassifier con GridSearchCV, tomando en cuenta que los accuracys de RandomForestClassifier tanto con RandomizedSearchCV como con GridSearchCV son también altos y bastantes cercanos al mejor accuracy. En términos de sensibilidad, el modelo que destaca es el RandomForestClassifier con RandomizedSearchCV, de donde, es visible que su capacidad para detectar casos atípicos es superior. Por otro lado, se tiene que GradientBoostingClassifier tiene los mejores valores tanto de especificidad como de precisión, lo que implica que el mismo es bastante bueno para clasificar de forma correcta los casos negativos y disminuir la cantidad de falsos positivos.
 
