@@ -2,7 +2,7 @@
 
 \section{Repositorio en Github}
 
-El repositorio en Github, denominado \textit{VIU\_TFM}, incluye varias carpetas organizadas por tipo de contenido. En la carpeta \textit{SQL} se encuentran los script .sql utilizados en la construcción de la dase de datos \textit{data\_afi}. La carpeta \textit{Python} alberga los scripts .ipynb que contiene los códigos empleados en todo el proceso KDD, así como la implementación de los algoritmos de clúster jerárquico, K-Means y DBSCAN. Además, se incluyen códigos para técnicas de aprendizaje supervisado, tales como KNN, árboles de decisión, conjuntos de modelos, XGBoost y redes neuronales. Por último, la carpeta \textit{R} contiene los script .R utilizados en la edición del presente proyecto en formato \texttt{\LaTeX}. El enlace de acceso al repositorio se encuentra al hacer \href{https://github.com/cristianguatemalwork/VIU_TFM}{click aqui}.
+El repositorio en Github, denominado \textit{VIU\_TFM}, incluye varias carpetas organizadas por tipo de contenido. En la carpeta \textit{SQL} se encuentran los script .sql utilizados en la construcción de la dase de datos \textit{data\_afi}. La carpeta \textit{Python} alberga los scripts .ipynb que contiene los códigos empleados en todo el proceso KDD, así como la implementación de los algoritmos de clúster jerárquico, K-Means y DBSCAN. Además, se incluyen códigos para técnicas de aprendizaje supervisado, tales como KNN, árboles de decisión, conjuntos de modelos, XGBoost y redes neuronales. Por último, la carpeta \textit{R} contiene los script .R utilizados en la edición del presente proyecto en formato \texttt{\LaTeX}. El enlace de acceso al repositorio se encuentra al hacer \href{https://github.com/cristianguatemalwork/VIU_TFM}{clic aqui}.
 
 Para facilitar el acceso a un archivo específico en el repositorio, que contiene el detalle de un tema particular, se proporcionarán enlaces directos a dicho archivo.
 
@@ -541,7 +541,7 @@ NUMDIATRA & VARCHAR2(2 BYTE)  & Yes & & 11 & \\
 
 No se hace un análisis detallado por cada tabla del esquema, pues ampliaría innecesariamente la longitud del presente documento. Es por ello que, en los cuadros \ref{tab:info_KSPCOTEMPTIP}, \ref{tab:info_KSRECTPLADET}, \ref{tab:info_KSRECTPLANILLAS}, \ref{tab:info_KSPCOTREGCIV} , \ref{tab:info_PRESTACIONES}, \ref{tab:info_BENEFICIARIOS}, \ref{tab:info_ROL_PERIODO} y \ref{tab:info_KSMIGTAPORTES} se plasma una descripción general del contenido y la estructura de cada una de ellas.
 
-Ahora bien, las tablas presentadas anteriormente son independientes entre sí, por lo que necesitan integrarse de manera conjunta para tener  información consolidada y alcanzar el objetivo planteado. El código \textit{.sql} empleado proporciona los atributos necesarios para la obtención de la información inicial, misma que se someterá al proceso KDD. Se accede a los scripts que generaron esta información haciendo \href{https://github.com/cristianguatemalwork/VIU_TFM/tree/main/SQL/TFM}{click aquí}
+Ahora bien, las tablas presentadas anteriormente son independientes entre sí, por lo que necesitan integrarse de manera conjunta para tener  información consolidada y alcanzar el objetivo planteado. El código \textit{.sql} empleado proporciona los atributos necesarios para la obtención de la información inicial, misma que se someterá al proceso KDD. Se accede a los scripts que generaron esta información haciendo \href{https://github.com/cristianguatemalwork/VIU_TFM/tree/main/SQL/TFM}{clic aquí}
 
 % A continuación, se presenta el código utilizado:
 % 
@@ -754,7 +754,7 @@ De manera general, se  obtiene la información de los pensionistas del IESS para
 
 % Un hecho importante de mencionar es que se considera la información del \textit{Registro Civil}, con la finalidad de tener variables personales lo más reales posibles. Esto debido a que, se evidenció que los registros administrativos del IESS están contaminados y son inconsistentes desde su origen\footnote{Inicialmente la generación de planillas era de forma manual y en documentos físicos, por lo que una vez que pasaron a digitalizarse arrastraron un sinnúmero de novedades pues era un proceso manual}. Los novedades encontradas eran mal ingreso del sexo (por ejemplo existían categorías con valores de H, M, 1, 2, null, hombre, mujer), fechas de nacimiento y muerte erróneas (existían personas que murieron antes de nacer o nacían por el año 2030) y en distintos formatos (por ejemplo dd/mm/yyy, yyyy/dd/mm, mm/dd/yyyy ); y, en muchos casos una alta presencia de missing values.
 % 
-% La solución a cada problema detectado, con el fin de tener información adecuada, requiere de un amplio tiempo de análisis y ejecución, además de que se debía realizar un procesamiento desde el origen de los datos (registros administrativos de datan desde el 13 de marzo de 1928 (\href{https://www.iess.gob.ec/en/web/afiliado/noticias?p_p_id=101_INSTANCE_3dH2&p_p_lifecycle=0&p_p_col_id=column-2&p_p_col_count=4&_101_INSTANCE_3dH2_struts_action=\%2Fasset_publisher\%2Fview_content&_101_INSTANCE_3dH2_assetEntryId=2246192&_101_INSTANCE_3dH2_type=content&_101_INSTANCE_3dH2_groupId=10174&_101_INSTANCE_3dH2_urlTitle=iess-celebra-hoy-86-anos-de-servicio-al-pais&redirect=\%2Fen\%2Fweb\%2Fafiliado\%2Fnoticias?mostrarNoticia=1#:~:text=Posteriormente\%2C\%20el\%2025\%20de\%20julio,Ecuatoriano\%20de\%20Seguridad\%20Social\%2DIESS.}{click aquí})) y en distintos sistemas de datos. Por ello, con el fin de reducir los tiempos de análisis se hizo merge por DNI (foreing key) entre las tablas del IESS y el Registro Civil para tener información personal estándar y consistente.
+% La solución a cada problema detectado, con el fin de tener información adecuada, requiere de un amplio tiempo de análisis y ejecución, además de que se debía realizar un procesamiento desde el origen de los datos (registros administrativos de datan desde el 13 de marzo de 1928 (\href{https://www.iess.gob.ec/en/web/afiliado/noticias?p_p_id=101_INSTANCE_3dH2&p_p_lifecycle=0&p_p_col_id=column-2&p_p_col_count=4&_101_INSTANCE_3dH2_struts_action=\%2Fasset_publisher\%2Fview_content&_101_INSTANCE_3dH2_assetEntryId=2246192&_101_INSTANCE_3dH2_type=content&_101_INSTANCE_3dH2_groupId=10174&_101_INSTANCE_3dH2_urlTitle=iess-celebra-hoy-86-anos-de-servicio-al-pais&redirect=\%2Fen\%2Fweb\%2Fafiliado\%2Fnoticias?mostrarNoticia=1#:~:text=Posteriormente\%2C\%20el\%2025\%20de\%20julio,Ecuatoriano\%20de\%20Seguridad\%20Social\%2DIESS.}{clic aquí})) y en distintos sistemas de datos. Por ello, con el fin de reducir los tiempos de análisis se hizo merge por DNI (foreing key) entre las tablas del IESS y el Registro Civil para tener información personal estándar y consistente.
 
 La información resultante del preprocesamiento de las bases transaccionales del IESS, que contiene los datos del historial laboral, se denominará \textit{data\_afi}, mientras que la información sobre pensiones se almacenará en \textit{pensi}.
 
@@ -827,7 +827,7 @@ Año & Tasa de aportación & Tasa actuarial \\  \hline
 
 Ahora bien, se crean las variables \textit{N\_PRI}, \textit{N\_PUB}, \textit{N\_IND}, \textit{N\_VOL\_EX} y \textit{N\_VOL\_EC} que guardarán la información sobre las veces que el afiliado aporte en los sectores Privado, Público, Independiente, Voluntario del Exterior y Voluntario residente del Ecuador, respectivamente.
 
-El acceso a los scripts que generaron esta información es haciendo \href{https://github.com/cristianguatemalwork/VIU_TFM/blob/main/Python/TFM/VIU_clean_data.ipynb}{click aquí}.
+El acceso a los scripts que generaron esta información es haciendo \href{https://github.com/cristianguatemalwork/VIU_TFM/blob/main/Python/TFM/VIU_clean_data.ipynb}{clic aquí}.
 
 \section{Algoritmos de clúster jerárquico} \label{sec:alg_clus_jear}
 
@@ -942,7 +942,7 @@ def cluster_jerarquico( data_si_dic ):
 \end{figure}
 
 
-El acceso a los scripts que generaron todo el desarrollo y resultados del algoritmo del clúster jerárquico es haciendo \href{https://github.com/cristianguatemalwork/VIU_TFM/blob/main/Python/TFM/VIU_cluster_jerarquico.ipynb}{click aquí}.
+El acceso a los scripts que generaron todo el desarrollo y resultados del algoritmo del clúster jerárquico es haciendo \href{https://github.com/cristianguatemalwork/VIU_TFM/blob/main/Python/TFM/VIU_cluster_jerarquico.ipynb}{clic aquí}.
 
 
 \section{Algoritmos de K-Means} \label{sec:alg_kmean}
@@ -1089,7 +1089,7 @@ def clasificacion_kmean( data_dic, n, val, tipo, duplicados ):
 
 \end{lstlisting}
 
-El acceso a los scripts que generaron todo el desarrollo y resultados del algoritmo de K-Means es haciendo \href{https://github.com/cristianguatemalwork/VIU_TFM/blob/main/Python/TFM/VIU_k_means.ipynb}{click aquí}.
+El acceso a los scripts que generaron todo el desarrollo y resultados del algoritmo de K-Means es haciendo \href{https://github.com/cristianguatemalwork/VIU_TFM/blob/main/Python/TFM/VIU_k_means.ipynb}{clic aquí}.
 
 \section{Algoritmos DBSCAN} \label{sec:alg_dbscan}
 
@@ -1209,7 +1209,7 @@ def cal_eps_out( data_dic ):
         
 \end{lstlisting}
 
-El acceso a los scripts que generaron todo el desarrollo y resultados del algoritmo de DBSCAN es haciendo \href{https://github.com/cristianguatemalwork/VIU_TFM/blob/main/Python/TFM/VIU_dbscan.ipynb}{click aquí}.
+El acceso a los scripts que generaron todo el desarrollo y resultados del algoritmo de DBSCAN es haciendo \href{https://github.com/cristianguatemalwork/VIU_TFM/blob/main/Python/TFM/VIU_dbscan.ipynb}{clic aquí}.
 
 \section{Limpieza de datos antes del aprendizaje supervisado} \label{sec:limpieza_datos_super}
 
@@ -1250,9 +1250,9 @@ def pens_correc( data ):
     print('\tTiempo de ejecución es:',tm//3600,'horas con',tm%3600//60,'minutos y',tm%60,'segundos')
 \end{lstlisting}
 
-El acceso a los scripts que generaron todo el proceso de limpieza de datos antes del aprendizaje supervisado es haciendo \href{https://github.com/cristianguatemalwork/VIU_TFM/blob/main/Python/TFM/VIU_analisis_atipicos.ipynb}{click aquí}.
+El acceso a los scripts que generaron todo el proceso de limpieza de datos antes del aprendizaje supervisado es haciendo \href{https://github.com/cristianguatemalwork/VIU_TFM/blob/main/Python/TFM/VIU_analisis_atipicos.ipynb}{clic aquí}.
 
-El acceso a los scripts que generaron todo el proceso de transformación de datos antes del aprendizaje supervisado es haciendo \href{https://github.com/cristianguatemalwork/VIU_TFM/blob/main/Python/TFM/VIU_ml_prepacion_data.ipynb}{click aquí}.
+El acceso a los scripts que generaron todo el proceso de transformación de datos antes del aprendizaje supervisado es haciendo \href{https://github.com/cristianguatemalwork/VIU_TFM/blob/main/Python/TFM/VIU_ml_prepacion_data.ipynb}{clic aquí}.
 
 \section{Algoritmo KNN} \label{sec_anexos:knn}
 
@@ -1318,7 +1318,7 @@ print('Tiempo de ejecución es:',tm//3600,'horas con',tm%3600//60,'minutos y', t
 \label{fig:matriz_conf_knn_bal_ml}
 \end{figure}
 
-El acceso a los scripts que generaron toda la implementación del algoritmo KNN es haciendo \href{https://github.com/cristianguatemalwork/VIU_TFM/blob/main/Python/TFM/VIU_ml_knn.ipynb}{click aquí}.
+El acceso a los scripts que generaron toda la implementación del algoritmo KNN es haciendo \href{https://github.com/cristianguatemalwork/VIU_TFM/blob/main/Python/TFM/VIU_ml_knn.ipynb}{clic aquí}.
 
 \section{Algoritmo de árboles} \label{sec_anexos:arboles}
 
@@ -1374,7 +1374,7 @@ El tiempo de ejecución fue de 5 horas
 \label{fig:confusion_matrix_algoritmo_arbol_simple_bal}
 \end{figure}
 
-El acceso a los scripts que generaron toda la implementación de los árboles simples es haciendo \href{https://github.com/cristianguatemalwork/VIU_TFM/blob/main/Python/TFM/VIU_ml_arboles.ipynb}{click aquí}.
+El acceso a los scripts que generaron toda la implementación de los árboles simples es haciendo \href{https://github.com/cristianguatemalwork/VIU_TFM/blob/main/Python/TFM/VIU_ml_arboles.ipynb}{clic aquí}.
 
 \section{Conjunto de modelos} \label{sec_anexos:conjunto_modelos}
 
@@ -1524,7 +1524,7 @@ GradientBoostingClassifier(criterion='squared_error', learning_rate=0.05,
 \label{fig:confusion_matrix_algoritmo_GradientBoostingClassifier_random_search}
 \end{figure}
 
-El acceso a los scripts que generaron toda la implementación del conjunto de modelos es haciendo \href{https://github.com/cristianguatemalwork/VIU_TFM/blob/main/Python/TFM/VIU_ml_arboles.ipynb}{click aquí}.
+El acceso a los scripts que generaron toda la implementación del conjunto de modelos es haciendo \href{https://github.com/cristianguatemalwork/VIU_TFM/blob/main/Python/TFM/VIU_ml_arboles.ipynb}{clic aquí}.
 
 \section{XGBClassifier}  \label{sec_anexos:conjunto_modelos_XGBClassifier}
 
@@ -1600,7 +1600,7 @@ XGBClassifier(base_score=None, booster=None, callbacks=None,
 \label{fig:confusion_matrix_algoritmo_XGBClassifier_grid_search}
 \end{figure}
 
-El acceso a los scripts que generaron toda la implementación de XGBoost para clasificación es haciendo \href{https://github.com/cristianguatemalwork/VIU_TFM/blob/main/Python/TFM/VIU_ml_otras_tecnicas.ipynb}{click aquí}.
+El acceso a los scripts que generaron toda la implementación de XGBoost para clasificación es haciendo \href{https://github.com/cristianguatemalwork/VIU_TFM/blob/main/Python/TFM/VIU_ml_otras_tecnicas.ipynb}{clic aquí}.
 
 \section{Redes neuronales}  \label{sec_anexos:conjunto_modelos_redes}
 
@@ -1648,4 +1648,4 @@ MLPClassifier(hidden_layer_sizes=(250,), max_iter=100, random_state=8)
 \label{fig:confusion_matrix_algoritmo_redes_bal_grid_search.png}
 \end{figure}
 
-El acceso a los scripts que generaron toda la implementación de redes neuronales para clasificación es haciendo \href{https://github.com/cristianguatemalwork/VIU_TFM/blob/main/Python/TFM/VIU_ml_otras_tecnicas.ipynb}{click aquí}.
+El acceso a los scripts que generaron toda la implementación de redes neuronales para clasificación es haciendo \href{https://github.com/cristianguatemalwork/VIU_TFM/blob/main/Python/TFM/VIU_ml_otras_tecnicas.ipynb}{clic aquí}.

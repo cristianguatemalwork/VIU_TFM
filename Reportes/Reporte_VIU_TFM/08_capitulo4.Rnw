@@ -25,7 +25,7 @@ Los atributos que componen a \textit{data\_afi} son los siguientes:
     \begin{itemize}
         \item CEDULA\_COD: Secuencial que identifica al afiliado,\\[-0.75cm]
         \item ANIO: Corresponde al año del pago de la planilla del afiliado,\\[-0.75cm]
-        \item MES: Corresponde al mes del pago de la planilla del afilaido,
+        \item MES: Corresponde al mes del pago de la planilla del afiliado,
     \end{itemize}
     \begin{itemize}  
         \item CODSEC: Corresponde a la abreviación del sector en el cual trabajó el afiliado,\\[-0.75cm]
@@ -69,7 +69,7 @@ En lo que sigue, el proceso KDD se divide en dos partes. La primera parte se cen
 %Tratamiento de valores perdidos--------------------------------------------------------------------
 \section{Tratamiento de valores perdidos} \label{chp:resultados:sec_valores_perdidos}
 
-Los atributos de \textit{data\_afi} no contienen valores perdidos. Por el contrario, \textit{data\_vej}, \textit{data\_inv} y \textit{data\_dis} si tienen variables con valores perdidos. Estas variables son la FECHA\_MUERTE, NUMERO\_IMPOSICIONES y el COEFICIENTE\_CAL. La corrección de sus valores, a excepción de FECHA\_MUERTE\footnote{No se hace un tratamiento de datos faltante para esta variable debido a que no se la considera en el análisis}, se explica en la sección \ref{subsec:trans_datos_super}.
+Los atributos de \textit{data\_afi} no contienen valores perdidos. Por el contrario, \textit{data\_vej}, \textit{data\_inv} y \textit{data\_dis} si tienen variables con valores perdidos. Estas variables son la FECHA\_MUERTE, NUMERO\_IMPOSICIONES y el COEFICIENTE\_CAL. La corrección de sus valores, a excepción de FECHA\_MUERTE\footnote{No se hace un tratamiento de datos faltantes para esta variable debido a que no se la considera en el análisis}, se explica en la sección \ref{subsec:trans_datos_super}.
 
 El principal problema con los datos faltantes  se debe a que la información de historia laboral está registrada en dos sistemas de información, HL y Host\footnote{Sistema de información de los aportes anteriores a la aparición del sistema HL}. Esta estructura afecta directamente al esquema Prestacional y por ende a los pensionistas.
 
@@ -85,7 +85,7 @@ Como ya se mencionó en la sección \ref{chp:resultados:sec_valores_perdidos}, \
 
 Por otro parte, para corregir la información de \textit{data\_vej}, \textit{data\_inv} y \textit{data\_dis} se considera la información del Registro Civil. Esto debido a que se evidenció que los registros administrativos del IESS están contaminados y son inconsistentes desde su origen\footnote{Inicialmente la generación de planillas (documento que contiene la información del aporte del afiliado) era de forma manual y en documentos físicos, por lo que, una vez que pasaron a digitalizarse arrastraron un centenar de novedades, pues era un proceso manual. Actualmente con HL ya se corrigen gran parte de las novedades.}. Los novedades encontradas eran mal ingreso del sexo (por ejemplo existían categorías con valores de H, M, 1, 2, null, hombre, mujer), fechas de nacimiento y muerte erróneas (existían personas que murieron antes de nacer o nacían por el año 2030) con distintos formatos (por ejemplo dd/mm/yyy, yyyy/dd/mm, mm/dd/yyyy ); y, en muchos casos una alta presencia de missing values.\\
 
-Dar solución a cada problema detectado requiere de un amplio tiempo de análisis y ejecución, además de que se debe realizar una limpieza de datos desde el origen del registro administrativo (información generada desde el 13 de marzo de 1928. Para mayor detalle \href{https://www.iess.gob.ec/en/web/afiliado/noticias?p_p_id=101_INSTANCE_3dH2&p_p_lifecycle=0&p_p_col_id=column-2&p_p_col_count=4&_101_INSTANCE_3dH2_struts_action=\%2Fasset_publisher\%2Fview_content&_101_INSTANCE_3dH2_assetEntryId=2246192&_101_INSTANCE_3dH2_type=content&_101_INSTANCE_3dH2_groupId=10174&_101_INSTANCE_3dH2_urlTitle=iess-celebra-hoy-86-anos-de-servicio-al-pais&redirect=\%2Fen\%2Fweb\%2Fafiliado\%2Fnoticias?mostrarNoticia=1#:~:text=Posteriormente\%2C\%20el\%2025\%20de\%20julio,Ecuatoriano\%20de\%20Seguridad\%20Social\%2DIESS.}{click aquí}). Por ello, con el fin de reducir los tiempos de análisis se hizo merge por DNI (foreing key) entre las tablas del IESS y el Registro Civil para tener información personal estándar y consistente.
+Dar solución a cada problema detectado requiere de un amplio tiempo de análisis y ejecución, además de que se debe realizar una limpieza de datos desde el origen del registro administrativo (información generada desde el 13 de marzo de 1928. Para mayor detalle \href{https://www.iess.gob.ec/en/web/afiliado/noticias?p_p_id=101_INSTANCE_3dH2&p_p_lifecycle=0&p_p_col_id=column-2&p_p_col_count=4&_101_INSTANCE_3dH2_struts_action=\%2Fasset_publisher\%2Fview_content&_101_INSTANCE_3dH2_assetEntryId=2246192&_101_INSTANCE_3dH2_type=content&_101_INSTANCE_3dH2_groupId=10174&_101_INSTANCE_3dH2_urlTitle=iess-celebra-hoy-86-anos-de-servicio-al-pais&redirect=\%2Fen\%2Fweb\%2Fafiliado\%2Fnoticias?mostrarNoticia=1#:~:text=Posteriormente\%2C\%20el\%2025\%20de\%20julio,Ecuatoriano\%20de\%20Seguridad\%20Social\%2DIESS.}{clic aquí}). Por ello, con el fin de reducir los tiempos de análisis se hizo merge por DNI (foreing key) entre las tablas del IESS y el Registro Civil para tener información personal estándar y consistente.
 
 
 Así, el dataset con la información laboral contiene 68.062.270 filas y 12 columnas, \textit{data\_vej} tiene 681.799 filas con 17 columnas, \textit{data\_inv} tiene 48.146 filas y 17 columnas y \textit{data\_dis} tiene 14.662 filas con 17 columnas.
@@ -943,7 +943,7 @@ Al repetir todo el proceso anterior para las variables PC1\_bal, PC2\_bal, PC3\_
 
 Una vez entrenado el modelo con estos parámetros, se ha obtenido que el acurracy del mismo al ser aplicado en los datos del \textit{test} es de 0.7128644668789665, mientras que al aplicarse en los datos de \textit{train} es 1.
 
-Para contrastar este resultado y evaluar el modelo, se obtiene la matriz de confusión que se presenta en en el cuadro \ref{tab:mc_knn_2} y en la figura \ref{fig:matriz_conf_knn_bal_acp} en anexos.
+Para contrastar este resultado y evaluar el modelo, se obtiene la matriz de confusión que se presenta en el cuadro \ref{tab:mc_knn_2} y en la figura \ref{fig:matriz_conf_knn_bal_acp} en anexos.
 
 \begin{figure}[H]
 \centering
@@ -1071,7 +1071,7 @@ Entrenando el modelo con estos parámetros, se tiene que el acurracy en los dato
 
 A partir de estos resultados se obtiene que este modelo tiene sensibilidad de \Sexpr{20634/(20634+9787)}, especificidad de \Sexpr{50158/(50158+7975)} y precisión  de \Sexpr{20634/(20634+7975)}.
 
-La cuatro variables más significativas son BASE\_CAL con el 28,07\%, LS2 con el 19,46\%, LS\_MS con el 16,21\% y M\_PRI\_P con el 14,52\%.
+Las cuatro variables más significativas son BASE\_CAL con el 28,07\%, LS2 con el 19,46\%, LS\_MS con el 16,21\% y M\_PRI\_P con el 14,52\%.
 
 Se repite todo el proceso anterior, pero con un previo balanceo de clases, con lo cual, de la figura \ref{fig:algortimo_arbol_simple_bal} se tiene que la profundidad del árbol es 15.
 
@@ -1102,7 +1102,7 @@ Una vez que el modelo ha sido entrenado con estos parámetros, se tiene que el a
 
 A partir de estos resultados se obtiene que este modelo tiene sensibilidad de \Sexpr{24554/(24554 + 5867)}, especificidad de \Sexpr{43944/(43944+14189)} y precisión  de \Sexpr{24554/(24554+14189)}.
 
-La cuatro variables más importantes son BASE\_CAL con 33,23\%, LS2 con el 18,98\%, N\_PRI\_P con el 18,21\% y SAL\_PROM2 con el 6,98\%.
+Las cuatro variables más importantes son BASE\_CAL con 33,23\%, LS2 con el 18,98\%, N\_PRI\_P con el 18,21\% y SAL\_PROM2 con el 6,98\%.
 
 % Para ver con mayor detalle  todo el proceso realizado en este algoritmo vaya a \textit{VIU\_ml\_arboles.ipynb} de \legalcite{CristianVIUTFM}.
 
@@ -1141,7 +1141,7 @@ La primera parte es la selección  aleatoria de los parámetros mediante Randomi
 
 A partir de estos resultados, este modelo tiene sensibilidad de \Sexpr{24923/(24923 + 5498)}, especificidad de \Sexpr{48142/(48142+9991)} y precisión  de \Sexpr{24923/(24923+9991)}.
 
-La cuatro variables más importantes son BASE\_CAL con el 26,53\%,  LS2 con 17,07\%, LS\_MS con el 16,30\% y SAL\_PROM2 con el 8,91\%.
+Las cuatro variables más importantes son BASE\_CAL con el 26,53\%,  LS2 con 17,07\%, LS\_MS con el 16,30\% y SAL\_PROM2 con el 8,91\%.
 
 Ahora bien, a los parámetros resultantes de RandomizedSearchCV, se les realiza la búsqueda en cuadrícula mediante GridSearchCV. El rango de valores y los resultados se presenta en la subsección \ref{sec_anexos:conjunto_modelos_RandomForestClassifier} de anexos. Se entrena el modelo con esos parámetros y el accuracy del \textit{train} y \textit{test} son 0.9275357409038553 y 0.8278903268062425, respectivamente. Para contrastar este resultado y evaluar el modelo, se obtiene la matriz de confusión que se encuentra en el cuadro \ref{tab:random_forest_randomg} y en la figura \ref{fig:confusion_matrix_algoritmo_RandomForestClassifier_grid_search} de anexos.
 
@@ -1174,7 +1174,7 @@ Ahora bien, a los parámetros resultantes de RandomizedSearchCV, se les realiza 
 
 A partir de estos resultados se obtiene que este modelo tiene sensibilidad de \Sexpr{24485/(24485 + 5936)}, especificidad de \Sexpr{48828/(48828+9305)} y precisión  de \Sexpr{24485/(24485+9305)}.
 
-La cuatro variables más importantes son BASE\_CAL con el 25,50\%, LS2 con el 16,66\%, LS\_MS con el 16,12\%) y SAL\_PROM2 con el 9,22\%.
+Las cuatro variables más importantes son BASE\_CAL con el 25,50\%, LS2 con el 16,66\%, LS\_MS con el 16,12\%) y SAL\_PROM2 con el 9,22\%.
 
 %AdaBoostClassifier---------------------------------------------------------------------------------
 \subsubsection{Boosting método AdaBoostClassifier}
@@ -1205,7 +1205,7 @@ La búsqueda aleatoria de los parámetros requeridos por este método se present
 
 En base a estos resultados, el modelo tiene sensibilidad de \Sexpr{20525/(20525 + 9896)}, especificidad de \Sexpr{48268/(48268+9865)} y precisión  de \Sexpr{20525/(20525+9865)}.
 
-La cuatro variables más importantes son BASE\_CAL con el 21,89\%), LS2 con el 16,11\%, LS\_MS con el 15,40\%) y SAL\_PROM2 con el 10,03\%.
+Las cuatro variables más importantes son BASE\_CAL con el 21,89\%), LS2 con el 16,11\%, LS\_MS con el 15,40\%) y SAL\_PROM2 con el 10,03\%.
 
 La búsqueda en cuadrícula mediante GridSearchCV sobre los parámetros resultantes de RandomizedSearchCV, se presenta en la subsección \ref{sec_anexos:conjunto_modelos_RandomForestClassifier} de anexos. Se entrena el modelo y se tiene que el accuracy del \textit{train} y \textit{test} es 1 y 0.7768480249339386, respectivamente. Para contrastar este resultado y evaluar el modelo se obtiene la matriz de confusión que se encuentra en el cuadro \ref{tab:AdaBoost_grid_search} y en la figura \ref{fig:confusion_matrix_algoritmo_AdaBoostClassifier_grid_search} de anexos.
 
@@ -1236,7 +1236,7 @@ La búsqueda en cuadrícula mediante GridSearchCV sobre los parámetros resultan
 
 A partir de estos resultados se obtiene que este modelo tiene sensibilidad de \Sexpr{20525/(20525 + 9896)}, especificidad de \Sexpr{48268/(48268+9865)} y precisión  de \Sexpr{20525/(20525+9865)}.
 
-La cuatro variables más importantes son BASE\_CAL con el 21,89\%, LS2 con el 16,11\%, LS\_MS con el 15,40\% y SAL\_PROM2 con el 10,03\%.
+Las cuatro variables más importantes son BASE\_CAL con el 21,89\%, LS2 con el 16,11\%, LS\_MS con el 15,40\% y SAL\_PROM2 con el 10,03\%.
 
 %GradientBoostingClassifier-------------------------------------------------------------------------
 \subsubsection{Boosting método GradientBoostingClassifier}
@@ -1347,7 +1347,7 @@ Por otro lado, al entrenar el modelo con los parámetros resultantes de la búsq
 
 A partir de estos resultados, se obtiene que este modelo tiene sensibilidad de \Sexpr{24827/(24827 + 5594)}, especificidad de \Sexpr{48460/(48460+9673)} y precisión de \Sexpr{24827/(24827+9673)}.
 
-La cuatro variables más importantes son BASE\_CAL con el 11,37\%, M\_PRI\_P con el 10,42\%, N\_PRI\_P con el 9,99\% y M\_PUB\_P con el 8,04\%.
+Las cuatro variables más importantes son BASE\_CAL con el 11,37\%, M\_PRI\_P con el 10,42\%, N\_PRI\_P con el 9,99\% y M\_PUB\_P con el 8,04\%.
 
 % Para ver con mayor detalle  todo el proceso realizado en este algoritmo vaya a \textit{VIU\_ml\_otras\_tecnicas.ipynb} de \legalcite{CristianVIUTFM}.
 

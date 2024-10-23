@@ -152,7 +152,7 @@ El algoritmo K-Nearest Neighbors (KNN) se basa en la clasificación de un punto 
 
 \subsubsection{Árboles de decisión}\label{sec:arboles}
 
-Este algoritmo clasifica los elementos de estudio al plantear una serie de preguntas sobre las características que están asociadas a los elementos. En cada nodo se encuentra una pregunta, y a cada nodo hijo se le asigna una respuesta de la misma, formando una jerarquía al seguir este proceso. Así, los árboles se construyen aumentando nodos pregunta de manera incremental, utilizando los elementos de entramiento para determinar la elección de preguntas, donde una buena pregunta dividirá a un conjunto de elementos de clases heterogéneas en subconjuntos que tengan etiquetas más homogéneas, formando grupos con poca variación en ellos. Existen varias medidas que evalúan el grado de impureza en los conjuntos de elementos, entre las principales se encuentran la entropía y el índice de Gini. Este algoritmo tiene algunas ventajas, entre las cuales destacan su fácil interpretabilidad y su flexibilidad para el manejo de características numéricas y categóricas \citep{kingsford2008decisiontrees}. 
+Este algoritmo clasifica los elementos de estudio al plantear una serie de preguntas sobre las características que están asociadas a los elementos. En cada nodo se encuentra una pregunta, y a cada nodo hijo se le asigna una respuesta de la misma, formando una jerarquía al seguir este proceso. Así, los árboles se construyen aumentando nodos pregunta de manera incremental, utilizando los elementos de entrenamiento para determinar la elección de preguntas, donde una buena pregunta dividirá a un conjunto de elementos de clases heterogéneas en subconjuntos que tengan etiquetas más homogéneas, formando grupos con poca variación en ellos. Existen varias medidas que evalúan el grado de impureza en los conjuntos de elementos, entre las principales se encuentran la entropía y el índice de Gini. Este algoritmo tiene algunas ventajas, entre las cuales destacan su fácil interpretabilidad y su flexibilidad para el manejo de características numéricas y categóricas \citep{kingsford2008decisiontrees}. 
 
   \subsubsection{Agregación de muestreo (Bagging)}\label{sec:bagging}
 
@@ -171,7 +171,7 @@ El Boosting es una técnica usada para mejorar la precisión de los modelos. Es 
 
 \subsubsection{Gradient Boosting}\label{sec:gboosting}
 
-En este procedimiento se ajustan iterativamente nuevos modelos que van haciendo más precisa la estimación de la variable respuesta. Para ello, este algoritmo construye nuevos algoritmos que estén lo más correlacionados con el gradiente negativo de la función de pérdida, de donde, se tiene un proceso de optimización que se basa en minimizar la función de pérdida. La flexilidad de estos modelos hace que sean bastante personalizables, y permite utilizar una gran variedad de funciones de pérdida para mejorar la precisión \citep{natekin2013gradient}.
+En este procedimiento se ajustan iterativamente nuevos modelos que van haciendo más precisa la estimación de la variable respuesta. Para ello, este algoritmo construye nuevos algoritmos que estén lo más correlacionados con el gradiente negativo de la función de pérdida, de donde, se tiene un proceso de optimización que se basa en minimizar la función de pérdida. La flexibilidad de estos modelos hace que sean bastante personalizables, y permite utilizar una gran variedad de funciones de pérdida para mejorar la precisión \citep{natekin2013gradient}.
 
 \subsubsection{XGBoost}\label{sec:xgboost}
 
