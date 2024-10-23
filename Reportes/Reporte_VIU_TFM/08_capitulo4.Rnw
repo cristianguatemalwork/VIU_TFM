@@ -412,9 +412,9 @@ Algunos ejemplos con los resultados de la implementación de K-Means se muestran
 
 % Debido a las desventajas que tiene K-Means al momento de agrupar datos que tienen diferentes tamaños, densidades y forma (forma no globular) se opta por implementar el algoritmo DBSCAN, pues el mismo tiene la capacidad de identificar clúster con formas arbitrarias y densidades variables, lo que ayuda a la detección de valores atípicos en datos no homogéneos \citep{boucher2020outlier}. De igual forma, este método al basarse en la densidad de los datos es más preciso en la identificación de atípicos locales significativos, debido a su flexibilidad al identificarlos en áreas de menor densidad y su capacidad de manejar el ruido \citep{smiti2020outlier}.
 
-Debido a las limitaciones de K-Means para agrupar datos con tamaños, densidades y formas no globulares, se opta por implementar el algoritmo DBSCAN. De este modo, se retoma el proceso descrito en Clúster Jerárquico en cuanto a las consideraciones para GRUPO\_SEL, data\_l, ul, ml y LS\_MS; y, se procede a determinar los parámetros (MinPts y Eps) que el algoritmo necesita. La función \textit{valor\_epsilon} de la sección \ref{sec:alg_dbscan} de la parte de anexos toma los K-ésimos vecinos más cercanos en un rango de 1 a 12\footnote{Se considera este valor debido a que se espera que los 12 meses de aporte de un grupo de los mejores años tengan el mismo comportamiento} (MinPts) y determina el valor de \textit{épsilon} (Eps) a través del método del codo. Si todas las distancias dadas por los k-ésimos vecinos tienen el mismo valor, entonces el valor de \textit{épsilon} es cero, puesto que, el valor del sueldo es el mismo para los mejores años de sueldo. Con la función \textit{esti\_eps\_out} para un rango de valores de Eps y el mismo valor de MinPts, se aplica DBSCAN y se obtiene el número de clústeres y de atípicos para esos parámetros.
+Debido a las limitaciones de K-Means para agrupar datos con tamaños, densidades y formas no globulares, se opta por implementar el algoritmo DBSCAN. De este modo, se retoma el proceso descrito en Clúster Jerárquico en cuanto a las consideraciones para GRUPO\_SEL, data\_l, ul, ml y LS\_MS; y, se procede a determinar los parámetros (MinPts y Eps) que el algoritmo necesita. La función \textit{valor\_epsilon} de la sección \ref{sec:alg_dbscan} de la parte de anexos toma los K-ésimos vecinos más cercanos en un rango de 1 a 12\footnote{Se considera este valor debido a que se espera que los 12 meses de aporte de un grupo de los mejores años tengan el mismo comportamiento} (MinPts) y determina el valor de \textit{épsilon} (Eps) a través del método del codo. Si todas las distancias dadas por los k-ésimos vecinos tienen el mismo valor, entonces el valor de \textit{épsilon} es cero, puesto que, el valor del sueldo es el mismo para los mejores años de sueldo. Con la función \textit{esti\_eps\_out} de anexos, para un rango de valores de Eps y el mismo valor de MinPts, se aplica DBSCAN y se obtiene el número de clústeres y de atípicos para esos parámetros.
 
-El proceso anterior genera varias combinaciones de resultados, por lo que, con la función \textit{cal\_eps\_out} de la sección \ref{sec:alg_dbscan}, se determina los valores de Eps y MinPts  con los cuales se va a trabajar, haciendo la consideración de que la selección abarque la mayor cantidad de valores atípicos con la menor cantidad de clúster. Bajo este criterio se tiene que en \textit{ul} existen 316.552 personas con algún registro de sueldo atípico y en \textit{ml} existen 68.596 personas que tienen al menos una aportación atípica.
+El proceso anterior genera varias combinaciones de resultados, por lo que, con la función \textit{cal\_eps\_out} de la sección \ref{sec:alg_dbscan} de anexos, se determinan los valores de Eps y MinPts  con los cuales se va a trabajar, haciendo la consideración de que la selección abarque la mayor cantidad de valores atípicos con la menor cantidad de clúster. Bajo este criterio se tiene que en \textit{ul} existen 316.552 personas con algún registro de sueldo atípico y en \textit{ml} existen 68.596 personas que tienen al menos una aportación atípica.
 
 Nuevamente es necesario hacer las correcciones indicadas en los dos métodos anteriores, por lo que, una vez realizadas las mismas, en la figura \ref{fig:algoritmo_db_depu} se muestran los resultados obtenidos. La primera columna de la figura \ref{fig:algoritmo_db_depu} tiene la clasificación dada por DBSCAN y en la segunda, las correcciones realizadas a la etiqueta.
 % Para que el lector pueda tener una visión más detallada del proceso, puede revisar el script \textit{VIU\_dbscan.ipynb} de \legalcite{CristianVIUTFM}.
@@ -816,7 +816,7 @@ Se realiza el mismo proceso para los pensionistas de discapacidad e invalidez y 
 
 Por otra parte, se crean las variables PEN\_CJ, PEN\_KM y PEN\_DB que corresponden al cálculo de las pensiones corregidas siguiendo lo determinado en el artículo 13 de la \legalcite{ResIESS_CD100}, es decir, se multiplica la base de cálculo corregida por la variable COEFICIENTE\_CAL. 
 
-El proceso de forma más detallada se encuentra en el script \textit{VIU\_analisis\_atipicos.ipynb} de \legalcite{CristianVIUTFM}.
+% El proceso de forma más detallada se encuentra en el script \textit{VIU\_analisis\_atipicos.ipynb} de \legalcite{CristianVIUTFM}.
 
 Ahora bien, si LS2 o SAL\_PROM2 son nulos se los completa con los valores de LS1 y SAL\_PROM1, respectivamente. Por otra parte, también es necesaria la creación de las variables EDAD\_J\footnote{Corresponde a la diferencia entre la fecha del derecho para poder solicitar la jubilación con la fecha de nacimiento del afiliado}, TIEM\_T\footnote{Corresponde a la diferencia entre la fecha actual con la fecha de nacimiento de la persona} y TIEM\_MA\footnote{Corresponde a la diferencia entre las variables RANGO\_INI\_5MEJ y RANGO\_FIN\_5MEJ, dividido para 30}. Como parte complementaria, a las variables del número de veces que el afiliado aportó históricamente en los diferentes sectores se la divide para la variable MES\_AS y se re-escala a las variables del número de veces que el afiliado aportó en sus cinco mejores años de sueldo, sobre el número de aportaciones totales en los cinco mejores años de sueldo. Estás variables tendrán el mismo nombre de las variables del número de aportaciones en los diferentes sectores y en sus respectivos casos, concatenado con el término \textit{\_P}.
 
@@ -825,7 +825,8 @@ El aspecto más importante a tener en cuenta es la creación de la variable obje
 Así, los atributos con los cuales se va a implementar la parte del aprendizaje supervisado son SEXO, NUMERO\_IMPOSICIONES, BASE\_CAL, N\_MESES, PRES, LS2, SAL\_PROM2, LS\_MS, TIEM\_T, TIEM\_MA, MES\_AS, SUELDO, N\_PRI\_P, N\_PUB\_P,N\_IND\_P, N\_VOL\_EC\_P, N\_VOL\_EX\_P, M\_PRI\_P, M\_PUB\_P, M\_IND\_P, M\_VOL\_EC\_P, M\_VOL\_EX\_P, EDAD\_J y TARGET.  Toda esta información se guardará en el dataset de nombre \textit{data}.
 
 
-Un mayor detalle del proceso de los dos últimos párrafos de esta sección se presenta en \textit{VIU\_ml\_preparacion\_data.ipynb} de \legalcite{CristianVIUTFM}.
+% Un mayor detalle del proceso de los dos últimos párrafos de esta sección se presenta en \textit{VIU\_ml\_preparacion\_data.ipynb} de \legalcite{CristianVIUTFM}.
+\newpage
 
 %Aprendizaje supervisado----------------------------------------------------------------------------
 \section{Aprendizaje supervisado}
@@ -1124,7 +1125,7 @@ La primera parte es la selección  aleatoria de los parámetros mediante Randomi
 
 \begin{table}[H]
 \centering
-\caption{\headlinecolor{\underline{Matriz de confusión de RandomForestClassifier con RandomizedSearchCV}}}\vspace{-0.3cm}
+\caption{\headlinecolor{\underline{Matriz de confusión de RandomForestClassifier-RandomizedSearchCV}}}\vspace{-0.3cm}
 \label{tab:random_forest_randoms}
 \resizebox{0.5\textwidth}{!}{
 \begin{tabular}{|c|c|c|c|}
@@ -1219,7 +1220,7 @@ La búsqueda en cuadrícula mediante GridSearchCV sobre los parámetros resultan
 
 \begin{table}[H]
 \centering
-\caption{\headlinecolor{\underline{Matriz de confusión de AdaBoostClassifier con RandomizedSearchCV}}}\vspace{-0.3cm}
+\caption{\headlinecolor{\underline{Matriz de confusión de AdaBoostClassifier con GridSearchCV}}}\vspace{-0.3cm}
 \label{tab:AdaBoost_grid_search}
 \resizebox{0.5\textwidth}{!}{
 \begin{tabular}{|c|c|c|c|}
@@ -1245,14 +1246,15 @@ Debido a que la búsqueda mediante cuadrícula no terminó de ejecutarse en un t
 Con estos valores se entrena el modelo y se tiene que el accuracy del \textit{train} y \textit{test} es 0.9999971768638345 y 0.837059873071798, respectivamente. Para contrastar este resultado y evaluar el modelo se obtiene la matriz de confusión que se encuentra en el cuadro \ref{tab:gradientboosting} y en la figura \ref{fig:confusion_matrix_algoritmo_GradientBoostingClassifier_random_search} en anexos.
 
 % \begin{lstlisting}[style=pythonstyle]
-% AdaBoostClassifier(algorithm='SAMME',
-%                    estimator=DecisionTreeClassifier(random_state=8),
-%                    learning_rate=0.01, n_estimators=4, random_state=8)
+% GradientBoostingClassifier(criterion='squared_error', learning_rate=0.05,
+%                            loss='exponential', max_depth=None,
+%                            min_samples_leaf=19, min_samples_split=16,
+%                            n_estimators=128, random_state=8)
 % \end{lstlisting}
 
 \begin{table}[H]
 \centering
-\caption{\headlinecolor{\underline{Matriz de confusión de GradientBoostingClassifier con RandomizedSearchCV}}}\vspace{-0.3cm}
+\caption{\headlinecolor{\underline{Matriz de confusión GradientBoostingClassifier-RandomizedSearchCV}}}\vspace{-0.3cm}
 \label{tab:gradientboosting}
 \resizebox{0.5\textwidth}{!}{
 \begin{tabular}{|c|c|c|c|}
@@ -1569,7 +1571,7 @@ Sin embargo, al analizar los datos, también se puede encontrar que el 52.15\% d
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.35]{graficos/fraude_por_tipo_pension.png}
-\caption{\headlinecolor{\underline{Cantidad de individuos que han cometido fraude según el tipo de pensión}}}
+\caption{\headlinecolor{\underline{Número de individuos que han cometido fraude por el tipo de pensión}}}
 \label{fig:fraude_por_tipo_pension}
 \end{figure}
 

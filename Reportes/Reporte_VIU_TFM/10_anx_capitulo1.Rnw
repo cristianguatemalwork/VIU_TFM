@@ -760,7 +760,7 @@ La información resultante del preprocesamiento de las bases transaccionales del
 
 \section{Limpieza y transformación de datos} \label{sec:limpieza_datos}
 
-\subsection{Para los afiliados}
+\subsection{Para la información laboral}
 
 Para aliviar el costo computacional, se transforma a la variable \textit{SECTOR} (sector en donde trabajó el afiliado), por abreviaciones más simples. Por ejemplo, a la relación de trabajo \textit{PRIVADO} se le abrevia por \textit{PRI} y así respectivamente. De acuerdo a la \legalcite{ResIESS_CD100}, el mínimo número de imposiciones que debe tener una persona para solicitar la jubilación son 60 imposiciones, por lo que, se eliminan los registros de las personas que tienen menos de 60 imposiciones.
 
@@ -1093,6 +1093,8 @@ El acceso a los scripts que generaron todo el desarrollo y resultados del algori
 
 \section{Algoritmos DBSCAN} \label{sec:alg_dbscan}
 
+La implementación del algoritmo DBSCAN para la identificación de atípico se basa en el siguiente código:
+
 \begin{lstlisting}[style=pythonstyle]
 def valor_epsilon( data, val ):
     
@@ -1207,7 +1209,12 @@ def cal_eps_out( data_dic ):
         
 \end{lstlisting}
 
+El acceso a los scripts que generaron todo el desarrollo y resultados del algoritmo de DBSCAN es haciendo \href{https://github.com/cristianguatemalwork/VIU_TFM/blob/main/Python/TFM/VIU_dbscan.ipynb}{click aquí}.
+
 \section{Limpieza de datos antes del aprendizaje supervisado} \label{sec:limpieza_datos_super}
+
+\subsection{Para la información pensional}
+
 \begin{lstlisting}[style=pythonstyle]
 def pens_correc( data ):
     inicio = time.time() 
@@ -1243,7 +1250,13 @@ def pens_correc( data ):
     print('\tTiempo de ejecución es:',tm//3600,'horas con',tm%3600//60,'minutos y',tm%60,'segundos')
 \end{lstlisting}
 
+El acceso a los scripts que generaron todo el proceso de limpieza de datos antes del aprendizaje supervisado es haciendo \href{https://github.com/cristianguatemalwork/VIU_TFM/blob/main/Python/TFM/VIU_analisis_atipicos.ipynb}{click aquí}.
+
+El acceso a los scripts que generaron todo el proceso de transformación de datos antes del aprendizaje supervisado es haciendo \href{https://github.com/cristianguatemalwork/VIU_TFM/blob/main/Python/TFM/VIU_ml_prepacion_data.ipynb}{click aquí}.
+
 \section{Algoritmo KNN} \label{sec_anexos:knn}
+
+La implementación de la validación cruzada para el algoritmo KNN  se basa en el siguiente código:
 
 \begin{lstlisting}[style=pythonstyle]
 inicio = time.time()
@@ -1312,7 +1325,12 @@ print('Tiempo de ejecución es:',tm//3600,'horas con',tm%3600//60,'minutos y', t
     \end{minipage}
 \end{figure}
 
+El acceso a los scripts que generaron toda la implementación del algoritmo KNN es haciendo \href{https://github.com/cristianguatemalwork/VIU_TFM/blob/main/Python/TFM/VIU_ml_knn.ipynb}{click aquí}.
+
 \section{Algoritmo de árboles} \label{sec_anexos:arboles}
+
+La implementación de la validación cruzada para la técnica de árboles simples se basa en el siguiente código:
+
 \begin{lstlisting}[style=pythonstyle]
 inicio = time.time()
 cv = KFold( n_splits = 10, shuffle = True, random_state=semilla) #
@@ -1363,6 +1381,8 @@ El tiempo de ejecución fue de 5 horas
 \label{fig:confusion_matrix_algoritmo_arbol_simple_bal}
 \end{figure}
 
+El acceso a los scripts que generaron toda la implementación de los árboles simples es haciendo \href{https://github.com/cristianguatemalwork/VIU_TFM/blob/main/Python/TFM/VIU_ml_arboles.ipynb}{click aquí}.
+
 \section{Conjunto de modelos} \label{sec_anexos:conjunto_modelos}
 
 \subsection{RandomForestClassifier}  \label{sec_anexos:conjunto_modelos_RandomForestClassifier}
@@ -1379,6 +1399,15 @@ param_dist_r_rfc = { "n_estimators":[4,8,16,32,64,128],
                      "bootstrap": [True, False], # Method of selecting samples for training each tree
                      "class_weight":['balanced', 'balanced_subsample']
                      }
+\end{lstlisting}
+
+Parámetros resultantes
+
+\begin{lstlisting}[style=pythonstyle]
+RandomForestClassifier(class_weight='balanced_subsample', criterion='log_loss',
+                       max_features=None, min_samples_leaf=8,
+                       min_samples_split=24, n_estimators=32, n_jobs=-1,
+                       random_state=8)
 \end{lstlisting}
 
 \begin{figure}[H]
@@ -1402,6 +1431,15 @@ param_dist_g_rfc = { "n_estimators":[28,30,32,34,36],
                    }
 \end{lstlisting}
 
+Parámetros resultantes
+
+\begin{lstlisting}[style=pythonstyle]
+RandomForestClassifier(class_weight='balanced_subsample', criterion='log_loss',
+                       max_features=None, min_samples_leaf=4,
+                       min_samples_split=20, n_estimators=30, n_jobs=-1,
+                       random_state=8)
+\end{lstlisting}
+
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.35]{graficos/confusion_matrix_algoritmo_RandomForestClassifier_grid_search.png}
@@ -1410,6 +1448,7 @@ param_dist_g_rfc = { "n_estimators":[28,30,32,34,36],
 \end{figure}
 
 \subsection{AdaBoostClassifier}  \label{sec_anexos:conjunto_modelos_AdaBoostClassifier}
+
 Búsqueda de hiperparámetros por \textit{RandomizedSearchCV}
 
 \begin{lstlisting}[style=pythonstyle]
@@ -1418,6 +1457,15 @@ param_dist_r_booc = { "n_estimators":[4,8,16,32,64,128],
                      "algorithm" : ['SAMME', 'SAMME.R']
                      }
 \end{lstlisting}
+
+Parámetros resultantes
+
+\begin{lstlisting}[style=pythonstyle]
+AdaBoostClassifier(algorithm='SAMME',
+                   estimator=DecisionTreeClassifier(random_state=8),
+                   learning_rate=0.01, n_estimators=4, random_state=8)
+\end{lstlisting}
+
 
 \begin{figure}[H]
 \centering
@@ -1435,6 +1483,15 @@ param_dist_g_booc = { "n_estimators":[1,2,3,4,5,6,7],
                      }
 \end{lstlisting}
 
+Parámetros resultantes
+
+\begin{lstlisting}[style=pythonstyle]
+AdaBoostClassifier(algorithm='SAMME',
+                   estimator=DecisionTreeClassifier(random_state=8),
+                   learning_rate=0.005, n_estimators=1, random_state=8)
+\end{lstlisting}
+
+
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.35]{graficos/confusion_matrix_algoritmo_GradientBoostingClassifier_random_search.png}
@@ -1443,6 +1500,8 @@ param_dist_g_booc = { "n_estimators":[1,2,3,4,5,6,7],
 \end{figure}
 
 \subsection{GradientBoostingClassifier}  \label{sec_anexos:conjunto_modelos_GradientBoostingClassifier}
+
+Búsqueda de hiperparámetros por RandomizedSearchCV
 
 \begin{lstlisting}[style=pythonstyle]
 param_dist_r_graboo = { "n_estimators":[4,8,16,32,64,128],
@@ -1456,6 +1515,15 @@ param_dist_r_graboo = { "n_estimators":[4,8,16,32,64,128],
                      }
 \end{lstlisting}
 
+Parámetros resultantes
+
+\begin{lstlisting}[style=pythonstyle]
+GradientBoostingClassifier(criterion='squared_error', learning_rate=0.05,
+                           loss='exponential', max_depth=None,
+                           min_samples_leaf=19, min_samples_split=16,
+                           n_estimators=128, random_state=8)
+\end{lstlisting}
+
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.35]{graficos/confusion_matrix_algoritmo_GradientBoostingClassifier_random_search.png}
@@ -1463,7 +1531,11 @@ param_dist_r_graboo = { "n_estimators":[4,8,16,32,64,128],
 \label{fig:confusion_matrix_algoritmo_GradientBoostingClassifier_random_search}
 \end{figure}
 
-\subsection{XGBClassifier}  \label{sec_anexos:conjunto_modelos_XGBClassifier}
+El acceso a los scripts que generaron toda la implementación del conjunto de modelos es haciendo \href{https://github.com/cristianguatemalwork/VIU_TFM/blob/main/Python/TFM/VIU_ml_arboles.ipynb}{click aquí}.
+
+\section{XGBClassifier}  \label{sec_anexos:conjunto_modelos_XGBClassifier}
+
+Búsqueda de hiperparámetros por RandomizedSearchCV
 
 \begin{lstlisting}[style=pythonstyle]
 param_dis_r_xgb = { 'n_estimators': np.arange(50, 500, 50),  
@@ -1476,12 +1548,30 @@ param_dis_r_xgb = { 'n_estimators': np.arange(50, 500, 50),
                     }
 \end{lstlisting}
 
+Parámetros resultantes
+
+\begin{lstlisting}[style=pythonstyle]
+XGBClassifier(base_score=None, booster=None, callbacks=None,
+              colsample_bylevel=None, colsample_bynode=None,
+              colsample_bytree=1.0, device=None, early_stopping_rounds=None,
+              enable_categorical=False, eval_metric='mlogloss',
+              feature_types=None, gamma=0.1, grow_policy=None,
+              importance_type=None, interaction_constraints=None,
+              learning_rate=0.1, max_bin=None, max_cat_threshold=None,
+              max_cat_to_onehot=None, max_delta_step=None, max_depth=11,
+              max_leaves=None, min_child_weight=1, missing=nan,
+              monotone_constraints=None, multi_strategy=None, n_estimators=450,
+              n_jobs=None, num_parallel_tree=None, random_state=8, ...)
+\end{lstlisting}
+
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.35]{graficos/confusion_matrix_algoritmo_XGBClassifier_random_search.png}
 \caption{\headlinecolor{\underline{Matriz de confusión para el algoritmo con RandomSearchCV}}}
 \label{fig:confusion_matrix_algoritmo_XGBClassifier_random_search}
 \end{figure}
+
+Búsqueda de hiperparámetros por GridSearchCV
 
 \begin{lstlisting}[style=pythonstyle]
 param_dis_g_xgb = { 'n_estimators': np.arange(400, 450, 500),  
@@ -1494,6 +1584,22 @@ param_dis_g_xgb = { 'n_estimators': np.arange(400, 450, 500),
                     }
 \end{lstlisting}
 
+Parámetros resultantes
+
+\begin{lstlisting}[style=pythonstyle]
+XGBClassifier(base_score=None, booster=None, callbacks=None,
+              colsample_bylevel=None, colsample_bynode=None,
+              colsample_bytree=1.0, device=None, early_stopping_rounds=None,
+              enable_categorical=False, eval_metric='mlogloss',
+              feature_types=None, gamma=0.15, grow_policy=None,
+              importance_type=None, interaction_constraints=None,
+              learning_rate=0.1, max_bin=None, max_cat_threshold=None,
+              max_cat_to_onehot=None, max_delta_step=None, max_depth=12,
+              max_leaves=None, min_child_weight=1, missing=nan,
+              monotone_constraints=None, multi_strategy=None, n_estimators=460,
+              n_jobs=None, num_parallel_tree=None, random_state=8, ...)
+\end{lstlisting}
+
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.35]{graficos/confusion_matrix_algoritmo_XGBClassifier_grid_search.png}
@@ -1501,14 +1607,23 @@ param_dis_g_xgb = { 'n_estimators': np.arange(400, 450, 500),
 \label{fig:confusion_matrix_algoritmo_XGBClassifier_grid_search}
 \end{figure}
 
+El acceso a los scripts que generaron toda la implementación de XGBoost para clasificación es haciendo \href{https://github.com/cristianguatemalwork/VIU_TFM/blob/main/Python/TFM/VIU_ml_otras_tecnicas.ipynb}{click aquí}.
 
-\subsection{Redes neuronales}  \label{sec_anexos:conjunto_modelos_redes}
+\section{Redes neuronales}  \label{sec_anexos:conjunto_modelos_redes}
+
+Búsqueda de hiperparámetros por GridSearchCV
 
 \begin{lstlisting}[style=pythonstyle]
 param_dist_red = {  'hidden_layer_sizes': [(100,), (150,),(200,),(250,)],
                     'activation': ['relu', 'logistic', 'identify', 'tanh'],
                     'alpha': [0.0001, 0.001, 0.01]
                     }
+\end{lstlisting}
+
+Parámetros resultantes
+
+\begin{lstlisting}[style=pythonstyle]
+MLPClassifier(hidden_layer_sizes=(200,), max_iter=100, random_state=8)
 \end{lstlisting}
 
 \begin{figure}[H]
@@ -1518,7 +1633,7 @@ param_dist_red = {  'hidden_layer_sizes': [(100,), (150,),(200,),(250,)],
 \label{fig:confusion_matrix_algoritmo_redes_grid_search}
 \end{figure}
 
-Con un balanceo de clases
+Búsqueda de hiperparámetros por GridSearchCV con un balanceo de clases
 
 \begin{lstlisting}[style=pythonstyle]
 param_dist_red = {  'hidden_layer_sizes': [(100,), (150,),(200,),(250,)],
@@ -1527,9 +1642,17 @@ param_dist_red = {  'hidden_layer_sizes': [(100,), (150,),(200,),(250,)],
                     }
 \end{lstlisting}
 
+Parámetros resultantes
+
+\begin{lstlisting}[style=pythonstyle]
+MLPClassifier(hidden_layer_sizes=(250,), max_iter=100, random_state=8)
+\end{lstlisting}
+
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.35]{graficos/confusion_matrix_algoritmo_redes_bal_grid_search.png}
 \caption{\headlinecolor{\underline{Matriz de confusión para el algoritmo balanceado con GridSearchCV}}}
 \label{fig:confusion_matrix_algoritmo_redes_bal_grid_search.png}
 \end{figure}
+
+El acceso a los scripts que generaron toda la implementación de redes neuronales para clasificación es haciendo \href{https://github.com/cristianguatemalwork/VIU_TFM/blob/main/Python/TFM/VIU_ml_otras_tecnicas.ipynb}{click aquí}.
